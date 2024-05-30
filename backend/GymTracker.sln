@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymTracker.Domain", "GymTra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymTracker.Infra", "GymTracker.Infra\GymTracker.Infra.csproj", "{AF93F981-4504-4C9F-A240-E020BEADB85C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GymTracker.Utils", "GymTracker.Utils\GymTracker.Utils.csproj", "{1C0C5727-D333-44BE-AF6B-77AC693B39CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{AF93F981-4504-4C9F-A240-E020BEADB85C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AF93F981-4504-4C9F-A240-E020BEADB85C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF93F981-4504-4C9F-A240-E020BEADB85C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C0C5727-D333-44BE-AF6B-77AC693B39CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C0C5727-D333-44BE-AF6B-77AC693B39CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C0C5727-D333-44BE-AF6B-77AC693B39CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C0C5727-D333-44BE-AF6B-77AC693B39CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

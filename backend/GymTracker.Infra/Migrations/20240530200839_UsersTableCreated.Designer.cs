@@ -3,6 +3,7 @@ using System;
 using GymTracker.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GymTracker.Infra.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240530200839_UsersTableCreated")]
+    partial class UsersTableCreated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,30 +24,6 @@ namespace GymTracker.Infra.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("GymTracker.Domain.Entities.Exercise", b =>
-                {
-                    b.Property<Guid>("ExerciseId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("exercise_id");
-
-                    b.Property<string>("ExerciseGif")
-                        .HasColumnType("text")
-                        .HasColumnName("exercise_gif");
-
-                    b.Property<string>("ExerciseName")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("exercise_name");
-
-                    b.HasKey("ExerciseId");
-
-                    b.HasIndex("ExerciseName")
-                        .IsUnique();
-
-                    b.ToTable("exercises");
-                });
 
             modelBuilder.Entity("GymTracker.Domain.Entities.MuscleGroup", b =>
                 {
