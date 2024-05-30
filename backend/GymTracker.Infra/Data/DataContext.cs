@@ -16,6 +16,8 @@ public class DataContext : DbContext
     public DbSet<ExerciseMuscleGroup>? ExercisesMuscleGroups { get; set; }
     public DbSet<DefaultWorkout>? DefaultWorkouts { get; set; }
     public DbSet<DiaryWorkout>? DiaryWorkouts { get; set; }
+    public DbSet<DefaultExercise>? DefaultExercises { get; set; }
+    public DbSet<DiaryExercise>? DiaryExercises { get; set; }
 
     public DataContext()
     {
