@@ -2,11 +2,15 @@ using Flunt.Notifications;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
+using GymTracker.Domain.Entities;
+
 namespace GymTracker.Infra.Data;
 
 public class DataContext : DbContext
 {
     private readonly string _connectionString;
+
+    public DbSet<MuscleGroup>? MuscleGroups { get; set; }
 
     public DataContext()
     {
