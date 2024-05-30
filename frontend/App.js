@@ -5,14 +5,14 @@ import { Eduardo } from './src/teste/eduardo';
 import { Joao } from './src/teste/joao';
 import { Rubens } from './src/teste/rubens';
 import { Navigation } from './src/screens/Navigation';
-import { Montserrat_700Bold, useFonts } from '@expo-google-fonts/montserrat';
+import { Montserrat_600SemiBold, Montserrat_700Bold, useFonts } from '@expo-google-fonts/montserrat';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
 
   const [fontsLoaded, fontsError] = useFonts({
-    Montserrat_700Bold
+    Montserrat_700Bold, Montserrat_600SemiBold
   })
 
   if (!fontsLoaded && !fontsError) {

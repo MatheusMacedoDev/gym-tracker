@@ -1,6 +1,7 @@
 
 import { LinearGradient } from "expo-linear-gradient";
 import styled from "styled-components/native";
+import { colors } from "../../colors.config";
 
 export const ButtonContainer = styled.TouchableOpacity`
     width: 80%;
@@ -11,7 +12,7 @@ export const ButtonContainer = styled.TouchableOpacity`
 `;
 
 export const Gradient = styled(LinearGradient).attrs({
-    colors: ['#FF8434', '#FB6614'],
+    colors: [colors.orangeForWhite, colors.orangeDarker],
     locations: [0.39, 1]
   })`
     width: 100%;
