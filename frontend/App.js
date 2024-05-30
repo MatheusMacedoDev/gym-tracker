@@ -7,6 +7,10 @@ import { Rubens } from './src/teste/rubens';
 import { Navigation } from './src/screens/Navigation';
 import { Montserrat_400Regular, Montserrat_600SemiBold, Montserrat_700Bold, useFonts } from '@expo-google-fonts/montserrat';
 import { Main } from './src/screens/Main';
+
+
+
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
