@@ -6,6 +6,11 @@ import { Joao } from './src/teste/joao';
 import { Rubens } from './src/teste/rubens';
 import { Navigation } from './src/screens/Navigation';
 import { Montserrat_600SemiBold, Montserrat_700Bold, useFonts } from '@expo-google-fonts/montserrat';
+import { Main } from './src/screens/Main';
+import { Home } from './src/screens/Home';
+import { Ranking } from './src/screens/ranking';
+import { Workouts } from './src/screens/workouts';
+import { Profile } from './src/screens/Profile';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,7 +30,14 @@ export default function App() {
       <Stack.Navigator screenOptions={{
         headerShown: false
       }}>
+         
         <Stack.Screen name="Navigation" component={Navigation} />
+        <Stack.Screen name="Main" component={Main} />
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Ranking" component={Ranking} />
+        <Stack.Screen name="Workouts" component={Workouts} />
+      
 
         <Stack.Screen name="Eduardo" component={Eduardo} />
 

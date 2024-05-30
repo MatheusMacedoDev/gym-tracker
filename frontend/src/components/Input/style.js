@@ -11,4 +11,5 @@ export const Input = styled.TextInput.attrs({
     background-color: ${colors.darkGray};
     border-radius: 10px;
     padding-left: 17px;
+    margin-top: ${props => `${props.margintTop}px`};
 `;
