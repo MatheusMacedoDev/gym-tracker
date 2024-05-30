@@ -7,6 +7,7 @@ import { Rubens } from './src/teste/rubens';
 import { Navigation } from './src/screens/Navigation';
 import { Montserrat_700Bold, useFonts } from '@expo-google-fonts/montserrat';
 
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
