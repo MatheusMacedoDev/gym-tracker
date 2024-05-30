@@ -11,6 +11,7 @@ public class DataContext : DbContext
     private readonly string _connectionString;
 
     public DbSet<MuscleGroup>? MuscleGroups { get; set; }
+    public DbSet<Exercise>? Exercises { get; set; }
 
     public DataContext()
     {
