@@ -9,8 +9,8 @@ const CELL_COUNT = 5;
 export default function CodeInput({ code, setCode }) {
     const ref = useBlurOnFulfill({code, cellCount: CELL_COUNT});
     const [props, getCellOnLayoutHandler] = useClearByFocusCell({
-      code,
-      setCode,
+        value: code,
+        setValue: setCode
     });
 
     return (
