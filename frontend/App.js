@@ -5,14 +5,18 @@ import { Eduardo } from './src/teste/eduardo';
 import { Joao } from './src/teste/joao';
 import { Rubens } from './src/teste/rubens';
 import { Navigation } from './src/screens/Navigation';
-import { Montserrat_600SemiBold, Montserrat_700Bold, useFonts } from '@expo-google-fonts/montserrat';
+import { Montserrat_400Regular, Montserrat_600SemiBold, Montserrat_700Bold, useFonts } from '@expo-google-fonts/montserrat';
+import { Main } from './src/screens/Main';
+
+
+
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
 
   const [fontsLoaded, fontsError] = useFonts({
-    Montserrat_700Bold, Montserrat_600SemiBold
+    Montserrat_700Bold, Montserrat_600SemiBold, Montserrat_400Regular
   })
 
   if (!fontsLoaded && !fontsError) {
@@ -25,7 +29,9 @@ export default function App() {
       <Stack.Navigator screenOptions={{
         headerShown: false
       }}>
+         
         <Stack.Screen name="Navigation" component={Navigation} />
+        <Stack.Screen name="Main" component={Main} />
 
         <Stack.Screen name="Eduardo" component={Eduardo} />
 
