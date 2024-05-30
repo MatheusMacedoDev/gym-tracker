@@ -2,18 +2,41 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 
 const BottomTab = createBottomTabNavigator()
 
-
-import { FontAwesome, FontAwesome5 } from '@expo/vector-icons'
-import { Home } from "../Home"
-import { Navigation } from "../Navigation"
-import { ContentIcon, TextIcon } from "./style"
+import { ContentIcon } from "./style"
 import { colors } from "../../colors.config"
 import { MaterialIcons } from "@expo/vector-icons";
-import { Ranking } from "../ranking"
-import { Profile } from "../Profile"
-import { Workouts } from "../workouts"
+import { Text } from "react-native"
 
 export const Main = () => {
+    const Home = () => {
+        return(
+            <>
+            <Text>Home</Text>
+            </>
+        )
+    }
+    const Ranking = () => {
+        return(
+            <>
+            <Text>Ranking</Text>
+            </>
+        )
+    }
+    const Profile = () => {
+        return(
+            <>
+            <Text>Profile</Text>
+            </>
+        )
+    }
+    const Workouts = () => {
+        return(
+            <>
+            <Text>Workouts</Text>
+            </>
+        )
+    }
+
     return (
         <BottomTab.Navigator
             initialRouteName="Home"
