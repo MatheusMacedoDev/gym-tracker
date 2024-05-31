@@ -1,5 +1,5 @@
 import { Button } from "../../components/Button";
-import { Container } from "../../components/Container/style";
+import { Container, Gradient } from "../../components/Container/style";
 import { Input } from "../../components/Input/style";
 import { Link } from "../../components/Link/style";
 import { Logo } from "../../components/Logo";
@@ -9,17 +9,19 @@ import { LinkContainer } from "./components/linkContainer";
 
 export const LoginScreen = ({ navigator }) => {
   return (
-    <Container>
-      <Title>Bem vindo</Title>
-      <Logo />
-      <Input placeholder="E-mail ou usuário..." />
-      <Input placeholder="Senha..." />
-      <Link>Esqueceu sua senha?</Link>
-      <Button title="Login" />
-      <LinkContainer>
-        <LinkCommandText>Não tem uma conta?</LinkCommandText>
-        <Link>Cadastre-se</Link>
-      </LinkContainer>
-    </Container>
+    <Gradient>
+      <Container>
+        <Logo marginTop={30}/>
+        <Title marginTop={37}>Bem vindo</Title>  
+        <Input marginTop={31} placeholder="E-mail ou usuário..."/>
+        <Input marginTop={20} placeholder="Senha..." />
+        <Link marginTop={20} marginLeft={48} >Esqueceu sua senha?</Link>
+        <Button marginTop={135} title="Login" />
+        <LinkContainer marginTop={10}>
+          <LinkCommandText>Não tem uma conta?</LinkCommandText>
+          <Link>Cadastre-se</Link>
+        </LinkContainer>
+      </Container>
+    </Gradient>
   );
 };

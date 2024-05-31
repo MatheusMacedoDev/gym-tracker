@@ -9,7 +9,7 @@ export const Gradient = styled(LinearGradient).attrs({
   height: 100%;
   width: 100%;
 `;
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
     flex: 1;
     align-items: center;
     padding: 20px;
