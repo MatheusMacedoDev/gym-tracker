@@ -22,6 +22,7 @@ import { ResetPasswordScreen } from './src/screens/ResetPasswordScreen';
 import { BirthYearRegisterScreen } from './src/screens/BirthYearRegisterScreen';
 import { NameRegisterScreen } from './src/screens/NameRegisterScreen';
 import { LoginScreen } from "./src/screens/LoginScreen";
+import { AccountDataRegisterScreen } from "./src/screens/AccountDataRegisterScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -64,6 +65,7 @@ export default function App() {
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="BirthYearRegisterScreen" component={BirthYearRegisterScreen} />
         <Stack.Screen name="NameRegisterScreen" component={NameRegisterScreen} />
+        <Stack.Screen name="AccountDataRegisterScreen" component={AccountDataRegisterScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

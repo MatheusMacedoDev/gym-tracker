@@ -9,6 +9,7 @@ export const Input = styled.TextInput.attrs({
     height: 60px;
     font-size: 16px;
     background-color: ${colors.darkGray};
+    color:${colors.white};
     border-radius: 10px;
     padding-left: 17px;
     margin-top: ${props => `${props.marginTop}` || '0px'};

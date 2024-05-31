@@ -8,12 +8,13 @@ import { Logo } from "../../components/Logo"
 import { Title } from "../../components/Title/style"
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from "@expo/vector-icons";
+import { useEffect } from "react"
 
-export const RecoverPasswordScreen = ({ navigation }) => {
+export const AccountDataRegisterScreen = ({ navigation, route }) => {
 
-    async function passToEmailCode() {
-        navigation.navigate("EmailCodeScreen")
-    }
+    useEffect(() => {
+        console.log(route.params);
+    },[route])
 
     return (
         <Gradient>
@@ -24,13 +25,15 @@ export const RecoverPasswordScreen = ({ navigation }) => {
                         <MaterialIcons name="reply" size={40} color={'#FB6614'} />
                     }
                 />
-                <Logo marginTop={'30%'} />
-                <Title marginTop={'10%'}>Esqueceu a senha?</Title>
-                <CommandText marginTop={'10%'}>Digite o seu e-mail para que possamos enviar um código de recuperação.</CommandText>
-                <Input marginTop={'20%'} placeholder="Email de recuperação..." />
+                <Logo marginTop={'15%'} />
+                <Title marginTop={'5%'}>Dados da Conta</Title>
+                <CommandText textAlign={'center'} marginTop={'10%'}>{route.params.name} por favor, preencha os seus dados  para criar sua nova conta:</CommandText>
+                <Input marginTop={'20%'} placeholder="Nome de usuário..." />
+                <Input marginTop={'5%'} placeholder="E-mail..." />
+                <Input marginTop={'5%'} placeholder="Senha..." />
+                <Input marginTop={'5%'} placeholder="Confirme sua senha..." />
                 <Button
-                    handleClickFn={passToEmailCode}
-                    marginTop={'35%'}
+                    marginTop={'15%'}
                     title="Continuar"
                     icon={(size, color) => (
                         <Entypo name="chevron-right" size={size} color={color} />
