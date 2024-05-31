@@ -3,12 +3,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GymTracker.Domain.Entities;
 
-[Table("exercise_muscle_group")]
+[Table("diary_exercises")]
 public class DiaryExercise
 {
     [Key]
-    [Column("exercise_muscle_group_id")]
+    [Column("diary_exercise_id")]
     public Guid DiaryExerciseId { get; private set; }
+
+    // Default Exercise Reference
 
     [Required]
     [Column("default_exercise_id")]
@@ -16,6 +18,8 @@ public class DiaryExercise
 
     [ForeignKey(nameof(DefaultExerciseId))]
     public DefaultExercise? DefaultExercise { get; private set; }
+
+    // Diary Workout Reference
 
     [Required]
     [Column("diary_workout_id")]
