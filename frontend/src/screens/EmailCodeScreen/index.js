@@ -8,6 +8,7 @@ import { Title } from "../../components/Title/style"
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from "@expo/vector-icons";
 import { Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback } from "react-native"
+import { Logo } from "../../components/Logo"
 
 export const EmailCodeScreen = ({ navigation }) => {
     const [code, setCode] = useState('');
@@ -22,7 +23,6 @@ export const EmailCodeScreen = ({ navigation }) => {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <Gradient>
                 <Container>
-
                     <IconButton
                         handleClickFn={() => navigation.navigate("RecoverPasswordScreen")}
                         gradient={false}
@@ -30,13 +30,10 @@ export const EmailCodeScreen = ({ navigation }) => {
                             <MaterialIcons name="reply" size={40} color={'#FB6614'} />
                         }
                     />
-
-                    <Title marginTop={250}>Código de verificação</Title>
-
+                    <Logo marginTop={'30%'} />
+                    <Title marginTop={'10%'}>Código de verificação</Title>
                     <CommandText marginTop={'10%'} marginBottom={70}>Digite o cógido que foi enviado para o seu e-mail para verficarmos o seu pedido.</CommandText>
-
                     <CodeInput code={code} setCode={setCode} />
-
                     <Button
                         handleClickFn={passToResetPassword}
                         marginTop={'35%'}
@@ -45,7 +42,6 @@ export const EmailCodeScreen = ({ navigation }) => {
                             <Entypo name="chevron-right" size={size} color={color} />
                         )}
                     />
-
                 </Container>
             </Gradient>
         </TouchableWithoutFeedback>

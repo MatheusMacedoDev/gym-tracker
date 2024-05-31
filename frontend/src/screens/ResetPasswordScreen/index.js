@@ -20,14 +20,11 @@ export const ResetPasswordScreen = ({ navigation }) => {
                         <MaterialIcons name="reply" size={40} color={'#FB6614'} />
                     }
                 />
-
-                <Title marginTop={250}>Quase lá</Title>
-
-                <CommandText textAlign={'center'} marginTop={'13%'}>Altere sua senha</CommandText>
-
-                <Input marginTop={'20%'} placeholder="Nova senha..." />
+                <Logo marginTop={'30%'} />
+                <Title marginTop={'10%'}>Quase lá</Title>
+                <CommandText textAlign={'center'} marginTop={'10%'}>Altere sua senha</CommandText>
+                <Input marginTop={'18%'} placeholder="Nova senha..." />
                 <Input marginTop={'10%'} placeholder="Repita a nova senha..." />
-
                 <Button
                     marginTop={'30%'}
                     title="Continuar"

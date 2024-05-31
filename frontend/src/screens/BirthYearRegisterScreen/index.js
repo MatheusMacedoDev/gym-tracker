@@ -22,16 +22,14 @@ export const BirthYearRegisterScreen = ({ navigation }) => {
                     <MaterialIcons name="reply" size={40} color={'#FB6614'} />
                 }
             />
-
-            <Title fontSize={35} marginTop={180}>Qual o seu ano de nascimento?</Title>
-
+            <Logo marginTop={'30%'} />
+            <Title fontSize={35} marginTop={'10%'}>Qual o seu ano de nascimento?</Title>
             <SelectPicker
                 onItemPress={setYearBirth}
                 valueNow={yearBirth}
             /> 
-
             <Button
-                marginTop={'25%'}
+                marginTop={'20%'}
                 title="Continuar"
                 icon={(size, color) => (
                     <Entypo name="chevron-right" size={size} color={color} />

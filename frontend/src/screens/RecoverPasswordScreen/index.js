@@ -24,15 +24,10 @@ export const RecoverPasswordScreen = ({ navigation }) => {
                         <MaterialIcons name="reply" size={40} color={'#FB6614'} />
                     }
                 />
-
-                <Logo />
-
-                <Title marginTop={250}>Esqueceu a senha?</Title>
-
+                <Logo marginTop={'30%'} />
+                <Title marginTop={'10%'}>Esqueceu a senha?</Title>
                 <CommandText marginTop={'10%'}>Digite o seu e-mail para que possamos enviar um código de recuperação.</CommandText>
-
                 <Input marginTop={70} placeholder="Email de recuperação..." />
-
                 <Button
                     handleClickFn={passToEmailCode}
                     marginTop={'35%'}

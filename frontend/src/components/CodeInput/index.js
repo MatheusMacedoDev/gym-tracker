@@ -42,8 +42,8 @@ export default function CodeInput({ code, setCode }) {
 
 const styles = StyleSheet.create({
     cell: {
-        width: 52,
-        height: 52,
+        width: 58,
+        height: 58,
         backgroundColor: colors.darkGray,
         justifyContent: 'center',
         alignItems: 'center',

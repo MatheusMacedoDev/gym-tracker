@@ -20,12 +20,9 @@ import { RecoverPasswordScreen } from './src/screens/RecoverPasswordScreen';
 import { EmailCodeScreen } from './src/screens/EmailCodeScreen';
 import { ResetPasswordScreen } from './src/screens/ResetPasswordScreen';
 import { BirthYearRegisterScreen } from './src/screens/BirthYearRegisterScreen';
-<<<<<<< HEAD
 import { NameRegisterScreen } from './src/screens/NameRegisterScreen';
-=======
 import { LoginScreen } from "./src/screens/LoginScreen";
 
->>>>>>> rubens
 const Stack = createNativeStackNavigator();
 
 export default function App() {

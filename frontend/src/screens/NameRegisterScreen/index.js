@@ -8,8 +8,10 @@ import { Logo } from "../../components/Logo"
 import { Title } from "../../components/Title/style"
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from "@expo/vector-icons";
+import { useState } from "react"
 
 export const NameRegisterScreen = ({ navigation }) => {
+    const [name, setName] = useState();
 
 
     return (
@@ -21,15 +23,11 @@ export const NameRegisterScreen = ({ navigation }) => {
                         <MaterialIcons name="reply" size={40} color={'#FB6614'} />
                     }
                 />
-
-                <Logo />
-
-                <Title marginTop={220}>Qual o seu nome?</Title>
-
-                <Input marginTop={'20%'} placeholder="Seu nome..." />
-
+                <Logo marginTop={'30%'}/>
+                <Title fontSize={38} marginTop={'10%'}>Qual o seu nome?</Title>
+                <Input value={name} onChangeText={setName} marginTop={'25%'} placeholder="Seu nome..." />
                 <Button
-                    marginTop={'60%'}
+                    marginTop={'50%'}
                     title="Continuar"
                     icon={(size, color) => (
                         <Entypo name="chevron-right" size={28} color={color} />
