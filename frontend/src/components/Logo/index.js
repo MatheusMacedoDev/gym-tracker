@@ -7,7 +7,7 @@ export const Logo = ({ heightLogo, widthLogo, marginTop, marginBottom }) => {
       widthLogo={widthLogo}
       marginTop={marginTop}
       marginBottom={marginBottom}
-      source={require("../../assets/Images/Logo.png")}
+      source={require("../../Assets/Images/Logo.png")}
     />
   );
 };
