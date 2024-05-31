@@ -24,6 +24,7 @@ var builder = WebApplication.CreateBuilder(args);
 
     // Services
     builder.Services.AddScoped<IUserService, UserService>();
+    builder.Services.AddScoped<IDefaultWorkoutService, DefaultWorkoutService>();
 
     // Strategies Injections
     builder.Services.AddSingleton<ICryptographyStrategy, CryptographyStrategy>();
