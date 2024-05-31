@@ -6,7 +6,6 @@ import IconButtoContainer from './container'
 
 export const IconButton = ({ icon, gradient = true, sizeButton=48 }) => {
     return (
-        <SafeAreaView>
             <IconButtoContainer sizeButton={sizeButton}>
                 {gradient
                     ?
@@ -19,6 +18,5 @@ export const IconButton = ({ icon, gradient = true, sizeButton=48 }) => {
                     </>
                 }
             </IconButtoContainer>
-        </SafeAreaView>
     )
 }

@@ -7,4 +7,5 @@ export const Title = styled.Text`
     align-self: center;
     margin-top: ${props => `${props.marginTop}px` || '0px'};
     margin-bottom: ${props => `${props.marginBottom}px` || '0px'};
+    text-align: center
 `;
