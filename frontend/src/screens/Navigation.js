@@ -19,6 +19,9 @@ return(
         <TouchableOpacity style={{width:90,height:40, backgroundColor: 'orange', alignItems: "center", justifyContent:"center"}} onPress={() => {navigation.navigate("RecoverPasswordScreen")}}>
             <Text>Esqueceu a senha</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={{width:90,height:40, backgroundColor: 'orange', alignItems: "center", justifyContent:"center"}} onPress={() => {navigation.navigate("BirthYearRegisterScreen")}}>
+            <Text>Ano de nascimento</Text>
+        </TouchableOpacity>
     </View>
 )
 }

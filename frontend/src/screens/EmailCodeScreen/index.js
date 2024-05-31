@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Button } from "../../components/Button"
 import CodeInput from "../../components/CodeInput"
 import { CommandText } from "../../components/CommandText/style"
-import { Container } from "../../components/Container/style"
+import { Container, Gradient } from "../../components/Container/style"
 import { IconButton } from "../../components/IconButton"
 import { Title } from "../../components/Title/style"
 import { Entypo } from '@expo/vector-icons';
@@ -20,6 +20,7 @@ export const EmailCodeScreen = ({ navigation }) => {
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <Gradient>
                 <Container>
 
                     <IconButton
@@ -30,7 +31,7 @@ export const EmailCodeScreen = ({ navigation }) => {
                         }
                     />
 
-                    <Title textAli marginTop={250}>Código de verificação</Title>
+                    <Title marginTop={250}>Código de verificação</Title>
 
                     <CommandText marginTop={30} marginBottom={70}>Digite o cógido que foi enviado para o seu e-mail para verficarmos o seu pedido.</CommandText>
 
@@ -46,6 +47,7 @@ export const EmailCodeScreen = ({ navigation }) => {
                     />
 
                 </Container>
+            </Gradient>
         </TouchableWithoutFeedback>
     )
 }

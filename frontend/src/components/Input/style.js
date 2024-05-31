@@ -5,7 +5,7 @@ import { colors } from '../../colors.config';
 export const Input = styled.TextInput.attrs({
     placeholderTextColor: colors.lightGray
 })`
-    width: 320px;
+    width: 100%;
     height: 60px;
     font-size: 16px;
     background-color: ${colors.darkGray};

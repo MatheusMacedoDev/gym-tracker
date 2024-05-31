@@ -4,7 +4,7 @@ import styled from "styled-components/native";
 import { colors } from "../../colors.config";
 
 export const ButtonContainer = styled.TouchableOpacity`
-    width: 90%;
+    width: 100%;
     height: 60px;
     border-radius: 15px;
     justify-content: center;
