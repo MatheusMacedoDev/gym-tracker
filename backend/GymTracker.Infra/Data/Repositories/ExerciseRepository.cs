@@ -17,4 +17,14 @@ public class ExerciseRepository : IExerciseRepository
     {
         await _context.MuscleGroups!.AddAsync(muscleGroup);
     }
+
+    public async Task RegisterExercise(Exercise exercise)
+    {
+        await _context.Exercises!.AddAsync(exercise);
+    }
+
+    public async Task LinkExerciseAndMuscleGroup(ExerciseMuscleGroup exerciseMuscleGroup)
+    {
+        await _context.ExercisesMuscleGroups!.AddAsync(exerciseMuscleGroup);
+    }
 }

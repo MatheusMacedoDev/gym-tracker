@@ -5,4 +5,5 @@ namespace GymTracker.Application.Services;
 public interface IExerciseService
 {
     Task<RegisterMuscleGroupResponse> RegisterMuscleGroup(RegisterMuscleGroupRequest request);
+    Task<RegisterExerciseResponse> RegisterExercise(RegisterExerciseRequest request);
 }

@@ -22,7 +22,7 @@ public class ExerciseService : IExerciseService
         {
             var muscleGroup = new MuscleGroup(
                 groupName: request.groupName,
-                muscleImage: request.muscleImage
+                muscleImage: request.muscleImage!
             );
 
             await _exerciseRepository.RegisterMuscleGroup(muscleGroup);
@@ -32,6 +32,43 @@ public class ExerciseService : IExerciseService
                 muscleGroupId: muscleGroup.MucleGroupId,
                 groupName: muscleGroup.GroupName!,
                 muscleImage: muscleGroup.MuscleImage!
+            );
+
+            return response;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<RegisterExerciseResponse> RegisterExercise(RegisterExerciseRequest request)
+    {
+        try
+        {
+            var exercise = new Exercise(
+                exerciseName: request.exerciseName,
+                exerciseGif: request.exerciseGif!
+            );
+
+            await _exerciseRepository.RegisterExercise(exercise);
+
+            foreach (var muscleGroupId in request.relatedMuscleGroupIds)
+            {
+                var exerciseMuscleGroup = new ExerciseMuscleGroup(
+                    muscleGroupId: muscleGroupId,
+                    exerciseId: exercise.ExerciseId
+                );
+
+                await _exerciseRepository.LinkExerciseAndMuscleGroup(exerciseMuscleGroup);
+            }
+
+            await _unityOfWork.Commit();
+
+            var response = new RegisterExerciseResponse(
+                exerciseId: exercise.ExerciseId,
+                exerciseName: exercise.ExerciseName!,
+                exerciseGif: exercise.ExerciseGif
             );
 
             return response;
