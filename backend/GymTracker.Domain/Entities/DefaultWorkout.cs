@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GymTracker.Domain.Entities;
 
-[Table("exercise_muscle_group")]
+[Table("default_workouts")]
 [Index(nameof(DefaultWorkoutName), IsUnique = true)]
 public class DefaultWorkout
 {
@@ -13,15 +13,17 @@ public class DefaultWorkout
     public Guid DefaultWorkoutId { get; private set; }
 
     [Required]
+    [Column("workout_name")]
+    public string? DefaultWorkoutName { get; private set; }
+
+    // User Reference
+
+    [Required]
     [Column("user_id")]
     public Guid UserId { get; private set; }
 
     [ForeignKey(nameof(UserId))]
     public User? User { get; private set; }
-
-    [Required]
-    [Column("default_workout_name")]
-    public string? DefaultWorkoutName { get; private set; }
 
     protected DefaultWorkout()
     {
@@ -31,7 +33,7 @@ public class DefaultWorkout
     {
         DefaultWorkoutId = Guid.NewGuid();
         UserId = userId;
-        DefaultWorkoutName = defaultWorkoutName; 
+        DefaultWorkoutName = defaultWorkoutName;
     }
 }
 

@@ -10,12 +10,16 @@ public class ExerciseMuscleGroup
     [Column("exercise_muscle_group_id")]
     public Guid ExerciseMuscleGroupId { get; private set; }
 
+    // Muscle Group Reference
+
     [Required]
     [Column("muscle_group_id")]
     public Guid MuscleGroupId { get; private set; }
 
     [ForeignKey(nameof(MuscleGroupId))]
     public MuscleGroup? MuscleGroup { get; private set; }
+
+    // Exercise Reference
 
     [Required]
     [Column("exercise_id")]
