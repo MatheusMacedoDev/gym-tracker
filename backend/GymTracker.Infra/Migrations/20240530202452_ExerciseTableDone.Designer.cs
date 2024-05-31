@@ -3,6 +3,7 @@ using System;
 using GymTracker.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GymTracker.Infra.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240530202452_ExerciseTableDone")]
+    partial class ExerciseTableDone
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,54 +71,6 @@ namespace GymTracker.Infra.Migrations
                         .IsUnique();
 
                     b.ToTable("muscle_groups");
-                });
-
-            modelBuilder.Entity("GymTracker.Domain.Entities.User", b =>
-                {
-                    b.Property<Guid>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("user_id");
-
-                    b.Property<short>("BirthYear")
-                        .HasColumnType("smallint")
-                        .HasColumnName("birth_year");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("email");
-
-                    b.Property<char>("Gender")
-                        .HasColumnType("char(1)")
-                        .HasColumnName("gender");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("name");
-
-                    b.Property<byte[]>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("bytea")
-                        .HasColumnName("password_hash");
-
-                    b.Property<string>("PasswordRecoverCode")
-                        .HasColumnType("char(5)")
-                        .HasColumnName("password_recover_code");
-
-                    b.Property<byte[]>("PasswordSalt")
-                        .IsRequired()
-                        .HasColumnType("bytea")
-                        .HasColumnName("password_salt");
-
-                    b.Property<string>("ProfilePhoto")
-                        .HasColumnType("text")
-                        .HasColumnName("profile_photo");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("users");
                 });
 #pragma warning restore 612, 618
         }

@@ -23,6 +23,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GymTracker.Infra\GymTracker.Infra.csproj" />
+    <ProjectReference Include="..\GymTracker.Domain\GymTracker.Domain.csproj" />
+    <ProjectReference Include="..\GymTracker.Utils\GymTracker.Utils.csproj" />
   </ItemGroup>
 
 </Project>
