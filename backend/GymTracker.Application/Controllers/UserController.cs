@@ -29,10 +29,4 @@ public class UserController : ControllerBase
             return BadRequest(error.Message);
         }
     }
-
-    [HttpGet]
-    public IActionResult Kral()
-    {
-        return Ok("KKKKK");
-    }
 }
