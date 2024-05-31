@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Select } from "../components/Select";
 import { SelectPicker } from "../components/SelectPicker.js";
 import { Logo } from "../components/Logo/index.js";
+import { createCentimeterArray, createWeightArray } from "../Utils/arraysFactory.js";
 
 export const Rubens = () => {
   const [numberSeries, setNumberSeries] = useState();
@@ -51,6 +52,7 @@ export const Rubens = () => {
         <SelectPicker
           onItemPress={setYearBirth}
           valueNow={yearBirth}
+          list={createWeightArray()}
         />
       </View>     
     </SafeAreaView>
