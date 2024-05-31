@@ -13,4 +13,5 @@ export const Input = styled.TextInput.attrs({
     padding-left: 17px;
     margin-top: ${props => `${props.marginTop}px` || '0px'};
     margin-bottom: ${props => `${props.marginBottom}px` || '0px'};
+    font-family: 'Montserrat_700Bold';
 `;

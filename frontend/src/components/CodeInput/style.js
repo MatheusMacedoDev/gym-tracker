@@ -14,4 +14,5 @@ export const Cell = styled.Text`
     font-size: 34px;
     color: ${colors.orange};
     text-align: center;
+    border: black;
 `;
