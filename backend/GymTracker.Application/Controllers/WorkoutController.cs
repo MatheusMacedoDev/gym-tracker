@@ -30,4 +30,19 @@ public class WorkoutController : ControllerBase
             return BadRequest(error.Message);
         }
     }
+
+    [HttpGet("users")]
+    public async Task<IActionResult> ListDefaultWorkoutBySpecificUser(Guid userId)
+    {
+        try
+        {
+            var response = await _defaultWorkoutService.ListDefaultWorkoutByUserId(userId);
+
+            return Ok(response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
 }

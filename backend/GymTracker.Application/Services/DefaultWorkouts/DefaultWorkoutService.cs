@@ -39,4 +39,9 @@ public class DefaultWorkoutService : IDefaultWorkoutService
             throw;
         }
     }
+
+    public async Task<List<DefaultWorkout>> ListDefaultWorkoutByUserId(Guid userId)
+    {
+        return await _workoutRepository.ListDefaultWorkoutsByUserId(userId);
+    }
 }
