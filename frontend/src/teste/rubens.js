@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { SafeAreaView, View } from "react-native";
 import { Button } from "../components/Button";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Title } from "../components/Title/style";
@@ -18,7 +18,7 @@ export const Rubens = () => {
   });
 
   return (
-    <View style={{ backgroundColor: "#27242B", flex: 1 }}>
+    <SafeAreaView style={{ backgroundColor: "#27242B", flex: 1 }}>
       <Button
         title="Maceta"
         icon={(size, color) => (
@@ -53,6 +53,6 @@ export const Rubens = () => {
           valueNow={yearBirth}
         />
       </View>     
-    </View>
+    </SafeAreaView>
   );
 };
