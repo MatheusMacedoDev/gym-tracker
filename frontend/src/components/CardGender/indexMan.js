@@ -4,7 +4,7 @@ import { ButtonContainer, ButtonText, ImagePerson, Overlay, ViewCircle } from '.
 import { FontAwesome } from '@expo/vector-icons'; 
 export const CardMan = ({ title }) => {
   const [isSelected, setIsSelected] = useState(false);
-  const menImage = require('../../Assets/Images/Men.png');
+  const menImage = require('../../assets/Images/Men.png');
 
   const handlePress = () => {
     setIsSelected(!isSelected);
