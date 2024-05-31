@@ -2,6 +2,7 @@ using GymTracker.Application;
 using GymTracker.Application.Services;
 using GymTracker.Domain.Repositories;
 using GymTracker.Infra.Data;
+using GymTracker.Infra.Data.DAOs.DefaultWorkout;
 using GymTracker.Infra.Data.UnityOfWork;
 using GymTracker.Infra.Repositories;
 using GymTracker.Utils.Cryptography;
@@ -20,9 +21,14 @@ var builder = WebApplication.CreateBuilder(args);
 
     // Repository
     builder.Services.AddScoped<IUserRepository, UserRepository>();
+    builder.Services.AddScoped<IWorkoutRepository, WorkoutRepository>();
+
+    // DAOs
+    builder.Services.AddScoped<IDefaultWorkoutDAO, DefaultWorkoutDAO>();
 
     // Services
     builder.Services.AddScoped<IUserService, UserService>();
+    builder.Services.AddScoped<IDefaultWorkoutService, DefaultWorkoutService>();
 
     // Strategies Injections
     builder.Services.AddSingleton<ICryptographyStrategy, CryptographyStrategy>();
