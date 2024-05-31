@@ -7,36 +7,45 @@ import { IconButton } from "../../components/IconButton"
 import { Title } from "../../components/Title/style"
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from "@expo/vector-icons";
-import { Keyboard, TouchableWithoutFeedback } from "react-native"
+import { Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback } from "react-native"
 
-export const EmailCodeScreen = () => {
+export const EmailCodeScreen = ({ navigation }) => {
     const [code, setCode] = useState('');
+
+
+    async function passToResetPassword() {
+        navigation.navigate("ResetPasswordScreen")
+    }
+
+
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <Container>
+                <Container>
 
-                <IconButton
-                    gradient={false}
-                    icon={
-                        <MaterialIcons name="reply" size={40} color={'#FB6614'} />
-                    }
-                />
+                    <IconButton
+                        handleClickFn={() => navigation.navigate("RecoverPasswordScreen")}
+                        gradient={false}
+                        icon={
+                            <MaterialIcons name="reply" size={40} color={'#FB6614'} />
+                        }
+                    />
 
-                <Title textAli marginTop={250}>Código de verificação</Title>
+                    <Title textAli marginTop={250}>Código de verificação</Title>
 
-                <CommandText marginTop={30} marginBottom={70}>Digite o cógido que foi enviado para o seu e-mail para verficarmos o seu pedido.</CommandText>
+                    <CommandText marginTop={30} marginBottom={70}>Digite o cógido que foi enviado para o seu e-mail para verficarmos o seu pedido.</CommandText>
 
-                <CodeInput code={code} setCode={setCode} />
+                    <CodeInput code={code} setCode={setCode} />
 
-                <Button
-                    marginTop={120}
-                    title="Continuar"
-                    icon={(size, color) => (
-                        <Entypo name="chevron-right" size={28} color={color} />
-                    )}
-                />
+                    <Button
+                        handleClickFn={passToResetPassword}
+                        marginTop={120}
+                        title="Continuar"
+                        icon={(size, color) => (
+                            <Entypo name="chevron-right" size={28} color={color} />
+                        )}
+                    />
 
-            </Container>
+                </Container>
         </TouchableWithoutFeedback>
     )
 }

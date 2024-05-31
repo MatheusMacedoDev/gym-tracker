@@ -6,7 +6,7 @@ import CodeInput from "../components/CodeInput";
 import { Input } from "../components/Input/style";
 import { CalendarHome } from "../components/Calendar";
 import { CommandText } from "../components/CommandText/style";
-import { Title } from "../components/Title/style";
+
 
 export const Eduardo = () => {
     const [code, setCode] = useState('');

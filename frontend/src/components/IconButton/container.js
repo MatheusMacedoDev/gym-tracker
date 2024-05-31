@@ -5,8 +5,9 @@ export default IconButtonContainer = styled.TouchableOpacity`
     justify-content: center;
     align-items: center;
     position: absolute;
-    left: 20;
-    top: 45;
+    left: ${props => `${props.left}`};
+    top:  ${props => `${props.top}`};
     height: ${props => `${props.sizeButton}px`};
+    width: ${props => `${props.sizeButton}px`};
 `;
 

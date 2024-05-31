@@ -4,9 +4,15 @@ import IconButtoContainer from './container'
 
 
 
-export const IconButton = ({ icon, gradient = true, sizeButton=48 }) => {
+export const IconButton = ({ icon, gradient = true, sizeButton=48,handleClickFn = null, left, top }) => {
+
+    if (gradient === false) {
+        left= 20,
+        top= 45
+    }
+
     return (
-            <IconButtoContainer sizeButton={sizeButton}>
+            <IconButtoContainer left={left} top={top} sizeButton={sizeButton} onPress={handleClickFn}>
                 {gradient
                     ?
                     <Gradient>
