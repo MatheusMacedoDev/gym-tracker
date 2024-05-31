@@ -11,7 +11,11 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useState } from "react"
 
 export const NameRegisterScreen = ({ navigation }) => {
-    const [name, setName] = useState();
+    const [name, setName] = useState("Maceta");
+
+    async function passToAccountData() {
+        navigation.navigate("AccountDataRegisterScreen", {name: name})
+    }
 
 
     return (
@@ -27,6 +31,7 @@ export const NameRegisterScreen = ({ navigation }) => {
                 <Title fontSize={38} marginTop={'10%'}>Qual o seu nome?</Title>
                 <Input value={name} onChangeText={setName} marginTop={'25%'} placeholder="Seu nome..." />
                 <Button
+                    handleClickFn={passToAccountData}
                     marginTop={'50%'}
                     title="Continuar"
                     icon={(size, color) => (
