@@ -11,7 +11,7 @@ export const Input = styled.TextInput.attrs({
     background-color: ${colors.darkGray};
     border-radius: 10px;
     padding-left: 17px;
-    margin-top: ${props => `${props.marginTop}px` || '0px'};
-    margin-bottom: ${props => `${props.marginBottom}px` || '0px'};
+    margin-top: ${props => `${props.marginTop}` || '0px'};
+    margin-bottom: ${props => `${props.marginBottom}` || '0px'};
     font-family: 'Montserrat_700Bold';
 `;

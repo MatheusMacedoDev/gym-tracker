@@ -15,6 +15,7 @@ import { RecoverPasswordScreen } from './src/screens/RecoverPasswordScreen';
 import { EmailCodeScreen } from './src/screens/EmailCodeScreen';
 import { ResetPasswordScreen } from './src/screens/ResetPasswordScreen';
 import { BirthYearRegisterScreen } from './src/screens/BirthYearRegisterScreen';
+import { NameRegisterScreen } from './src/screens/NameRegisterScreen';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -36,19 +37,14 @@ export default function App() {
          
         <Stack.Screen name="Navigation" component={Navigation} />
         <Stack.Screen name="Main" component={Main} />
-
         <Stack.Screen name="Eduardo" component={Eduardo} />
-
         <Stack.Screen name="Rubens" component={Rubens} />
-
         <Stack.Screen name="Joao" component={Joao} />
-
         <Stack.Screen name="RecoverPasswordScreen" component={RecoverPasswordScreen} />
-
         <Stack.Screen name="EmailCodeScreen" component={EmailCodeScreen} />
-
         <Stack.Screen name="ResetPasswordScreen" component={ResetPasswordScreen} />
         <Stack.Screen name="BirthYearRegisterScreen" component={BirthYearRegisterScreen} />
+        <Stack.Screen name="NameRegisterScreen" component={NameRegisterScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

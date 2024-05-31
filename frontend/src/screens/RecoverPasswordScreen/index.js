@@ -29,16 +29,16 @@ export const RecoverPasswordScreen = ({ navigation }) => {
 
                 <Title marginTop={250}>Esqueceu a senha?</Title>
 
-                <CommandText marginTop={30}>Digite o seu e-mail para que possamos enviar um código de recuperação.</CommandText>
+                <CommandText marginTop={'10%'}>Digite o seu e-mail para que possamos enviar um código de recuperação.</CommandText>
 
                 <Input marginTop={70} placeholder="Email de recuperação..." />
 
                 <Button
                     handleClickFn={passToEmailCode}
-                    marginTop={110}
+                    marginTop={'35%'}
                     title="Continuar"
                     icon={(size, color) => (
-                        <Entypo name="chevron-right" size={28} color={color} />
+                        <Entypo name="chevron-right" size={size} color={color} />
                     )}
                 />
             </Container>

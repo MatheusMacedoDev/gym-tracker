@@ -9,7 +9,7 @@ export const ButtonContainer = styled.TouchableOpacity`
     border-radius: 15px;
     justify-content: center;
     align-self: center;
-    margin-top: ${props => `${props.marginTop}px` || '0px'};
+    margin-top: ${props => `${props.marginTop}` || '0px'};
 `;
 
 export const Gradient = styled(LinearGradient).attrs({

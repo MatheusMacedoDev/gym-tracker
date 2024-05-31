@@ -31,10 +31,10 @@ export const BirthYearRegisterScreen = ({ navigation }) => {
             /> 
 
             <Button
-                marginTop={90}
+                marginTop={'25%'}
                 title="Continuar"
                 icon={(size, color) => (
-                    <Entypo name="chevron-right" size={28} color={color} />
+                    <Entypo name="chevron-right" size={size} color={color} />
                 )}
             />
             </Container>

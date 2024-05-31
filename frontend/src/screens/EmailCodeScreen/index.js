@@ -33,16 +33,16 @@ export const EmailCodeScreen = ({ navigation }) => {
 
                     <Title marginTop={250}>Código de verificação</Title>
 
-                    <CommandText marginTop={30} marginBottom={70}>Digite o cógido que foi enviado para o seu e-mail para verficarmos o seu pedido.</CommandText>
+                    <CommandText marginTop={'10%'} marginBottom={70}>Digite o cógido que foi enviado para o seu e-mail para verficarmos o seu pedido.</CommandText>
 
                     <CodeInput code={code} setCode={setCode} />
 
                     <Button
                         handleClickFn={passToResetPassword}
-                        marginTop={120}
+                        marginTop={'35%'}
                         title="Continuar"
                         icon={(size, color) => (
-                            <Entypo name="chevron-right" size={28} color={color} />
+                            <Entypo name="chevron-right" size={size} color={color} />
                         )}
                     />
 

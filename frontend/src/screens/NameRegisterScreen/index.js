@@ -1,3 +1,4 @@
+import { Image } from "react-native"
 import { Button } from "../../components/Button"
 import { CommandText } from "../../components/CommandText/style"
 import { Container, Gradient } from "../../components/Container/style"
@@ -8,31 +9,30 @@ import { Title } from "../../components/Title/style"
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from "@expo/vector-icons";
 
-export const ResetPasswordScreen = ({ navigation }) => {
+export const NameRegisterScreen = ({ navigation }) => {
+
 
     return (
         <Gradient>
             <Container>
                 <IconButton
-                    handleClickFn={() => { navigation.navigate("EmailCodeScreen") }}
                     gradient={false}
                     icon={
                         <MaterialIcons name="reply" size={40} color={'#FB6614'} />
                     }
                 />
 
-                <Title marginTop={250}>Quase lá</Title>
+                <Logo />
 
-                <CommandText textAlign={'center'} marginTop={'13%'}>Altere sua senha</CommandText>
+                <Title marginTop={220}>Qual o seu nome?</Title>
 
-                <Input marginTop={'20%'} placeholder="Nova senha..." />
-                <Input marginTop={'10%'} placeholder="Repita a nova senha..." />
+                <Input marginTop={'20%'} placeholder="Seu nome..." />
 
                 <Button
-                    marginTop={'30%'}
+                    marginTop={'60%'}
                     title="Continuar"
                     icon={(size, color) => (
-                        <Entypo name="chevron-right" size={size} color={color} />
+                        <Entypo name="chevron-right" size={28} color={color} />
                     )}
                 />
             </Container>
