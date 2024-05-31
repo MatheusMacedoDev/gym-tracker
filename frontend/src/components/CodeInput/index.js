@@ -1,20 +1,19 @@
-import React from 'react'
-
-import { Cell, CellWrapper } from './style';
-import { StyleSheet } from 'react-native';
-import { CodeField,  useBlurOnFulfill, useClearByFocusCell, Cursor } from 'react-native-confirmation-code-field';
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { CodeField, useBlurOnFulfill, useClearByFocusCell, Cursor } from 'react-native-confirmation-code-field';
+import { colors } from '../../colors.config';
 
 const CELL_COUNT = 5;
 
 export default function CodeInput({ code, setCode }) {
-    const ref = useBlurOnFulfill({code, cellCount: CELL_COUNT});
+    const ref = useBlurOnFulfill({ code, cellCount: CELL_COUNT });
     const [props, getCellOnLayoutHandler] = useClearByFocusCell({
         value: code,
         setValue: setCode
     });
 
     return (
-        <CellWrapper>
+        <View>
             <CodeField
                 ref={ref}
                 {...props}
@@ -22,22 +21,42 @@ export default function CodeInput({ code, setCode }) {
                 autoFocus={true}
                 onChangeText={setCode}
                 cellCount={CELL_COUNT}
-                rootStyle={codeFieldStyle}
+                rootStyle={styles.codeFieldRoot}
                 keyboardType="number-pad"
                 textContentType="oneTimeCode"
-                renderCell={({index, symbol, isFocused}) => (
-                    <Cell
+                renderCell={({ index, symbol, isFocused }) => (
+                    <View
                         key={index}
                         onLayout={getCellOnLayoutHandler(index)}
+                        style={[styles.cell, isFocused && styles.focusCell]}
                     >
-                        {symbol || (isFocused ? <Cursor/> : null)}
-                    </Cell>
+                        <Text style={styles.cellText}>
+                            {symbol || (isFocused ? <Cursor /> : null)}
+                        </Text>
+                    </View>
                 )}
             />
-        </CellWrapper>
-    )
+        </View>
+    );
 }
 
-const codeFieldStyle = StyleSheet.create({
-    gap: 15
+const styles = StyleSheet.create({
+    cell: {
+        width: 52,
+        height: 52,
+        backgroundColor: colors.darkGray,
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontSize: 34,
+        borderRadius: 10, 
+        margin: 5
+    },
+    cellText: {
+        fontSize: 30,
+        color: colors.white,
+    },
+    focusCell: {
+        borderColor: colors.orange,
+        borderWidth: 2
+    },
 });

@@ -16,6 +16,15 @@ return(
         <TouchableOpacity style={{width:90,height:40, backgroundColor: 'orange', alignItems: "center", justifyContent:"center"}} onPress={() => {navigation.navigate("Main")}}>
             <Text>BOTTOM TAB</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={{width:90,height:40, backgroundColor: 'orange', alignItems: "center", justifyContent:"center"}} onPress={() => {navigation.navigate("RecoverPasswordScreen")}}>
+            <Text>RecoverPasswordScreen</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{width:90,height:40, backgroundColor: 'orange', alignItems: "center", justifyContent:"center"}} onPress={() => {navigation.navigate("EmailCodeScreen")}}>
+            <Text>EmailCodeScreen</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={{width:90,height:40, backgroundColor: 'orange', alignItems: "center", justifyContent:"center"}} onPress={() => {navigation.navigate("ResetPasswordScreen")}}>
+            <Text>ResetPasswordScreen</Text>
+        </TouchableOpacity>
     </View>
 )
 }

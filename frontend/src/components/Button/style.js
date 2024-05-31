@@ -4,11 +4,12 @@ import styled from "styled-components/native";
 import { colors } from "../../colors.config";
 
 export const ButtonContainer = styled.TouchableOpacity`
-    width: 80%;
+    width: 90%;
     height: 60px;
     border-radius: 15px;
     justify-content: center;
     align-self: center;
+    margin-top: ${props => `${props.marginTop}px` || '0px'};
 `;
 
 export const Gradient = styled(LinearGradient).attrs({
@@ -24,7 +25,6 @@ export const Gradient = styled(LinearGradient).attrs({
     border-radius:15px;
     display: flex;
     flex-direction: row;
-    gap: 10px;
   `;
 
   export const ButtonText = styled.Text`

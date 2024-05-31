@@ -11,6 +11,9 @@ import { Main } from './src/screens/Main';
 
 
 
+import { RecoverPasswordScreen } from './src/screens/RecoverPasswordScreen';
+import { EmailCodeScreen } from './src/screens/EmailCodeScreen';
+import { ResetPasswordScreen } from './src/screens/ResetPasswordScreen';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -38,6 +41,12 @@ export default function App() {
         <Stack.Screen name="Rubens" component={Rubens} />
 
         <Stack.Screen name="Joao" component={Joao} />
+
+        <Stack.Screen name="RecoverPasswordScreen" component={RecoverPasswordScreen} />
+
+        <Stack.Screen name="EmailCodeScreen" component={EmailCodeScreen} />
+
+        <Stack.Screen name="ResetPasswordScreen" component={ResetPasswordScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
