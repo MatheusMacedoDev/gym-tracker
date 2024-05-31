@@ -6,7 +6,6 @@ import {
   Text,
   StyleSheet,
 } from "react-native";
-import { Gradient, YearButton } from "./style";
 
 const LIGHT_GRAY = "#DEE2EE";
 
@@ -41,7 +40,7 @@ const ScrollPicker = ({
         {pickedIndex === index ? (
           <Text
             style={{
-              fontSize: 50,
+              fontSize: 45,
               textAlign: "center",
               fontFamily: "Montserrat_700Bold",
               color: SELECTED_COLOR,
@@ -58,7 +57,7 @@ const ScrollPicker = ({
 
   return (
     <>
-      <Gradient>
+      <View style={styles.Container}>
         <FlatList
           data={list}
           extraData={extraData}
@@ -79,7 +78,7 @@ const ScrollPicker = ({
           })}
           initialScrollIndex={pickedIndex - 3}
         />
-      </Gradient>
+      </View>
     </>
   );
 };
@@ -100,7 +99,8 @@ const styles = StyleSheet.create({
   },
   Container: {
     width: "100%",
-    backgroundColor: "black",
+    height: '25%',
+    marginTop: 100
   },
 });
 

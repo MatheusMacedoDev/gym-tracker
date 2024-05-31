@@ -21,6 +21,9 @@ return(
         </TouchableOpacity>
         <TouchableOpacity style={{width:90,height:40, backgroundColor: 'orange', alignItems: "center", justifyContent:"center"}} onPress={() => {navigation.navigate("LoginScreen")}}>
             <Text>Login</Text>
+            </TouchableOpacity>
+        <TouchableOpacity style={{width:90,height:40, backgroundColor: 'orange', alignItems: "center", justifyContent:"center"}} onPress={() => {navigation.navigate("BirthYearRegisterScreen")}}>
+            <Text>Ano de nascimento</Text>
         </TouchableOpacity>
     </View>
 )

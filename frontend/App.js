@@ -13,10 +13,15 @@ import {
 } from "@expo-google-fonts/montserrat";
 import { Main } from "./src/screens/Main";
 
-import { RecoverPasswordScreen } from "./src/screens/RecoverPasswordScreen";
-import { EmailCodeScreen } from "./src/screens/EmailCodeScreen";
-import { ResetPasswordScreen } from "./src/screens/ResetPasswordScreen";
+
+
+
+import { RecoverPasswordScreen } from './src/screens/RecoverPasswordScreen';
+import { EmailCodeScreen } from './src/screens/EmailCodeScreen';
+import { ResetPasswordScreen } from './src/screens/ResetPasswordScreen';
+import { BirthYearRegisterScreen } from './src/screens/BirthYearRegisterScreen';
 import { LoginScreen } from "./src/screens/LoginScreen";
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -59,6 +64,8 @@ export default function App() {
           component={ResetPasswordScreen}
         />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
+        <Stack.Screen name="ResetPasswordScreen" component={ResetPasswordScreen} />
+        <Stack.Screen name="BirthYearRegisterScreen" component={BirthYearRegisterScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
