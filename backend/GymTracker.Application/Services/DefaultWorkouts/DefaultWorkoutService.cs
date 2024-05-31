@@ -2,6 +2,7 @@ using GymTracker.Application.Services.Contracts;
 using GymTracker.Domain.Repositories;
 using GymTracker.Infra.Data.UnityOfWork;
 using GymTracker.Domain.Entities;
+using GymTracker.Infra.Data.DAOs.DefaultWorkout;
 
 namespace GymTracker.Application.Services;
 
@@ -10,10 +11,13 @@ public class DefaultWorkoutService : IDefaultWorkoutService
     private readonly IWorkoutRepository _workoutRepository;
     private readonly IUnityOfWork _unityOfWork;
 
-    public DefaultWorkoutService(IWorkoutRepository workoutRepository, IUnityOfWork unityOfWork)
+    private readonly IDefaultWorkoutDAO _defaultWorkoutDAO;
+
+    public DefaultWorkoutService(IWorkoutRepository workoutRepository, IUnityOfWork unityOfWork, IDefaultWorkoutDAO defaultWorkoutDAO)
     {
         _workoutRepository = workoutRepository;
         _unityOfWork = unityOfWork;
+        _defaultWorkoutDAO = defaultWorkoutDAO;
     }
 
     public async Task<RegisterDefaultWorkoutResponse> RegisterDefaultWorkout(RegisterDefaultWorkoutRequest request)
@@ -40,8 +44,8 @@ public class DefaultWorkoutService : IDefaultWorkoutService
         }
     }
 
-    public async Task<List<DefaultWorkout>> ListDefaultWorkoutByUserId(Guid userId)
+    public async Task<IEnumerable<DefaultWorkoutListItemDTO>> ListDefaultWorkoutByUserId(Guid userId)
     {
-        return await _workoutRepository.ListDefaultWorkoutsByUserId(userId);
+        return await _defaultWorkoutDAO.ListDefaultWorkoutsByUserId(userId);
     }
 }

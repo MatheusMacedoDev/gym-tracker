@@ -1,6 +1,6 @@
 namespace GymTracker.Infra.Data.DAOs.DefaultWorkout;
 
-public record DefaultWorkoutListItem(
+public record DefaultWorkoutListItemDTO(
     Guid defaultWorkoutId,
     string defaultWorkoutName
 );

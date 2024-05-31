@@ -1,4 +1,3 @@
-
 using Dapper;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
@@ -27,7 +26,7 @@ public class DefaultWorkoutDAO : IDefaultWorkoutDAO
                 string query = @"
                     SELECT 
                         default_workout_id AS defaultWorkoutId, 
-                        workout_name AS workoutName
+                        workout_name AS defaultWorkoutName
                     FROM default_workouts
                     WHERE user_id = @userId
                 ";
