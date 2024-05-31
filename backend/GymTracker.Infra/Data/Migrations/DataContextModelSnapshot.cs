@@ -52,7 +52,7 @@ namespace GymTracker.Infra.Migrations
 
                     b.HasIndex("ExerciseId");
 
-                    b.ToTable("default_exercises");
+                    b.ToTable("default_exercises", (string)null);
                 });
 
             modelBuilder.Entity("GymTracker.Domain.Entities.DefaultWorkout", b =>
@@ -78,7 +78,7 @@ namespace GymTracker.Infra.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("default_workouts");
+                    b.ToTable("default_workouts", (string)null);
                 });
 
             modelBuilder.Entity("GymTracker.Domain.Entities.DiaryExercise", b =>
@@ -102,7 +102,7 @@ namespace GymTracker.Infra.Migrations
 
                     b.HasIndex("DiaryWorkoutId");
 
-                    b.ToTable("diary_exercises");
+                    b.ToTable("diary_exercises", (string)null);
                 });
 
             modelBuilder.Entity("GymTracker.Domain.Entities.DiaryExerciseSerie", b =>
@@ -132,7 +132,7 @@ namespace GymTracker.Infra.Migrations
 
                     b.HasIndex("DiaryExerciseId");
 
-                    b.ToTable("diary_exercise_series");
+                    b.ToTable("diary_exercise_series", (string)null);
                 });
 
             modelBuilder.Entity("GymTracker.Domain.Entities.DiaryWorkout", b =>
@@ -155,7 +155,7 @@ namespace GymTracker.Infra.Migrations
 
                     b.HasIndex("DefaultWorkoutId");
 
-                    b.ToTable("diary_workouts");
+                    b.ToTable("diary_workouts", (string)null);
                 });
 
             modelBuilder.Entity("GymTracker.Domain.Entities.Exercise", b =>
@@ -179,7 +179,7 @@ namespace GymTracker.Infra.Migrations
                     b.HasIndex("ExerciseName")
                         .IsUnique();
 
-                    b.ToTable("exercises");
+                    b.ToTable("exercises", (string)null);
                 });
 
             modelBuilder.Entity("GymTracker.Domain.Entities.ExerciseMuscleGroup", b =>
@@ -203,7 +203,7 @@ namespace GymTracker.Infra.Migrations
 
                     b.HasIndex("MuscleGroupId");
 
-                    b.ToTable("exercise_muscle_group");
+                    b.ToTable("exercise_muscle_group", (string)null);
                 });
 
             modelBuilder.Entity("GymTracker.Domain.Entities.MuscleGroup", b =>
@@ -227,7 +227,7 @@ namespace GymTracker.Infra.Migrations
                     b.HasIndex("GroupName")
                         .IsUnique();
 
-                    b.ToTable("muscle_groups");
+                    b.ToTable("muscle_groups", (string)null);
                 });
 
             modelBuilder.Entity("GymTracker.Domain.Entities.User", b =>
@@ -275,7 +275,7 @@ namespace GymTracker.Infra.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("users");
+                    b.ToTable("users", (string)null);
                 });
 
             modelBuilder.Entity("GymTracker.Domain.Entities.DefaultExercise", b =>
