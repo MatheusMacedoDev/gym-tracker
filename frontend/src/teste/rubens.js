@@ -5,6 +5,7 @@ import { Title } from "../components/Title/style";
 import { useEffect, useState } from "react";
 import { Select } from "../components/Select";
 import { SelectPicker } from "../components/SelectPicker.js";
+import { Logo } from "../components/Logo/index.js";
 
 export const Rubens = () => {
   const [numberSeries, setNumberSeries] = useState();
@@ -43,12 +44,15 @@ export const Rubens = () => {
           label="Repetições"
         />
       </View>
+
+      <Logo/>
+
       <View style={{ height: 500, alignSelf: "center" }}>
         <SelectPicker
           onItemPress={setYearBirth}
           valueNow={yearBirth}
         />
-      </View>
+      </View>     
     </View>
   );
 };
