@@ -20,6 +20,7 @@ var builder = WebApplication.CreateBuilder(args);
 
     // Repository
     builder.Services.AddScoped<IUserRepository, UserRepository>();
+    builder.Services.AddScoped<IWorkoutRepository, WorkoutRepository>();
 
     // Services
     builder.Services.AddScoped<IUserService, UserService>();
