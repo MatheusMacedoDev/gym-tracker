@@ -22,6 +22,7 @@ var builder = WebApplication.CreateBuilder(args);
     // Repository
     builder.Services.AddScoped<IUserRepository, UserRepository>();
     builder.Services.AddScoped<IWorkoutRepository, WorkoutRepository>();
+    builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
 
     // DAOs
     builder.Services.AddScoped<IDefaultWorkoutDAO, DefaultWorkoutDAO>();
@@ -29,6 +30,7 @@ var builder = WebApplication.CreateBuilder(args);
     // Services
     builder.Services.AddScoped<IUserService, UserService>();
     builder.Services.AddScoped<IDefaultWorkoutService, DefaultWorkoutService>();
+    builder.Services.AddScoped<IExerciseService, ExerciseService>();
 
     // Strategies Injections
     builder.Services.AddSingleton<ICryptographyStrategy, CryptographyStrategy>();
