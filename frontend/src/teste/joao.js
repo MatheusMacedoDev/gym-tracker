@@ -1,13 +1,10 @@
-import { Text, View } from "react-native"
-import { CardMan } from "../components/CardGender/indexMan"
+import { View } from "react-native"
+
 
 export const Joao = () => {
     return(
         <View>
-            <CardMan title={'Masculino'}>
 
-            </CardMan>
-           
         </View>
     )
 }

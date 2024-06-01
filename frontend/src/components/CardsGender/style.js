@@ -1,20 +1,24 @@
 import styled from 'styled-components/native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { colors } from '../../colors.config';
 
-export const ButtonContainer = styled.View`
-top: 50px;  
-width: 40.7%;
-height: 320px;
+
+export const ContainerCards = styled.View`
+  width: 100%;
+  height: 40%;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+export const ButtonContainer = styled.TouchableOpacity`
+width: 45%;
+height: 100%;
 border-radius: 15px;
 justify-content: center;
-align-items: center; /* Adicionado */
-align-self: center;
-border-color: 'black';
 background-color: #454448;
 border-width: ${props => (props.isSelected ? '2px' : '0px')}; 
 border-color: ${props => (props.isSelected ? '#FF8434' : 'transparent')};
 box-shadow: ${props => (props.isSelected ? '0 0 10px #FF8434' : 'none')};
-position: relative; /* Adicionado */
 `;
 
 export const ViewCircle = styled.View`
@@ -25,27 +29,24 @@ export const ViewCircle = styled.View`
   height: 20px;
   border-radius: 15px;
   background-color: orange;
-  align-items: center; /* Centralizar horizontalmente */
-  display: ${props => (props.isSelected ? 'block' : 'none')}; /* Exibe quando isSelected é true, caso contrário, oculta */
+  align-items: center;
+  display: ${props => (props.isSelected ? 'block' : 'none')};
 `;
 
-export const ButtonText = styled.Text`
-  color: #FFFFFF;
-  font-size: 16px;
-  align-self: center;
-  margin-top: 250px; 
-  font-family: 'Montserrat';
+export const GenderText = styled.Text`
+  color: ${colors.white};
+  font-size: 18px;
+  font-family: 'Montserrat_700Bold';
+  position: absolute;
+  bottom: 10%;
+  left: 22%;
 `;
 
 export const ImagePerson = styled.Image`
-  position: absolute;
-  top: -35px;
-  right: 5px;
-  width: 60px;
-  height: 60px;
-  width: 100%; 
-  height: 96%;
-  align-self: center;
+align-self: center;
+height: 100%;
+margin-bottom: 40%;
+margin-right: 5%;
 `;
 
 export const Overlay = styled(LinearGradient).attrs({

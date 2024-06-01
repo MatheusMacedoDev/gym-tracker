@@ -4,8 +4,8 @@ import { colors } from "../../colors.config";
 export const Link = styled.Text`
   font-family: "Montserrat_400Regular";
   font-size: 18px;
+  width: 100%;
+  text-align: ${props => `${props.textAlign}`};
   color: ${colors.orange};
-  margin-top: ${props => `${props.marginTop}px` || '0px'};
-  margin-bottom: ${props => `${props.marginBottom}px` || '0px'};
-  margin-left: ${props => `${props.marginLeft}%` || '0%'};
+  margin-top: ${props => `${props.marginTop}` || '0px'};
 `;

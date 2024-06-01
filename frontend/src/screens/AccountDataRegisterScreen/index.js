@@ -33,6 +33,7 @@ export const AccountDataRegisterScreen = ({ navigation, route }) => {
                 <Input marginTop={'5%'} placeholder="Senha..." />
                 <Input marginTop={'5%'} placeholder="Confirme sua senha..." />
                 <Button
+                handleClickFn={() => navigation.navigate("GenderRegisterScreen")}
                     marginTop={'15%'}
                     title="Continuar"
                     icon={(size, color) => (
