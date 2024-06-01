@@ -11,6 +11,7 @@ public class DataContext : DbContext
     private readonly string _connectionString;
 
     public DbSet<User>? Users { get; set; }
+    public DbSet<ProfileHistory>? ProfileHistories { get; set; }
     public DbSet<MuscleGroup>? MuscleGroups { get; set; }
     public DbSet<Exercise>? Exercises { get; set; }
     public DbSet<ExerciseMuscleGroup>? ExercisesMuscleGroups { get; set; }
