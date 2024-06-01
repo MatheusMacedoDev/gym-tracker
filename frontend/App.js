@@ -23,11 +23,9 @@ import { BirthYearRegisterScreen } from './src/screens/BirthYearRegisterScreen';
 import { NameRegisterScreen } from './src/screens/NameRegisterScreen';
 import { LoginScreen } from "./src/screens/LoginScreen";
 import { AccountDataRegisterScreen } from "./src/screens/AccountDataRegisterScreen";
-<<<<<<< HEAD
 import { WeightRecordScreen } from "./src/screens/WeightRecordScreen";
-=======
 import { GenderRegisterScreen } from "./src/screens/GenderRegisterScreen";
->>>>>>> eduardo
+import { HeighRecordScreen } from "./src/screens/HeightRecordScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -73,6 +71,7 @@ export default function App() {
         <Stack.Screen name="AccountDataRegisterScreen" component={AccountDataRegisterScreen} />
         <Stack.Screen name="WeightRecordScreen" component={WeightRecordScreen}/>
         <Stack.Screen name="GenderRegisterScreen" component={GenderRegisterScreen} />
+        <Stack.Screen name="HeighRecordScreen" component={HeighRecordScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
