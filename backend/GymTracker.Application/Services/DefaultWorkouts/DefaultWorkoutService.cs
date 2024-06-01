@@ -48,4 +48,19 @@ public class DefaultWorkoutService : IDefaultWorkoutService
     {
         return await _defaultWorkoutDAO.ListDefaultWorkoutsByUserId(userId);
     }
+
+    public async Task DeleteDefaultWorkout(Guid defaultWorkoutId)
+    {
+        try
+        {
+            var defaultWorkout = await _workoutRepository.GetDefaultWorkoutById(defaultWorkoutId);
+
+            await _workoutRepository.DeleteDefaultWorkoutById(defaultWorkout);
+            await _unityOfWork.Commit();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
 }

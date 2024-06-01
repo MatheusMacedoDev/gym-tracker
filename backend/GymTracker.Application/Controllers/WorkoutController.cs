@@ -16,7 +16,7 @@ public class WorkoutController : ControllerBase
         _defaultWorkoutService = defaultWorkoutService;
     }
 
-    [HttpPost]
+    [HttpPost("default_workout")]
     public async Task<IActionResult> RegisterDefaultWorkout([FromBody] RegisterDefaultWorkoutRequest request)
     {
         try
@@ -31,7 +31,7 @@ public class WorkoutController : ControllerBase
         }
     }
 
-    [HttpGet("users")]
+    [HttpGet("default_workout")]
     public async Task<IActionResult> ListDefaultWorkoutBySpecificUser(Guid userId)
     {
         try
@@ -39,6 +39,21 @@ public class WorkoutController : ControllerBase
             var response = await _defaultWorkoutService.ListDefaultWorkoutByUserId(userId);
 
             return Ok(response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
+
+    [HttpDelete("default_workout")]
+    public async Task<IActionResult> DeleteDefaultWorkout(Guid defaultWorkoutId)
+    {
+        try
+        {
+            await _defaultWorkoutService.DeleteDefaultWorkout(defaultWorkoutId);
+
+            return NoContent();
         }
         catch (Exception error)
         {

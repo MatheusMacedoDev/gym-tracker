@@ -6,5 +6,6 @@ namespace GymTracker.Application.Services;
 public interface IDefaultWorkoutService
 {
     Task<RegisterDefaultWorkoutResponse> RegisterDefaultWorkout(RegisterDefaultWorkoutRequest request);
+    Task DeleteDefaultWorkout(Guid defaultWorkoutId);
     Task<IEnumerable<DefaultWorkoutListItemDTO>> ListDefaultWorkoutByUserId(Guid userId);
 }
