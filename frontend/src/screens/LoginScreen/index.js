@@ -7,19 +7,19 @@ import { Title } from "../../components/Title/style";
 import { LinkCommandText } from "./components/linkCommandText";
 import { LinkContainer } from "./components/linkContainer";
 
-export const LoginScreen = ({ navigator }) => {
+export const LoginScreen = ({ navigation }) => {
   return (
     <Gradient>
       <Container>
-        <Logo marginTop={30}/>
-        <Title marginTop={37}>Bem vindo</Title>  
-        <Input marginTop={31} placeholder="E-mail ou usuário..."/>
-        <Input marginTop={20} placeholder="Senha..." />
-        <Link marginTop={20} marginLeft={48} >Esqueceu sua senha?</Link>
-        <Button marginTop={135} title="Login" />
-        <LinkContainer marginTop={10}>
+        <Logo marginTop={'20%'}/>
+        <Title marginTop={'11%'}>Bem vindo</Title>  
+        <Input marginTop={'9%'} placeholder="E-mail ou usuário..."/>
+        <Input marginTop={'5%'} placeholder="Senha..." />
+        <Link onPress={() => navigation.navigate("RecoverPasswordScreen")} textAlign={'right'} marginTop={'5%'}>Esqueceu sua senha ?</Link>
+        <Button marginTop={'35%'} title="Login" />
+        <LinkContainer marginTop={'7%'}>
           <LinkCommandText>Não tem uma conta?</LinkCommandText>
-          <Link>Cadastre-se</Link>
+          <Link onPress={() => navigation.navigate("NameRegisterScreen")}>Cadastre-se</Link>
         </LinkContainer>
       </Container>
     </Gradient>
