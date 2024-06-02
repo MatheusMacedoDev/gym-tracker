@@ -1,6 +1,7 @@
 using GymTracker.Domain.Entities;
 using GymTracker.Domain.Repositories;
 using GymTracker.Infra.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace GymTracker.Infra.Repositories;
 
@@ -31,5 +32,10 @@ public class ExerciseRepository : IExerciseRepository
     public async Task RegisterDefaultExercise(DefaultExercise defaultExercise)
     {
         await _context.DefaultExercises!.AddAsync(defaultExercise);
+    }
+
+    public async Task<List<MuscleGroup>> ListAllMuscleGroups()
+    {
+        return await _context.MuscleGroups!.ToListAsync();
     }
 }

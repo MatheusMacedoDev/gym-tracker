@@ -94,4 +94,16 @@ public class ExerciseService : IExerciseService
             throw;
         }
     }
+
+    public Task<List<MuscleGroup>> ListAllMuscleGroups()
+    {
+        try
+        {
+            return _exerciseRepository.ListAllMuscleGroups();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
 }

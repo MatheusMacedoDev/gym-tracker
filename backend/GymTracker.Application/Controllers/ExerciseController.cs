@@ -46,12 +46,27 @@ public class ExerciseController : ControllerBase
         }
     }
 
-    [HttpGet("muscle_groups")]
+    [HttpGet("exercises")]
     public async Task<IActionResult> ListExercisesBySpecificMuscleGroup(Guid muscleGroupId)
     {
         try
         {
             var response = await _exerciseService.ListExercisesByMuscleGroupId(muscleGroupId);
+
+            return Ok(response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
+
+    [HttpGet("/api/muscle_groups")]
+    public async Task<IActionResult> ListAllMuscleGroups()
+    {
+        try
+        {
+            var response = await _exerciseService.ListAllMuscleGroups();
 
             return Ok(response);
         }
