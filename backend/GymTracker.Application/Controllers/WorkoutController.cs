@@ -31,6 +31,21 @@ public class WorkoutController : ControllerBase
         }
     }
 
+    [HttpPost("default_workout/default_exercise")]
+    public async Task<IActionResult> RegisterDefaultExercise([FromBody] RegisterDefaultExerciseRequest request)
+    {
+        try
+        {
+            await _defaultWorkoutService.RegisterDefaultExercise(request);
+
+            return Created();
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
+
     [HttpGet("default_workout")]
     public async Task<IActionResult> ListDefaultWorkoutBySpecificUser(Guid userId)
     {

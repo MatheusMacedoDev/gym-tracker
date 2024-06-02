@@ -49,4 +49,3 @@ public class DefaultExercise
         SeriesAmount = seriesAmount;
     }
 }
-
