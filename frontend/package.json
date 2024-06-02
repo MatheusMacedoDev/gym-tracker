@@ -14,6 +14,7 @@
     "@fortawesome/react-native-fontawesome": "^0.3.2",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/native-stack": "^6.9.26",
+    "@types/react": "~18.2.79",
     "axios": "^1.7.2",
     "expo": "~51.0.9",
     "expo-linear-gradient": "^13.0.2",
@@ -24,11 +25,17 @@
     "react-native": "0.74.1",
     "react-native-calendars": "^1.1305.0",
     "react-native-camera": "^4.2.1",
+    "react-native-chart-kit": "^6.12.0",
     "react-native-confirmation-code-field": "^7.4.0",
     "react-native-dropdown-select-list": "^2.0.5",
     "react-native-dynamically-selected-picker": "^3.3.0",
+    "react-native-gesture-handler": "~2.16.1",
+    "react-native-reanimated": "~3.10.1",
     "react-native-reanimated-carousel": "^3.5.1",
-    "styled-components": "^6.1.5-rc.0"
+    "react-native-snap-carousel": "^3.9.1",
+    "react-native-swiper": "^1.6.0",
+    "styled-components": "^6.1.5-rc.0",
+    "typescript": "~5.3.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
