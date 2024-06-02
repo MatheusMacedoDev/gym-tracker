@@ -1,12 +1,17 @@
+using System.Text;
 using GymTracker.Application;
 using GymTracker.Application.Services;
 using GymTracker.Domain.Repositories;
 using GymTracker.Infra.Data;
 using GymTracker.Infra.Data.DAOs.DefaultWorkout;
 using GymTracker.Infra.Data.DAOs.Exercise;
+using GymTracker.Infra.Data.DAOs.User;
 using GymTracker.Infra.Data.UnityOfWork;
 using GymTracker.Infra.Repositories;
 using GymTracker.Utils.Cryptography;
+using GymTracker.Utils.Token;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -28,6 +33,7 @@ var builder = WebApplication.CreateBuilder(args);
     // DAOs
     builder.Services.AddScoped<IDefaultWorkoutDAO, DefaultWorkoutDAO>();
     builder.Services.AddScoped<IExerciseDAO, ExerciseDAO>();
+    builder.Services.AddScoped<IUserDAO, UserDAO>();
 
     // Services
     builder.Services.AddScoped<IUserService, UserService>();
@@ -36,6 +42,28 @@ var builder = WebApplication.CreateBuilder(args);
 
     // Strategies Injections
     builder.Services.AddSingleton<ICryptographyStrategy, CryptographyStrategy>();
+    builder.Services.AddSingleton<ITokenStrategy, TokenStrategy>();
+
+    // Authentication
+    var key = Encoding.ASCII.GetBytes(builder.Configuration["Token:SecurityKey"]!);
+
+    builder.Services.AddAuthentication(x =>
+    {
+        x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(x =>
+    {
+        x.RequireHttpsMetadata = false;
+        x.SaveToken = true;
+        x.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
 }
 
 var app = builder.Build();

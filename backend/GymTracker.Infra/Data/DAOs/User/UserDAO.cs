@@ -27,13 +27,10 @@ public class UserDAO : IUserDAO
                 string query = @"
                     SELECT
                         users.user_id AS userId,
-                        users.user_name AS userName,
+                        users.name AS userName,
                         users.password_hash AS userHash,
-                        users.password_salt AS userSalt,
-                        types.user_type_name AS userTypeName
+                        users.password_salt AS userSalt
                     FROM users
-                    JOIN user_types AS types
-                        ON types.user_type_id = users.user_type_id
                     WHERE users.email = @email
                 ";
 

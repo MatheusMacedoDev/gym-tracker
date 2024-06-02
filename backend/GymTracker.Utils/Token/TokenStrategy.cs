@@ -19,26 +19,33 @@ public class TokenStrategy : ITokenStrategy
             .Build();
 
         SecurityKey = config["Token:SecurityKey"]!;
-        TokenExpirationHours = int.Parse(config["Token:ExpirationHours"]!);
+        TokenExpirationHours = int.Parse(config["Token:HoursToExpiration"]!);
     }
 
     public string GenerateToken(UserLoginDTO user)
     {
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(SecurityKey);
-
-        var tokenDescriptor = new SecurityTokenDescriptor()
+        try
         {
-            Subject = new ClaimsIdentity(new Claim[] {
-                new Claim(JwtRegisteredClaimNames.Jti, user.userId.ToString()),
-                new Claim(ClaimTypes.Name, user.userName),
-            }),
-            Expires = DateTime.UtcNow.AddHours(TokenExpirationHours),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-        };
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(SecurityKey);
 
-        var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenDescriptor = new SecurityTokenDescriptor()
+            {
+                Subject = new ClaimsIdentity(new Claim[] {
+                        new Claim(JwtRegisteredClaimNames.Jti, user.userId.ToString()),
+                        new Claim(ClaimTypes.Name, user.userName),
+                        }),
+                Expires = DateTime.UtcNow.AddHours(TokenExpirationHours),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
 
-        return tokenHandler.WriteToken(token);
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return tokenHandler.WriteToken(token);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
     }
 }
