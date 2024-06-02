@@ -6,4 +6,5 @@ namespace GymTracker.Application;
 public interface IUserService
 {
     Task<RegisterUserResponse> RegisterUser(RegisterUserRequest request);
+    Task<LoginResponse> Login(LoginRequest request);
 }

@@ -29,4 +29,19 @@ public class UserController : ControllerBase
             return BadRequest(error.Message);
         }
     }
+
+    [HttpPost]
+    public async Task<IActionResult> Login([FromBody] LoginRequest request)
+    {
+        try
+        {
+            var response = await _userService.Login(request);
+
+            return StatusCode(201, response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
 }
