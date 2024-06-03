@@ -1,41 +1,25 @@
 import React from 'react';
 import { Gradient } from "../components/Container/style";
-import { ContainerPresentation, ContainerText, TextTitle, RoundImage, TextDescription, TextContainer, Container2 } from "./style";
+import { ImageFIsic, Subtitulo } from './style';
+import { Logo } from '../components/Logo';
+import { Text } from "react-native"
+import { Title } from '../components/Title/style';
 import { Button } from '../components/Button';
+import { ContainerPresentation } from '../screens/Presentation/style';
 
-const roundImageSource = require('../assets/Images/joaocantor.jpg');
-
+const Fisic = require('../assets/Images/background.png');
 export const Joao = () => {
   return (
     <Gradient>
-
+      <ImageFIsic source={Fisic} />
+      <Logo marginTop={"-44"} heightLogo={40} widthLogo={80} />
+      <Title FontSize={20} marginTop={"3%"}>Bem Vindo ao{"\n"} Gym Tracker</Title>
+      <Subtitulo FontSize={12} marginTop={"2%"}>Seu app de treinos diarios</Subtitulo>
       <ContainerPresentation>
-
-        <ContainerText>
-
-          <Container2>
-
-            <TextTitle>
-              hello,{"\n"}
-              Gym bro
-            </TextTitle>
-
-            <RoundImage source={roundImageSource} />
-
-          </Container2>
-
-          <TextContainer>
-
-            <TextDescription>
-              Bem-vindo ao Gym Tracker! Organize seus treinos, acompanhe seu progresso e alcance suas metas fitness com facilidade. Vamos juntos transformar sua jornada de exercícios!
-            </TextDescription>
-
-          </TextContainer>
-
-        </ContainerText>
-        <Button
-          title="Continuar"
-        />
+      <Button
+      marginTop={"10%"}
+        title="Continuar"
+      />
       </ContainerPresentation>
 
     </Gradient>
