@@ -1,5 +1,7 @@
 using GymTracker.Application.Services;
 using GymTracker.Application.Services.Contracts;
+using GymTracker.Application.Services.DiaryWorkouts;
+using GymTracker.Application.Services.DiaryWorkouts.Contracts.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymTracker.Application.Controllers;
@@ -10,11 +12,13 @@ namespace GymTracker.Application.Controllers;
 public class WorkoutController : ControllerBase
 {
     private readonly IDefaultWorkoutService _defaultWorkoutService;
+    private readonly IDiaryWorkoutService _diaryWorkoutService;
     private readonly IExerciseService _exerciseService;
 
-    public WorkoutController(IDefaultWorkoutService defaultWorkoutService, IExerciseService exerciseService)
+    public WorkoutController(IDefaultWorkoutService defaultWorkoutService, IDiaryWorkoutService diaryWorkoutService, IExerciseService exerciseService)
     {
         _defaultWorkoutService = defaultWorkoutService;
+        _diaryWorkoutService = diaryWorkoutService;
         _exerciseService = exerciseService;
     }
 
@@ -86,6 +90,21 @@ public class WorkoutController : ControllerBase
             await _defaultWorkoutService.DeleteDefaultWorkout(defaultWorkoutId);
 
             return NoContent();
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
+
+    [HttpPost("diary_workout")]
+    public async Task<IActionResult> RegisterDiaryWorkout([FromBody] RegisterDiaryWorkoutRequest request)
+    {
+        try
+        {
+            await _diaryWorkoutService.RegisterDiaryWorkout(request);
+
+            return Created();
         }
         catch (Exception error)
         {

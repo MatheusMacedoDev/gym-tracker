@@ -31,4 +31,9 @@ public class WorkoutRepository : IWorkoutRepository
         return _context.DefaultWorkouts!
             .FirstOrDefaultAsync(workout => workout.DefaultWorkoutId == defaultWorkoutId)!;
     }
+
+    public async Task CreateDiaryWorkout(DiaryWorkout diaryWorkout)
+    {
+        await _context.DiaryWorkouts!.AddAsync(diaryWorkout);
+    }
 }
