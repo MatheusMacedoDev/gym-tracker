@@ -1,7 +1,7 @@
 import React from 'react';
-import { Gradient } from "../components/Container/style";
 import { ContainerPresentation, ContainerText, TextTitle, RoundImage, TextDescription, TextContainer, Container2 } from "./style";
 import { Button } from '../components/Button';
+import Gradient from '../../components/Gradient';
 
 const roundImageSource = require('../assets/Images/joaocantor.jpg');
 
