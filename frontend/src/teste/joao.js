@@ -7,7 +7,6 @@ import { Title } from '../components/Title/style';
 import { Button } from '../components/Button';
 import { ContainerPresentation } from '../screens/Presentation/style';
 
-const Fisic = require('../assets/Images/background.png');
 export const Joao = () => {
   return (
     <Gradient>
@@ -21,7 +20,6 @@ export const Joao = () => {
         title="Continuar"
       />
       </ContainerPresentation>
-
     </Gradient>
   );
 };
