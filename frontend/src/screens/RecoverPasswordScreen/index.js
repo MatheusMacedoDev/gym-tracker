@@ -1,13 +1,14 @@
 import { Image } from "react-native"
 import { Button } from "../../components/Button"
 import { CommandText } from "../../components/CommandText/style"
-import { Container, Gradient } from "../../components/Container/style"
+import { Container } from "../../components/Container/style"
 import { IconButton } from "../../components/IconButton"
 import { Input } from "../../components/Input/style"
 import { Logo } from "../../components/Logo"
 import { Title } from "../../components/Title/style"
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from "@expo/vector-icons";
+import Gradient from "../../components/Gradient"
 
 export const RecoverPasswordScreen = ({ navigation }) => {
 
