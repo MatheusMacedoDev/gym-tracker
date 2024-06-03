@@ -38,4 +38,16 @@ public class ExerciseRepository : IExerciseRepository
     {
         return await _context.MuscleGroups!.ToListAsync();
     }
+
+    public async Task<DefaultExercise> GetDefaultExerciseById(Guid defaultExerciseId)
+    {
+        return (await _context.DefaultExercises!
+            .FirstOrDefaultAsync(exercise => exercise.DefaultExerciseId == defaultExerciseId))!;
+    }
+
+    public Task DeleteDefaultExercise(DefaultExercise defaultExercise)
+    {
+        _context.DefaultExercises!.Remove(defaultExercise);
+        return Task.CompletedTask;
+    }
 }

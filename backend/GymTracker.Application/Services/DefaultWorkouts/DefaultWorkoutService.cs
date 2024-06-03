@@ -87,4 +87,18 @@ public class DefaultWorkoutService : IDefaultWorkoutService
             throw;
         }
     }
+
+    public async Task DeleteDefaultExercise(Guid defaultExerciseId)
+    {
+        try
+        {
+            var defaultExercise = await _exerciseRepository.GetDefaultExerciseById(defaultExerciseId);
+            await _exerciseRepository.DeleteDefaultExercise(defaultExercise);
+            await _unityOfWork.Commit();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
 }
