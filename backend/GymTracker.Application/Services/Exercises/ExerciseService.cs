@@ -1,6 +1,7 @@
 using GymTracker.Application.Services.Contracts;
 using GymTracker.Domain.Entities;
 using GymTracker.Domain.Repositories;
+using GymTracker.Infra.Data.DAOs.DefaultExercise;
 using GymTracker.Infra.Data.DAOs.Exercise;
 using GymTracker.Infra.Data.UnityOfWork;
 
@@ -12,12 +13,16 @@ public class ExerciseService : IExerciseService
     private readonly IUnityOfWork _unityOfWork;
 
     private readonly IExerciseDAO _exerciseDAO;
+    private readonly IDefaultExerciseDAO _defaultExerciseDAO;
 
-    public ExerciseService(IExerciseRepository exerciseRepository, IUnityOfWork unityOfWork, IExerciseDAO exerciseDAO)
+    public ExerciseService(IExerciseRepository exerciseRepository, IUnityOfWork unityOfWork, IExerciseDAO exerciseDAO, IDefaultExerciseDAO defaultExerciseDAO)
     {
         _exerciseRepository = exerciseRepository;
+
         _unityOfWork = unityOfWork;
+
         _exerciseDAO = exerciseDAO;
+        _defaultExerciseDAO = defaultExerciseDAO;
     }
 
     public async Task<RegisterMuscleGroupResponse> RegisterMuscleGroup(RegisterMuscleGroupRequest request)
@@ -100,6 +105,18 @@ public class ExerciseService : IExerciseService
         try
         {
             return _exerciseRepository.ListAllMuscleGroups();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public Task<IEnumerable<DefaultWorkoutExerciseDTO>> ListExercisesByDefaultWorkoutId(Guid defaultWorkoutId)
+    {
+        try
+        {
+            return _defaultExerciseDAO.ListExercisesByDefaultWorkout(defaultWorkoutId);
         }
         catch (Exception)
         {

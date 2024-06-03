@@ -10,10 +10,12 @@ namespace GymTracker.Application.Controllers;
 public class WorkoutController : ControllerBase
 {
     private readonly IDefaultWorkoutService _defaultWorkoutService;
+    private readonly IExerciseService _exerciseService;
 
-    public WorkoutController(IDefaultWorkoutService defaultWorkoutService)
+    public WorkoutController(IDefaultWorkoutService defaultWorkoutService, IExerciseService exerciseService)
     {
         _defaultWorkoutService = defaultWorkoutService;
+        _exerciseService = exerciseService;
     }
 
     [HttpPost("default_workout")]
@@ -52,6 +54,21 @@ public class WorkoutController : ControllerBase
         try
         {
             var response = await _defaultWorkoutService.ListDefaultWorkoutByUserId(userId);
+
+            return Ok(response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
+
+    [HttpGet("default_workout/exercises")]
+    public async Task<IActionResult> ListExercisesByDefaultWorkoutId(Guid defaultWorkoutId)
+    {
+        try
+        {
+            var response = await _exerciseService.ListExercisesByDefaultWorkoutId(defaultWorkoutId);
 
             return Ok(response);
         }

@@ -3,6 +3,7 @@ using GymTracker.Application;
 using GymTracker.Application.Services;
 using GymTracker.Domain.Repositories;
 using GymTracker.Infra.Data;
+using GymTracker.Infra.Data.DAOs.DefaultExercise;
 using GymTracker.Infra.Data.DAOs.DefaultWorkout;
 using GymTracker.Infra.Data.DAOs.Exercise;
 using GymTracker.Infra.Data.DAOs.User;
@@ -33,6 +34,7 @@ var builder = WebApplication.CreateBuilder(args);
     // DAOs
     builder.Services.AddScoped<IDefaultWorkoutDAO, DefaultWorkoutDAO>();
     builder.Services.AddScoped<IExerciseDAO, ExerciseDAO>();
+    builder.Services.AddScoped<IDefaultExerciseDAO, DefaultExerciseDAO>();
     builder.Services.AddScoped<IUserDAO, UserDAO>();
 
     // Services
