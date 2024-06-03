@@ -92,4 +92,19 @@ public class WorkoutController : ControllerBase
             return BadRequest(error.Message);
         }
     }
+
+    [HttpDelete("default_exercise")]
+    public async Task<IActionResult> DeleteDefaultExcercise(Guid defaultExerciseId)
+    {
+        try
+        {
+            await _defaultWorkoutService.DeleteDefaultExercise(defaultExerciseId);
+
+            return NoContent();
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
 }
