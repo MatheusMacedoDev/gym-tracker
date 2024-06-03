@@ -9,14 +9,18 @@ namespace GymTracker.Application.Services;
 public class DefaultWorkoutService : IDefaultWorkoutService
 {
     private readonly IWorkoutRepository _workoutRepository;
+    private readonly IExerciseRepository _exerciseRepository;
     private readonly IUnityOfWork _unityOfWork;
 
     private readonly IDefaultWorkoutDAO _defaultWorkoutDAO;
 
-    public DefaultWorkoutService(IWorkoutRepository workoutRepository, IUnityOfWork unityOfWork, IDefaultWorkoutDAO defaultWorkoutDAO)
+    public DefaultWorkoutService(IWorkoutRepository workoutRepository, IExerciseRepository exerciseRepository, IUnityOfWork unityOfWork, IDefaultWorkoutDAO defaultWorkoutDAO)
     {
         _workoutRepository = workoutRepository;
+        _exerciseRepository = exerciseRepository;
+
         _unityOfWork = unityOfWork;
+
         _defaultWorkoutDAO = defaultWorkoutDAO;
     }
 
@@ -47,5 +51,40 @@ public class DefaultWorkoutService : IDefaultWorkoutService
     public async Task<IEnumerable<DefaultWorkoutListItemDTO>> ListDefaultWorkoutByUserId(Guid userId)
     {
         return await _defaultWorkoutDAO.ListDefaultWorkoutsByUserId(userId);
+    }
+
+    public async Task DeleteDefaultWorkout(Guid defaultWorkoutId)
+    {
+        try
+        {
+            var defaultWorkout = await _workoutRepository.GetDefaultWorkoutById(defaultWorkoutId);
+
+            await _workoutRepository.DeleteDefaultWorkoutById(defaultWorkout);
+            await _unityOfWork.Commit();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task RegisterDefaultExercise(RegisterDefaultExerciseRequest request)
+    {
+        try
+        {
+            var defaultExercise = new DefaultExercise(
+                exerciseId: request.exerciseId,
+                defaultWorkoutId: request.defaultWorkoutId,
+                repetitionsRange: request.repetitionsRange,
+                seriesAmount: request.seriesAmount
+            );
+
+            await _exerciseRepository.RegisterDefaultExercise(defaultExercise);
+            await _unityOfWork.Commit();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
     }
 }
