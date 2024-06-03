@@ -8,12 +8,32 @@ namespace GymTracker.Application.Services.DiaryWorkouts;
 public class DiaryWorkoutService : IDiaryWorkoutService
 {
     private readonly IWorkoutRepository _workoutRepository;
+    private readonly IExerciseRepository _exerciseRepository;
     private readonly IUnityOfWork _unityOfWork;
 
-    public DiaryWorkoutService(IWorkoutRepository workoutRepository, IUnityOfWork unityOfWork)
+    public DiaryWorkoutService(IWorkoutRepository workoutRepository, IExerciseRepository exerciseRepository, IUnityOfWork unityOfWork)
     {
         _workoutRepository = workoutRepository;
+        _exerciseRepository = exerciseRepository;
         _unityOfWork = unityOfWork;
+    }
+
+    public async Task RegisterDiaryExercise(RegisterDiaryExerciseRequest request)
+    {
+        try
+        {
+            var diaryExercise = new DiaryExercise(
+                defaultExerciseId: request.defaultExerciseId,
+                diaryWorkoutId: request.diaryWorkoutId
+            );
+
+            await _exerciseRepository.RegisterDiaryExercise(diaryExercise);
+            await _unityOfWork.Commit();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
     }
 
     public async Task RegisterDiaryWorkout(RegisterDiaryWorkoutRequest request)

@@ -52,6 +52,21 @@ public class WorkoutController : ControllerBase
         }
     }
 
+    [HttpPost("diary_workout/diary_exercise")]
+    public async Task<IActionResult> RegisterDiaryExercise([FromBody] RegisterDiaryExerciseRequest request)
+    {
+        try
+        {
+            await _diaryWorkoutService.RegisterDiaryExercise(request);
+
+            return Created();
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
+
     [HttpGet("default_workout")]
     public async Task<IActionResult> ListDefaultWorkoutBySpecificUser(Guid userId)
     {
