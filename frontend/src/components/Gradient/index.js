@@ -12,3 +12,4 @@ const Gradient = styled(LinearGradient).attrs(props => ({
 `;
 
 export default Gradient;
+ 

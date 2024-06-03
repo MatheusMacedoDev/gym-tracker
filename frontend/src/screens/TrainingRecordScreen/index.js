@@ -1,4 +1,4 @@
-import { Container, Gradient } from "../../components/Container/style";
+import { Container } from "../../components/Container/style";
 import { IconButton } from "../../components/IconButton";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Logo } from "../../components/Logo";
@@ -11,6 +11,7 @@ import { ListComponent } from "../../components/List/style";
 import { ListContainer } from "../../components/ListContainer/style";
 import { useState } from "react";
 import { TouchableOpacity } from "react-native";
+import Gradient from "../../components/Gradient";
 
 const workouts = [
   { id: 1, trainingName: "Treino A", muscleGroups: "Peito - Triceps - costas" },
