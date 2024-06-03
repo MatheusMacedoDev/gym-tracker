@@ -6,7 +6,8 @@ import { useEffect, useState } from "react";
 import { Select } from "../components/Select";
 import { SelectPicker } from "../components/SelectPicker.js";
 import { Logo } from "../components/Logo/index.js";
-import { createCentimeterArray, createWeightArray } from "../Utils/arraysFactory.js";
+import { createWeightArray } from "../utils/arraysFactory.js";
+
 
 export const Rubens = () => {
   const [numberSeries, setNumberSeries] = useState();
