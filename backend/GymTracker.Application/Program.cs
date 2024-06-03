@@ -1,6 +1,7 @@
 using System.Text;
 using GymTracker.Application;
 using GymTracker.Application.Services;
+using GymTracker.Application.Services.DiaryWorkouts;
 using GymTracker.Domain.Repositories;
 using GymTracker.Infra.Data;
 using GymTracker.Infra.Data.DAOs.DefaultExercise;
@@ -40,6 +41,7 @@ var builder = WebApplication.CreateBuilder(args);
     // Services
     builder.Services.AddScoped<IUserService, UserService>();
     builder.Services.AddScoped<IDefaultWorkoutService, DefaultWorkoutService>();
+    builder.Services.AddScoped<IDiaryWorkoutService, DiaryWorkoutService>();
     builder.Services.AddScoped<IExerciseService, ExerciseService>();
 
     // Strategies Injections
