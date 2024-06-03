@@ -5,7 +5,7 @@ import { Button } from '../components/Button';
 
 const roundImageSource = require('../assets/Images/joaocantor.jpg');
 
-export const Joao = () => {
+export const Presentation = () => {
   return (
     <Gradient>
 
