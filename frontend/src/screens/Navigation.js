@@ -31,6 +31,9 @@ return(
         <TouchableOpacity style={{width:90,height:40, backgroundColor: 'orange', alignItems: "center", justifyContent:"center"}} onPress={() => {navigation.navigate("HeighRecordScreen")}}>
             <Text>Altura</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={{width:90,height:40, backgroundColor: 'orange', alignItems: "center", justifyContent:"center"}} onPress={() => {navigation.navigate("PresentationInitial")}}>
+            <Text>PresentationInitial</Text>
+        </TouchableOpacity>
     </View>
 )
 }

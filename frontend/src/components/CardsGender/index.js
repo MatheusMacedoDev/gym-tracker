@@ -21,7 +21,7 @@ export const CardsGender = () => {
           <FontAwesome name="check" size={14} color="white" style={{ top: 3, alignSelf: 'center' }} />
         </ViewCircle>
         <Overlay />
-        <ImagePerson source={require('../../assets/Images/Men.png')}/>
+        <ImagePerson source={require('../../Assets/Images/Men.png')}/>
         <GenderText>Masculino</GenderText> 
       </ButtonContainer>
 
@@ -30,7 +30,7 @@ export const CardsGender = () => {
           <FontAwesome name="check" size={14} color="white" style={{ top: 3, alignSelf: 'center' }} />
         </ViewCircle>
         <Overlay />
-        <ImagePerson source={require('../../assets/Images/Woman.png')}/>
+        <ImagePerson source={require('../../Assets/Images/Woman.png')}/>
         <GenderText>Feminino</GenderText>
       </ButtonContainer>
     </ContainerCards>

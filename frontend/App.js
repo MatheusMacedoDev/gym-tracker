@@ -26,7 +26,7 @@ import { AccountDataRegisterScreen } from "./src/screens/AccountDataRegisterScre
 import { WeightRecordScreen } from "./src/screens/WeightRecordScreen";
 import { GenderRegisterScreen } from "./src/screens/GenderRegisterScreen";
 import { HeighRecordScreen } from "./src/screens/HeightRecordScreen";
-
+import { PresentationInitial } from "./src/screens/PresentationInitial";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -66,6 +66,7 @@ export default function App() {
           component={ResetPasswordScreen}
         />
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
+        <Stack.Screen name="PresentationInitial" component={PresentationInitial} />
         <Stack.Screen name="BirthYearRegisterScreen" component={BirthYearRegisterScreen} />
         <Stack.Screen name="NameRegisterScreen" component={NameRegisterScreen} />
         <Stack.Screen name="AccountDataRegisterScreen" component={AccountDataRegisterScreen} />
