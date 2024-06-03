@@ -47,7 +47,7 @@ public class DiaryWorkoutService : IDiaryWorkoutService
 
             await _workoutRepository.CreateDiaryWorkout(diatyWorkout);
             await _unityOfWork.Commit();
-        } 
+        }
         catch (Exception)
         {
             throw;
