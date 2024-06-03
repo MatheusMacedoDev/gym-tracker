@@ -1,5 +1,6 @@
 using GymTracker.Application.Services;
 using GymTracker.Application.Services.Contracts;
+using GymTracker.Application.Services.Contracts.Requests;
 using GymTracker.Application.Services.DiaryWorkouts;
 using GymTracker.Application.Services.DiaryWorkouts.Contracts.Requests;
 using Microsoft.AspNetCore.Mvc;
@@ -120,6 +121,22 @@ public class WorkoutController : ControllerBase
             await _diaryWorkoutService.RegisterDiaryWorkout(request);
 
             return Created();
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
+
+    [HttpGet("diary_workout/exercises")]
+    public async Task<IActionResult> ListDiaryExercisesByDate(string date, Guid userId)
+    {
+        try
+        {
+            var request = new ListDiaryExercisesByDateRequest(date, userId);
+            var response = await _diaryWorkoutService.ListDiaryExercisesByDate(request);
+
+            return Ok(response);
         }
         catch (Exception error)
         {
