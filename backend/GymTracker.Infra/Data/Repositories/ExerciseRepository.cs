@@ -38,4 +38,9 @@ public class ExerciseRepository : IExerciseRepository
     {
         return await _context.MuscleGroups!.ToListAsync();
     }
+
+    public async Task RegisterDiaryExercise(DiaryExercise diaryExercise)
+    {
+        await _context.DiaryExercises!.AddAsync(diaryExercise);
+    }
 }
