@@ -7,21 +7,25 @@ import { Input } from "../components/Input/style";
 import { CalendarHome } from "../components/Calendar";
 import { CommandText } from "../components/CommandText/style";
 import { Container, Gradient } from "../components/Container/style";
+import { Button } from "../components/Button";
+import { NewWorkoutModal } from "../components/NewWorkoutModal";
 
 export const Eduardo = () => {
-    const [code, setCode] = useState('');
-    const [trainingDate, setTrainingDate] = useState('')
-
-    useEffect(() => {
-        console.log(trainingDate);
-    })
+    const [showModalNewWorkout, setShowModalNewWorkout] = useState()
 
 
     return (
         <Gradient>
             <Container>
             <Text style={{ marginTop: 100, marginBottom: 50 }}>TESTES</Text>
-             <CalendarHome setTrainingDate={setTrainingDate} />
+            <Button handleClickFn={() => setShowModalNewWorkout(true)}/>
+
+            
+            <NewWorkoutModal
+                    visible={showModalNewWorkout}
+                    setShowModalNewWorkout={setShowModalNewWorkout}
+            />
+
 
              </Container>
         </Gradient>

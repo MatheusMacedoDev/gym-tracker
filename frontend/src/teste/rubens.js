@@ -6,7 +6,9 @@ import { useEffect, useState } from "react";
 import { Select } from "../components/Select";
 import { SelectPicker } from "../components/SelectPicker.js";
 import { Logo } from "../components/Logo/index.js";
-import { createCentimeterArray, createWeightArray } from "../Utils/arraysFactory.js";
+import { createWeightArray } from "../utils/arraysFactory.js";
+import { CardWorkout } from "../components/CardWorkout/index.js";
+
 
 export const Rubens = () => {
   const [numberSeries, setNumberSeries] = useState();
@@ -47,14 +49,14 @@ export const Rubens = () => {
       </View>
 
       <Logo/>
-
-      <View style={{ height: 500, alignSelf: "center" }}>
-        <SelectPicker
-          onItemPress={setYearBirth}
-          valueNow={yearBirth}
-          list={createWeightArray()}
-        />
-      </View>     
+      <CardWorkout
+        trainingName="Treino A"
+        muscleGroups="Triceps - Biceps - Costas"
+      />
+      <CardWorkout
+        trainingName="Treino B"
+        muscleGroups="Triceps - Biceps - Costas"
+      />
     </SafeAreaView>
   );
 };

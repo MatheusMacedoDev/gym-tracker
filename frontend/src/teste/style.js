@@ -1,8 +1,12 @@
 import styled from "styled-components/native";
 
-export const Title = styled.Text`
-    font-family: 'Montserrat_700Bold';
-    font-size: ${props => `${props.fontSize}` || '36px'};
+export const ImageFIsic = styled.Image`
+
+`;
+
+export const Subtitulo = styled.Text`
+    font-family: 'Montserrat_400Regular';
+    font-size: ${props => `${props.fontSize || '14px'}`};
     color: #FFFFFF;
     align-self: center;
     margin-top: ${props => `${props.marginTop}` || '0px'};

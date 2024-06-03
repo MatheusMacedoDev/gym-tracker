@@ -3,11 +3,11 @@ import { IconButton } from "../../components/IconButton";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Logo } from "../../components/Logo";
 import { Title } from "../../components/Title/style";
-import { createCentimeterArray } from "../../Utils/arraysFactory";
 import { SelectPicker } from "../../components/SelectPicker.js";
 import { Button } from "../../components/Button";
 import { Entypo } from "@expo/vector-icons";
 import { useState } from "react";
+import { createCentimeterArray } from "../../utils/arraysFactory.js";
 
 export const HeighRecordScreen = () => {
   const [height, setHeight] = useState();
