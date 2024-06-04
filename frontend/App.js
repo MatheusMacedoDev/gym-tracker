@@ -31,6 +31,10 @@ import Joao from "./src/teste/joao";
 import { SelectExercise } from "./src/screens/SelectExercise";
 import { ExerciseRecord } from "./src/screens/ExerciseRecord";
 import { Home } from "./src/screens/Home";
+<<<<<<< HEAD
+=======
+import { RankingScreen } from "./src/screens/RankingScreen";
+>>>>>>> eduardo
 
 const Stack = createNativeStackNavigator();
 
@@ -71,9 +75,13 @@ export default function App() {
         <Stack.Screen name="GenderRegisterScreen" component={GenderRegisterScreen} />
         <Stack.Screen name="HeighRecordScreen" component={HeighRecordScreen} />
         <Stack.Screen name="TrainingRecordScrenn" component={TrainingRecordScrenn} />
+<<<<<<< HEAD
         <Stack.Screen name="SelectExercise" component={SelectExercise} />
         <Stack.Screen name="ExerciseRecord" component={ExerciseRecord} />
+=======
+>>>>>>> eduardo
       </Stack.Navigator>
+        <Stack.Screen name="RankingScreen" component={RankingScreen} />
     </NavigationContainer>
   );
 }
