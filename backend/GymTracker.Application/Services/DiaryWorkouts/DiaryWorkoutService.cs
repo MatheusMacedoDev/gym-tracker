@@ -7,6 +7,7 @@ using GymTracker.Infra.Data.UnityOfWork;
 
 namespace GymTracker.Application.Services.DiaryWorkouts;
 
+
 public class DiaryWorkoutService : IDiaryWorkoutService
 {
     private readonly IWorkoutRepository _workoutRepository;
@@ -72,6 +73,20 @@ public class DiaryWorkoutService : IDiaryWorkoutService
             );
 
             return exercisesList;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task DeleteDiaryWorkout(Guid diaryWorkoutId)
+    {
+        try
+        {
+            var diaryWorkout = await _workoutRepository.GetDiaryWorkoutById(diaryWorkoutId);
+            await _workoutRepository.DeleteDiaryWorkoutById(diaryWorkout);
+            await _unityOfWork.Commit();
         }
         catch (Exception)
         {
