@@ -48,19 +48,20 @@ export const CalendarHome = ({setTrainingDate}) => {
       minDate={startingDate}
       maxDate={endingDate}
       
-      //estilização dos itens que não estão selecionados
+
       calendarHeaderStyle={ styles.calendarHeaderStyle }
       dateNumberStyle={ styles.numberDateStyle }
       dateNameStyle={ styles.nameDateStyle }
-      // estilização do item que está selecionado - efeito do item marcado
+      dayContainerStyle={styles.dayContainerStyle}
+
       highlightDateNameStyle={ styles.selectedDateNameStyle }
       highlightDateNumberStyle={ styles.selectedDateNumberStyle }
       highlightDateContainerStyle={ styles.selectedContainerStyle }
 
-      //tamanho do container
+
       iconContainer={{ flex: 0.1 }}
       
-      //scroll da barra
+
       scrollable={true}
     />
   );
@@ -70,32 +71,33 @@ const styles = StyleSheet.create({
   iconsStyle : {
     display : 'none'
   },
+  selectedDateNameStyle : {
+    display: `none`
+  },
+  nameDateStyle : {
+    display: `none`
+  },
   calendarHeaderStyle : {
-    fontSize: 20,
-    textAlign: "center",
+    fontSize: 22,
     alignSelf : 'flex-start',
     color : 'white',
     fontFamily: "MontserratAlternates_600SemiBold",
-    paddingHorizontal: 16,
-  },
-  nameDateStyle : {
-    color: "#7B787F",
-    fontSize: 11,
-    textTransform : 'capitalize',
+    marginLeft: '10%'
   },
   numberDateStyle : {
     color: "#FF8434",
-    fontSize: 16
+    fontSize: 18,
   },
-  selectedDateNameStyle : {
-    color: "white",
-    fontSize: 11,
-    fontWeight: "bold",
-    textTransform : 'capitalize'
+  dayContainerStyle: {
+    borderColor: '#FF8434',
+    borderWidth: 1,
+    borderRadius: 30,
+    width: '80%',
+    height: '105%'
   },
   selectedDateNumberStyle : {
     color: "white",
-    fontSize: 14
+    fontSize: 20
   },
   selectedContainerStyle : {
     backgroundColor: `#FF8434`

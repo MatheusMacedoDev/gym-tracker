@@ -8,32 +8,32 @@ import { Logo } from "../../components/Logo"
 import { Title } from "../../components/Title/style"
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from "@expo/vector-icons";
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 export const AccountDataRegisterScreen = ({ navigation, route }) => {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [confirmPassword, setConfirmPassword] = useState("")
 
-    useEffect(() => {
-        console.log(route.params);
-    },[route])
 
     return (
         <Gradient>
             <Container>
                 <IconButton
+                handleClickFn={() => navigation.navigate("NameRegisterScreen")}
                     gradient={false}
                     icon={
                         <MaterialIcons name="reply" size={40} color={'#FB6614'} />
                     }
                 />
-                <Logo marginTop={'15%'} />
+                <Logo marginTop={'25%'} />
                 <Title marginTop={'5%'}>Dados da Conta</Title>
-                <CommandText textAlign={'center'} marginTop={'10%'}>{route.params.name} por favor, preencha os seus dados  para criar sua nova conta:</CommandText>
-                <Input marginTop={'20%'} placeholder="Nome de usuário..." />
-                <Input marginTop={'5%'} placeholder="E-mail..." />
-                <Input marginTop={'5%'} placeholder="Senha..." />
-                <Input marginTop={'5%'} placeholder="Confirme sua senha..." />
+                <CommandText textAlign={'center'} marginTop={'10%'}>{ route.params != null ? route.params.name : null} por favor, preencha os seus dados  para criar sua nova conta:</CommandText>
+                <Input marginTop={'20%'} placeholder="E-mail..." value={email} onChangeText={setEmail}/>
+                <Input marginTop={'5%'} placeholder="Senha..."  value={password} onChangeText={setPassword}/>
+                <Input marginTop={'5%'} placeholder="Confirme sua senha..."  value={confirmPassword} onChangeText={setConfirmPassword}/>
                 <Button
-                handleClickFn={() => navigation.navigate("GenderRegisterScreen")}
+                    handleClickFn={() => navigation.navigate("GenderRegisterScreen")}
                     marginTop={'15%'}
                     title="Continuar"
                     icon={(size, color) => (

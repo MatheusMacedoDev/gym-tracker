@@ -25,6 +25,7 @@ export const GradientButton = styled(LinearGradient).attrs({
     border-radius:15px;
     display: flex;
     flex-direction: row;
+    gap: 10px;
   `;
 
   export const ButtonText = styled.Text`

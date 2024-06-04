@@ -10,18 +10,19 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { createWeightArray } from "../../utils/arraysFactory.js";
 import Gradient from "../../components/Gradient/index.js";
 
-export const WeightRecordScreen = () => {
+export const WeightRecordScreen = ({navigation}) => {
   const [weight, setWeight] = useState();
 
   return (
     <Gradient>
       <Container>
         <IconButton
+        handleClickFn={() => navigation.navigate("BirthYearRegisterScreen")}
           gradient={false}
           icon={<MaterialIcons name="reply" size={40} color={"#FB6614"} />}
         />
         <Logo marginTop={"30%"} />
-        <Title fontSize={35} marginTop={"10%"}>
+        <Title marginTop={"10%"}>
           Qual o seu peso?
         </Title>
         <SelectPicker
@@ -30,6 +31,7 @@ export const WeightRecordScreen = () => {
           list={createWeightArray()}
         />
         <Button
+        handleClickFn={() => {navigation.navigate("HeighRecordScreen")}}
           marginTop={"20%"}
           title="Continuar"
           icon={(size, color) => (
