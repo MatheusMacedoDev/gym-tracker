@@ -1,19 +1,19 @@
 import { ContainerCard, ContainerInput, ContainerText } from "./Container/style";
-import { InputCharge, InputRepetitions } from "./Input/style";
+import { InputExercise } from "./Input/style";
 import { CardSubtitle, CardTitle } from "./Title/style";
 
-export const ExerciseSerieCard = () => {
+export const ExerciseSerieCard = ({serialNumber, reps, marginBottom}) => {
   return (
-    <ContainerCard>
+    <ContainerCard marginBottom={marginBottom}>
       <ContainerText>
-        <CardTitle>Serie 1</CardTitle>
-        <CardSubtitle>(10 Repetições)</CardSubtitle>
+        <CardTitle>Serie {serialNumber}</CardTitle>
+        <CardSubtitle>({reps} Repetições)</CardSubtitle>
       </ContainerText>
       <ContainerInput>
-        <InputCharge 
+        <InputExercise 
         placeholder="Kg..."
         />
-        <InputRepetitions 
+        <InputExercise 
         placeholder="0..."
         />
       </ContainerInput>

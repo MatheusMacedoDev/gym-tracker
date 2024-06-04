@@ -9,7 +9,8 @@ import { Logo } from "../components/Logo/index.js";
 import { createWeightArray } from "../utils/arraysFactory.js";
 import { CardWorkout } from "../components/CardWorkout/index.js";
 import { ExerciseSerieCard } from "../components/ExerciseSerieCard/index.js";
-
+import { ExerciseCard } from "../components/ExerciseCard/index.js";
+import { Fontisto } from '@expo/vector-icons';
 
 export const Rubens = () => {
   const [numberSeries, setNumberSeries] = useState();
@@ -55,7 +56,12 @@ export const Rubens = () => {
         muscleGroups="Triceps - Biceps - Costas"
         marginBottom={50}
       />
-      <ExerciseSerieCard/>
+      <ExerciseSerieCard marginBottom={"10%"}/>
+      <ExerciseCard
+        icon={(size, color) => (
+          <Fontisto name="trash" size={size} color={color} />
+      )}
+      />
       
     </SafeAreaView>
   );

@@ -8,6 +8,6 @@ public interface IDefaultWorkoutService
     Task<RegisterDefaultWorkoutResponse> RegisterDefaultWorkout(RegisterDefaultWorkoutRequest request);
     Task DeleteDefaultWorkout(Guid defaultWorkoutId);
     Task<IEnumerable<DefaultWorkoutListItemDTO>> ListDefaultWorkoutByUserId(Guid userId);
-
     Task RegisterDefaultExercise(RegisterDefaultExerciseRequest request);
+    Task DeleteDefaultExercise(Guid defaultExerciseId);
 }

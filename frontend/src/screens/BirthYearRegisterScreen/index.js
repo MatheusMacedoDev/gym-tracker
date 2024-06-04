@@ -17,19 +17,21 @@ export const BirthYearRegisterScreen = ({ navigation }) => {
         <Gradient>
             <Container>
             <IconButton
+            handleClickFn={() => navigation.navigate("GenderRegisterScreen")}
                 gradient={false}
                 icon={
                     <MaterialIcons name="reply" size={40} color={'#FB6614'} />
                 }
             />
             <Logo marginTop={'30%'} />
-            <Title fontSize={35} marginTop={'10%'}>Qual o seu ano de nascimento?</Title>
+            <Title marginTop={'10%'}>Qual o seu ano de nascimento?</Title>
             <SelectPicker
                 onItemPress={setYearBirth}
                 valueNow={yearBirth}
                 list={createArrayYears()}
             /> 
             <Button
+                handleClickFn={() => navigation.navigate("WeightRecordScreen")}
                 marginTop={'20%'}
                 title="Continuar"
                 icon={(size, color) => (

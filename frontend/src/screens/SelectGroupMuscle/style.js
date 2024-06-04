@@ -15,13 +15,13 @@ const ButtonContainer2 = styled.TouchableOpacity`
 const ButtonText2 = styled.Text`
   color: white;
   font-size: 16px;
-  margin-bottom: 8px; /* Add margin bottom here */
+  margin-bottom: 8px; 
 `;
 
 const ButtonImage = styled.Image`
   width: 80px; 
   height: 80px; 
-  margin-bottom: 12px; /* Add more margin bottom here */
+  margin-bottom: 12px;
 `;
 
 const BtnExcercise2 = ({ title, image, onPress }) => {

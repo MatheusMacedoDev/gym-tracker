@@ -8,6 +8,6 @@ height: 70%;
 align-items: center;
 position: absolute;
 bottom: 0;
-border: ${colors.white};
+border-top: ${colors.white};
 `
 

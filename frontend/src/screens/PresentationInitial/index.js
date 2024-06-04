@@ -7,7 +7,7 @@ import { Button } from '../../components/Button';
 import { ContainerPresentation } from '../Presentation/style';
 
 
-//const Fisic = require('../../assets/Images/background.png');
+const Fisic = require('../../assets/Images/background.png');
 
 export const PresentationInitial = ({ navigation }) => {
 
