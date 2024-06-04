@@ -4,9 +4,11 @@ import { colors } from "../../../colors.config";
 export const ContainerExerciseCard = styled.View`
     background-color: ${colors.darkGray};
     border-radius: 10px;
-    height: 10%;
+    height: 50px;
     width: 100%;
     flex-direction: row;
+    margin-top: ${props => props.marginTop ? `${props.marginTop}` : '0px'};
+    margin-bottom: ${props => props.marginBottom ? `${props.marginBottom}` : '0px'};
 `;
 
 export const ContainerIconTrash = styled.View`
