@@ -8,15 +8,10 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Text } from "react-native"
 import { Home } from "../Home";
 import Gradient from "../../components/Gradient";
+import { RankingScreen } from "../RankingScreen";
 
 export const Main = () => {
-    const Ranking = () => {
-        return (
-            <>
-                <Text>Ranking</Text>
-            </>
-        )
-    }
+
     const Profile = () => {
         return (
             <>
@@ -93,7 +88,7 @@ export const Main = () => {
                 />
                 <BottomTab.Screen
                     name="Ranking"
-                    component={Ranking}
+                    component={RankingScreen}
                 />
                 <BottomTab.Screen
                     name="Profile"

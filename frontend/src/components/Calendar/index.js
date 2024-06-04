@@ -92,8 +92,8 @@ const styles = StyleSheet.create({
     borderColor: '#FF8434',
     borderWidth: 1,
     borderRadius: 30,
-    width: '80%',
-    height: '105%'
+    width: '82%',
+    height: '96%'
   },
   selectedDateNumberStyle : {
     color: "white",

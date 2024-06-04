@@ -14,7 +14,7 @@ export const Home = () => {
     return(
         <Gradient>
             <Container>
-                <Logo widthLogo={110} heightLogo={60} marginTop={'7%'}/>
+                <Logo widthLogo={105} heightLogo={50} marginTop={'7%'}/>
                 <WelcomeContainer>
                     <ImageWelcome  resizeMode="cover" source={require("../../assets/joao.jpeg")}/>
                     <TextWelcome>Bem vindo,<Title fontSize={24}> Joao</Title></TextWelcome>
