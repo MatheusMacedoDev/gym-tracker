@@ -2,6 +2,7 @@ using GymTracker.Application.Services.Contracts.Requests;
 using GymTracker.Application.Services.Contracts.Responses;
 using GymTracker.Domain.Entities;
 using GymTracker.Domain.Repositories;
+using GymTracker.Infra.CloudStorage;
 using GymTracker.Infra.Data.DAOs.ProfileHistory;
 using GymTracker.Infra.Data.DAOs.User;
 using GymTracker.Infra.Data.UnityOfWork;
@@ -22,7 +23,9 @@ public class UserService : IUserService
     private readonly ICryptographyStrategy _cryptographyStrategy;
     private readonly ITokenStrategy _tokenStrategy;
 
-    public UserService(IUserRepository userRepository, IUnityOfWork unityOfWork, ICryptographyStrategy cryptographyStrategy, IProfileHistoryDAO profileHistoryDAO, IUserDAO userDAO, ITokenStrategy tokenStrategy)
+    private readonly ICloudStorage _cloudStorage;
+
+    public UserService(IUserRepository userRepository, IUnityOfWork unityOfWork, ICryptographyStrategy cryptographyStrategy, IProfileHistoryDAO profileHistoryDAO, IUserDAO userDAO, ITokenStrategy tokenStrategy, ICloudStorage cloudStorage)
     {
         _userRepository = userRepository;
         _unityOfWork = unityOfWork;
@@ -32,6 +35,8 @@ public class UserService : IUserService
 
         _cryptographyStrategy = cryptographyStrategy;
         _tokenStrategy = tokenStrategy;
+
+        _cloudStorage = cloudStorage;
     }
 
     public async Task<RegisterUserResponse> RegisterUser(RegisterUserRequest request)
@@ -129,7 +134,33 @@ public class UserService : IUserService
             var profileHistoryList = await _profileHistoryDAO.ListProfileHistoriesByUserId(userId);
             return profileHistoryList;
         }
-        catch(Exception)
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<ChangeUserProfileImageResponse> ChangeUserProfileImage(ChangeUserProfileImageRequest request)
+    {
+        try
+        {
+            if (request.profileImageFile == null)
+                throw new ArgumentException("Profile image file should not be empty.");
+
+            var user = await _userRepository.GetUserById(request.userId);
+            string newProfilePhotoUri = await _cloudStorage.UploadData(request.profileImageFile);
+
+            user.SetProfilePhoto(newProfilePhotoUri);
+
+            await _unityOfWork.Commit();
+
+            var response = new ChangeUserProfileImageResponse(
+                profileImageUri: user.ProfilePhoto!
+            );
+
+            return response;
+        }
+        catch (System.Exception)
         {
             throw;
         }

@@ -7,6 +7,9 @@ namespace GymTracker.Domain.Entities;
 [Table("users")]
 public class User
 {
+    [NotMapped]
+    private const string DEFAULT_PROFILE_PHOTO_URI = "https://gymtrackerblobstorage.blob.core.windows.net/gymtrackerblobcontainer/default_profile_image.png";
+
     [Key]
     [Column("user_id")]
     public Guid UserId { get; private set; }
@@ -56,6 +59,16 @@ public class User
         BirthYear = birthYear;
         Gender = gender;
 
+        ProfilePhoto = DEFAULT_PROFILE_PHOTO_URI;
+
         _cryptographyStrategy = cryptographyStrategy;
+    }
+
+    public void SetProfilePhoto(string photoUri)
+    {
+        if (String.IsNullOrEmpty(photoUri))
+            return;
+
+        ProfilePhoto = photoUri;
     }
 }

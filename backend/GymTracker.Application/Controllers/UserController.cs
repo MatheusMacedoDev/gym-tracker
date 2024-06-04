@@ -30,6 +30,22 @@ public class UserController : ControllerBase
         }
     }
 
+    [HttpPatch("update_profile_image")]
+    public async Task<IActionResult> UpdateProfileImage([FromForm] ChangeUserProfileImageRequest request)
+    {
+        try
+        {
+            var response = await _userService.ChangeUserProfileImage(request);
+
+            return StatusCode(200, response);
+        }
+        catch (System.Exception)
+        {
+
+            throw;
+        }
+    }
+
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
