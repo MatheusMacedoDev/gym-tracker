@@ -39,7 +39,7 @@ const renderItem = ({ item }) => (
   />
 );
 
-const Joao = () => {
+const SelectGroupMuscle = () => {
   const numColumns = 2;
 
   return (
@@ -70,4 +70,4 @@ const Joao = () => {
   );
 };
 
-export default Joao;
+export default SelectGroupMuscle;

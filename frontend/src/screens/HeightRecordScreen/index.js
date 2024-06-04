@@ -10,17 +10,18 @@ import { useState } from "react";
 import { createCentimeterArray } from "../../utils/arraysFactory.js";
 import Gradient from "../../components/Gradient/index.js";
 
-export const HeighRecordScreen = () => {
+export const HeighRecordScreen = ({navigation}) => {
   const [height, setHeight] = useState();
   return (
     <Gradient>
       <Container>
         <IconButton
+        handleClickFn={() => navigation.navigate("WeightRecordScreen")}
           gradient={false}
           icon={<MaterialIcons name="reply" size={40} color={"#FB6614"} />}
         />
         <Logo marginTop={"30%"} />
-        <Title fontSize={35} marginTop={"10%"}>
+        <Title marginTop={"10%"}>
           Qual a sua altura?
         </Title>
         <SelectPicker

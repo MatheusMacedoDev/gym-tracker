@@ -2,7 +2,6 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Eduardo } from "./src/teste/eduardo";
-import { Joao } from "./src/teste/joao";
 import { Rubens } from "./src/teste/rubens";
 import { Navigation } from "./src/screens/Navigation";
 import {
@@ -28,7 +27,14 @@ import { GenderRegisterScreen } from "./src/screens/GenderRegisterScreen";
 import { HeighRecordScreen } from "./src/screens/HeightRecordScreen";
 import { PresentationInitial } from "./src/screens/PresentationInitial";
 import { TrainingRecordScrenn } from "./src/screens/TrainingRecordScreen";
+import Joao from "./src/teste/joao";
+import { SelectExercise } from "./src/screens/SelectExercise";
 import { ExerciseRecord } from "./src/screens/ExerciseRecord";
+import { Home } from "./src/screens/Home";
+<<<<<<< HEAD
+=======
+import { RankingScreen } from "./src/screens/RankingScreen";
+>>>>>>> eduardo
 
 const Stack = createNativeStackNavigator();
 
@@ -53,21 +59,13 @@ export default function App() {
         <Stack.Screen name="Navigation" component={Navigation} />
         
         <Stack.Screen name="Main" component={Main} />
+        <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Eduardo" component={Eduardo} />
         <Stack.Screen name="Rubens" component={Rubens} />
         <Stack.Screen name="Joao" component={Joao} />
-
-        <Stack.Screen
-          name="RecoverPasswordScreen"
-          component={RecoverPasswordScreen}
-        />
-
+        <Stack.Screen name="RecoverPasswordScreen" component={RecoverPasswordScreen}/>
         <Stack.Screen name="EmailCodeScreen" component={EmailCodeScreen} />
-
-        <Stack.Screen
-          name="ResetPasswordScreen"
-          component={ResetPasswordScreen}
-        />
+        <Stack.Screen name="ResetPasswordScreen"component={ResetPasswordScreen}/>
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="PresentationInitial" component={PresentationInitial} />
         <Stack.Screen name="BirthYearRegisterScreen" component={BirthYearRegisterScreen} />
@@ -77,8 +75,13 @@ export default function App() {
         <Stack.Screen name="GenderRegisterScreen" component={GenderRegisterScreen} />
         <Stack.Screen name="HeighRecordScreen" component={HeighRecordScreen} />
         <Stack.Screen name="TrainingRecordScrenn" component={TrainingRecordScrenn} />
+<<<<<<< HEAD
+        <Stack.Screen name="SelectExercise" component={SelectExercise} />
         <Stack.Screen name="ExerciseRecord" component={ExerciseRecord} />
+=======
+>>>>>>> eduardo
       </Stack.Navigator>
+        <Stack.Screen name="RankingScreen" component={RankingScreen} />
     </NavigationContainer>
   );
 }
