@@ -36,7 +36,7 @@ export default function App() {
   const [fontsLoaded, fontsError] = useFonts({
     Montserrat_700Bold,
     Montserrat_600SemiBold,
-    Montserrat_400Regular,
+    Montserrat_400Regular
   });
 
   if (!fontsLoaded && !fontsError) {
