@@ -2,13 +2,14 @@ import { useState } from "react"
 import { Button } from "../../components/Button"
 import CodeInput from "../../components/CodeInput"
 import { CommandText } from "../../components/CommandText/style"
-import { Container, Gradient } from "../../components/Container/style"
+import { Container } from "../../components/Container/style"
 import { IconButton } from "../../components/IconButton"
 import { Title } from "../../components/Title/style"
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from "@expo/vector-icons";
-import { Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback } from "react-native"
+import { Keyboard, TouchableWithoutFeedback } from "react-native"
 import { Logo } from "../../components/Logo"
+import Gradient from "../../components/Gradient"
 
 export const EmailCodeScreen = ({ navigation }) => {
     const [code, setCode] = useState('');

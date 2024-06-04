@@ -146,9 +146,9 @@ namespace GymTracker.Infra.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("default_workout_id");
 
-                    b.Property<DateTime?>("WorkoutDate")
+                    b.Property<DateOnly?>("WorkoutDate")
                         .IsRequired()
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("date")
                         .HasColumnName("workout_date");
 
                     b.HasKey("DiaryWorkoutId");
@@ -278,7 +278,7 @@ namespace GymTracker.Infra.Migrations
                         .HasColumnName("user_id");
 
                     b.Property<float>("Weight")
-                        .HasColumnType("real")
+                        .HasColumnType("decimal(5, 2)")
                         .HasColumnName("weight");
 
                     b.HasKey("ProfileHistoryId");

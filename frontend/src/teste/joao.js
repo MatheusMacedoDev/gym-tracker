@@ -1,30 +1,26 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
-import LineChartComponent from '../components/Grafic/index'; // ajuste o caminho conforme necessário
+import { Gradient } from "../components/Container/style";
+import { ImageFIsic, Subtitulo } from './style';
+import { Logo } from '../components/Logo';
+import { Text } from "react-native"
+import { Title } from '../components/Title/style';
+import { Button } from '../components/Button';
+import { ContainerPresentation } from '../screens/Presentation/style';
 
-const data = {
-  labels: ["dom", "seg", "ter", "qua", "qui", "sex"],
-  datasets: [
-    {
-      data: [10, 50, 30, 20, 40, 60], // Exemplo de progressão linear
-      strokeWidth: 2, // optional
-      color: (opacity = 1) => `rgba(255, 152, 0, ${opacity})`, // Laranja para os pontos e linhas
-    }
-  ],
-  legend: ["Progressão ao longo do tempo"]
-};
-
+//const Fisic = require('../assets/Images/background.png');
 export const Joao = () => {
   return (
-    <SafeAreaView style={styles.container}>
-      <LineChartComponent data={data} />
-    </SafeAreaView>
+    <Gradient>
+      
+      <Logo marginTop={"-44"} heightLogo={40} widthLogo={80} />
+      <Title FontSize={20} marginTop={"3%"}>Bem Vindo ao{"\n"} Gym Tracker</Title>
+      <Subtitulo FontSize={12} marginTop={"2%"}>Seu app de treinos diarios</Subtitulo>
+      <ContainerPresentation>
+      <Button
+      marginTop={"10%"}
+        title="Continuar"
+      />
+      </ContainerPresentation>
+    </Gradient>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#000', // Mude a cor de fundo conforme necessário
-  },
-});

@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { createWeightArray } from "../../Utils/arraysFactory";
 import { Button } from "../../components/Button";
-import { Container, Gradient } from "../../components/Container/style";
+import { Container } from "../../components/Container/style";
 import { IconButton } from "../../components/IconButton";
 import { Logo } from "../../components/Logo";
 import { SelectPicker } from "../../components/SelectPicker.js";
 import { Title } from "../../components/Title/style";
 import { Entypo } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
+import { createWeightArray } from "../../utils/arraysFactory.js";
+import Gradient from "../../components/Gradient/index.js";
 
 export const WeightRecordScreen = () => {
   const [weight, setWeight] = useState();

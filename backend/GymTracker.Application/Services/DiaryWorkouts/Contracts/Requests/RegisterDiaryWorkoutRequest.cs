@@ -3,6 +3,6 @@
     public record RegisterDiaryWorkoutRequest
     (
         Guid defaultWorkoutId,
-        DateTime workoutDate
+        DateOnly workoutDate
     );
 }

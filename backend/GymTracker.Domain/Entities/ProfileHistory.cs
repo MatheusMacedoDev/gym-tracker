@@ -17,7 +17,7 @@ public class ProfileHistory
     // Metrics
 
     [Required]
-    [Column("weight")]
+    [Column("weight", TypeName = "decimal(5, 2)")]
     public float Weight { get; private set; }
 
     [Required]
@@ -58,10 +58,13 @@ public class ProfileHistory
     {
     }
 
-    public ProfileHistory(Guid userId, float? weight, short height, float? abdominalGirth, float? scapularGirth, float? hipGirth, float? armGirth, float? legGirth, float? bodyFat, string? evolutionPhoto)
+    public ProfileHistory(Guid userId, float weight, short height, float? abdominalGirth, float? scapularGirth, float? hipGirth, float? armGirth, float? legGirth, float? bodyFat, string? evolutionPhoto)
     {
         ProfileHistoryId = Guid.NewGuid();
-        ProfileDate = DateTime.Now;
+        ProfileDate = DateTime.UtcNow;
+
+        Weight = weight;
+        Height = height;
 
         AbdominalGirth = abdominalGirth;
         ScapularGirth = scapularGirth;
