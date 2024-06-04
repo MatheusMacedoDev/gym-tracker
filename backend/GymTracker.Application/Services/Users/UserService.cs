@@ -76,4 +76,46 @@ public class UserService : IUserService
             throw;
         }
     }
+
+    public async Task<RegisterProfileHistoryResponse> RegisterProfileHistory(RegisterProfileHistoryRequest request)
+    {
+        try
+        {
+            var profileHistory = new ProfileHistory(
+                userId: request.userId,
+                weight: request.weight,
+                height: request.height,
+                abdominalGirth: request.abdominalGirth,
+                scapularGirth: request.scapularGirth,
+                hipGirth: request.hipGirth,
+                armGirth: request.armGirth,
+                legGirth: request.armGirth,
+                bodyFat: request.bodyFat,
+                evolutionPhoto: request.evolution_photo
+            );
+
+            await _userRepository.CreateUserProfileHistory(profileHistory);
+            await _unityOfWork.Commit();
+
+            var response = new RegisterProfileHistoryResponse(
+                profileHistoryId: profileHistory.ProfileHistoryId,
+                userId: profileHistory.UserId,
+                weight: profileHistory.Weight,
+                height: profileHistory.Height,
+                evolution_photo: profileHistory.EvolutionPhoto,
+                abdominalGirth: profileHistory.AbdominalGirth,
+                scapularGirth: profileHistory.ScapularGirth,
+                hipGirth: profileHistory.HipGirth,
+                armGirth: profileHistory.ArmGirth,
+                legGirth: profileHistory.LegGirth,
+                bodyFat: profileHistory.BodyFat
+            );
+
+            return response;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
 }

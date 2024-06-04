@@ -27,4 +27,8 @@
     <ProjectReference Include="..\GymTracker.Utils\GymTracker.Utils.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\DiaryWorkouts\Contracts\Responses\" />
+  </ItemGroup>
+
 </Project>

@@ -33,6 +33,9 @@ return(
         </TouchableOpacity>
         <TouchableOpacity style={{width:90,height:40, backgroundColor: 'orange', alignItems: "center", justifyContent:"center"}} onPress={() => {navigation.navigate("PresentationInitial")}}>
             <Text>PresentationInitial</Text>
+            </TouchableOpacity>
+        <TouchableOpacity style={{width:90,height:40, backgroundColor: 'orange', alignItems: "center", justifyContent:"center"}} onPress={() => {navigation.navigate("TrainingRecordScrenn")}}>
+            <Text>Registro de treino</Text>
         </TouchableOpacity>
     </View>
 )

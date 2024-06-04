@@ -1,15 +1,14 @@
 import { useState } from "react"
 import { Button } from "../../components/Button"
-import { CommandText } from "../../components/CommandText/style"
-import {  Container, Gradient } from "../../components/Container/style"
+import {  Container } from "../../components/Container/style"
 import { IconButton } from "../../components/IconButton"
-import { Input } from "../../components/Input/style"
 import { Logo } from "../../components/Logo"
 import { SelectPicker } from "../../components/SelectPicker.js"
 import { Title } from "../../components/Title/style"
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from "@expo/vector-icons";
-import { createArrayYears } from "../../Utils/arraysFactory.js"
+import { createArrayYears } from "../../utils/arraysFactory.js"
+import Gradient from "../../components/Gradient/index.js"
 
 export const BirthYearRegisterScreen = ({ navigation }) => {
     const [yearBirth, setYearBirth] = useState(2000);

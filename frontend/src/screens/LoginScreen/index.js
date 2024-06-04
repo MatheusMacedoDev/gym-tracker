@@ -1,5 +1,6 @@
 import { Button } from "../../components/Button";
-import { Container, Gradient } from "../../components/Container/style";
+import { Container } from "../../components/Container/style";
+import Gradient from "../../components/Gradient";
 import { Input } from "../../components/Input/style";
 import { Link } from "../../components/Link/style";
 import { Logo } from "../../components/Logo";

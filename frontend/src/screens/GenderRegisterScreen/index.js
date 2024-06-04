@@ -1,11 +1,12 @@
 import { Button } from "../../components/Button"
-import {  Container, Gradient } from "../../components/Container/style"
+import {  Container } from "../../components/Container/style"
 import { IconButton } from "../../components/IconButton"
 import { Logo } from "../../components/Logo"
 import { Title } from "../../components/Title/style"
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from "@expo/vector-icons";
 import { CardsGender } from "../../components/CardsGender/index.js"
+import Gradient from "../../components/Gradient/index.js"
 
 export const GenderRegisterScreen = ({ navigation }) => {
 

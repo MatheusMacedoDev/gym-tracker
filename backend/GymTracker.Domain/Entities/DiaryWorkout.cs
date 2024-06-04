@@ -12,7 +12,7 @@ public class DiaryWorkout
 
     [Required]
     [Column("workout_date")]
-    public DateTime? WorkoutDate { get; private set; }
+    public DateOnly? WorkoutDate { get; private set; }
 
     // Default Workout Reference
 
@@ -27,7 +27,7 @@ public class DiaryWorkout
     {
     }
 
-    public DiaryWorkout(Guid defaultWorkoutId, DateTime workoutDate)
+    public DiaryWorkout(Guid defaultWorkoutId, DateOnly workoutDate)
     {
         DiaryWorkoutId = Guid.NewGuid();
         DefaultWorkoutId = defaultWorkoutId;
