@@ -2,6 +2,7 @@ using GymTracker.Application.Services.Contracts.Requests;
 using GymTracker.Application.Services.Contracts.Responses;
 using GymTracker.Domain.Entities;
 using GymTracker.Domain.Repositories;
+using GymTracker.Infra.Data.DAOs.ProfileHistory;
 using GymTracker.Infra.Data.DAOs.User;
 using GymTracker.Infra.Data.UnityOfWork;
 using GymTracker.Utils.Cryptography;
@@ -15,16 +16,18 @@ public class UserService : IUserService
     private readonly IUserRepository _userRepository;
     private readonly IUnityOfWork _unityOfWork;
 
+    private readonly IProfileHistoryDAO _profileHistoryDAO;
     private readonly IUserDAO _userDAO;
 
     private readonly ICryptographyStrategy _cryptographyStrategy;
     private readonly ITokenStrategy _tokenStrategy;
 
-    public UserService(IUserRepository userRepository, IUnityOfWork unityOfWork, ICryptographyStrategy cryptographyStrategy, IUserDAO userDAO, ITokenStrategy tokenStrategy)
+    public UserService(IUserRepository userRepository, IUnityOfWork unityOfWork, ICryptographyStrategy cryptographyStrategy, IProfileHistoryDAO profileHistoryDAO, IUserDAO userDAO, ITokenStrategy tokenStrategy)
     {
         _userRepository = userRepository;
         _unityOfWork = unityOfWork;
 
+        _profileHistoryDAO = profileHistoryDAO;
         _userDAO = userDAO;
 
         _cryptographyStrategy = cryptographyStrategy;
@@ -119,11 +122,11 @@ public class UserService : IUserService
         }
     }
 
-    public async Task<List<ProfileHistory>> ListProfileHistoryByUserId(Guid userId)
+    public async Task<IEnumerable<ProfileHistoryDTO>> ListProfileHistoryByUserId(Guid userId)
     {
         try
         {
-            var profileHistoryList = await _userRepository.ListUserProfileHistoryByUserId(userId);
+            var profileHistoryList = await _profileHistoryDAO.ListProfileHistoriesByUserId(userId);
             return profileHistoryList;
         }
         catch(Exception)
