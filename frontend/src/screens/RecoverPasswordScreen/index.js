@@ -20,6 +20,7 @@ export const RecoverPasswordScreen = ({ navigation }) => {
         <Gradient>
             <Container>
                 <IconButton
+                handleClickFn={() => navigation.navigate("LoginScreen")}
                     gradient={false}
                     icon={
                         <MaterialIcons name="reply" size={40} color={'#FB6614'} />
