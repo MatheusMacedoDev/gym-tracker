@@ -59,4 +59,19 @@ public class UserController : ControllerBase
             return BadRequest(error.ToString());
         }
     }
+
+    [HttpGet("profile_history")]
+    public async Task<IActionResult> RegisterProfileHistory(Guid userId)
+    {
+        try
+        {
+            var response = await _userService.ListProfileHistoryByUserId(userId);
+
+            return Ok(response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.ToString());
+        }
+    }
 }

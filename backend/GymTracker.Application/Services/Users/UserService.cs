@@ -118,4 +118,17 @@ public class UserService : IUserService
             throw;
         }
     }
+
+    public async Task<List<ProfileHistory>> ListProfileHistoryByUserId(Guid userId)
+    {
+        try
+        {
+            var profileHistoryList = await _userRepository.ListUserProfileHistoryByUserId(userId);
+            return profileHistoryList;
+        }
+        catch(Exception)
+        {
+            throw;
+        }
+    }
 }
