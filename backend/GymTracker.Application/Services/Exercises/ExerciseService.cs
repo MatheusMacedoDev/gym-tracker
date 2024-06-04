@@ -123,4 +123,40 @@ public class ExerciseService : IExerciseService
             throw;
         }
     }
+
+    public async Task<RegisterDiaryExerciseSerieResponse> RegisterDiaryExerciseSerie(RegisterDiaryExerciseSerieRequest request)
+    {
+        try
+        {
+            var exerciseRegistry = new DiaryExerciseSerie();
+
+            await _exerciseRepository.RegisterDiaryExerciseSerie(exerciseRegistry);
+
+            await _unityOfWork.Commit();
+
+            var response = new RegisterDiaryExerciseSerieResponse();
+
+            return response;
+
+            //var muscleGroup = new MuscleGroup(
+            //       groupName: request.groupName,
+            //       muscleImage: request.muscleImage!
+            //   );
+
+            //await _exerciseRepository.RegisterMuscleGroup(muscleGroup);
+            //await _unityOfWork.Commit();
+
+            //var response = new RegisterMuscleGroupResponse(
+            //    muscleGroupId: muscleGroup.MucleGroupId,
+            //    groupName: muscleGroup.GroupName!,
+            //    muscleImage: muscleGroup.MuscleImage!
+            //);
+
+            //return response;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
 }
