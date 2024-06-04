@@ -10,5 +10,5 @@ export const CardTitle = styled.Text`
 export const CardSubtitle = styled.Text`
     font-size: 14px;
     font-family: "Montserrat_400Regular";
-    color: ${colors.white};
+    color: ${colors.gray};
 `;

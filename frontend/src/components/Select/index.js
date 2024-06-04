@@ -17,7 +17,7 @@ export const Select = ({ setSelected, label }) => {
         marginTop: 10,
         backgroundColor: "#2F2C32",
       }}
-      arrowicon={<Image source={require('../../Assets/icons/MaskGroup.png')}/>}
+      arrowicon={<Image source={require('../../assets/icons/MaskGroup.png')}/>}
       search={false}
       placeholder="Nº"
       maxHeight={100}
