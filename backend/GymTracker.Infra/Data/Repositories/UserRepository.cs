@@ -28,4 +28,14 @@ public class UserRepository : IUserRepository
     {
         return await _context.ProfileHistories!.Where(profile => profile.UserId == userId).ToListAsync();
     }
+
+    public async Task<User> GetUserById(Guid userId)
+    {
+        var user = (await _context.Users!.FirstOrDefaultAsync(user => user.UserId == userId))!;
+
+        if (user == null)
+            throw new KeyNotFoundException("User with this id was not found.");
+
+        return user;
+    }
 }
