@@ -128,31 +128,25 @@ public class ExerciseService : IExerciseService
     {
         try
         {
-            var exerciseRegistry = new DiaryExerciseSerie();
+            var exerciseRegistry = new DiaryExerciseSerie(
+                serieNumber: request.serieNumber,
+                repetitions: request.repetitions,
+                overload: request.overload,
+                diaryExerciseId: request.diaryExerciseId
+            );
 
             await _exerciseRepository.RegisterDiaryExerciseSerie(exerciseRegistry);
 
             await _unityOfWork.Commit();
 
-            var response = new RegisterDiaryExerciseSerieResponse();
+            var response = new RegisterDiaryExerciseSerieResponse(
+                diaryExerciseSerieId: exerciseRegistry.DiaryExerciseSerieId,
+                serieNumber: exerciseRegistry.SerieNumber,
+                repetitions: exerciseRegistry.Repetitions,
+                overload: exerciseRegistry.Overload
+            );
 
             return response;
-
-            //var muscleGroup = new MuscleGroup(
-            //       groupName: request.groupName,
-            //       muscleImage: request.muscleImage!
-            //   );
-
-            //await _exerciseRepository.RegisterMuscleGroup(muscleGroup);
-            //await _unityOfWork.Commit();
-
-            //var response = new RegisterMuscleGroupResponse(
-            //    muscleGroupId: muscleGroup.MucleGroupId,
-            //    groupName: muscleGroup.GroupName!,
-            //    muscleImage: muscleGroup.MuscleImage!
-            //);
-
-            //return response;
         }
         catch (Exception)
         {
