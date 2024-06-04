@@ -44,4 +44,19 @@ public class UserController : ControllerBase
             return BadRequest(error.Message);
         }
     }
+
+    [HttpPost("profile_history")]
+    public async Task<IActionResult> RegisterProfileHistory([FromBody] RegisterProfileHistoryRequest request)
+    {
+        try
+        {
+            var response = await _userService.RegisterProfileHistory(request);
+
+            return StatusCode(201, response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.ToString());
+        }
+    }
 }

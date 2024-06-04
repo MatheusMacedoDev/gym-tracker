@@ -17,4 +17,9 @@ public class UserRepository : IUserRepository
     {
         await _context.Users!.AddAsync(user);
     }
+
+    public async Task CreateUserProfileHistory(ProfileHistory profileHistory)
+    {
+        await _context.ProfileHistories!.AddAsync(profileHistory);
+    }
 }

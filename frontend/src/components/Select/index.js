@@ -3,7 +3,7 @@ import { SelectList } from "react-native-dropdown-select-list";
 import { SelectContainer } from "./Container/style";
 import { LabelSelect } from "./Label/style";
 
-const seriesNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const seriesNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
 export const Select = ({ setSelected, label }) => {
   return (
@@ -12,9 +12,9 @@ export const Select = ({ setSelected, label }) => {
     <SelectList
       boxStyles={{
         width: "100%",
-        height: 50,
+        height: 45,
         alignItems: "center",
-        marginTop: 20,
+        marginTop: 10,
         backgroundColor: "#2F2C32",
       }}
       arrowicon={<Image source={require('../../assets/icons/MaskGroup.png')}/>}

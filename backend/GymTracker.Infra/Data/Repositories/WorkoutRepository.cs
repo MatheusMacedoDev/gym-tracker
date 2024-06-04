@@ -31,4 +31,22 @@ public class WorkoutRepository : IWorkoutRepository
         return _context.DefaultWorkouts!
             .FirstOrDefaultAsync(workout => workout.DefaultWorkoutId == defaultWorkoutId)!;
     }
+
+    public async Task CreateDiaryWorkout(DiaryWorkout diaryWorkout)
+    {
+        await _context.DiaryWorkouts!.AddAsync(diaryWorkout);
+    }
+
+
+    public Task DeleteDiaryWorkoutById(DiaryWorkout diaryWorkout)
+    {
+        _context.DiaryWorkouts!.Remove(diaryWorkout);
+        return Task.CompletedTask;
+    }
+
+    public async Task<DiaryWorkout> GetDiaryWorkoutById(Guid diaryWorkoutId)
+    {
+        return (await _context.DiaryWorkouts!
+            .FirstOrDefaultAsync(workout => workout.DiaryWorkoutId == diaryWorkoutId))!;
+    }
 }

@@ -50,4 +50,9 @@ public class ExerciseRepository : IExerciseRepository
         _context.DefaultExercises!.Remove(defaultExercise);
         return Task.CompletedTask;
     }
+
+    public async Task RegisterDiaryExercise(DiaryExercise diaryExercise)
+    {
+        await _context.DiaryExercises!.AddAsync(diaryExercise);
+    }
 }

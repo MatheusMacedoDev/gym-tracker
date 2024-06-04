@@ -1,4 +1,4 @@
-import { Container, Gradient } from "../../components/Container/style";
+import { Container } from "../../components/Container/style";
 import { IconButton } from "../../components/IconButton";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Logo } from "../../components/Logo";
@@ -8,6 +8,7 @@ import { Button } from "../../components/Button";
 import { Entypo } from "@expo/vector-icons";
 import { useState } from "react";
 import { createCentimeterArray } from "../../utils/arraysFactory.js";
+import Gradient from "../../components/Gradient/index.js";
 
 export const HeighRecordScreen = () => {
   const [height, setHeight] = useState();

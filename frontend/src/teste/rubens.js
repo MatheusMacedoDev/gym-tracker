@@ -8,6 +8,7 @@ import { SelectPicker } from "../components/SelectPicker.js";
 import { Logo } from "../components/Logo/index.js";
 import { createWeightArray } from "../utils/arraysFactory.js";
 import { CardWorkout } from "../components/CardWorkout/index.js";
+import { ExerciseSerieCard } from "../components/ExerciseSerieCard/index.js";
 
 
 export const Rubens = () => {
@@ -52,11 +53,10 @@ export const Rubens = () => {
       <CardWorkout
         trainingName="Treino A"
         muscleGroups="Triceps - Biceps - Costas"
+        marginBottom={50}
       />
-      <CardWorkout
-        trainingName="Treino B"
-        muscleGroups="Triceps - Biceps - Costas"
-      />
+      <ExerciseSerieCard/>
+      
     </SafeAreaView>
   );
 };
