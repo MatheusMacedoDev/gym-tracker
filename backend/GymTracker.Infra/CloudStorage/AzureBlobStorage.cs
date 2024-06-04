@@ -15,18 +15,16 @@ public class AzureBlobStorage : ICloudStorage
             .AddUserSecrets<AzureBlobStorage>()
             .Build();
 
-        _connectionString = config["AzureBlobStorage:ConnetionString"]!;
+        _connectionString = config["AzureBlobStorage:ConnectionString"]!;
         _containerName = config["AzureBlobStorage:ContainerName"]!;
     }
 
-    public async Task<string> UploadData(IFormFile fileData, string defaultReturnedUrl)
+    public async Task<string> UploadData(IFormFile fileData)
     {
         try
         {
             if (fileData == null)
-            {
-                return defaultReturnedUrl;
-            }
+                throw new ArgumentException("You should not upload no data.");
 
             var newblobName = Guid.NewGuid().ToString().Replace("-", "") + Path.GetExtension(fileData.FileName);
 
