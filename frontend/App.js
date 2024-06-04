@@ -33,6 +33,7 @@ import { ExerciseRecord } from "./src/screens/ExerciseRecord";
 import { Home } from "./src/screens/Home";
 import { RankingScreen } from "./src/screens/RankingScreen";
 import { DefaultWorkoutExerciseScreen } from "./src/screens/DefaultWorkoutExerciseScreen";
+import { DefaultWorkoutsScreen } from "./src/screens/DefaultWorkoutsScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -77,6 +78,7 @@ export default function App() {
         <Stack.Screen name="ExerciseRecord" component={ExerciseRecord} />
         <Stack.Screen name="RankingScreen" component={RankingScreen} />
         <Stack.Screen name="DefaultWorkoutExerciseScreen" component={DefaultWorkoutExerciseScreen} />
+        <Stack.Screen name="DefaultWorkoutsScreen" component={DefaultWorkoutsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
