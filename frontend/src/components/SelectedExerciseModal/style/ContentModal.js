@@ -2,12 +2,12 @@ import styled from "styled-components";
 import { colors } from "../../../colors.config";
 
 export default ContentModal = styled.View`
-border-radius: 15px;
-width: 90%;
-height: 45%;
+border-radius: 20px;
+width: 100%;
+height: 70%;
 align-items: center;
-align-self: center;
-margin-top: 50%;
+position: absolute;
+bottom: 0;
 border: ${colors.white};
 `
 
