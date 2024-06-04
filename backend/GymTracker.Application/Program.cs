@@ -3,6 +3,7 @@ using GymTracker.Application;
 using GymTracker.Application.Services;
 using GymTracker.Application.Services.DiaryWorkouts;
 using GymTracker.Domain.Repositories;
+using GymTracker.Infra.CloudStorage;
 using GymTracker.Infra.Data;
 using GymTracker.Infra.Data.DAOs.DefaultExercise;
 using GymTracker.Infra.Data.DAOs.DefaultWorkout;
@@ -25,6 +26,9 @@ var builder = WebApplication.CreateBuilder(args);
 
     // Adding DbContext
     builder.Services.AddDbContext<DataContext>();
+
+    // Cloud Storage
+    builder.Services.AddSingleton<ICloudStorage, AzureBlobStorage>();
 
     // UnityOfWork
     builder.Services.AddScoped<IUnityOfWork, UnityOfWork>();

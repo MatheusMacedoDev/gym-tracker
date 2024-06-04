@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.20.0" />
     <PackageReference Include="Dapper" Version="2.1.35" />
     <PackageReference Include="Flunt" Version="2.0.5" />
     <PackageReference Include="Handlebars.Net" Version="2.1.6" />
