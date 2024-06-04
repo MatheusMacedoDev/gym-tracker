@@ -62,7 +62,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("profile_history")]
-    public async Task<IActionResult> RegisterProfileHistory([FromBody] RegisterProfileHistoryRequest request)
+    public async Task<IActionResult> RegisterProfileHistory([FromForm] RegisterProfileHistoryRequest request)
     {
         try
         {

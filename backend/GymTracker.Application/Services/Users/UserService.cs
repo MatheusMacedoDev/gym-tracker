@@ -89,6 +89,15 @@ public class UserService : IUserService
     {
         try
         {
+            await _userRepository.GetUserById(request.userId);
+
+            string? newEvolutionPhotoUri = null;
+
+            if (request.evolutionPhoto != null)
+            {
+                newEvolutionPhotoUri = await _cloudStorage.UploadData(request.evolutionPhoto);
+            }
+
             var profileHistory = new ProfileHistory(
                 userId: request.userId,
                 weight: request.weight,
@@ -99,7 +108,7 @@ public class UserService : IUserService
                 armGirth: request.armGirth,
                 legGirth: request.armGirth,
                 bodyFat: request.bodyFat,
-                evolutionPhoto: request.evolution_photo
+                evolutionPhoto: newEvolutionPhotoUri
             );
 
             await _userRepository.CreateUserProfileHistory(profileHistory);
@@ -110,13 +119,13 @@ public class UserService : IUserService
                 userId: profileHistory.UserId,
                 weight: profileHistory.Weight,
                 height: profileHistory.Height,
-                evolution_photo: profileHistory.EvolutionPhoto,
                 abdominalGirth: profileHistory.AbdominalGirth,
                 scapularGirth: profileHistory.ScapularGirth,
                 hipGirth: profileHistory.HipGirth,
                 armGirth: profileHistory.ArmGirth,
                 legGirth: profileHistory.LegGirth,
-                bodyFat: profileHistory.BodyFat
+                bodyFat: profileHistory.BodyFat,
+                evolution_photo: profileHistory.EvolutionPhoto
             );
 
             return response;
