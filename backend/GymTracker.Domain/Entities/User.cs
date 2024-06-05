@@ -1,10 +1,12 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using GymTracker.Utils.Cryptography;
+using Microsoft.EntityFrameworkCore;
 
 namespace GymTracker.Domain.Entities;
 
 [Table("users")]
+[Index(nameof(Email), IsUnique = true)]
 public class User
 {
     [NotMapped]
