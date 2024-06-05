@@ -5,7 +5,6 @@ public record DiaryExerciseDTO
     Guid diaryExerciseId,
     string exerciseName,
     string exerciseGif,
-    string muscleGroups,
     string repetitionsRange,
     short originalSeriesAmount,
     short doneSeriesAmount
