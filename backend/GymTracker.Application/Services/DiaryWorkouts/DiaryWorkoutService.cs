@@ -1,8 +1,10 @@
 ﻿using GymTracker.Application.Services.Contracts.Requests;
+using GymTracker.Application.Services.Contracts.Responses;
 using GymTracker.Application.Services.DiaryWorkouts.Contracts.Requests;
 using GymTracker.Domain.Entities;
 using GymTracker.Domain.Repositories;
 using GymTracker.Infra.Data.DAOs.DiaryExercise;
+using GymTracker.Infra.Data.DAOs.DiaryWorkout;
 using GymTracker.Infra.Data.UnityOfWork;
 
 namespace GymTracker.Application.Services.DiaryWorkouts;
@@ -16,8 +18,9 @@ public class DiaryWorkoutService : IDiaryWorkoutService
     private readonly IUnityOfWork _unityOfWork;
 
     private readonly IDiaryExerciseDAO _diaryExerciseDAO;
+    private readonly IDiaryWorkoutDAO _diaryWorkoutDAO;
 
-    public DiaryWorkoutService(IWorkoutRepository workoutRepository, IExerciseRepository exerciseRepository, IUnityOfWork unityOfWork, IDiaryExerciseDAO diaryExerciseDAO)
+    public DiaryWorkoutService(IWorkoutRepository workoutRepository, IExerciseRepository exerciseRepository, IUnityOfWork unityOfWork, IDiaryExerciseDAO diaryExerciseDAO, IDiaryWorkoutDAO diaryWorkoutDAO)
     {
         _workoutRepository = workoutRepository;
         _exerciseRepository = exerciseRepository;
@@ -25,6 +28,7 @@ public class DiaryWorkoutService : IDiaryWorkoutService
         _unityOfWork = unityOfWork;
 
         _diaryExerciseDAO = diaryExerciseDAO;
+        _diaryWorkoutDAO = diaryWorkoutDAO;
     }
 
     public async Task RegisterDiaryExercise(RegisterDiaryExerciseRequest request)
@@ -63,16 +67,29 @@ public class DiaryWorkoutService : IDiaryWorkoutService
         }
     }
 
-    public async Task<IEnumerable<DiaryExerciseDTO>> ListDiaryExercisesByDate(ListDiaryExercisesByDateRequest request)
+    public async Task<ListDiaryExercisesByDateResponse> ListDiaryExercisesByDate(ListDiaryExercisesByDateRequest request)
     {
         try
         {
+            var diaryWorkout = await _diaryWorkoutDAO.GetDiaryWorkoutByDateAndUser(
+                date: request.date,
+                userId: request.userId
+            );
+
+            if (diaryWorkout == null)
+                return new ListDiaryExercisesByDateResponse("", null);
+
             var exercisesList = await _diaryExerciseDAO.ListDiaryExercisesByDate(
                 date: request.date,
                 userId: request.userId
             );
 
-            return exercisesList;
+            var response = new ListDiaryExercisesByDateResponse(
+                workoutName: diaryWorkout.workoutName,
+                diaryExercises: exercisesList
+            );
+
+            return response;
         }
         catch (Exception)
         {

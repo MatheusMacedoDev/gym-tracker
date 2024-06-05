@@ -13,7 +13,6 @@ import RankingCard from "../../components/RankingCard"
 const usuarios = [
     { id: 1, nome: "Rubens Moura", curtidas: '2,9' },
     { id: 2, nome: "Matheus Macedo", curtidas: '2,5' },
-    { id: 3, nome: "Gabriela Ramos", curtidas: '1,8' },
     { id: 4, nome: "Joao Oliveira", curtidas: '1,4' },
     { id: 5, nome: "Eduardo Pasqualetti", curtidas: '1,1' },
     { id: 5, nome: "Eduardo Pasqualetti", curtidas: '1,1' },

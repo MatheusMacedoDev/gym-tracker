@@ -58,8 +58,10 @@ public class ProfileHistory
     {
     }
 
-    public ProfileHistory(Guid userId, float weight, short height, float? abdominalGirth, float? scapularGirth, float? hipGirth, float? armGirth, float? legGirth, float? bodyFat, string? evolutionPhoto)
+    public ProfileHistory(DateTime lastHistoryDate, Guid userId, float weight, short height, float? abdominalGirth, float? scapularGirth, float? hipGirth, float? armGirth, float? legGirth, float? bodyFat, string? evolutionPhoto)
     {
+        SpaceBetweenProfileDatesValidation(lastHistoryDate);
+
         ProfileHistoryId = Guid.NewGuid();
         ProfileDate = DateTime.UtcNow;
 
@@ -75,6 +77,21 @@ public class ProfileHistory
         EvolutionPhoto = evolutionPhoto;
 
         UserId = userId;
+    }
+
+    void SpaceBetweenProfileDatesValidation(DateTime lastHistoryDate)
+    {
+        const int MIN_DAYS_BETWEEN_DATES = 7;
+
+        DateTime nextDateRealease = lastHistoryDate.AddDays(MIN_DAYS_BETWEEN_DATES).Date;
+        DateTime currentDate = DateTime.UtcNow.Date;
+
+        bool IS_CURRENT_DATE_INVALID = nextDateRealease > currentDate;
+
+        if (IS_CURRENT_DATE_INVALID)
+        {
+            throw new InvalidOperationException("You can not create a new profile history until 7 days");
+        }
     }
 }
 

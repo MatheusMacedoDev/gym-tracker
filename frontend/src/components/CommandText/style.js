@@ -7,6 +7,5 @@ export const CommandText = styled.Text`
     color: white;
     margin-top: ${props => `${props.marginTop}` || '0px'};
     margin-bottom: ${props => `${props.marginBottom}` || '0px'};
-    text-align: ${props => `${props.textAlign}` || 'left'}
-    
+    text-align: ${props => `${props.textAlign}` || 'left'};
 `;

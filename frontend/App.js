@@ -8,6 +8,11 @@ import {
   Montserrat_400Regular,
   Montserrat_600SemiBold,
   Montserrat_700Bold,
+<<<<<<< HEAD
+  Montserrat_300Light,
+=======
+  Montserrat_500Medium,
+>>>>>>> eduardo
   useFonts,
 } from "@expo-google-fonts/montserrat";
 import { Main } from "./src/screens/Main";
@@ -36,6 +41,7 @@ import { DefaultWorkoutsScreen } from "./src/screens/DefaultWorkoutsScreen";
 import SelectGroupMuscle from "./src/screens/SelectGroupMuscle";
 import { Presentation } from "./src/screens/Presentation";
 import PresentationInitial from "./src/screens/PresentationInitial";
+import { TrainingExercisesScreens } from "./src/screens/TrainingExercisesScreens";
 
 
 
@@ -45,7 +51,12 @@ export default function App() {
   const [fontsLoaded, fontsError] = useFonts({
     Montserrat_700Bold,
     Montserrat_600SemiBold,
-    Montserrat_400Regular
+    Montserrat_400Regular,
+<<<<<<< HEAD
+    Montserrat_300Light
+=======
+    Montserrat_500Medium
+>>>>>>> eduardo
   });
 
   if (!fontsLoaded && !fontsError) {
@@ -84,7 +95,7 @@ export default function App() {
         <Stack.Screen name="SelectGroupMuscle" component={SelectGroupMuscle} />
         <Stack.Screen name="Presentation" component={Presentation} />
         <Stack.Screen name="PresentationInitial" component={PresentationInitial} />
-        
+        <Stack.Screen name="TrainingExercisesScreens" component={TrainingExercisesScreens} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,4 +1,5 @@
 ﻿namespace GymTracker.Infra.Data.DAOs.DiaryExercise;
+
 public record DiaryExerciseDTO
 (
     Guid diaryExerciseId,

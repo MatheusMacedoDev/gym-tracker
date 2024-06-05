@@ -8,6 +8,7 @@ public interface IExerciseRepository
     Task RegisterExercise(Exercise exercise);
     Task RegisterDefaultExercise(DefaultExercise defaultExercise);
     Task RegisterDiaryExercise(DiaryExercise diaryExercise);
+    Task RegisterDiaryExerciseSerie(DiaryExerciseSerie diaryExerciseSerie);
     Task LinkExerciseAndMuscleGroup(ExerciseMuscleGroup exerciseMuscleGroup);
     Task<List<MuscleGroup>> ListAllMuscleGroups();
     Task<DefaultExercise> GetDefaultExerciseById(Guid defaultExerciseId);

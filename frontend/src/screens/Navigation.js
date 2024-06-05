@@ -2,8 +2,8 @@ import { Text, TouchableOpacity, View } from "react-native";
 
 export const Navigation = ({ navigation }) => {
   return (
-    <View style={{ width: '100%', height: 400, flexDirection: "column", justifyContent: "space-between", alignItems: 'center', marginTop: 150, alignSelf: "center" }}>
-      <TouchableOpacity style={{ width: 90, height: 40, backgroundColor: 'orange', alignItems: "center", justifyContent: "center", marginTop: -45 }} onPress={() => { navigation.navigate("Eduardo") }}>
+    <View style={{ width: '100%', height: 400, flexDirection: "column", justifyContent: "space-between", alignItems: 'center', marginTop: "10%", alignSelf: "center" }}>
+      <TouchableOpacity style={{ width: 90, height: 40, backgroundColor: 'orange', alignItems: "center", justifyContent: "center", marginTop: 5 }} onPress={() => { navigation.navigate("Eduardo") }}>
         <Text>EDUARDO</Text>
       </TouchableOpacity>
       <TouchableOpacity style={{ width: 90, height: 40, backgroundColor: 'orange', alignItems: "center", justifyContent: "center", marginTop: 5 }} onPress={() => { navigation.navigate("Rubens") }}>
@@ -53,6 +53,9 @@ export const Navigation = ({ navigation }) => {
       </TouchableOpacity>
       <TouchableOpacity style={{ width: 90, height: 40, backgroundColor: 'orange', alignItems: "center", justifyContent: "center", marginTop: 5 }} onPress={() => { navigation.navigate("PresentationInitial") }}>
         <Text>PresentationInitial</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={{ width: 90, height: 40, backgroundColor: 'orange', alignItems: "center", justifyContent: "center", marginTop: 5 }} onPress={() => { navigation.navigate("TrainingExercisesScreens") }}>
+        <Text>TrainingExercisesScreens</Text>
       </TouchableOpacity>
     </View>
   );

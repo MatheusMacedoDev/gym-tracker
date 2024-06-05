@@ -16,7 +16,7 @@ export const Eduardo = () => {
             <Container>
                 <Text style={{ marginTop: 100, marginBottom: 50 }}>TESTES</Text>
                 <Button handleClickFn={() => setShowModalExercise(true)} />
-
+        
 
                 <NewWorkoutModal
                     visible={showModalNewWorkout}

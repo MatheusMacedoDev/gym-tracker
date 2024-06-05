@@ -31,12 +31,27 @@ public class ExerciseController : ControllerBase
         }
     }
 
-    [HttpPost]
+    [HttpPost("exercises")]
     public async Task<IActionResult> RegisterExercise([FromBody] RegisterExerciseRequest request)
     {
         try
         {
             var response = await _exerciseService.RegisterExercise(request);
+
+            return StatusCode(201, response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
+
+    [HttpPost("diary_exercise_series")]
+    public async Task<IActionResult> RegisterDiaryExerciseSerie([FromBody] RegisterDiaryExerciseSerieRequest request)
+    {
+        try
+        {
+            var response = await _exerciseService.RegisterDiaryExerciseSerie(request);
 
             return StatusCode(201, response);
         }
