@@ -18,7 +18,7 @@ const workouts = [
   { id: 5, trainingName: "Treino E", muscleGroups: "Peito - Triceps - costas" },
 ];
 
-export const DefaultWorkoutsScreen = () => {
+export const DefaultWorkoutsScreen = ({ navigation }) => {
   const [selectedWorkout, setSelectedWorkout] = useState();
 
   return (
@@ -50,6 +50,7 @@ export const DefaultWorkoutsScreen = () => {
           />
         </ListContainer>
         <Button
+          handleClickFn={() => navigation.navigate("SelectGroupMuscle")}
           marginTop={"15%"}
           title="Adicionar treino"
           icon={(size, color) => (

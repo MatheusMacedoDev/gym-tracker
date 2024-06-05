@@ -34,6 +34,7 @@ import { Home } from "./src/screens/Home";
 import { RankingScreen } from "./src/screens/RankingScreen";
 import { DefaultWorkoutExerciseScreen } from "./src/screens/DefaultWorkoutExerciseScreen";
 import { DefaultWorkoutsScreen } from "./src/screens/DefaultWorkoutsScreen";
+import SelectGroupMuscle from "./src/screens/SelectGroupMuscle";
 
 const Stack = createNativeStackNavigator();
 
@@ -55,8 +56,7 @@ export default function App() {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="Navigation" component={Navigation} />
-        
+        <Stack.Screen name="Navigation" component={Navigation} />        
         <Stack.Screen name="Main" component={Main} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Eduardo" component={Eduardo} />
@@ -79,6 +79,7 @@ export default function App() {
         <Stack.Screen name="RankingScreen" component={RankingScreen} />
         <Stack.Screen name="DefaultWorkoutExerciseScreen" component={DefaultWorkoutExerciseScreen} />
         <Stack.Screen name="DefaultWorkoutsScreen" component={DefaultWorkoutsScreen} />
+        <Stack.Screen name="SelectGroupMuscle" component={SelectGroupMuscle} />
       </Stack.Navigator>
     </NavigationContainer>
   );
