@@ -32,9 +32,11 @@ public class TokenStrategy : ITokenStrategy
             var tokenDescriptor = new SecurityTokenDescriptor()
             {
                 Subject = new ClaimsIdentity(new Claim[] {
-                        new Claim(JwtRegisteredClaimNames.Jti, user.userId.ToString()),
-                        new Claim(ClaimTypes.Name, user.userName),
-                        }),
+                    new Claim(JwtRegisteredClaimNames.Jti, user.userId.ToString()),
+                    new Claim(ClaimTypes.Name, user.userName),
+                    new Claim("profile_image", user.profileImage == null ? "" : user.profileImage),
+                    new Claim("gender", user.gender.ToString())
+                }),
                 Expires = DateTime.UtcNow.AddHours(TokenExpirationHours),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };

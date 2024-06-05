@@ -14,22 +14,22 @@ export const Eduardo = () => {
     return (
         <Gradient>
             <Container>
-            <Text style={{ marginTop: 100, marginBottom: 50 }}>TESTES</Text>
-            <Button handleClickFn={() => setShowModalExercise(true)}/>
+                <Text style={{ marginTop: 100, marginBottom: 50 }}>TESTES</Text>
+                <Button handleClickFn={() => setShowModalExercise(true)} />
 
-            
-            <NewWorkoutModal
+
+                <NewWorkoutModal
                     visible={showModalNewWorkout}
                     setShowModalNewWorkout={setShowModalNewWorkout}
-            />
+                />
 
-            <SelectedExerciseModal
-            visible={showModalExercise}
-            setShowModalExercise={setShowModalExercise}
-            />
+                <SelectedExerciseModal
+                    visible={showModalExercise}
+                    setShowModalExercise={setShowModalExercise}
+                />
 
 
-             </Container>
+            </Container>
         </Gradient>
     )
 }

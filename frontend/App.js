@@ -8,6 +8,7 @@ import {
   Montserrat_400Regular,
   Montserrat_600SemiBold,
   Montserrat_700Bold,
+  Montserrat_300Light,
   useFonts,
 } from "@expo-google-fonts/montserrat";
 import { Main } from "./src/screens/Main";
@@ -25,16 +26,20 @@ import { AccountDataRegisterScreen } from "./src/screens/AccountDataRegisterScre
 import { WeightRecordScreen } from "./src/screens/WeightRecordScreen";
 import { GenderRegisterScreen } from "./src/screens/GenderRegisterScreen";
 import { HeighRecordScreen } from "./src/screens/HeightRecordScreen";
-import { PresentationInitial } from "./src/screens/PresentationInitial";
 import { TrainingRecordScrenn } from "./src/screens/TrainingRecordScreen";
 import Joao from "./src/teste/joao";
 import { SelectExercise } from "./src/screens/SelectExercise";
 import { ExerciseRecord } from "./src/screens/ExerciseRecord";
 import { Home } from "./src/screens/Home";
-<<<<<<< HEAD
-=======
 import { RankingScreen } from "./src/screens/RankingScreen";
->>>>>>> eduardo
+import { DefaultWorkoutExerciseScreen } from "./src/screens/DefaultWorkoutExerciseScreen";
+import { DefaultWorkoutsScreen } from "./src/screens/DefaultWorkoutsScreen";
+import SelectGroupMuscle from "./src/screens/SelectGroupMuscle";
+import { Presentation } from "./src/screens/Presentation";
+import PresentationInitial from "./src/screens/PresentationInitial";
+import { TrainingExercisesScreens } from "./src/screens/TrainingExercisesScreens";
+
+
 
 const Stack = createNativeStackNavigator();
 
@@ -42,7 +47,8 @@ export default function App() {
   const [fontsLoaded, fontsError] = useFonts({
     Montserrat_700Bold,
     Montserrat_600SemiBold,
-    Montserrat_400Regular
+    Montserrat_400Regular,
+    Montserrat_300Light
   });
 
   if (!fontsLoaded && !fontsError) {
@@ -56,8 +62,7 @@ export default function App() {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="Navigation" component={Navigation} />
-        
+        <Stack.Screen name="Navigation" component={Navigation} />        
         <Stack.Screen name="Main" component={Main} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Eduardo" component={Eduardo} />
@@ -67,7 +72,6 @@ export default function App() {
         <Stack.Screen name="EmailCodeScreen" component={EmailCodeScreen} />
         <Stack.Screen name="ResetPasswordScreen"component={ResetPasswordScreen}/>
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen name="PresentationInitial" component={PresentationInitial} />
         <Stack.Screen name="BirthYearRegisterScreen" component={BirthYearRegisterScreen} />
         <Stack.Screen name="NameRegisterScreen" component={NameRegisterScreen} />
         <Stack.Screen name="AccountDataRegisterScreen" component={AccountDataRegisterScreen} />
@@ -75,13 +79,16 @@ export default function App() {
         <Stack.Screen name="GenderRegisterScreen" component={GenderRegisterScreen} />
         <Stack.Screen name="HeighRecordScreen" component={HeighRecordScreen} />
         <Stack.Screen name="TrainingRecordScrenn" component={TrainingRecordScrenn} />
-<<<<<<< HEAD
         <Stack.Screen name="SelectExercise" component={SelectExercise} />
         <Stack.Screen name="ExerciseRecord" component={ExerciseRecord} />
-=======
->>>>>>> eduardo
-      </Stack.Navigator>
         <Stack.Screen name="RankingScreen" component={RankingScreen} />
+        <Stack.Screen name="DefaultWorkoutExerciseScreen" component={DefaultWorkoutExerciseScreen} />
+        <Stack.Screen name="DefaultWorkoutsScreen" component={DefaultWorkoutsScreen} />
+        <Stack.Screen name="SelectGroupMuscle" component={SelectGroupMuscle} />
+        <Stack.Screen name="Presentation" component={Presentation} />
+        <Stack.Screen name="PresentationInitial" component={PresentationInitial} />
+        <Stack.Screen name="TrainingExercisesScreens" component={TrainingExercisesScreens} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

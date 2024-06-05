@@ -73,9 +73,6 @@ namespace GymTracker.Infra.Migrations
 
                     b.HasKey("DefaultWorkoutId");
 
-                    b.HasIndex("DefaultWorkoutName")
-                        .IsUnique();
-
                     b.HasIndex("UserId");
 
                     b.ToTable("default_workouts");
@@ -332,6 +329,9 @@ namespace GymTracker.Infra.Migrations
                         .HasColumnName("profile_photo");
 
                     b.HasKey("UserId");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.ToTable("users");
                 });

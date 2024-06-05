@@ -11,6 +11,7 @@ import { CardWorkout } from "../components/CardWorkout/index.js";
 import { ExerciseSerieCard } from "../components/ExerciseSerieCard/index.js";
 import { ExerciseCard } from "../components/ExerciseCard/index.js";
 import { Fontisto } from '@expo/vector-icons';
+import ProfileBoxInput from "../components/ProfileBoxInput/index.js";
 
 export const Rubens = () => {
   const [numberSeries, setNumberSeries] = useState();
@@ -50,19 +51,11 @@ export const Rubens = () => {
         />
       </View>
 
-      <Logo/>
-      <CardWorkout
-        trainingName="Treino A"
-        muscleGroups="Triceps - Biceps - Costas"
-        marginBottom={50}
+      <ProfileBoxInput
+        placeholder={"Kg"}
+        labelText={"Peso"}
       />
-      <ExerciseSerieCard marginBottom={"10%"}/>
-      <ExerciseCard
-        icon={(size, color) => (
-          <Fontisto name="trash" size={size} color={color} />
-      )}
-      />
-      
+
     </SafeAreaView>
   );
 };

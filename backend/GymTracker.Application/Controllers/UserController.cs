@@ -30,6 +30,22 @@ public class UserController : ControllerBase
         }
     }
 
+    [HttpPatch("update_profile_image")]
+    public async Task<IActionResult> UpdateProfileImage([FromForm] ChangeUserProfileImageRequest request)
+    {
+        try
+        {
+            var response = await _userService.ChangeUserProfileImage(request);
+
+            return StatusCode(200, response);
+        }
+        catch (System.Exception)
+        {
+
+            throw;
+        }
+    }
+
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
@@ -46,13 +62,28 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("profile_history")]
-    public async Task<IActionResult> RegisterProfileHistory([FromBody] RegisterProfileHistoryRequest request)
+    public async Task<IActionResult> RegisterProfileHistory([FromForm] RegisterProfileHistoryRequest request)
     {
         try
         {
             var response = await _userService.RegisterProfileHistory(request);
 
             return StatusCode(201, response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.ToString());
+        }
+    }
+
+    [HttpGet("profile_history")]
+    public async Task<IActionResult> RegisterProfileHistory(Guid userId)
+    {
+        try
+        {
+            var response = await _userService.ListProfileHistoryByUserId(userId);
+
+            return Ok(response);
         }
         catch (Exception error)
         {

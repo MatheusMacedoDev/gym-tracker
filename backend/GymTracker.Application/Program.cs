@@ -3,11 +3,14 @@ using GymTracker.Application;
 using GymTracker.Application.Services;
 using GymTracker.Application.Services.DiaryWorkouts;
 using GymTracker.Domain.Repositories;
+using GymTracker.Infra.CloudStorage;
 using GymTracker.Infra.Data;
 using GymTracker.Infra.Data.DAOs.DefaultExercise;
 using GymTracker.Infra.Data.DAOs.DefaultWorkout;
 using GymTracker.Infra.Data.DAOs.DiaryExercise;
+using GymTracker.Infra.Data.DAOs.DiaryWorkout;
 using GymTracker.Infra.Data.DAOs.Exercise;
+using GymTracker.Infra.Data.DAOs.ProfileHistory;
 using GymTracker.Infra.Data.DAOs.User;
 using GymTracker.Infra.Data.UnityOfWork;
 using GymTracker.Infra.Repositories;
@@ -28,6 +31,9 @@ var builder = WebApplication.CreateBuilder(args);
     // Adding DbContext
     builder.Services.AddDbContext<DataContext>();
 
+    // Cloud Storage
+    builder.Services.AddSingleton<ICloudStorage, AzureBlobStorage>();
+
     // UnityOfWork
     builder.Services.AddScoped<IUnityOfWork, UnityOfWork>();
 
@@ -38,9 +44,11 @@ var builder = WebApplication.CreateBuilder(args);
 
     // DAOs
     builder.Services.AddScoped<IDefaultWorkoutDAO, DefaultWorkoutDAO>();
+    builder.Services.AddScoped<IDiaryWorkoutDAO, DiaryWorkoutDAO>();
     builder.Services.AddScoped<IExerciseDAO, ExerciseDAO>();
     builder.Services.AddScoped<IDefaultExerciseDAO, DefaultExerciseDAO>();
     builder.Services.AddScoped<IDiaryExerciseDAO, DiaryExerciseDAO>();
+    builder.Services.AddScoped<IProfileHistoryDAO, ProfileHistoryDAO>();
     builder.Services.AddScoped<IUserDAO, UserDAO>();
 
     // Services
