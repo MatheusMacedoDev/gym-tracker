@@ -98,7 +98,10 @@ public class UserService : IUserService
                 newEvolutionPhotoUri = await _cloudStorage.UploadData(request.evolutionPhoto);
             }
 
+            var lastProfileHistory = await _profileHistoryDAO.GetLastProfileHistoryByUserId(request.userId);
+
             var profileHistory = new ProfileHistory(
+                lastHistoryDate: lastProfileHistory.profileDate,
                 userId: request.userId,
                 weight: request.weight,
                 height: request.height,
