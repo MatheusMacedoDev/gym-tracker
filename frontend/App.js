@@ -36,6 +36,7 @@ import { DefaultWorkoutsScreen } from "./src/screens/DefaultWorkoutsScreen";
 import SelectGroupMuscle from "./src/screens/SelectGroupMuscle";
 import { Presentation } from "./src/screens/Presentation";
 import PresentationInitial from "./src/screens/PresentationInitial";
+import { TrainingExercisesScreens } from "./src/screens/TrainingExercisesScreens";
 
 
 
@@ -84,7 +85,7 @@ export default function App() {
         <Stack.Screen name="SelectGroupMuscle" component={SelectGroupMuscle} />
         <Stack.Screen name="Presentation" component={Presentation} />
         <Stack.Screen name="PresentationInitial" component={PresentationInitial} />
-        
+        <Stack.Screen name="TrainingExercisesScreens" component={TrainingExercisesScreens} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -7,9 +7,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { Title } from '../../components/Title/style';
 import { Button } from '../../components/Button';
 import BtnExcercise2 from './style';
-import Gradient from '../../components/Gradient';
-import { ContainerPresentation } from '../Presentation/style';
-import { IconButton } from '../../components/IconButton';
+
 
 
 import Ombro from '../../assets/Images/Ombro.png';
