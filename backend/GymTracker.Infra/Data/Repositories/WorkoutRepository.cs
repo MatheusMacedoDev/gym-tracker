@@ -36,4 +36,17 @@ public class WorkoutRepository : IWorkoutRepository
     {
         await _context.DiaryWorkouts!.AddAsync(diaryWorkout);
     }
+
+
+    public Task DeleteDiaryWorkoutById(DiaryWorkout diaryWorkout)
+    {
+        _context.DiaryWorkouts!.Remove(diaryWorkout);
+        return Task.CompletedTask;
+    }
+
+    public async Task<DiaryWorkout> GetDiaryWorkoutById(Guid diaryWorkoutId)
+    {
+        return (await _context.DiaryWorkouts!
+            .FirstOrDefaultAsync(workout => workout.DiaryWorkoutId == diaryWorkoutId))!;
+    }
 }

@@ -113,6 +113,35 @@ public class WorkoutController : ControllerBase
         }
     }
 
+    [HttpDelete("diary_workout")]
+    public async Task<IActionResult> DeleteDiaryWorkout(Guid diaryWorkoutId)
+    {
+        try
+        {
+            await _diaryWorkoutService.DeleteDiaryWorkout(diaryWorkoutId);
+            return NoContent();
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
+
+    [HttpDelete("default_exercise")]
+    public async Task<IActionResult> DeleteDefaultExcercise(Guid defaultExerciseId)
+    {
+        try
+        {
+            await _defaultWorkoutService.DeleteDefaultExercise(defaultExerciseId);
+
+            return NoContent();
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
+
     [HttpPost("diary_workout")]
     public async Task<IActionResult> RegisterDiaryWorkout([FromBody] RegisterDiaryWorkoutRequest request)
     {
