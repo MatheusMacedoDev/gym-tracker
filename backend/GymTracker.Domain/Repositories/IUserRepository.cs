@@ -8,6 +8,9 @@ public interface IUserRepository
     Task CreateUserProfileHistory(ProfileHistory profileHistory);
     Task CreateUserLike(UserLike userLike);
 
+    void RemoveUserLike(UserLike userLike);
+
     Task<List<ProfileHistory>> ListUserProfileHistoryByUserId(Guid userId);
     Task<User> GetUserById(Guid userId);
+    Task<UserLike> GetUserLikeById(Guid userLikeId);
 }

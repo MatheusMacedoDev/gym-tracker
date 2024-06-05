@@ -105,4 +105,19 @@ public class UserController : ControllerBase
             return BadRequest(error.ToString());
         }
     }
+
+    [HttpDelete("user_like")]
+    public async Task<IActionResult> DeleteUserLike(Guid userLikeId)
+    {
+        try
+        {
+            await _userService.RemoveUserLike(userLikeId);
+
+            return NoContent();
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.ToString());
+        }
+    }
 }

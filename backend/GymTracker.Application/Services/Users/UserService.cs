@@ -203,4 +203,22 @@ public class UserService : IUserService
             throw;
         }
     }
+
+    public async Task RemoveUserLike(Guid userLikeId)
+    {
+        try
+        {
+            var userLike = await _userRepository.GetUserLikeById(userLikeId);
+
+            if (userLike == null)
+                throw new Exception("User like not found");
+
+            _userRepository.RemoveUserLike(userLike);
+            await _unityOfWork.Commit();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
 }

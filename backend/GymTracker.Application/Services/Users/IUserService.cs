@@ -13,4 +13,6 @@ public interface IUserService
 
     Task<RegisterProfileHistoryResponse> RegisterProfileHistory(RegisterProfileHistoryRequest request);
     Task<IEnumerable<ProfileHistoryDTO>> ListProfileHistoryByUserId(Guid userId);
+
+    Task RemoveUserLike(Guid userLikeId);
 }
