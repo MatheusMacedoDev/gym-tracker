@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Options;
 using MimeKit;
 
-namespace GymTracker.Utils.Mail
+namespace GymTracker.Infra.Mail
 {
     public class EmailService : IEmailService
     {

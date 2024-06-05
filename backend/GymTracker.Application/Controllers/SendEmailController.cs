@@ -67,7 +67,7 @@ namespace GymTracker.Application.Controllers
                     </div>
                 </div>";
 
-            // Retorna o conteúdo HTML do e-mail
+            // Return the HTML content
             return Response;
         }
     }

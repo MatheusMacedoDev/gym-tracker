@@ -1,4 +1,4 @@
-﻿namespace GymTracker.Utils.Mail
+﻿namespace GymTracker.Infra.Mail
 {
     public class EmailSendingService
     {

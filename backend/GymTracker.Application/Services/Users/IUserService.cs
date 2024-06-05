@@ -9,7 +9,6 @@ public interface IUserService
     Task<RegisterUserResponse> RegisterUser(RegisterUserRequest request);
     Task<ChangeUserProfileImageResponse> ChangeUserProfileImage(ChangeUserProfileImageRequest request);
     Task<LoginResponse> Login(LoginRequest request);
-
     Task<RegisterProfileHistoryResponse> RegisterProfileHistory(RegisterProfileHistoryRequest request);
     Task<IEnumerable<ProfileHistoryDTO>> ListProfileHistoryByUserId(Guid userId);
 }
