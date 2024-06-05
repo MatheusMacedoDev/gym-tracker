@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 
-export const WelcomeContainer = styled.SafeAreaView`
+export default WelcomeContainer = styled.SafeAreaView`
     flex-direction: row;
     gap: 5%;
     height: 7%;

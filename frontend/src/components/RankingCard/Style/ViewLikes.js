@@ -1,6 +1,6 @@
 import styled from "styled-components/native";
 
-export const ViewLikes = styled.View`
+export default ViewLikes = styled.View`
     height: 60%;
     flex-direction: row;
     gap: 10px;

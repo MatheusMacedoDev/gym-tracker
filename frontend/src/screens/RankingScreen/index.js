@@ -7,9 +7,8 @@ import { Title } from "../../components/Title/style"
 import { RankingTitle } from "./Style/RankingTitle"
 import { ListContainer } from "../../components/ListContainer/style"
 import { ListComponent } from "../../components/List/style"
-import { RankingCard } from "../../components/RankingCard"
+import RankingCard from "../../components/RankingCard"
 
-import photo from "../../assets/joao.jpeg"
 
 const usuarios = [
     { id: 1, nome: "Rubens Moura", curtidas: '2,9' },

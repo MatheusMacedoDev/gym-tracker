@@ -1,12 +1,13 @@
 import { colors } from "../../colors.config";
-import { ContainerRankingCard } from "./Style/ContainerRankingCard"
-import { ImagePersonRanking } from "./Style/ImagePersonRanking"
-import { NamePersonRanking } from "./Style/NamePersonRanking"
 import { AntDesign } from '@expo/vector-icons';
-import { ViewLikes } from "./Style/ViewLikes";
-import { TextNumbersRanking } from "./Style/TextNumbersRanking";
+import ContainerRankingCard from "./Style/ContainerRankingCard";
+import ImagePersonRanking from "./Style/ImagePersonRanking";
+import NamePersonRanking from "./Style/NamePersonRanking";
+import TextNumbersRanking from "./Style/TextNumbersRanking";
+import ViewLikes from "./Style/ViewLikes";
 
-export const RankingCard = ({ name, likes, sequentialNumber }) => {
+
+export default RankingCard = ({ name, likes, sequentialNumber }) => {
     return (
         <ContainerRankingCard>
             <TextNumbersRanking>{sequentialNumber}°</TextNumbersRanking>
