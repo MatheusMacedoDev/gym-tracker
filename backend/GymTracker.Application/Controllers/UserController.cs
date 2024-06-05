@@ -106,6 +106,21 @@ public class UserController : ControllerBase
         }
     }
 
+    [HttpGet("user_like/users")]
+    public async Task<IActionResult> GetLikesByUserId(Guid userId)
+    {
+        try
+        {
+            var response = await _userService.GetLikesByUserID(userId);
+
+            return Ok(response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.ToString());
+        }
+    }
+
     [HttpDelete("user_like")]
     public async Task<IActionResult> DeleteUserLike(Guid userLikeId)
     {
