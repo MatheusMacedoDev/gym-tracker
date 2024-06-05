@@ -3,9 +3,9 @@ import { ContainerText, TextTitle, RoundImage, TextDescription, TextContainer, C
 import { Button } from '../components/Button';
 import Gradient from '../../components/Gradient';
 
-const roundImageSource = require('../assets/Images/joaocantor.jpg');
+const roundImageSource = require('../../assets/Images/joaocantor.jpg');
 
-export const Presentation = () => {
+export const Presentation = ({navigation}) => {
   return (
     <Gradient>
 
@@ -41,3 +41,4 @@ export const Presentation = () => {
     </Gradient>
   );
 };
+export default Presentation;

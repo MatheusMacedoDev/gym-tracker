@@ -25,7 +25,6 @@ import { AccountDataRegisterScreen } from "./src/screens/AccountDataRegisterScre
 import { WeightRecordScreen } from "./src/screens/WeightRecordScreen";
 import { GenderRegisterScreen } from "./src/screens/GenderRegisterScreen";
 import { HeighRecordScreen } from "./src/screens/HeightRecordScreen";
-import { PresentationInitial } from "./src/screens/PresentationInitial";
 import { TrainingRecordScrenn } from "./src/screens/TrainingRecordScreen";
 import Joao from "./src/teste/joao";
 import { SelectExercise } from "./src/screens/SelectExercise";
@@ -35,6 +34,10 @@ import { RankingScreen } from "./src/screens/RankingScreen";
 import { DefaultWorkoutExerciseScreen } from "./src/screens/DefaultWorkoutExerciseScreen";
 import { DefaultWorkoutsScreen } from "./src/screens/DefaultWorkoutsScreen";
 import SelectGroupMuscle from "./src/screens/SelectGroupMuscle";
+import { Presentation } from "./src/screens/Presentation";
+import PresentationInitial from "./src/screens/PresentationInitial";
+
+
 
 const Stack = createNativeStackNavigator();
 
@@ -66,7 +69,6 @@ export default function App() {
         <Stack.Screen name="EmailCodeScreen" component={EmailCodeScreen} />
         <Stack.Screen name="ResetPasswordScreen"component={ResetPasswordScreen}/>
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen name="PresentationInitial" component={PresentationInitial} />
         <Stack.Screen name="BirthYearRegisterScreen" component={BirthYearRegisterScreen} />
         <Stack.Screen name="NameRegisterScreen" component={NameRegisterScreen} />
         <Stack.Screen name="AccountDataRegisterScreen" component={AccountDataRegisterScreen} />
@@ -80,6 +82,9 @@ export default function App() {
         <Stack.Screen name="DefaultWorkoutExerciseScreen" component={DefaultWorkoutExerciseScreen} />
         <Stack.Screen name="DefaultWorkoutsScreen" component={DefaultWorkoutsScreen} />
         <Stack.Screen name="SelectGroupMuscle" component={SelectGroupMuscle} />
+        <Stack.Screen name="Presentation" component={Presentation} />
+        <Stack.Screen name="PresentationInitial" component={PresentationInitial} />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );

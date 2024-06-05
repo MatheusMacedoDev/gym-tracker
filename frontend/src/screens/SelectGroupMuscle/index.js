@@ -1,5 +1,8 @@
 import React from 'react';
 import { FlatList, Image } from 'react-native';
+import Gradient from '../../components/Gradient';
+import { ContainerPresentation } from '../../screens/Presentation/style';
+import { IconButton } from '../../components/IconButton';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Title } from '../../components/Title/style';
 import { Button } from '../../components/Button';
@@ -39,7 +42,7 @@ const renderItem = ({ item }) => (
   />
 );
 
-const SelectGroupMuscle = () => {
+const SelectGroupMuscle = ({navigation}) => {
   const numColumns = 2;
 
   return (
