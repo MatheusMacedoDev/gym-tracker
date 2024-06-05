@@ -1,11 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace GymTracker.Domain.Entities;
 
 [Table("default_workouts")]
-[Index(nameof(DefaultWorkoutName), IsUnique = true)]
 public class DefaultWorkout
 {
     [Key]
