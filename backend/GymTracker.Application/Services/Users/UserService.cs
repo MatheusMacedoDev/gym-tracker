@@ -177,4 +177,30 @@ public class UserService : IUserService
             throw;
         }
     }
+
+    public async Task<RegisterUserLikeResponse> RegisterUserLike(RegisterUserLikeRequest request)
+    {
+        try
+        {
+            var userLike = new UserLike(
+                senderUserId: request.senderUserId,
+                receiverUserId: request.receiverUserId
+            );
+
+            await _userRepository.CreateUserLike(userLike);
+            await _unityOfWork.Commit();
+
+            var response = new RegisterUserLikeResponse(
+                userLikeId: userLike.UserLikeId,
+                senderUserId: userLike.SenderUserId,
+                receiverUserId: userLike.ReceiverUserId
+            );
+
+            return response;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
 }

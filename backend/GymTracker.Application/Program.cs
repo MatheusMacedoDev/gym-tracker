@@ -65,10 +65,10 @@ var builder = WebApplication.CreateBuilder(args);
     var key = Encoding.ASCII.GetBytes(builder.Configuration["Token:SecurityKey"]!);
 
     // Email Settings
-    builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection(nameof(EmailSettings)));
-    builder.Services.AddScoped<EmailSendingService>();
-    builder.Services.AddTransient<IEmailService, EmailService>();
-    
+    //builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection(nameof(EmailSettings)));
+    //builder.Services.AddScoped<EmailSendingService>();
+    //builder.Services.AddTransient<IEmailService, EmailService>();
+
 
     builder.Services.AddAuthentication(x =>
     {

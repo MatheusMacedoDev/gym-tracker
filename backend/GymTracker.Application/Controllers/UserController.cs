@@ -90,4 +90,19 @@ public class UserController : ControllerBase
             return BadRequest(error.ToString());
         }
     }
+
+    [HttpPost("user_like")]
+    public async Task<IActionResult> RegisterUserLike([FromForm] RegisterUserLikeRequest request)
+    {
+        try
+        {
+            var response = await _userService.RegisterUserLike(request);
+
+            return StatusCode(201, response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.ToString());
+        }
+    }
 }

@@ -38,4 +38,9 @@ public class UserRepository : IUserRepository
 
         return user;
     }
+
+    public async Task CreateUserLike(UserLike userLike)
+    {
+        await _context.UserLikes!.AddAsync(userLike);
+    }
 }
