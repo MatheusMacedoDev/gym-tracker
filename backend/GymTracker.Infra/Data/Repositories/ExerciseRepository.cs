@@ -55,4 +55,9 @@ public class ExerciseRepository : IExerciseRepository
     {
         await _context.DiaryExercises!.AddAsync(diaryExercise);
     }
+
+    public async Task RegisterDiaryExerciseSerie (DiaryExerciseSerie diaryExerciseSerie)
+    {
+        await _context.DiaryExerciseSeries!.AddAsync(diaryExerciseSerie);
+    }
 }
