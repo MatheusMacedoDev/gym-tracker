@@ -8,6 +8,7 @@ import {
   Montserrat_400Regular,
   Montserrat_600SemiBold,
   Montserrat_700Bold,
+  Montserrat_500Medium,
   useFonts,
 } from "@expo-google-fonts/montserrat";
 import { Main } from "./src/screens/Main";
@@ -42,7 +43,8 @@ export default function App() {
   const [fontsLoaded, fontsError] = useFonts({
     Montserrat_700Bold,
     Montserrat_600SemiBold,
-    Montserrat_400Regular
+    Montserrat_400Regular,
+    Montserrat_500Medium
   });
 
   if (!fontsLoaded && !fontsError) {

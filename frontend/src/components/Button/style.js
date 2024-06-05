@@ -29,7 +29,7 @@ export const GradientButton = styled(LinearGradient).attrs({
   `;
 
   export const ButtonText = styled.Text`
-    font-size: 20px;
+     font-size: ${props => props.fontSize ? `${props.fontSize}` : '20px'};
     color: #FFFFFF;
     font-family: 'Montserrat_700Bold';
   `;
