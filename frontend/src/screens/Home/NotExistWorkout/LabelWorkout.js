@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import { colors } from "../../../../colors.config";
+import { colors } from "../../../colors.config";
 
 export default LabelWorkout = styled.Text`
 font-size: 'Montserrat_400Regular';

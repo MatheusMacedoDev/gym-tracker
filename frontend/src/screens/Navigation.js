@@ -21,15 +21,6 @@ export const Navigation = ({ navigation }) => {
       <TouchableOpacity style={{ width: 90, height: 40, backgroundColor: 'orange', alignItems: "center", justifyContent: "center", marginTop: 5 }} onPress={() => { navigation.navigate("LoginScreen") }}>
         <Text>Login</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={{ width: 90, height: 40, backgroundColor: 'orange', alignItems: "center", justifyContent: "center", marginTop: 5 }} onPress={() => { navigation.navigate("GenderRegisterScreen") }}>
-        <Text>GENDER</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={{ width: 90, height: 40, backgroundColor: 'orange', alignItems: "center", justifyContent: "center", marginTop: 5 }} onPress={() => { navigation.navigate("WeightRecordScreen") }}>
-        <Text>Peso</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={{ width: 90, height: 40, backgroundColor: 'orange', alignItems: "center", justifyContent: "center", marginTop: 5 }} onPress={() => { navigation.navigate("HeighRecordScreen") }}>
-        <Text>Altura</Text>
-      </TouchableOpacity>
       <TouchableOpacity style={{ width: 90, height: 40, backgroundColor: 'orange', alignItems: "center", justifyContent: "center", marginTop: 5 }} onPress={() => { navigation.navigate("TrainingRecordScreen") }}>
         <Text>Registro de treino</Text>
       </TouchableOpacity>

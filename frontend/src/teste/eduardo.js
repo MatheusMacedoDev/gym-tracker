@@ -5,6 +5,7 @@ import { Button } from "../components/Button";
 import { NewWorkoutModal } from "../components/NewWorkoutModal";
 import Gradient from "../components/Gradient";
 import { SelectedExerciseModal } from "../components/SelectedExerciseModal";
+import RegisterProgressingComponent from "../components/RegisterProgressingComponent";
 
 export const Eduardo = () => {
     const [showModalNewWorkout, setShowModalNewWorkout] = useState(false)
@@ -15,8 +16,8 @@ export const Eduardo = () => {
         <Gradient>
             <Container>
                 <Text style={{ marginTop: 100, marginBottom: 50 }}>TESTES</Text>
-                <Button handleClickFn={() => setShowModalExercise(true)} />
-        
+                {/* <Button handleClickFn={() => setShowModalExercise(true)} />
+                <Button handleClickFn={() => setShowModalNewWorkout(true)} />
 
                 <NewWorkoutModal
                     visible={showModalNewWorkout}
@@ -26,8 +27,9 @@ export const Eduardo = () => {
                 <SelectedExerciseModal
                     visible={showModalExercise}
                     setShowModalExercise={setShowModalExercise}
-                />
+                /> */}
 
+                <RegisterProgressingComponent/>
 
             </Container>
         </Gradient>

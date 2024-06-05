@@ -9,9 +9,11 @@ export default IconButtonContainer = styled.TouchableOpacity`
     align-items: center;
     left: ${props => `${props.left}`};
     top:  ${props => `${props.top}`};
+    right: ${props => `${props.right}`};
+    bottom:  ${props => `${props.bottom}`};
     height: ${props => props.heightButon ? `${props.heightButon}`: "45px"};
     width: ${props => props.widthButton ? `${props.widthButton}` : "45px"};
-    border-radius: 25px;
+    border-radius: 30px;
     align-items: center;
     background-color: ${props => props.background ? colors.orange : null}
 `;

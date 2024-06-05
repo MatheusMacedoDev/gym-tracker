@@ -12,13 +12,13 @@ import WelcomeContainer from "./Style/WelcomeContainer"
 import WorkoutContent from "./Style/WorkoutContent"
 import ImageRepresentation from "./Style/ImageRepresentation"
 import { Button } from "../../components/Button"
-import LabelWorkout from "./Style/NotExistWorkout/LabelWorkout"
 import { ListContainer } from "../../components/ListContainer/style"
 import { ListComponent } from "../../components/List/style"
 import ExistWorkoutComponent from "./ExistWorkoutComponent"
 import { IconButton } from "../../components/IconButton"
 import { FontAwesome } from '@expo/vector-icons';
 import { colors } from "../../colors.config"
+import LabelWorkout from "./NotExistWorkout/LabelWorkout"
 
 const exercises = [
     { id: 1, exercise: "Flexao" },
@@ -31,7 +31,7 @@ const exercises = [
 export const Home = () => {
 
     const [date, setDate] = useState()
-    const [exist, setExists] = useState(true)
+    const [exist, setExists] = useState(false)
 
     return (
         <Gradient>
@@ -65,7 +65,7 @@ export const Home = () => {
                             :
                             <>
                                 <LabelWorkout>Nenhum treino foi registrado hoje.</LabelWorkout>
-                                <Button fontSize={12} title="Registrar treino" heightButon={'13%'} marginTop={'20%'} />
+                                <Button fontSize={12} title="Registrar treino" heightButon={'13%'} marginTop={'20%'} widthButton={'90%'}/>
                             </>
                         }
                     </WorkoutContent>
