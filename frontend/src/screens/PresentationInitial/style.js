@@ -1,6 +1,11 @@
 import styled from "styled-components/native";
 
 export const ImageFIsic = styled.Image`
+    /* top: 45px;
+    position: absolute; */
+    margin-top: -8px;
+`;
+export const Safezinha = styled.SafeAreaView`
 
 `;
 

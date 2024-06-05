@@ -5,7 +5,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#000', // change as needed
+    backgroundColor: '#000',
+    padding: 20, 
   },
   chart: {
     marginVertical: 8,

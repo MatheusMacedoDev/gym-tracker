@@ -18,12 +18,11 @@ export const TextDescription = styled.Text`
 `;
 
 export const ContainerPresentation = styled.SafeAreaView`
-  flex: 1;
   align-items: center;
   width: 85%;
   align-self: center;
   justify-content: space-between;
-
+  height: 100%;
 `;
 
 export const ContainerText = styled.View`

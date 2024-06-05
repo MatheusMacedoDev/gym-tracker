@@ -6,23 +6,25 @@ import styles from './style';
 const screenWidth = Dimensions.get('window').width;
 
 const chartConfig = {
-  backgroundGradientFrom: "#FFA726", // Laranja claro ein 
+  backgroundGradientFrom: "#FFA726", // Laranja claro
   backgroundGradientFromOpacity: 0,
-  backgroundGradientTo: "#FB8C00", // Laranja mais um poucoescuro 
+  backgroundGradientTo: "#FB8C00", // Laranja mais escuro
   backgroundGradientToOpacity: 0.5,
   color: (opacity = 1) => `rgba(255, 152, 0, ${opacity})`, // Laranja para os pontos e linhas
-  strokeWidth: 3, // optional, default 3
+  strokeWidth: 3,
   barPercentage: 0.5,
-  useShadowColorFromDataset: false, // optional
+  useShadowColorFromDataset: false,
   labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`, // Branco para os labels
-  fillShadowGradient: '#FF9800', // Laranja para a sombraza abaixo da linha
+  fillShadowGradient: '#FF9800', // Laranja para a sombra abaixo da linha
   fillShadowGradientOpacity: 0.3, // Transparência da sombra
   propsForDots: {
     r: "6",
     strokeWidth: "2",
-    stroke: "#ffa726"
+    stroke: "#ffa726",
+    fill: "#ffa726",
   } 
 };
+
 
 const LineChartComponent = ({ data }) => {
   return (
