@@ -7,4 +7,5 @@ font-size: 18px;
 color: ${colors.white};
 align-self: flex-start;
 margin-top: 30%;
+margin-left: 3%;
     `;

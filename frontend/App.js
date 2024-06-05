@@ -8,7 +8,11 @@ import {
   Montserrat_400Regular,
   Montserrat_600SemiBold,
   Montserrat_700Bold,
+<<<<<<< HEAD
   Montserrat_300Light,
+=======
+  Montserrat_500Medium,
+>>>>>>> eduardo
   useFonts,
 } from "@expo-google-fonts/montserrat";
 import { Main } from "./src/screens/Main";
@@ -48,7 +52,11 @@ export default function App() {
     Montserrat_700Bold,
     Montserrat_600SemiBold,
     Montserrat_400Regular,
+<<<<<<< HEAD
     Montserrat_300Light
+=======
+    Montserrat_500Medium
+>>>>>>> eduardo
   });
 
   if (!fontsLoaded && !fontsError) {
