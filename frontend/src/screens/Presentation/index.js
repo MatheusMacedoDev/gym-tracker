@@ -1,5 +1,5 @@
 import React from 'react';
-import { ContainerPresentation, ContainerText, TextTitle, RoundImage, TextDescription, TextContainer, Container2 } from "./style";
+import { ContainerText, TextTitle, RoundImage, TextDescription, TextContainer, Container2, ContainerPresentation } from "./style";
 import { Button } from '../components/Button';
 import Gradient from '../../components/Gradient';
 

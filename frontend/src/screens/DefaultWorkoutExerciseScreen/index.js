@@ -14,11 +14,11 @@ const exercises = [
   { id: 2, exercise: "Agachamento" },
   { id: 3, exercise: "Cadeira extensora" },
   { id: 4, exercise: "Abdominal" },
-  { id: 5, exercise: "Abdominal" },
+  { id: 5, exercise: "Flexao" },
   { id: 6, exercise: "Abdominal" },
 ];
 
-export const DefaultWorkoutExerciseScreen = () => {
+export const DefaultWorkoutExerciseScreen = ({ navigation }) => {
   return (
     <Gradient>
       <Container>
@@ -39,6 +39,7 @@ export const DefaultWorkoutExerciseScreen = () => {
           />
         </ListContainer>
           <Button
+            handleClickFn={() => navigation.navigate("SelectGroupMuscle")}
             marginTop={"20%"}
             title="Adicionar exercício"
             icon={(size, color) => (

@@ -1,18 +1,18 @@
 import React from 'react';
 import { FlatList, Image } from 'react-native';
-import Gradient from '../components/Gradient';
-import { ContainerPresentation } from '../screens/Presentation/style';
-import { IconButton } from '../components/IconButton';
 import { MaterialIcons } from '@expo/vector-icons';
-import { Title } from '../components/Title/style';
-import { Button } from '../components/Button';
+import { Title } from '../../components/Title/style';
+import { Button } from '../../components/Button';
 import BtnExcercise2 from './style';
+import Gradient from '../../components/Gradient';
+import { ContainerPresentation } from '../Presentation/style';
+import { IconButton } from '../../components/IconButton';
 
 
-import Ombro from '../assets/Images/Ombro.png';
-import Posterior from '../assets/Images/Posterior.png';
-import Quadriceps from '../assets/Images/Quadriceps.png';
-import Panturrilha from '../assets/Images/panturrilha.png';
+import Ombro from '../../assets/Images/Ombro.png';
+import Posterior from '../../assets/Images/Posterior.png';
+import Quadriceps from '../../assets/Images/Quadriceps.png';
+import Panturrilha from '../../assets/Images/panturrilha.png';
 
 
 
