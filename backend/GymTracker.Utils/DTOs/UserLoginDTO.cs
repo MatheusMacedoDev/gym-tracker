@@ -5,5 +5,7 @@ public record UserLoginDTO
     Guid userId,
     string userName,
     byte[] userHash,
-    byte[] userSalt
+    byte[] userSalt,
+    string? profileImage,
+    char gender
 );

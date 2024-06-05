@@ -29,7 +29,9 @@ public class UserDAO : IUserDAO
                         users.user_id AS userId,
                         users.name AS userName,
                         users.password_hash AS userHash,
-                        users.password_salt AS userSalt
+                        users.password_salt AS userSalt,
+                        users.profile_photo AS profileImage,
+                        users.gender AS gender
                     FROM users
                     WHERE users.email = @email
                 ";
