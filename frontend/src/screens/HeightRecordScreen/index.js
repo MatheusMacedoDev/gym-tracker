@@ -3,7 +3,7 @@ import { IconButton } from "../../components/IconButton";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Logo } from "../../components/Logo";
 import { Title } from "../../components/Title/style";
-import { SelectPicker } from "../../components/SelectPicker.js";
+import { SelectPicker } from "../../components/SelectPicker";
 import { Button } from "../../components/Button";
 import { Entypo } from "@expo/vector-icons";
 import { useState } from "react";

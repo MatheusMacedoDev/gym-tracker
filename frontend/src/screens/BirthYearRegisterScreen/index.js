@@ -3,12 +3,12 @@ import { Button } from "../../components/Button"
 import {  Container } from "../../components/Container/style"
 import { IconButton } from "../../components/IconButton"
 import { Logo } from "../../components/Logo"
-import { SelectPicker } from "../../components/SelectPicker.js"
 import { Title } from "../../components/Title/style"
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from "@expo/vector-icons";
 import { createArrayYears } from "../../utils/arraysFactory.js"
 import Gradient from "../../components/Gradient/index.js"
+import { SelectPicker } from "../../components/SelectPicker/index.js"
 
 export const BirthYearRegisterScreen = ({ navigation }) => {
     const [yearBirth, setYearBirth] = useState(2000);

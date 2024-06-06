@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 
 const ContainerBoxIput = styled.View`
     height: 90px;
-    width: 20%;
+    width: ${props => props.widhtBoxInput ? props.widhtBoxInput : "20%"};
     align-items: center;
     gap: 5%;
 `;
