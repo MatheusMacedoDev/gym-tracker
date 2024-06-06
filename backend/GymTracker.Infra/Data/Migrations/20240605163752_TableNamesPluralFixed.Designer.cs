@@ -3,6 +3,7 @@ using System;
 using GymTracker.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GymTracker.Infra.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240605163752_TableNamesPluralFixed")]
+    partial class TableNamesPluralFixed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -336,30 +339,6 @@ namespace GymTracker.Infra.Migrations
                     b.ToTable("users");
                 });
 
-            modelBuilder.Entity("GymTracker.Domain.Entities.UserLike", b =>
-                {
-                    b.Property<Guid>("UserLikeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("user_like_id");
-
-                    b.Property<Guid>("ReceiverUserId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("receiver_user_id");
-
-                    b.Property<Guid>("SenderUserId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("sender_user_id");
-
-                    b.HasKey("UserLikeId");
-
-                    b.HasIndex("ReceiverUserId");
-
-                    b.HasIndex("SenderUserId");
-
-                    b.ToTable("user_likes");
-                });
-
             modelBuilder.Entity("GymTracker.Domain.Entities.DefaultExercise", b =>
                 {
                     b.HasOne("GymTracker.Domain.Entities.DefaultWorkout", "DefaultWorkout")
@@ -459,25 +438,6 @@ namespace GymTracker.Infra.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("GymTracker.Domain.Entities.UserLike", b =>
-                {
-                    b.HasOne("GymTracker.Domain.Entities.User", "ReceiverUser")
-                        .WithMany()
-                        .HasForeignKey("ReceiverUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GymTracker.Domain.Entities.User", "SenderUser")
-                        .WithMany()
-                        .HasForeignKey("SenderUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ReceiverUser");
-
-                    b.Navigation("SenderUser");
                 });
 #pragma warning restore 612, 618
         }

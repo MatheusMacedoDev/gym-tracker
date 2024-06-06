@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GymTracker.Domain.Entities;
 
-[Table("user_like")]
+[Table("user_likes")]
 public class UserLike
 {
     [Key]

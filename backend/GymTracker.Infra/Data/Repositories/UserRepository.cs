@@ -38,4 +38,19 @@ public class UserRepository : IUserRepository
 
         return user;
     }
+
+    public async Task CreateUserLike(UserLike userLike)
+    {
+        await _context.UserLikes!.AddAsync(userLike);
+    }
+
+    public void RemoveUserLike(UserLike userLike)
+    {
+        _context.UserLikes!.Remove(userLike);
+    }
+
+    public async Task<UserLike> GetUserLikeById(Guid userLikeId)
+    {
+        return (await _context.UserLikes!.FirstOrDefaultAsync(userLike => userLike.UserLikeId == userLikeId))!;
+    }
 }
