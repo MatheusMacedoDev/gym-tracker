@@ -3,9 +3,10 @@ import api from "../ApiAccesor"
 const registerUserEndpoint = '/users';
 const loginEndpoint = '/users/login';
 
-export function makeLogin(email, password) {
+
+export async function makeLogin(email, password) {
     try {
-        const response = api.post(loginEndpoint, {
+        const response = await api.post(loginEndpoint, {
             userEmail: email,
             userPassword: password
         })
@@ -16,9 +17,9 @@ export function makeLogin(email, password) {
     }
 }
 
-export function registerUser(email, password, name, birthYear, gender) {
+export async function registerUser(email, password, name, birthYear, gender) {
     try {
-        const response = api.post(registerUserEndpoint, {
+        const response = await api.post(registerUserEndpoint, {
             email,
             password,
             name,
@@ -30,4 +31,29 @@ export function registerUser(email, password, name, birthYear, gender) {
     } catch (error) {
         console.log(error);
     }
+}
+
+export async function updateProfileImage(userId, imageUri) {
+    try {
+        const formData = FormData();
+
+        formData.append('userId', userId)
+
+        formData.append('profileImageFile', {
+            uri: imageUri,
+            name: 'image.jpg',
+            type: 'image/jpg'
+        });
+
+        const response = await api.patch(formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data' 
+            }
+        })
+    
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+
 }
