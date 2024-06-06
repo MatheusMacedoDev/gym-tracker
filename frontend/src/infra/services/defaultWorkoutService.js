@@ -4,10 +4,9 @@ const createDefaultWorkoutEndpoint = "/workouts/default_workout";
 const getDefaultWorkoutsByUserEndpoint = "/workouts/default_workout";
 const deleteDefaultWorkoutEndpoint = "/workouts/default_workout";
 
-const createDefaultExerciseEndpoint =
-  "/workouts/default_workout/default_exercise";
+const createDefaultExerciseEndpoint = "/workouts/default_workout/exercise";
 const getExercisesByDefaultWorkoutEndpoint =
-  "/workouts/default_workout/default_exercise";
+  "/workouts/default_workout/exercise";
 
 export async function CreateDefaultWorkout(userId) {
   try {
