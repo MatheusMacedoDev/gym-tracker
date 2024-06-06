@@ -18,7 +18,7 @@ export const NewWorkoutModal = ({ navigation, visible, setShowModalNewWorkout, .
                     <Logo widthLogo={'27%'} heightLogo={'12%'} marginTop={'15%'}/>
                     <Title fontSize={18} marginTop={'8%'}>Defina o nome do treino:</Title>
                     <Input placeholder="Nome do treino..." widthInput={'85%'} heightInput={'13%'} marginTop={'12%'}/>
-                    <Button widthButton={'85%'} heightButon={'12%'} marginTop={'10%'}
+                    <Button widthButton={'85%'} heightButon={'12%'} marginTop={'10%'} handleClickFn={() => setShowModalNewWorkout(false)}
                     icon={(size, color) => (
                         <Ionicons name="send" size={20} color={colors.white}/>
                     )}

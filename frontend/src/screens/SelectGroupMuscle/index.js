@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, Image } from 'react-native';
+import { FlatList, Image, TouchableOpacity } from 'react-native';
 import Gradient from '../../components/Gradient';
 import { ContainerPresentation } from '../../screens/Presentation/style';
 import { IconButton } from '../../components/IconButton';
@@ -31,23 +31,27 @@ const data = [
   { id: '12', title: 'Posterior', image: Posterior },
 ];
 
-const renderItem = ({ item }) => (
-  <BtnExcercise2
-    title={item.title}
-    image={item.image} 
-    onPress={() => console.log(item.title)}
-  />
-);
 
-const SelectGroupMuscle = ({navigation}) => {
+const SelectGroupMuscle = ({navigation, route}) => {
   const numColumns = 2;
+  
+  const renderItem = ({ item }) => (
+
+    <BtnExcercise2 
+      title={item.title}
+      image={item.image} 
+      onPress={() => navigation.replace("SelectExercise", {trainingName: route.params.trainingName})}
+    />
+  );
 
   return (
     <Gradient>
       <ContainerPresentation>
         <IconButton
           gradient={false}
-          icon={<MaterialIcons name="reply" size={40} color={'#FB6614'} />}
+          icon={<MaterialIcons name="reply" size={40} color={'#FB6614'} 
+          onPress={() => navigation.navigate("DefaultWorkoutExerciseScreen")}
+          />}
         />
 
         <Title marginBottom={"10%"} FontSize={20} marginTop={"15%"} >Exercicios</Title>
