@@ -3,6 +3,8 @@ import api, { apiUrlLocal } from "../apiAccesor";
 const createDefaultWorkoutEndpoint = "/workouts/default_workout";
 const getDefaultWorkoutsByUserEndpoint = "/workouts/default_workout";
 const deleteDefaultWorkoutEndpoint = "/workouts/default_workout";
+const createDefaultExerciseEndpoint =
+  "/workouts/default_workout/default_exercise";
 
 export async function CreateDefaultWorkout(userId) {
   try {
@@ -36,6 +38,29 @@ export async function DeleteDefaultWorkoutId(defaultWorkoutId) {
   try {
     const response = await api.delete(
       `${apiUrlLocal}${deleteDefaultWorkoutEndpoint}/defaultWorkoutId?=${defaultWorkoutId}`,
+    );
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function CreateDefaultExercise(
+  exerciseId,
+  defaultWorkoutId,
+  repetitionsRange,
+  seriesAmount,
+) {
+  try {
+    const response = await api.post(
+      `${apiUrlLocal}${createDefaultExerciseEndpoint}`,
+      {
+        exerciseId,
+        defaultWorkoutId,
+        repetitionsRange,
+        seriesAmount,
+      },
     );
 
     return response;
