@@ -3,7 +3,10 @@ import api, { apiUrlLocal } from "../apiAccesor";
 const createDefaultWorkoutEndpoint = "/workouts/default_workout";
 const getDefaultWorkoutsByUserEndpoint = "/workouts/default_workout";
 const deleteDefaultWorkoutEndpoint = "/workouts/default_workout";
+
 const createDefaultExerciseEndpoint =
+  "/workouts/default_workout/default_exercise";
+const getExercisesByDefaultWorkoutEndpoint =
   "/workouts/default_workout/default_exercise";
 
 export async function CreateDefaultWorkout(userId) {
@@ -61,6 +64,18 @@ export async function CreateDefaultExercise(
         repetitionsRange,
         seriesAmount,
       },
+    );
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function GetExercisesByDefaultWorkout(defaultWorkoutId) {
+  try {
+    const response = await api.get(
+      `${apiUrlLocal}${getExercisesByDefaultWorkoutEndpoint}/defaultWorkoutId?=${defaultWorkoutId}`,
     );
 
     return response;
