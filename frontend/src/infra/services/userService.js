@@ -4,8 +4,9 @@ const registerUserEndpoint = "/users";
 const loginEndpoint = "/users/login";
 const updateProfileImageEndpoint = "/users/update_profile_image";
 const createProfileHistoryEndpoint = "/users/profile_history";
+const getProfileHistoriesEndpoint = "/users/profile_history";
 
-export async function makeLogin(email, password) {
+export async function MakeLogin(email, password) {
   try {
     const response = await api.post(apiUrlLocal + loginEndpoint, {
       userEmail: email,
@@ -18,7 +19,7 @@ export async function makeLogin(email, password) {
   }
 }
 
-export async function registerUser(email, password, name, birthYear, gender) {
+export async function RegisterUser(email, password, name, birthYear, gender) {
   try {
     const response = await api.post(apiUrlLocal + registerUserEndpoint, {
       email,
@@ -34,7 +35,7 @@ export async function registerUser(email, password, name, birthYear, gender) {
   }
 }
 
-export async function updateProfileImage(userId, imageUri) {
+export async function UpdateProfileImage(userId, imageUri) {
   try {
     const formData = FormData();
 
@@ -46,11 +47,15 @@ export async function updateProfileImage(userId, imageUri) {
       type: "image/jpg",
     });
 
-    const response = await api.patch(updateProfileImageEndpoint, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
+    const response = await api.patch(
+      apiUrlLocal + updateProfileImageEndpoint,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       },
-    });
+    );
 
     return response;
   } catch (error) {
@@ -58,7 +63,7 @@ export async function updateProfileImage(userId, imageUri) {
   }
 }
 
-export async function createProfileHistory(
+export async function CreateProfileHistory(
   userId,
   weight,
   height,
@@ -89,11 +94,27 @@ export async function createProfileHistory(
       type: "image/jpg",
     });
 
-    const response = await api.post(createProfileHistoryEndpoint, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
+    const response = await api.post(
+      apiUrlLocal + createProfileHistoryEndpoint,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       },
-    });
+    );
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function GetProfileHistoriesByUserId(userId) {
+  try {
+    const response = await api.get(
+      `${apiUrlLocal}${getProfileHistoriesEndpoint}/userId?=${userId}`,
+    );
 
     return response;
   } catch (error) {
