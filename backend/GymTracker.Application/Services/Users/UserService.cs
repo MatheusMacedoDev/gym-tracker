@@ -5,6 +5,7 @@ using GymTracker.Domain.Repositories;
 using GymTracker.Infra.CloudStorage;
 using GymTracker.Infra.Data.DAOs.ProfileHistory;
 using GymTracker.Infra.Data.DAOs.User;
+using GymTracker.Infra.Data.DAOs.UserLike;
 using GymTracker.Infra.Data.UnityOfWork;
 using GymTracker.Utils.Cryptography;
 using GymTracker.Utils.DTOs;
@@ -19,19 +20,21 @@ public class UserService : IUserService
 
     private readonly IProfileHistoryDAO _profileHistoryDAO;
     private readonly IUserDAO _userDAO;
+    private readonly IUserLikeDAO _userLikeDAO;
 
     private readonly ICryptographyStrategy _cryptographyStrategy;
     private readonly ITokenStrategy _tokenStrategy;
 
     private readonly ICloudStorage _cloudStorage;
 
-    public UserService(IUserRepository userRepository, IUnityOfWork unityOfWork, ICryptographyStrategy cryptographyStrategy, IProfileHistoryDAO profileHistoryDAO, IUserDAO userDAO, ITokenStrategy tokenStrategy, ICloudStorage cloudStorage)
+    public UserService(IUserRepository userRepository, IUnityOfWork unityOfWork, ICryptographyStrategy cryptographyStrategy, IProfileHistoryDAO profileHistoryDAO, IUserDAO userDAO, IUserLikeDAO userLikeDAO, ITokenStrategy tokenStrategy, ICloudStorage cloudStorage)
     {
         _userRepository = userRepository;
         _unityOfWork = unityOfWork;
 
         _profileHistoryDAO = profileHistoryDAO;
         _userDAO = userDAO;
+        _userLikeDAO = userLikeDAO;
 
         _cryptographyStrategy = cryptographyStrategy;
         _tokenStrategy = tokenStrategy;
@@ -173,6 +176,64 @@ public class UserService : IUserService
             return response;
         }
         catch (System.Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<RegisterUserLikeResponse> RegisterUserLike(RegisterUserLikeRequest request)
+    {
+        try
+        {
+            var userLike = new UserLike(
+                senderUserId: request.senderUserId,
+                receiverUserId: request.receiverUserId
+            );
+
+            await _userRepository.CreateUserLike(userLike);
+            await _unityOfWork.Commit();
+
+            var response = new RegisterUserLikeResponse(
+                userLikeId: userLike.UserLikeId,
+                senderUserId: userLike.SenderUserId,
+                receiverUserId: userLike.ReceiverUserId
+            );
+
+            return response;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task RemoveUserLike(Guid userLikeId)
+    {
+        try
+        {
+            var userLike = await _userRepository.GetUserLikeById(userLikeId);
+
+            if (userLike == null)
+                throw new Exception("User like not found");
+
+            _userRepository.RemoveUserLike(userLike);
+            await _unityOfWork.Commit();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public Task<int> GetLikesByUserID(Guid userId)
+    {
+        try
+        {
+            var likesAmount = _userLikeDAO.LikesByUserId(userId);
+
+            return likesAmount;
+        }
+        catch (Exception)
         {
             throw;
         }

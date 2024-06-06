@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GymTracker.Domain.Entities;
 
-[Table("exercise_muscle_group")]
+[Table("exercise_muscle_groups")]
 public class ExerciseMuscleGroup
 {
     [Key]
