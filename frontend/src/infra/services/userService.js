@@ -1,17 +1,18 @@
-import api from "../ApiAccesor"
+import api, { apiUrlLocal } from "../apiAccesor";
 
 const registerUserEndpoint = '/users';
 const loginEndpoint = '/users/login';
 
 
 export async function makeLogin(email, password) {
+    console.log(apiUrlLocal + loginEndpoint);
     try {
-        const response = await api.post(loginEndpoint, {
+        const response = await api.post(apiUrlLocal + loginEndpoint, {
             userEmail: email,
             userPassword: password
         })
     
-        return response;
+        return response.data.authenticationToken;
     } catch (error) {
         console.log(error);
     }

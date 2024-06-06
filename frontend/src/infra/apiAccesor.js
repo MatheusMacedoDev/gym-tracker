@@ -6,8 +6,7 @@ const apiPort = '5295';
 export const apiUrlLocal = `http://${apiIp}:${apiPort}/api`;
 
 const api = axios.create({
-    baseUrl : apiUrlLocal,
-    timeout: 1000
+    baseUrl : apiUrlLocal
 })
 
 export default api

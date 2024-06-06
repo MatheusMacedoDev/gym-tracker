@@ -8,14 +8,16 @@ import { Logo } from "../../components/Logo";
 import { Title } from "../../components/Title/style";
 import { LinkCommandText } from "./components/linkCommandText";
 import { LinkContainer } from "./components/linkContainer";
+import { makeLogin } from "../../infra/services/userService";
 
 export const LoginScreen = ({ navigation }) => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("matheus@mail.com");
+  const [password, setPassword] = useState("12345");
 
   async function handleLogin(){
-
-    navigation.navigate("Home")
+    const response = await makeLogin(email, password)
+    console.log(response);
+    // navigation.navigate("Home")
   }
   
   return (
