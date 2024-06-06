@@ -38,7 +38,7 @@ public class WorkoutController : ControllerBase
         }
     }
 
-    [HttpPost("default_workout/default_exercise")]
+    [HttpPost("default_workout/exercise")]
     public async Task<IActionResult> RegisterDefaultExercise([FromBody] RegisterDefaultExerciseRequest request)
     {
         try
@@ -53,7 +53,7 @@ public class WorkoutController : ControllerBase
         }
     }
 
-    [HttpPost("diary_workout/diary_exercise")]
+    [HttpPost("diary_workout/exercise")]
     public async Task<IActionResult> RegisterDiaryExercise([FromBody] RegisterDiaryExerciseRequest request)
     {
         try
@@ -83,7 +83,7 @@ public class WorkoutController : ControllerBase
         }
     }
 
-    [HttpGet("default_workout/exercises")]
+    [HttpGet("default_workout/exercise")]
     public async Task<IActionResult> ListExercisesByDefaultWorkoutId(Guid defaultWorkoutId)
     {
         try
@@ -157,7 +157,7 @@ public class WorkoutController : ControllerBase
         }
     }
 
-    [HttpGet("diary_workout/exercises")]
+    [HttpGet("diary_workout/exercise")]
     public async Task<IActionResult> ListDiaryExercisesByDate(string date, Guid userId)
     {
         try

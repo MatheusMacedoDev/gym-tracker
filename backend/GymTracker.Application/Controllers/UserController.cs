@@ -106,7 +106,7 @@ public class UserController : ControllerBase
         }
     }
 
-    [HttpGet("user_like/users")]
+    [HttpGet("user_like")]
     public async Task<IActionResult> GetLikesByUserId(Guid userId)
     {
         try
