@@ -14,9 +14,9 @@ const usuarios = [
     { id: 1, nome: "Rubens Moura", curtidas: '2,9' },
     { id: 2, nome: "Matheus Macedo", curtidas: '2,5' },
     { id: 4, nome: "Joao Oliveira", curtidas: '1,4' },
-    { id: 5, nome: "Eduardo Pasqualetti", curtidas: '1,1' },
-    { id: 5, nome: "Eduardo Pasqualetti", curtidas: '1,1' },
-    { id: 5, nome: "Eduardo Pasqualetti", curtidas: '1,1' },
+    { id: 5, nome: "Gabriela Ramos", curtidas: '1,1' },
+    { id: 6, nome: "Eduardo Pasqualetti", curtidas: '1,1' },
+    { id: 7, nome: "Eduardo Pasqualetti", curtidas: '1,1' },
 ];
 
 
@@ -27,7 +27,18 @@ export const RankingScreen = () => {
                 <Logo widthLogo={105} heightLogo={50} marginTop={'30%'} />
                 <Title marginTop={'7%'}>Inspiração</Title>
                 <RankingTitle>Mais curtidas</RankingTitle>
-                <ListContainer>
+                <ListContainer heightContainer={'20%'}>
+                    <ListComponent
+                    data={usuarios}
+                    renderItem={({ item, index }) => (
+
+                     <RankingCard name={item.nome} likes={item.curtidas} sequentialNumber={index + 1}/>
+                    
+                    )}
+                    />
+                </ListContainer>
+                <RankingTitle>Mais recentes</RankingTitle>
+                <ListContainer heightContainer={'20%'}>
                     <ListComponent
                     data={usuarios}
                     renderItem={({ item, index }) => (

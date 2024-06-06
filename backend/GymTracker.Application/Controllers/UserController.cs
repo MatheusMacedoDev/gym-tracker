@@ -90,4 +90,49 @@ public class UserController : ControllerBase
             return BadRequest(error.ToString());
         }
     }
+
+    [HttpPost("user_like")]
+    public async Task<IActionResult> RegisterUserLike([FromForm] RegisterUserLikeRequest request)
+    {
+        try
+        {
+            var response = await _userService.RegisterUserLike(request);
+
+            return StatusCode(201, response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.ToString());
+        }
+    }
+
+    [HttpGet("user_like/users")]
+    public async Task<IActionResult> GetLikesByUserId(Guid userId)
+    {
+        try
+        {
+            var response = await _userService.GetLikesByUserID(userId);
+
+            return Ok(response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.ToString());
+        }
+    }
+
+    [HttpDelete("user_like")]
+    public async Task<IActionResult> DeleteUserLike(Guid userLikeId)
+    {
+        try
+        {
+            await _userService.RemoveUserLike(userLikeId);
+
+            return NoContent();
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.ToString());
+        }
+    }
 }

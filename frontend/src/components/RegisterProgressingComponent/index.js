@@ -6,13 +6,14 @@ import ProgressingContainer from "./Style/ProgressingContainer"
 import { Feather } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 
-export default RegisterProgressingComponent = () => {
+export default RegisterProgressingComponent = ({handleClickFn}) => {
     return (
         <ProgressingContainer>
             <Title fontSize={20} alignSelf={'flex-start'}>Evolução</Title>
             <CameraView>
                 <Feather name="camera" size={150} color="#5F6368" />
                 <IconButton
+                handleClickFn={handleClickFn}
                 right={0}
                 bottom={0}
                 widthButton={50}

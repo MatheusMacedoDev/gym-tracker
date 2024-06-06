@@ -7,7 +7,7 @@ import Gradient from "../components/Gradient";
 import { SelectedExerciseModal } from "../components/SelectedExerciseModal";
 import RegisterProgressingComponent from "../components/RegisterProgressingComponent";
 
-export const Eduardo = () => {
+export const Eduardo = ({navigation}) => {
     const [showModalNewWorkout, setShowModalNewWorkout] = useState(false)
     const [showModalExercise, setShowModalExercise] = useState(false)
 
@@ -29,7 +29,7 @@ export const Eduardo = () => {
                     setShowModalExercise={setShowModalExercise}
                 /> */}
 
-                <RegisterProgressingComponent/>
+                <RegisterProgressingComponent handleClickFn={() => navigation.navigate("Camera")}/>
 
             </Container>
         </Gradient>

@@ -38,7 +38,9 @@
     "react-native-snap-carousel": "^3.9.1",
     "react-native-swiper": "^1.6.0",
     "styled-components": "^6.1.5-rc.0",
-    "typescript": "~5.3.3"
+    "typescript": "~5.3.3",
+    "expo-camera": "~15.0.10",
+    "expo-image-picker": "~15.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

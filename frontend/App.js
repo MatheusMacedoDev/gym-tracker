@@ -39,6 +39,7 @@ import SelectGroupMuscle from "./src/screens/SelectGroupMuscle";
 import { Presentation } from "./src/screens/Presentation";
 import PresentationInitial from "./src/screens/PresentationInitial";
 import { TrainingExercisesScreens } from "./src/screens/TrainingExercisesScreens";
+import { Camera } from "./src/components/Camera";
 
 
 
@@ -80,7 +81,7 @@ export default function App() {
         <Stack.Screen name="WeightRecordScreen" component={WeightRecordScreen}/>
         <Stack.Screen name="GenderRegisterScreen" component={GenderRegisterScreen} />
         <Stack.Screen name="HeighRecordScreen" component={HeighRecordScreen} />
-        <Stack.Screen name="TrainingRecordScreen" component={TrainingRecordScrenn} />
+        <Stack.Screen name="TrainingRecordScrenn" component={TrainingRecordScrenn} />
         <Stack.Screen name="SelectExercise" component={SelectExercise} />
         <Stack.Screen name="ExerciseRecord" component={ExerciseRecord} />
         <Stack.Screen name="RankingScreen" component={RankingScreen} />
@@ -90,6 +91,7 @@ export default function App() {
         <Stack.Screen name="Presentation" component={Presentation} />
         <Stack.Screen name="PresentationInitial" component={PresentationInitial} />
         <Stack.Screen name="TrainingExercisesScreens" component={TrainingExercisesScreens} />
+        <Stack.Screen name="Camera" component={Camera}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
