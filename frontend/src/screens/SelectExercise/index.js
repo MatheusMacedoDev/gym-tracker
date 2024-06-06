@@ -8,6 +8,7 @@ import { FlatList } from 'react-native';
 import BtnExercise from './style'; // Certifique-se de que o caminho está correto
 import Gradient from '../../components/Gradient';
 import { Container } from '../../components/Container/style';
+import { ListContainer } from '../../components/ListContainer/style';
 
 const data = [
   { id: '1', title: 'Peito' },
@@ -20,23 +21,27 @@ const renderItem = ({ item }) => (
   <BtnExercise title={item.title} onPress={() => console.log(item.title)} />
 );
 
-export const SelectExercise = () => {
+export const SelectExercise = ({navigation}) => {
   return (
     <Gradient>
       <Container>
         <IconButton
           gradient={false}
-          icon={<MaterialIcons name="reply" size={40} color={'#FB6614'} />}
+          icon={<MaterialIcons name="reply" size={40} color={'#FB6614'} 
+          onPress={() => navigation.navigate("SelectGroupMuscle")}
+          />}
         />
         
         <Title FontSize={20} marginTop={"15%"}>Exercícios</Title>
-
+        
+        <ListContainer heightContainer={"65%"}>
         <FlatList
           data={data}
           renderItem={renderItem}
           keyExtractor={item => item.id}
           contentContainerStyle={{ marginTop: '20%' }}
         />
+        </ListContainer>
 
         <Button
           marginTop={"10%"}  

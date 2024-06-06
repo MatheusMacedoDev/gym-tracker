@@ -9,6 +9,7 @@ import { CardWorkout } from "../../components/CardWorkout";
 import { Button } from "../../components/Button";
 import { Entypo } from "@expo/vector-icons";
 import { useState } from "react";
+import { NewWorkoutModal } from "../../components/NewWorkoutModal";
 
 const workouts = [
   { id: 1, trainingName: "Treino A", muscleGroups: "Peito - Triceps - costas" },
@@ -20,6 +21,15 @@ const workouts = [
 
 export const DefaultWorkoutsScreen = ({ navigation }) => {
   const [selectedWorkout, setSelectedWorkout] = useState();
+  const [showModalNewWorkout, setShowModalNewWorkout] = useState(false);
+
+  const seeTraining = (item) => {
+    setSelectedWorkout({
+      id: item.id,
+    });
+
+    navigation.replace("DefaultWorkoutExerciseScreen", {trainingName: item.trainingName})
+  }
 
   return (
     <Gradient>
@@ -31,11 +41,7 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
             data={workouts}
             renderItem={({ item }) => (
               <TouchableOpacity
-                onPress={() => {
-                  setSelectedWorkout({
-                    id: item.id,
-                  });
-                }}
+                onPress={() => {seeTraining(item)}}
               >
                 <CardWorkout
                   trainingName={item.trainingName}
@@ -50,12 +56,18 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
           />
         </ListContainer>
         <Button
-          handleClickFn={() => navigation.navigate("SelectGroupMuscle")}
+          handleClickFn={() => setShowModalNewWorkout(true)}
           marginTop={"15%"}
           title="Adicionar treino"
           icon={(size, color) => (
             <Entypo name="chevron-right" size={size} color={color} />
           )}
+        />
+
+        <NewWorkoutModal
+        visible={showModalNewWorkout}
+        setShowModalNewWorkout={setShowModalNewWorkout}
+        navigation={navigation}
         />
       </Container>
     </Gradient>

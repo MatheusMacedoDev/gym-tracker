@@ -9,8 +9,11 @@ import { Text } from "react-native"
 import { Home } from "../Home";
 import Gradient from "../../components/Gradient";
 import { RankingScreen } from "../RankingScreen";
+import { DefaultWorkoutsScreen } from "../DefaultWorkoutsScreen";
+import { useEffect, useState } from "react";
 
-export const Main = () => {
+export const Main = ({ route }) => {
+
 
     const Profile = () => {
         return (
@@ -30,7 +33,7 @@ export const Main = () => {
     return (
         <Gradient>
             <BottomTab.Navigator
-                initialRouteName="Home"
+                initialRouteName={route.params != null && route.params.name != null && route.params.name != undefined ? route.params.name : "Home"}
 
                 screenOptions={({ route }) => ({
                     tabBarStyle: {
@@ -53,7 +56,7 @@ export const Main = () => {
                             case 'Home':
                                 iconName = 'home';
                                 break;
-                            case 'Workouts':
+                            case 'DefaultWorkoutsScreen':
                                 iconName = 'fitness-center';
                                 break;
                             case 'Ranking':
@@ -83,8 +86,8 @@ export const Main = () => {
                     component={Home}
                 />
                 <BottomTab.Screen
-                    name="Workouts"
-                    component={Workouts}
+                    name="DefaultWorkoutsScreen"
+                    component={DefaultWorkoutsScreen}
                 />
                 <BottomTab.Screen
                     name="Ranking"
