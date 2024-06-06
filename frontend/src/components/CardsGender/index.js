@@ -2,17 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { ButtonContainer, ContainerCards, GenderText, ImagePerson, Overlay, ViewCircle } from './style';
 import { FontAwesome } from '@expo/vector-icons';
 
-export const CardsGender = () => {
-  const [selectedGender, setSelectedGender] = useState(null);
+export const CardsGender = ({selectedGender, setSelectedGender}) => {
+
 
   const handleSelect = (gender) => {
     setSelectedGender(selectedGender === gender ? null : gender);
   };
-
-
-  useEffect(() => {
-    console.log(selectedGender);
-  })
 
   return (
     <ContainerCards>

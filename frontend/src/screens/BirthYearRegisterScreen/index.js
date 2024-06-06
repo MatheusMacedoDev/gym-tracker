@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "../../components/Button"
 import {  Container } from "../../components/Container/style"
 import { IconButton } from "../../components/IconButton"
@@ -10,8 +10,10 @@ import { createArrayYears } from "../../utils/arraysFactory.js"
 import Gradient from "../../components/Gradient/index.js"
 import { SelectPicker } from "../../components/SelectPicker/index.js"
 
-export const BirthYearRegisterScreen = ({ navigation }) => {
+export const BirthYearRegisterScreen = ({ navigation, route }) => {
     const [yearBirth, setYearBirth] = useState(2000);
+
+
 
     return (
         <Gradient>

@@ -7,8 +7,19 @@ import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from "@expo/vector-icons";
 import { CardsGender } from "../../components/CardsGender/index.js"
 import Gradient from "../../components/Gradient/index.js"
+import { useEffect, useState } from "react"
 
-export const GenderRegisterScreen = ({ navigation }) => {
+export const GenderRegisterScreen = ({ navigation, route }) => {
+    const [selectedGender, setSelectedGender] = useState();
+
+    async function handleContinue(){
+        navigation.navigate("BirthYearRegisterScreen", {
+            userData: {
+                ...route.params,
+                gender: selectedGender
+            }
+        })
+    }
 
     return (
         <Gradient>
@@ -22,9 +33,9 @@ export const GenderRegisterScreen = ({ navigation }) => {
                 />
                 <Logo marginTop={'17%'} />
                 <Title marginTop={'5%'} marginBottom={'25%'}>Qual o seu sexo?</Title>
-                <CardsGender />
+                <CardsGender selectedGender={selectedGender} setSelectedGender={setSelectedGender} />
                 <Button
-                    handleClickFn={() => navigation.navigate("BirthYearRegisterScreen")}
+                    handleClickFn={handleContinue}
                     marginTop={'20%'}
                     title="Continuar"
                     icon={(size, color) => (

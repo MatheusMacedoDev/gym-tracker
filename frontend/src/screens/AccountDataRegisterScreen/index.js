@@ -15,6 +15,11 @@ export const AccountDataRegisterScreen = ({ navigation, route }) => {
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
 
+    async function handleContinue(){
+        if (password === confirmPassword) {
+            navigation.navigate("GenderRegisterScreen",{email: email, password: password, name: route.params.name})
+        }
+    }
 
     return (
         <Gradient>
@@ -33,7 +38,7 @@ export const AccountDataRegisterScreen = ({ navigation, route }) => {
                 <Input marginTop={'5%'} placeholder="Senha..."  value={password} onChangeText={setPassword}/>
                 <Input marginTop={'5%'} placeholder="Confirme sua senha..."  value={confirmPassword} onChangeText={setConfirmPassword}/>
                 <Button
-                    handleClickFn={() => navigation.navigate("GenderRegisterScreen")}
+                    handleClickFn={handleContinue}
                     marginTop={'15%'}
                     title="Continuar"
                     icon={(size, color) => (
