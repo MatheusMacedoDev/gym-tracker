@@ -11,9 +11,9 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useEffect, useState } from "react"
 
 export const AccountDataRegisterScreen = ({ navigation, route }) => {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [confirmPassword, setConfirmPassword] = useState("")
+    const [email, setEmail] = useState("eduardopasqualetti9@gmail.com")
+    const [password, setPassword] = useState("12345")
+    const [confirmPassword, setConfirmPassword] = useState("12345")
 
     async function handleContinue(){
         if (password === confirmPassword) {

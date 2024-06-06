@@ -14,21 +14,22 @@ export const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("matheus@mail.com");
   const [password, setPassword] = useState("12345");
 
-  async function handleLogin(){
+  async function handleLogin() {
     const response = await makeLogin(email, password)
-    console.log(response);
-    // navigation.navigate("Home")
+    if (response.status == 200) {
+      navigation.navigate("Home")
+    }
   }
-  
+
   return (
     <Gradient>
       <Container>
-        <Logo marginTop={'20%'}/>
-        <Title marginTop={'11%'}>Bem vindo</Title>  
-        <Input marginTop={'9%'} placeholder="E-mail ou usuário..." value={email} onChangeText={setEmail}/>
-        <Input marginTop={'5%'} placeholder="Senha..." value={password} onChangeText={setPassword}/>
+        <Logo marginTop={'20%'} />
+        <Title marginTop={'11%'}>Bem vindo</Title>
+        <Input marginTop={'9%'} placeholder="E-mail ou usuário..." value={email} onChangeText={setEmail} />
+        <Input marginTop={'5%'} placeholder="Senha..." value={password} onChangeText={setPassword} />
         <Link onPress={() => navigation.navigate("RecoverPasswordScreen")} textAlign={'right'} marginTop={'5%'}>Esqueceu sua senha ?</Link>
-        <Button marginTop={'35%'} title="Login" handleClickFn={handleLogin}/>
+        <Button marginTop={'35%'} title="Login" handleClickFn={handleLogin} />
         <LinkContainer marginTop={'7%'}>
           <LinkCommandText>Não tem uma conta?</LinkCommandText>
           <Link onPress={() => navigation.navigate("NameRegisterScreen")}>Cadastre-se</Link>
