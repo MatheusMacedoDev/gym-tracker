@@ -28,7 +28,7 @@ public class ExerciseDAO : IExerciseDAO
                         E.exercise_id AS exerciseId,
                         E.exercise_name AS exerciseName,
                         E.exercise_gif AS exerciseGif
-                    FROM exercise_muscle_group AS EMG
+                    FROM exercise_muscle_groups AS EMG
                     JOIN exercises AS E
                         ON E.exercise_id = EMG.exercise_id
                     WHERE EMG.muscle_group_id = @muscleGroupId

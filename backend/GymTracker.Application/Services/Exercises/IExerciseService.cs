@@ -9,7 +9,6 @@ public interface IExerciseService
 {
     Task<RegisterMuscleGroupResponse> RegisterMuscleGroup(RegisterMuscleGroupRequest request);
     Task<RegisterExerciseResponse> RegisterExercise(RegisterExerciseRequest request);
-    Task<RegisterDiaryExerciseSerieResponse> RegisterDiaryExerciseSerie(RegisterDiaryExerciseSerieRequest request);
     Task<List<MuscleGroup>> ListAllMuscleGroups();
     Task<IEnumerable<ExerciseDTO>> ListExercisesByMuscleGroupId(Guid muscleGroupId);
     Task<IEnumerable<DefaultWorkoutExerciseDTO>> ListExercisesByDefaultWorkoutId(Guid defaultWorkoutId);

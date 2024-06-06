@@ -1,4 +1,5 @@
-﻿using GymTracker.Application.Services.Contracts.Requests;
+﻿using GymTracker.Application.Services.Contracts;
+using GymTracker.Application.Services.Contracts.Requests;
 using GymTracker.Application.Services.Contracts.Responses;
 using GymTracker.Application.Services.DiaryWorkouts.Contracts.Requests;
 using GymTracker.Domain.Entities;
@@ -104,6 +105,36 @@ public class DiaryWorkoutService : IDiaryWorkoutService
             var diaryWorkout = await _workoutRepository.GetDiaryWorkoutById(diaryWorkoutId);
             await _workoutRepository.DeleteDiaryWorkoutById(diaryWorkout);
             await _unityOfWork.Commit();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<RegisterDiaryExerciseSerieResponse> RegisterDiaryExerciseSerie(RegisterDiaryExerciseSerieRequest request)
+    {
+        try
+        {
+            var exerciseRegistry = new DiaryExerciseSerie(
+                serieNumber: request.serieNumber,
+                repetitions: request.repetitions,
+                overload: request.overload,
+                diaryExerciseId: request.diaryExerciseId
+            );
+
+            await _exerciseRepository.RegisterDiaryExerciseSerie(exerciseRegistry);
+
+            await _unityOfWork.Commit();
+
+            var response = new RegisterDiaryExerciseSerieResponse(
+                diaryExerciseSerieId: exerciseRegistry.DiaryExerciseSerieId,
+                serieNumber: exerciseRegistry.SerieNumber,
+                repetitions: exerciseRegistry.Repetitions,
+                overload: exerciseRegistry.Overload
+            );
+
+            return response;
         }
         catch (Exception)
         {

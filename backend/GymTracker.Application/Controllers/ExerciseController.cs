@@ -46,22 +46,7 @@ public class ExerciseController : ControllerBase
         }
     }
 
-    [HttpPost("diary_exercise_series")]
-    public async Task<IActionResult> RegisterDiaryExerciseSerie([FromBody] RegisterDiaryExerciseSerieRequest request)
-    {
-        try
-        {
-            var response = await _exerciseService.RegisterDiaryExerciseSerie(request);
-
-            return StatusCode(201, response);
-        }
-        catch (Exception error)
-        {
-            return BadRequest(error.Message);
-        }
-    }
-
-    [HttpGet("exercises")]
+    [HttpGet("/api/muscle_group/exercises")]
     public async Task<IActionResult> ListExercisesBySpecificMuscleGroup(Guid muscleGroupId)
     {
         try

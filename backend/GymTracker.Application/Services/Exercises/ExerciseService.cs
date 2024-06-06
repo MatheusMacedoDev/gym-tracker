@@ -123,34 +123,4 @@ public class ExerciseService : IExerciseService
             throw;
         }
     }
-
-    public async Task<RegisterDiaryExerciseSerieResponse> RegisterDiaryExerciseSerie(RegisterDiaryExerciseSerieRequest request)
-    {
-        try
-        {
-            var exerciseRegistry = new DiaryExerciseSerie(
-                serieNumber: request.serieNumber,
-                repetitions: request.repetitions,
-                overload: request.overload,
-                diaryExerciseId: request.diaryExerciseId
-            );
-
-            await _exerciseRepository.RegisterDiaryExerciseSerie(exerciseRegistry);
-
-            await _unityOfWork.Commit();
-
-            var response = new RegisterDiaryExerciseSerieResponse(
-                diaryExerciseSerieId: exerciseRegistry.DiaryExerciseSerieId,
-                serieNumber: exerciseRegistry.SerieNumber,
-                repetitions: exerciseRegistry.Repetitions,
-                overload: exerciseRegistry.Overload
-            );
-
-            return response;
-        }
-        catch (Exception)
-        {
-            throw;
-        }
-    }
 }
