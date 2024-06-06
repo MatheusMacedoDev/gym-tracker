@@ -5,7 +5,6 @@ const loginEndpoint = '/users/login';
 
 
 export async function makeLogin(email, password) {
-    console.log(apiUrlLocal + loginEndpoint);
     try {
         const response = await api.post(apiUrlLocal + loginEndpoint, {
             userEmail: email,
