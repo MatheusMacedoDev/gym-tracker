@@ -9,11 +9,29 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { createArrayYears } from "../../utils/arraysFactory.js"
 import Gradient from "../../components/Gradient/index.js"
 import { SelectPicker } from "../../components/SelectPicker/index.js"
+import { makeLogin, registerUser } from "../../infra/services/userService.js"
 
 export const BirthYearRegisterScreen = ({ navigation, route }) => {
-    const [yearBirth, setYearBirth] = useState(2000);
+    const [yearBirth, setYearBirth] = useState("");
+    const [userData, setUserData] = useState({})
 
+     useEffect(() => {
+         setUserData(route.params.userData)
+         console.log(route.params);
+     },[])
 
+    async function RegisterUser() {
+        const response = await registerUser(userData.email,userData.password,userData.name, parseInt(yearBirth), userData.gender)
+        console.log(response);
+        // if (response.status === 201) {
+        //     const loginResponse = await makeLogin(userData.email,userData.password)
+        //     console.log(loginResponse);
+        //    if (loginResponse.status === 200) {
+        //      navigation.navigate("Home")
+        //    }
+
+        // }
+    }
 
     return (
         <Gradient>
@@ -33,7 +51,7 @@ export const BirthYearRegisterScreen = ({ navigation, route }) => {
                 list={createArrayYears()}
             /> 
             <Button
-                handleClickFn={() => navigation.navigate("WeightRecordScreen")}
+                handleClickFn={RegisterUser}
                 marginTop={'20%'}
                 title="Continuar"
                 icon={(size, color) => (

@@ -11,7 +11,7 @@ export async function makeLogin(email, password) {
             userPassword: password
         })
     
-        return response.data.authenticationToken;
+        return response;
     } catch (error) {
         console.log(error);
     }
@@ -19,13 +19,13 @@ export async function makeLogin(email, password) {
 
 export async function registerUser(email, password, name, birthYear, gender) {
     try {
-        const response = await api.post(registerUserEndpoint, {
+        const response = await api.post(apiUrlLocal + registerUserEndpoint, {
             email,
             password,
             name,
             birthYear,
             gender
-        });
+        })
     
         return response;
     } catch (error) {
