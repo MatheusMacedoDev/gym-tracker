@@ -80,7 +80,7 @@ export default function App() {
         <Stack.Screen name="WeightRecordScreen" component={WeightRecordScreen}/>
         <Stack.Screen name="GenderRegisterScreen" component={GenderRegisterScreen} />
         <Stack.Screen name="HeighRecordScreen" component={HeighRecordScreen} />
-        <Stack.Screen name="TrainingRecordScreen" component={TrainingRecordScrenn} />
+        <Stack.Screen name="TrainingRecordScrenn" component={TrainingRecordScrenn} />
         <Stack.Screen name="SelectExercise" component={SelectExercise} />
         <Stack.Screen name="ExerciseRecord" component={ExerciseRecord} />
         <Stack.Screen name="RankingScreen" component={RankingScreen} />
