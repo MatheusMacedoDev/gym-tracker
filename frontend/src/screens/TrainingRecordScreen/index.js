@@ -9,20 +9,27 @@ import { Button } from "../../components/Button";
 import { Entypo } from "@expo/vector-icons";
 import { ListComponent } from "../../components/List/style";
 import { ListContainer } from "../../components/ListContainer/style";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TouchableOpacity } from "react-native";
 import Gradient from "../../components/Gradient";
+import { GetDefaultWorkoutsByUserId } from "../../infra/services/defaultWorkoutService";
 
-const workouts = [
-  { id: 1, trainingName: "Treino A", muscleGroups: "Peito - Triceps - costas" },
-  { id: 2, trainingName: "Treino B", muscleGroups: "Peito - Triceps - costas" },
-  { id: 3, trainingName: "Treino C", muscleGroups: "Peito - Triceps - costas" },
-  { id: 4, trainingName: "Treino D", muscleGroups: "Peito - Triceps - costas" },
-  { id: 5, trainingName: "Treino E", muscleGroups: "Peito - Triceps - costas" },
-];
 
 export const TrainingRecordScrenn = ({ navigation }) => {
   const [selectedWorkout, setSelectedWorkout] = useState();
+  const [defaultWorkouts, setDefaultWorkouts] = useState();
+
+
+  async function GetDefaultWorkout() {
+    const response = await GetDefaultWorkoutsByUserId("92ef5d63-a75e-432d-aa7a-b3006f246b60")
+    setDefaultWorkouts(response.data)
+    console.log(response.data);
+  }
+
+
+  useEffect(() => {
+    GetDefaultWorkout()
+  }, [])
 
   return (
     <Gradient>
@@ -30,8 +37,8 @@ export const TrainingRecordScrenn = ({ navigation }) => {
         <IconButton
           gradient={false}
           onPress={() => navigation.goBack()}
-          icon={<MaterialIcons name="reply" size={40} color={"#FB6614"} 
-          onPress={() => navigation.goBack()}/>} 
+          icon={<MaterialIcons name="reply" size={40} color={"#FB6614"}
+            onPress={() => navigation.goBack()} />}
         />
         <Logo marginTop={"20%"} />
         <Title marginTop={"10%"}>Registro de treino</Title>
@@ -42,18 +49,22 @@ export const TrainingRecordScrenn = ({ navigation }) => {
         </CommandText>
         <ListContainer>
           <ListComponent
-            data={workouts}
+            data={defaultWorkouts}
             renderItem={({ item }) => (
-                <TouchableOpacity onPress={() => {setSelectedWorkout({
-                    id: item.id,
-                    trainingName: item.trainingName
-                })}}>
-              <CardWorkout
-                trainingName={item.trainingName}
-                muscleGroups={item.muscleGroups}
-                marginBottom={"5%"}
-                isSelected={selectedWorkout ? item.id == selectedWorkout.id : false}
-              />
+              <TouchableOpacity onPress={() => {
+                setSelectedWorkout({
+                  id: item.defaultWorkoutId,
+                  trainingName: item.defaultWorkoutName
+                })
+              }}>
+                <CardWorkout
+                  trainingName={item.defaultWorkoutName}
+                  muscleGroups={item.muscleGroups}
+                  marginBottom={"5%"}
+                  isSelected={
+                    selectedWorkout ? item.defaultWorkoutId == selectedWorkout.id : false
+                  }
+                />
               </TouchableOpacity>
             )}
           />
@@ -64,7 +75,7 @@ export const TrainingRecordScrenn = ({ navigation }) => {
           icon={(size, color) => (
             <Entypo name="chevron-right" size={size} color={color} />
           )}
-          handleClickFn={() => navigation.navigate("TrainingExercisesScreens", {trainingName: selectedWorkout.trainingName})}
+          handleClickFn={() => navigation.navigate("TrainingExercisesScreens", { selectedWorkout: selectedWorkout })}
         />
       </Container>
     </Gradient>
