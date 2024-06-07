@@ -9,7 +9,7 @@ const getExercisesByDefaultWorkoutEndpoint =
   "/workouts/default_workout/exercise";
 const deleteDefaultExerciseEndpoint = "/workouts/default_workout/exercise";
 
-export async function CreateDefaultWorkout(userId) {
+export async function CreateDefaultWorkout(userId, workoutName) {
   try {
     const response = await api.post(
       `${apiUrlLocal}${createDefaultWorkoutEndpoint}`,

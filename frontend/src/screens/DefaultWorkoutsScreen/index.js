@@ -12,13 +12,6 @@ import { useEffect, useState } from "react";
 import { NewWorkoutModal } from "../../components/NewWorkoutModal";
 import { GetDefaultWorkoutsByUserId } from "../../infra/services/defaultWorkoutService";
 
-const workouts = [
-  { id: 1, trainingName: "Treino A", muscleGroups: "Peito - Triceps - costas" },
-  { id: 2, trainingName: "Treino B", muscleGroups: "Peito - Triceps - costas" },
-  { id: 3, trainingName: "Treino C", muscleGroups: "Peito - Triceps - costas" },
-  { id: 4, trainingName: "Treino D", muscleGroups: "Peito - Triceps - costas" },
-  { id: 5, trainingName: "Treino E", muscleGroups: "Peito - Triceps - costas" },
-];
 
 export const DefaultWorkoutsScreen = ({ navigation }) => {
   const [selectedWorkout, setSelectedWorkout] = useState();
@@ -38,7 +31,7 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
   }
 
     async function GetDefaultWorkout() {
-        const response = await GetDefaultWorkoutsByUserId("e27f87e1-3189-4224-a7fc-47ccf9ed61f6")
+        const response = await GetDefaultWorkoutsByUserId("92ef5d63-a75e-432d-aa7a-b3006f246b60")
         setDefaultWorkouts(response.data)
         console.log(response.data);
     } 
