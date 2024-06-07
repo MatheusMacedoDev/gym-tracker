@@ -38,6 +38,7 @@ public class ProfileHistoryDAO : IProfileHistoryDAO
                         evolution_photo AS evolutionPhoto
                     FROM profile_histories
                     WHERE profile_histories.user_id = @userId
+                    ORDER BY profileDate ASC
                 ";
 
                 return await connection.QueryAsync<ProfileHistoryDTO>(query, new { userId });
@@ -70,6 +71,7 @@ public class ProfileHistoryDAO : IProfileHistoryDAO
                         evolution_photo AS evolutionPhoto
                     FROM profile_histories
                     WHERE profile_histories.user_id = @userId
+                    ORDER BY profileDate DESC
                 ";
 
                 return (await connection.QueryFirstOrDefaultAsync<ProfileHistoryDTO>(query, new { userId }))!;
