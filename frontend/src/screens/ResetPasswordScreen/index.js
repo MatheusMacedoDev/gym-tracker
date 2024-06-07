@@ -32,6 +32,7 @@ export const ResetPasswordScreen = ({ navigation }) => {
                     icon={(size, color) => (
                         <Entypo name="chevron-right" size={size} color={color} />
                     )}
+                    handleClickFn={() => navigation.navigate("LoginScreen")}
                 />
             </Container>
         </Gradient>

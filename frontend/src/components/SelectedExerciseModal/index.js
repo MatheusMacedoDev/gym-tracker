@@ -34,6 +34,7 @@ export const SelectedExerciseModal = ({ nameExercise="Supino com halteres", phot
                         icon={(size, color) => (
                             <Ionicons name="save" size={22} color={colors.white} />
                         )}
+                        handleClickFn={() => setShowModalExercise(false)}
                     />
                     <Link marginTop={'5%'} textAlign={'center'} onPress={() => setShowModalExercise(false)}>Cancelar</Link>
                 </Gradient>

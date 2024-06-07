@@ -35,6 +35,7 @@ export const Presentation = ({navigation}) => {
         </ContainerText>
         <Button
           title="Continuar"
+          handleClickFn={() => navigation.navigate("PresentationInitial")}
         />
       </ContainerPresentation>
 

@@ -25,6 +25,7 @@ export const PresentationInitial = ({ navigation }) => {
         <Button
           marginTop={"8%"}
           title="Continuar"
+          handleClickFn={() => navigation.navigate("LoginScreen")}
         />
       </ContainerPresentation>
 

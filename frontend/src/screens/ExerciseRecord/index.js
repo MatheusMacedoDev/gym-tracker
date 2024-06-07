@@ -19,7 +19,7 @@ const series = [
     { id: 5, serialNumber: 5, reps: 12 },
 ];
 
-export const ExerciseRecord = () => {
+export const ExerciseRecord = ({ navigation }) => {
     return (
         <Gradient>
             <Container>
@@ -44,9 +44,10 @@ export const ExerciseRecord = () => {
                 </ListContainer>
                 <Button
                     marginTop={'15%'}
-                    title="Continuar"
+                    handleClickFn={() => {navigation.navigate("Main")}}
+                    title="Finalizar exercício"
                     icon={(size, color) => (
-                        <Entypo name="chevron-right" size={size} color={color} />
+                        <Entypo name="chevron-right" size={size} color={color}/>
                     )}
                 />
             </Container>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Title } from '../../components/Title/style';
 import { Button } from '../../components/Button';
 import { Subtitulo } from '../../screens/PresentationInitial/style';
@@ -9,6 +9,7 @@ import BtnExercise from './style'; // Certifique-se de que o caminho está corre
 import Gradient from '../../components/Gradient';
 import { Container } from '../../components/Container/style';
 import { ListContainer } from '../../components/ListContainer/style';
+import { SelectedExerciseModal } from '../../components/SelectedExerciseModal';
 
 const data = [
   { id: '1', title: 'Peito' },
@@ -17,18 +18,22 @@ const data = [
   { id: '4', title: 'Bundinha' },
 ];
 
-const renderItem = ({ item }) => (
-  <BtnExercise title={item.title} onPress={() => console.log(item.title)} />
-);
 
 export const SelectExercise = ({navigation}) => {
+  const [showModalExercise, setShowModalExercise] = useState(false)
+  
+  const renderItem = ({ item }) => (
+    <BtnExercise title={item.title} onPress={() => setShowModalExercise(true)} />
+  );
+
+
   return (
     <Gradient>
       <Container>
         <IconButton
           gradient={false}
           icon={<MaterialIcons name="reply" size={40} color={'#FB6614'} 
-          onPress={() => navigation.navigate("SelectGroupMuscle")}
+          onPress={() => navigation.goBack()}
           />}
         />
         
@@ -46,6 +51,11 @@ export const SelectExercise = ({navigation}) => {
         <Button
           marginTop={"10%"}  
           title="Adicionar exercícios"
+        />
+        <SelectedExerciseModal
+          visible={showModalExercise}
+          setShowModalExercise={setShowModalExercise}
+          navigation={navigation}
         />
       </Container>
     </Gradient>

@@ -28,7 +28,7 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
       id: item.id,
     });
 
-    navigation.replace("DefaultWorkoutExerciseScreen", {trainingName: item.trainingName})
+    navigation.navigate("DefaultWorkoutExerciseScreen", {trainingName: item.trainingName})
   }
 
   return (

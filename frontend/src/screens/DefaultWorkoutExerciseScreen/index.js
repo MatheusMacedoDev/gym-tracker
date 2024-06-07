@@ -38,7 +38,7 @@ export const DefaultWorkoutExerciseScreen = ({ navigation, route }) => {
         <IconButton
           gradient={false}
           icon={<MaterialIcons name="reply" size={40} color={"#FB6614"} 
-          onPress={() => navigation.replace("Main", {name: "DefaultWorkoutsScreen"})}
+          onPress={() => navigation.goBack()}
           />}
         />
         <CommandText textAlign={"center"} marginTop={"15%"}>Treinos predefinidos</CommandText>
@@ -58,7 +58,7 @@ export const DefaultWorkoutExerciseScreen = ({ navigation, route }) => {
           />
         </ListContainer>
         <Button
-          handleClickFn={() => navigation.replace("SelectGroupMuscle", {trainingName: trainingName})}
+          handleClickFn={() => navigation.navigate("SelectGroupMuscle", {trainingName: trainingName})}
           marginTop={"20%"}
           title="Adicionar exercício"
           icon={(size, color) => (

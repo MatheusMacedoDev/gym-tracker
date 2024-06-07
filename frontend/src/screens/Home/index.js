@@ -28,7 +28,7 @@ const exercises = [
 ];
 
 
-export const Home = () => {
+export const Home = ({ navigation }) => {
 
     const [date, setDate] = useState()
     const [exist, setExists] = useState(false)
@@ -65,7 +65,7 @@ export const Home = () => {
                             :
                             <>
                                 <LabelWorkout>Nenhum treino foi registrado hoje.</LabelWorkout>
-                                <Button fontSize={12} title="Registrar treino" heightButon={'13%'} marginTop={'20%'} widthButton={'90%'}/>
+                                <Button fontSize={12} title="Registrar treino" heightButon={'13%'} marginTop={'20%'} widthButton={'90%'} handleClickFn={() => navigation.navigate("TrainingRecordScreen")}/>
                             </>
                         }
                     </WorkoutContent>

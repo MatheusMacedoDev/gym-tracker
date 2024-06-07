@@ -21,7 +21,7 @@ const workouts = [
   { id: 5, trainingName: "Treino E", muscleGroups: "Peito - Triceps - costas" },
 ];
 
-export const TrainingRecordScrenn = () => {
+export const TrainingRecordScrenn = ({ navigation }) => {
   const [selectedWorkout, setSelectedWorkout] = useState();
 
   return (
@@ -29,7 +29,9 @@ export const TrainingRecordScrenn = () => {
       <Container>
         <IconButton
           gradient={false}
-          icon={<MaterialIcons name="reply" size={40} color={"#FB6614"} />}
+          onPress={() => navigation.goBack()}
+          icon={<MaterialIcons name="reply" size={40} color={"#FB6614"} 
+          onPress={() => navigation.goBack()}/>} 
         />
         <Logo marginTop={"20%"} />
         <Title marginTop={"10%"}>Registro de treino</Title>
@@ -43,7 +45,8 @@ export const TrainingRecordScrenn = () => {
             data={workouts}
             renderItem={({ item }) => (
                 <TouchableOpacity onPress={() => {setSelectedWorkout({
-                    id: item.id
+                    id: item.id,
+                    trainingName: item.trainingName
                 })}}>
               <CardWorkout
                 trainingName={item.trainingName}
@@ -61,6 +64,7 @@ export const TrainingRecordScrenn = () => {
           icon={(size, color) => (
             <Entypo name="chevron-right" size={size} color={color} />
           )}
+          handleClickFn={() => navigation.navigate("TrainingExercisesScreens", {trainingName: selectedWorkout.trainingName})}
         />
       </Container>
     </Gradient>

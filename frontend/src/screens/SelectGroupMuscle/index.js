@@ -40,7 +40,7 @@ const SelectGroupMuscle = ({navigation, route}) => {
     <BtnExcercise2 
       title={item.title}
       image={item.image} 
-      onPress={() => navigation.replace("SelectExercise", {trainingName: route.params.trainingName})}
+      onPress={() => navigation.navigate("SelectExercise")}
     />
   );
 
@@ -50,7 +50,7 @@ const SelectGroupMuscle = ({navigation, route}) => {
         <IconButton
           gradient={false}
           icon={<MaterialIcons name="reply" size={40} color={'#FB6614'} 
-          onPress={() => navigation.navigate("DefaultWorkoutExerciseScreen")}
+          onPress={() => navigation.goBack()}
           />}
         />
 

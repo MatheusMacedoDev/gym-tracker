@@ -33,7 +33,7 @@ export const Main = ({ route }) => {
     return (
         <Gradient>
             <BottomTab.Navigator
-                initialRouteName={route.params != null && route.params.name != null && route.params.name != undefined ? route.params.name : "Home"}
+                initialRouteName={"Home"}
 
                 screenOptions={({ route }) => ({
                     tabBarStyle: {

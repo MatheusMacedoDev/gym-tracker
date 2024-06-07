@@ -13,7 +13,7 @@ export const Navigation = ({ navigation }) => {
         <Text>JOAO</Text>
       </TouchableOpacity>
       <TouchableOpacity style={{ width: 90, height: 40, backgroundColor: 'orange', alignItems: "center", justifyContent: "center", marginTop: 5 }} onPress={() => { navigation.navigate("Main") }}>
-        <Text>BOTTOM TAB</Text>
+        <Text>Home</Text>
       </TouchableOpacity>
       <TouchableOpacity style={{ width: 90, height: 40, backgroundColor: 'orange', alignItems: "center", justifyContent: "center", marginTop: 5 }} onPress={() => { navigation.navigate("RecoverPasswordScreen") }}>
         <Text>Esqueceu a senha</Text>
