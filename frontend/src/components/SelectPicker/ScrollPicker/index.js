@@ -6,9 +6,6 @@ import {
     Text,
     StyleSheet
 } from 'react-native';
-import { percentage } from '../../../utils/percentageFactory';
-
-const LIGHT_GRAY = '#DEE2EE';
 
 const ScrollPicker = ({
     list,
@@ -17,27 +14,12 @@ const ScrollPicker = ({
     currentValue,
     initialNumToRender,
     labelColor,
-    separatorColor,
     selectedColor
 }) => {
     const pickedIndex = list.findIndex(item => item.value === currentValue);
     const ItemHeight = 39.8;
     const LABEL_COLOR = labelColor || 'black';
     const SELECTED_COLOR = selectedColor || 'blue';
-    const SEPARATOR_COLOR = separatorColor || LIGHT_GRAY;
-
-    const FlatListItemSeparator = () => {
-        return (
-            // Item Separator
-            <View
-                style={{
-                    height: 3,
-                    width: '100%',
-                    backgroundColor: SEPARATOR_COLOR
-                }}
-            />
-        );
-    };
 
     const Row = ({ value, label, index }) => {
         return (
@@ -48,15 +30,17 @@ const ScrollPicker = ({
                 {pickedIndex === index ? (
                     <Text
                         style={{
-                            fontSize: 45,
+                            fontSize: 42,
                             textAlign: 'center',
                             fontFamily: 'Montserrat_700Bold',
                             color: SELECTED_COLOR
                         }}
-                    >{`${label}`}</Text>
+                    >
+                        {label}
+                    </Text>
                 ) : (
                     <Text style={{ ...styles.RowText, color: LABEL_COLOR }}>
-                        {`${label}`}
+                        {label}
                     </Text>
                 )}
             </TouchableOpacity>
@@ -84,7 +68,7 @@ const ScrollPicker = ({
                         offset: ItemHeight * index,
                         index
                     })}
-                    initialScrollIndex={pickedIndex - 3}
+                    initialScrollIndex={pickedIndex - 1}
                 />
             </View>
         </>
@@ -107,8 +91,8 @@ const styles = StyleSheet.create({
     },
     Container: {
         width: '100%',
-        height: '25%',
-        marginTop: 64
+        height: '28%',
+        marginTop: 60
     }
 });
 
