@@ -11,6 +11,7 @@ public interface IUserRepository
     void RemoveUserLike(UserLike userLike);
 
     Task<List<ProfileHistory>> ListUserProfileHistoryByUserId(Guid userId);
+    Task<ProfileHistory> GetUserProfileHistoryById(Guid profileHistoryId);
     Task<User> GetUserById(Guid userId);
     Task<UserLike> GetUserLikeById(Guid userLikeId);
 }

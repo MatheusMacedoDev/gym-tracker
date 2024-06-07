@@ -29,7 +29,7 @@ public class DiaryExerciseSerie
     public Guid DiaryExerciseId { get; private set; }
 
     [ForeignKey(nameof(DiaryExerciseId))]
-    public DefaultExercise? DefaultExercise { get; private set; }
+    public DiaryExercise? DiaryExercise { get; private set; }
 
     protected DiaryExerciseSerie()
     {

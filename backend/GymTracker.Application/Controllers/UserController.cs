@@ -91,6 +91,21 @@ public class UserController : ControllerBase
         }
     }
 
+    [HttpGet("profile_history/have_permition_to_add")]
+    public async Task<IActionResult> HavePermitionToAddProfileHistory(Guid userId)
+    {
+        try
+        {
+            var response = await _userService.CanAddProfileHistory(userId);
+
+            return Ok(response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.ToString());
+        }
+    }
+
     [HttpPost("user_like")]
     public async Task<IActionResult> RegisterUserLike([FromForm] RegisterUserLikeRequest request)
     {
@@ -106,7 +121,7 @@ public class UserController : ControllerBase
         }
     }
 
-    [HttpGet("user_like/users")]
+    [HttpGet("user_like")]
     public async Task<IActionResult> GetLikesByUserId(Guid userId)
     {
         try

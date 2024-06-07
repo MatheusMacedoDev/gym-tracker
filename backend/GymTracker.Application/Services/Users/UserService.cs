@@ -238,4 +238,30 @@ public class UserService : IUserService
             throw;
         }
     }
+
+    public async Task<CanAddProfileHistoryResponse> CanAddProfileHistory(Guid userId)
+    {
+        try
+        {
+            bool havePermition = true;
+
+            var lastProfileHistoryDTO = await _profileHistoryDAO.GetLastProfileHistoryByUserId(userId);
+
+            if (lastProfileHistoryDTO != null)
+            {
+                var lastProfileHistory = await _userRepository.GetUserProfileHistoryById(lastProfileHistoryDTO.profileHistoryId);
+                System.Console.WriteLine(lastProfileHistory.ProfileDate);
+
+                havePermition = lastProfileHistory.IsValidSpaceBetweenDates(lastProfileHistory.ProfileDate);
+            }
+
+            var response = new CanAddProfileHistoryResponse(havePermition);
+
+            return response;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
 }

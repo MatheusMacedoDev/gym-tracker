@@ -79,14 +79,21 @@ public class ProfileHistory
         UserId = userId;
     }
 
-    void SpaceBetweenProfileDatesValidation(DateTime lastHistoryDate)
+    public bool IsValidSpaceBetweenDates(DateTime lastHistoryDate)
     {
         const int MIN_DAYS_BETWEEN_DATES = 7;
 
         DateTime nextDateRealease = lastHistoryDate.AddDays(MIN_DAYS_BETWEEN_DATES).Date;
         DateTime currentDate = DateTime.UtcNow.Date;
 
-        bool IS_CURRENT_DATE_INVALID = nextDateRealease > currentDate;
+        bool IS_CURRENT_DATE_VALID = currentDate >= nextDateRealease;
+
+        return IS_CURRENT_DATE_VALID;
+    }
+
+    void SpaceBetweenProfileDatesValidation(DateTime lastHistoryDate)
+    {
+        bool IS_CURRENT_DATE_INVALID = !IsValidSpaceBetweenDates(lastHistoryDate);
 
         if (IS_CURRENT_DATE_INVALID)
         {
