@@ -10,6 +10,7 @@ import { Entypo } from "@expo/vector-icons";
 import { ListContainer } from "../../components/ListContainer/style";
 import { ListComponent } from "../../components/List/style";
 import { TouchableOpacity } from "react-native";
+import { useEffect } from "react";
 
 const exercises = [
   { id: 1, exercise: "Supino com halteres" },
@@ -20,7 +21,12 @@ const exercises = [
   { id: 6, exercise: "Abdominal" },
 ];
 
+
 export const TrainingExercisesScreens = ({ navigation, route }) => {
+  useEffect(() => {
+    console.log(route.params.selectedWorkout.trainingName);
+  },[route])
+  
   return (
     <Gradient>
       <Container>
@@ -39,7 +45,7 @@ export const TrainingExercisesScreens = ({ navigation, route }) => {
           Treinos predefinidos
         </CommandText>
         <Title marginTop={"5%"} marginBottom={"10%"}>
-          {route.params.trainingName}
+          {route.params.selectedWorkout.trainingName}
         </Title>
         <ListContainer heightContainer={"50%"}>
           <ListComponent
