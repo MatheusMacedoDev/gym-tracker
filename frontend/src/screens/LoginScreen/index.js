@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "../../components/Button";
 import { Container } from "../../components/Container/style";
 import Gradient from "../../components/Gradient";
@@ -8,16 +8,19 @@ import { Logo } from "../../components/Logo";
 import { Title } from "../../components/Title/style";
 import { LinkCommandText } from "./components/linkCommandText";
 import { LinkContainer } from "./components/linkContainer";
-import { makeLogin } from "../../infra/services/userService";
+import { MakeLogin } from "../../infra/services/userService";
 
 export const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("matheus@mail.com");
   const [password, setPassword] = useState("12345");
 
   async function handleLogin() {
-    const response = await makeLogin(email, password)
+    const response = await MakeLogin(email, password)
+    console.log(response.data);
     if (response.status == 200) {
-      navigation.navigate("Home")
+      navigation.navigate("Main")
+    } else {
+
     }
   }
 
