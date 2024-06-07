@@ -4,7 +4,7 @@ import Gradient from "../../components/Gradient"
 import { Logo } from "../../components/Logo"
 import { CalendarHome } from "../../components/Calendar"
 import { Title } from "../../components/Title/style"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import DiaryWorkoutContainer from "./Style/DiaryWorkoutContainer"
 import ImageWelcome from "./Style/ImageWelcome"
 import TextWelcome from "./Style/TextWelcome"
@@ -19,19 +19,26 @@ import { IconButton } from "../../components/IconButton"
 import { FontAwesome } from '@expo/vector-icons';
 import { colors } from "../../colors.config"
 import LabelWorkout from "./NotExistWorkout/LabelWorkout"
+import { GetExercisesByDiaryWorkout } from "../../infra/services/diaryWorkoutService"
 
-const exercises = [
-    { id: 1, exercise: "Flexao" },
-    { id: 2, exercise: "Supino com halteres" },
-    { id: 3, exercise: "Crucifixo" },
-    { id: 4, exercise: "Fly inclinado" },
-];
 
 
 export const Home = ({ navigation }) => {
 
     const [date, setDate] = useState()
-    const [exist, setExists] = useState(false)
+    const [exercises, setExercises] = useState([])
+    const [workoutName, setWorkoutName] = useState()
+
+    useEffect(() => {
+        GetExercises()
+    }, [date])
+
+    async function GetExercises() {
+        const response = await GetExercisesByDiaryWorkout(date, 'e27f87e1-3189-4224-a7fc-47ccf9ed61f6')
+        setExercises(response.data.diaryExercises)
+        setWorkoutName(response.data.workoutName)
+        console.log(response);
+    }
 
     return (
         <Gradient>
@@ -44,17 +51,17 @@ export const Home = ({ navigation }) => {
                 <CalendarHome setTrainingDate={setDate} />
                 <DiaryWorkoutContainer>
                     <WorkoutContent>
-                        {exist ?
+                        {exercises ?
                             <>
 
-                                <Title alignSelf={"flex-start"} marginBottom={'20%'} fontSize={24} >Treino A</Title>
+                                <Title alignSelf={"flex-start"} marginBottom={'20%'} fontSize={24} >{workoutName}</Title>
                                 <ListContainer heightContainer={'55%'}>
                                     <ListComponent
                                         data={exercises}
                                         renderItem={({ item }) => (
-                                            <ExistWorkoutComponent nameExercise={item.exercise} />
+                                            <ExistWorkoutComponent nameExercise={item.exerciseName} />
                                         )}
-                                        
+
                                     />
                                 </ListContainer>
                                 <IconButton left={'5%'} top={'75%'} icon={
@@ -65,7 +72,7 @@ export const Home = ({ navigation }) => {
                             :
                             <>
                                 <LabelWorkout>Nenhum treino foi registrado hoje.</LabelWorkout>
-                                <Button fontSize={12} title="Registrar treino" heightButon={'13%'} marginTop={'20%'} widthButton={'90%'} handleClickFn={() => navigation.navigate("TrainingRecordScreen")}/>
+                                <Button fontSize={12} title="Registrar treino" heightButon={'13%'} marginTop={'20%'} widthButton={'90%'} handleClickFn={() => navigation.navigate("TrainingRecordScreen")} />
                             </>
                         }
                     </WorkoutContent>
