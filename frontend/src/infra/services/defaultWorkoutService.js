@@ -28,7 +28,7 @@ export async function CreateDefaultWorkout(userId) {
 export async function GetDefaultWorkoutsByUserId(userId) {
   try {
     const response = await api.get(
-      `${apiUrlLocal}${getDefaultWorkoutsByUserEndpoint}/userId?=${userId}`,
+      `${apiUrlLocal}${getDefaultWorkoutsByUserEndpoint}?userId=${userId}`,
     );
 
     return response;
@@ -40,7 +40,7 @@ export async function GetDefaultWorkoutsByUserId(userId) {
 export async function DeleteDefaultWorkoutId(defaultWorkoutId) {
   try {
     const response = await api.delete(
-      `${apiUrlLocal}${deleteDefaultWorkoutEndpoint}/defaultWorkoutId?=${defaultWorkoutId}`,
+      `${apiUrlLocal}${deleteDefaultWorkoutEndpoint}?defaultWorkoutId=${defaultWorkoutId}`,
     );
 
     return response;

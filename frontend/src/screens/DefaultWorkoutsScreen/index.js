@@ -8,8 +8,9 @@ import { Title } from "../../components/Title/style";
 import { CardWorkout } from "../../components/CardWorkout";
 import { Button } from "../../components/Button";
 import { Entypo } from "@expo/vector-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NewWorkoutModal } from "../../components/NewWorkoutModal";
+import { GetDefaultWorkoutsByUserId } from "../../infra/services/defaultWorkoutService";
 
 const workouts = [
   { id: 1, trainingName: "Treino A", muscleGroups: "Peito - Triceps - costas" },
@@ -22,14 +23,25 @@ const workouts = [
 export const DefaultWorkoutsScreen = ({ navigation }) => {
   const [selectedWorkout, setSelectedWorkout] = useState();
   const [showModalNewWorkout, setShowModalNewWorkout] = useState(false);
+  const [defaultWorkouts, setDefaultWorkouts] = useState();
+
+  useEffect(() => {
+    GetDefaultWorkout()
+  },[])
 
   const seeTraining = (item) => {
     setSelectedWorkout({
-      id: item.id,
+      id: item.defaultWorkoutId,
     });
 
     navigation.navigate("DefaultWorkoutExerciseScreen", {trainingName: item.trainingName})
   }
+
+    async function GetDefaultWorkout() {
+        const response = await GetDefaultWorkoutsByUserId("e27f87e1-3189-4224-a7fc-47ccf9ed61f6")
+        setDefaultWorkouts(response.data)
+        console.log(response.data);
+    } 
 
   return (
     <Gradient>
@@ -38,17 +50,17 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
         <Title marginTop={"10%"} marginBottom={"10%"}>Treinos predefinidos</Title>
         <ListContainer heightContainer={"40%"}>
           <ListComponent
-            data={workouts}
+            data={defaultWorkouts}
             renderItem={({ item }) => (
               <TouchableOpacity
                 onPress={() => {seeTraining(item)}}
               >
                 <CardWorkout
-                  trainingName={item.trainingName}
+                  trainingName={item.defaultWorkoutName}
                   muscleGroups={item.muscleGroups}
                   marginBottom={"5%"}
                   isSelected={
-                    selectedWorkout ? item.id == selectedWorkout.id : false
+                    selectedWorkout ? item.defaultWorkoutId == selectedWorkout.id : false
                   }
                 />
               </TouchableOpacity>
