@@ -53,4 +53,9 @@ public class UserRepository : IUserRepository
     {
         return (await _context.UserLikes!.FirstOrDefaultAsync(userLike => userLike.UserLikeId == userLikeId))!;
     }
+
+    public async Task<ProfileHistory> GetUserProfileHistoryById(Guid profileHistoryId)
+    {
+        return (await _context.ProfileHistories!.FirstOrDefaultAsync(profile => profile.ProfileHistoryId == profileHistoryId))!;
+    }
 }

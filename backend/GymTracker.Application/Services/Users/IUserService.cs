@@ -9,10 +9,13 @@ public interface IUserService
     Task<RegisterUserResponse> RegisterUser(RegisterUserRequest request);
     Task<RegisterUserLikeResponse> RegisterUserLike(RegisterUserLikeRequest request);
     Task<ChangeUserProfileImageResponse> ChangeUserProfileImage(ChangeUserProfileImageRequest request);
+
     Task<LoginResponse> Login(LoginRequest request);
+
     Task<RegisterProfileHistoryResponse> RegisterProfileHistory(RegisterProfileHistoryRequest request);
     Task<IEnumerable<ProfileHistoryDTO>> ListProfileHistoryByUserId(Guid userId);
-    Task<int> GetLikesByUserID(Guid userId);
+    Task<CanAddProfileHistoryResponse> CanAddProfileHistory(Guid userId);
 
+    Task<int> GetLikesByUserID(Guid userId);
     Task RemoveUserLike(Guid userLikeId);
 }
