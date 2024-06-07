@@ -75,7 +75,7 @@ export async function CreateDefaultExercise(
 export async function GetExercisesByDefaultWorkout(defaultWorkoutId) {
   try {
     const response = await api.get(
-      `${apiUrlLocal}${getExercisesByDefaultWorkoutEndpoint}/defaultWorkoutId?=${defaultWorkoutId}`,
+      `${apiUrlLocal}${getExercisesByDefaultWorkoutEndpoint}?defaultWorkoutId=${defaultWorkoutId}`,
     );
 
     return response;

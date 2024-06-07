@@ -22,13 +22,6 @@ export const Main = ({ route }) => {
             </>
         )
     }
-    const Workouts = () => {
-        return (
-            <>
-                <Text>Workouts</Text>
-            </>
-        )
-    }
 
     return (
         <Gradient>

@@ -8,9 +8,10 @@ import { Title } from "../../components/Title/style";
 import { CardWorkout } from "../../components/CardWorkout";
 import { Button } from "../../components/Button";
 import { Entypo } from "@expo/vector-icons";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { NewWorkoutModal } from "../../components/NewWorkoutModal";
 import { GetDefaultWorkoutsByUserId } from "../../infra/services/defaultWorkoutService";
+import { useFocusEffect } from "@react-navigation/native";
 
 
 export const DefaultWorkoutsScreen = ({ navigation }) => {
@@ -18,16 +19,18 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
   const [showModalNewWorkout, setShowModalNewWorkout] = useState(false);
   const [defaultWorkouts, setDefaultWorkouts] = useState();
 
-  useEffect(() => {
-    GetDefaultWorkout()
-  },[])
+  useFocusEffect(
+    useCallback(() => {
+      GetDefaultWorkout();
+    }, [])
+  );
 
   const seeTraining = (item) => {
     setSelectedWorkout({
       id: item.defaultWorkoutId,
     });
-
-    navigation.navigate("DefaultWorkoutExerciseScreen", {trainingName: item.trainingName})
+    console.log(item.defaultWorkoutId);
+    navigation.navigate("DefaultWorkoutExerciseScreen", {defaultWorkoutId: item.defaultWorkoutId, trainingName: item.defaultWorkoutName})
   }
 
     async function GetDefaultWorkout() {

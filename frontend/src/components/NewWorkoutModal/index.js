@@ -13,12 +13,15 @@ import { useState } from "react";
 
 export const NewWorkoutModal = ({ navigation, visible, setShowModalNewWorkout, ...rest }) => {
 
-    const [trainingName, setTrainingName] = useState()
+    const [trainingName, setTrainingName] = useState();
+    const [workout, setWorkout] = useState();
 
     async function CreateWorkout() {
         const response = await CreateDefaultWorkout("92ef5d63-a75e-432d-aa7a-b3006f246b60", trainingName)
-        console.log(response);
+        setWorkout(response.data)
+        console.log(response.data);
         setShowModalNewWorkout(false)
+        navigation.navigate("DefaultWorkoutExerciseScreen", {defaultWorkoutId: workout.defaultWorkoutId , trainingName: trainingName})
     }
 
     return (
@@ -27,7 +30,7 @@ export const NewWorkoutModal = ({ navigation, visible, setShowModalNewWorkout, .
                 <Gradient locationOne={1} borderRadius={'15px'}>
                     <Logo widthLogo={'27%'} heightLogo={'12%'} marginTop={'15%'}/>
                     <Title fontSize={18} marginTop={'8%'}>Defina o nome do treino:</Title>
-                    <Input placeholder="Nome do treino..." widthInput={'85%'} heightInput={'13%'} marginTop={'12%'} onChangeText={setTrainingName} value={trainingName}/>
+                    <Input placeholder="Nome do treino..." widthInput={'85%'} heightInput={'13%'} marginTop={'12%'} onChangeText={setTrainingName} />
                     <Button widthButton={'85%'} heightButon={'12%'} marginTop={'10%'} handleClickFn={CreateWorkout}
                     icon={(size, color) => (
                         <Ionicons name="send" size={20} color={colors.white}/>

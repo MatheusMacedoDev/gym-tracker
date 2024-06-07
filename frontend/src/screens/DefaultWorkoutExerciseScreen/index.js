@@ -11,6 +11,7 @@ import { Title } from "../../components/Title/style";
 import { Fontisto } from "@expo/vector-icons";
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from "@expo/vector-icons";
+import { GetExercisesByDefaultWorkout } from "../../infra/services/defaultWorkoutService";
 
 const exercises = [
   { id: 1, exercise: "Supino com halteres" },
@@ -23,14 +24,26 @@ const exercises = [
 
 export const DefaultWorkoutExerciseScreen = ({ navigation, route }) => {
 
-  const [trainingName, setTrainingName] = useState();
+  const [defaultWorkoutExercises, setDefaultWorkoutExercises] = useState();
+  const defaultWorkoutId = route.params.defaultWorkoutId;
+  const trainingName = route.params.trainingName;
 
   useEffect(() => {
-    if (route.params.trainingName != null && route.params.trainingName != undefined) {
-      setTrainingName(route.params.trainingName);
+    if (route.params.defaultWorkoutId != null && route.params.defaultWorkoutId != undefined) {
+      console.log(defaultWorkoutId);
+      GetDefaultWorkoutExercise()
     }
-    
-  })
+    else {
+      console.log("erro");
+    }
+  }, [])
+
+  async function GetDefaultWorkoutExercise() {
+    console.log(defaultWorkoutId);
+    const response = await GetExercisesByDefaultWorkout(defaultWorkoutId)
+    console.log(response.data);
+    setDefaultWorkoutExercises(response.data)
+  }
 
   return (
     <Gradient>
@@ -45,11 +58,11 @@ export const DefaultWorkoutExerciseScreen = ({ navigation, route }) => {
         <Title marginTop={"5%"} marginBottom={"10%"}>{trainingName}</Title>
         <ListContainer heightContainer={"50%"}>
           <ListComponent
-            data={exercises}
+            data={defaultWorkoutExercises}
             renderItem={({ item }) => (
               <ExerciseCard
                 marginBottom={"5%"}
-                titleExercise={item.exercise}
+                titleExercise={item.exerciseName}
                 icon={(size, color) => (
                   <Fontisto name="trash" size={size} color={color} />
                 )}
