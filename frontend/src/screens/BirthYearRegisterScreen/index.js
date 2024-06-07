@@ -22,15 +22,10 @@ export const BirthYearRegisterScreen = ({ navigation, route }) => {
 
     async function RegisterUser() {
         const response = await registerUser(userData.email,userData.password,userData.name, parseInt(yearBirth), userData.gender)
-        console.log(response);
-        // if (response.status === 201) {
-        //     const loginResponse = await makeLogin(userData.email,userData.password)
-        //     console.log(loginResponse);
-        //    if (loginResponse.status === 200) {
-        //      navigation.navigate("Home")
-        //    }
-
-        // }
+        console.log(response.status);
+        if (response.status === 201) {
+            navigation.replace("Login")
+        }
     }
 
     return (
