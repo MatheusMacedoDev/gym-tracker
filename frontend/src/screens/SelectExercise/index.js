@@ -51,6 +51,7 @@ export const SelectExercise = ({navigation}) => {
         <Button
           marginTop={"10%"}  
           title="Adicionar exercícios"
+          handleClickFn={() => navigation.navigate("SelectGroupMuscle")}
         />
         <SelectedExerciseModal
           visible={showModalExercise}

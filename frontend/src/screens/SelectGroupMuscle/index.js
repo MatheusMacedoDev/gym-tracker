@@ -68,6 +68,7 @@ const SelectGroupMuscle = ({navigation, route}) => {
         <Button
           marginTop={"10%"}  
           title="Salvar treino"
+          handleClickFn={() => navigation.navigate("DefaultWorkoutExerciseScreen", {trainingName: route.params.trainingName})}
         />
       </ContainerPresentation>
     </Gradient>

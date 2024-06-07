@@ -44,7 +44,7 @@ export const ExerciseRecord = ({ navigation }) => {
                 </ListContainer>
                 <Button
                     marginTop={'15%'}
-                    handleClickFn={() => {navigation.navigate("Main")}}
+                    handleClickFn={() => {navigation.goBack()}}
                     title="Finalizar exercício"
                     icon={(size, color) => (
                         <Entypo name="chevron-right" size={size} color={color}/>
