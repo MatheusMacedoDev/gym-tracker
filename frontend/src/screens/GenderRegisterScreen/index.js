@@ -26,9 +26,7 @@ export const GenderRegisterScreen = ({ navigation, route }) => {
         <Gradient>
             <Container>
                 <IconButton
-                    handleClickFn={() =>
-                        navigation.navigate('AccountDataRegisterScreen')
-                    }
+                    handleClickFn={() => navigation.goBack()}
                     gradient={false}
                     icon={
                         <MaterialIcons

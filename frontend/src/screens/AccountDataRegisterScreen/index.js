@@ -30,9 +30,9 @@ export const AccountDataRegisterScreen = ({ navigation, route }) => {
         <Gradient>
             <Container>
                 <IconButton
-                    handleClickFn={() =>
-                        navigation.navigate('NameRegisterScreen')
-                    }
+                    handleClickFn={() => {
+                        navigation.goBack();
+                    }}
                     gradient={false}
                     icon={
                         <MaterialIcons

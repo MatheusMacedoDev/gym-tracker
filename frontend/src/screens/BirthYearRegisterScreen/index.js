@@ -13,13 +13,13 @@ import { registerUser } from '../../infra/services/userService.js';
 import { percentage } from '../../utils/percentageFactory.js';
 
 export const BirthYearRegisterScreen = ({ navigation, route }) => {
-    const [yearBirth, setYearBirth] = useState('');
+    const [yearBirth, setYearBirth] = useState(2023);
     const [userData, setUserData] = useState({});
 
     useEffect(() => {
         setUserData(route.params.userData);
         console.log(route.params);
-    }, []);
+    }, [route.params]);
 
     async function RegisterUser() {
         const response = await registerUser(
@@ -39,9 +39,7 @@ export const BirthYearRegisterScreen = ({ navigation, route }) => {
         <Gradient>
             <Container>
                 <IconButton
-                    handleClickFn={() =>
-                        navigation.navigate('GenderRegisterScreen')
-                    }
+                    handleClickFn={() => navigation.goBack()}
                     gradient={false}
                     icon={
                         <MaterialIcons
@@ -62,7 +60,7 @@ export const BirthYearRegisterScreen = ({ navigation, route }) => {
                 />
                 <Button
                     handleClickFn={RegisterUser}
-                    marginTop={percentage(0.11, 'h')}
+                    marginTop={percentage(0.1, 'h')}
                     title='Continuar'
                     icon={(size, color) => (
                         <Entypo
