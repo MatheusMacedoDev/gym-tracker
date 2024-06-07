@@ -9,6 +9,9 @@ import { Title } from "../../components/Title/style";
 import { LinkCommandText } from "./components/linkCommandText";
 import { LinkContainer } from "./components/linkContainer";
 import { MakeLogin } from "../../infra/services/userService";
+import { percentage } from "../../utils/percentageFactory";
+
+
 
 export const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("matheus@mail.com");
@@ -27,12 +30,12 @@ export const LoginScreen = ({ navigation }) => {
   return (
     <Gradient>
       <Container>
-        <Logo marginTop={'20%'} />
-        <Title marginTop={'11%'}>Bem vindo</Title>
-        <Input marginTop={'9%'} placeholder="E-mail ou usuário..." value={email} onChangeText={setEmail} />
-        <Input marginTop={'5%'} placeholder="Senha..." value={password} onChangeText={setPassword} />
-        <Link onPress={() => navigation.navigate("RecoverPasswordScreen")} textAlign={'right'} marginTop={'5%'}>Esqueceu sua senha ?</Link>
-        <Button marginTop={'35%'} title="Login" handleClickFn={handleLogin} />
+        <Logo marginTop={percentage(0.15, 'h')} />
+        <Title marginTop={percentage(0.1, 'h')}>Bem vindo</Title>
+        <Input marginTop={percentage(0.09, 'h')} placeholder="E-mail ou usuário..." value={email} onChangeText={setEmail} />
+        <Input marginTop={percentage(0.05, 'h')} placeholder="Senha..." value={password} onChangeText={setPassword} />
+        <Link onPress={() => navigation.navigate("RecoverPasswordScreen")} textAlign={'right'} marginTop={percentage(0.05, 'h')}>Esqueceu sua senha ?</Link>
+        <Button marginTop={percentage(0.07, 'h')} title="Login" handleClickFn={handleLogin} />
         <LinkContainer marginTop={'7%'}>
           <LinkCommandText>Não tem uma conta?</LinkCommandText>
           <Link onPress={() => navigation.navigate("NameRegisterScreen")}>Cadastre-se</Link>

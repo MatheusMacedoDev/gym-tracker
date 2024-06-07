@@ -8,10 +8,10 @@ export function percentage(percentageAmount, axis) {
     axis = axis.toLowerCase();
 
     if (axis === 'w') {
-        return percentageAmount * width;
+        return `${Math.round(percentageAmount * width)}px`;
     }
 
     if (axis === 'h') {
-        return percentageAmount * height
+        return `${Math.round(percentageAmount * height)}px`
     }
 }

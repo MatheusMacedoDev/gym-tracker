@@ -4,6 +4,6 @@ export const LinkContainer = styled.View`
     flex-direction: row;
     width: 85%;
     gap:5px;
-    margin-top: ${props => props.marginTop ? `${props.marginTop}%`: "0%"};
-    margin-bottom: ${props => props.marginBottom  ? `${props.marginBottom}%` : "0%"};
+    margin-top: ${props => props.marginTop ? `${props.marginTop}`: "0px"};
+    margin-bottom: ${props => props.marginBottom  ? `${props.marginBottom}` : "0px"};
 `;
