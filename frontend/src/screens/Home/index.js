@@ -19,25 +19,37 @@ import { IconButton } from "../../components/IconButton"
 import { FontAwesome } from '@expo/vector-icons';
 import { colors } from "../../colors.config"
 import LabelWorkout from "./NotExistWorkout/LabelWorkout"
-import { GetExercisesByDiaryWorkout } from "../../infra/services/diaryWorkoutService"
+import { DeleteDiaryWorkout, GetExercisesByDiaryWorkout } from "../../infra/services/diaryWorkoutService"
 
 
 
 export const Home = ({ navigation }) => {
 
-    const [date, setDate] = useState()
+    const [date, setDate] = useState(null)
     const [exercises, setExercises] = useState([])
     const [workoutName, setWorkoutName] = useState()
+    const [workoutId, setWorkoutId] = useState()
 
     useEffect(() => {
         GetExercises()
     }, [date])
 
     async function GetExercises() {
-        const response = await GetExercisesByDiaryWorkout(date, 'e27f87e1-3189-4224-a7fc-47ccf9ed61f6')
+        const response = await GetExercisesByDiaryWorkout(date, '92ef5d63-a75e-432d-aa7a-b3006f246b60')
         setExercises(response.data.diaryExercises)
         setWorkoutName(response.data.workoutName)
+        setWorkoutId(response.data.diaryWorkoutId)
+        console.log(response.data);
+    }
+
+    async function DeleteWorkout() {
+        const response = await DeleteDiaryWorkout(workoutId)
         console.log(response);
+        if (response.status === 204) {
+            GetExercises()
+        } else {
+
+        }
     }
 
     return (
@@ -64,8 +76,8 @@ export const Home = ({ navigation }) => {
 
                                     />
                                 </ListContainer>
-                                <IconButton left={'5%'} top={'75%'} icon={
-                                    <FontAwesome name="trash" size={24} color={colors.white} />
+                                <IconButton handleClickFn={DeleteWorkout} widthButton={50} heightButon={50}  top={'75%'} icon={
+                                    <FontAwesome name="trash" size={27} color={colors.white} />
                                 }
                                 />
                             </>
