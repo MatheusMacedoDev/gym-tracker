@@ -1,6 +1,7 @@
 using GymTracker.Application.Services.Contracts.Requests;
 using GymTracker.Application.Services.Contracts.Responses;
 using GymTracker.Infra.Data.DAOs.ProfileHistory;
+using GymTracker.Infra.Data.DAOs.User;
 
 namespace GymTracker.Application;
 
@@ -17,5 +18,6 @@ public interface IUserService
     Task<CanAddProfileHistoryResponse> CanAddProfileHistory(Guid userId);
 
     Task<int> GetLikesByUserID(Guid userId);
+    Task<IEnumerable<RankUserDTO>> ListRankedUsersByLikesAmount();
     Task RemoveUserLike(Guid userLikeId);
 }

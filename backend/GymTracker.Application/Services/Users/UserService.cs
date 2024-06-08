@@ -264,4 +264,16 @@ public class UserService : IUserService
             throw;
         }
     }
+
+    public async Task<IEnumerable<RankUserDTO>> ListRankedUsersByLikesAmount()
+    {
+        try
+        {
+            return await _userDAO.RankUsersByLikes();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
 }
