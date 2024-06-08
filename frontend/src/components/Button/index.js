@@ -10,13 +10,13 @@ export const Button = ({
     marginBottom,
     handleClickFn = null,
     widthButton,
-    heightButon,
+    heightButton,
     fontSize
 }) => {
     return (
         <ButtonContainer
             widthButton={widthButton}
-            heightButon={heightButon}
+            heightButton={heightButton}
             marginTop={marginTop}
             marginBottom={marginBottom}
             onPress={handleClickFn}

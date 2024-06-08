@@ -1,40 +1,29 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-const BottomTab = createBottomTabNavigator()
+const BottomTab = createBottomTabNavigator();
 
-import { ContentIcon } from "./style"
-import { colors } from "../../colors.config"
-import { MaterialIcons } from "@expo/vector-icons";
-import { Text } from "react-native"
-import { Home } from "../Home";
-import Gradient from "../../components/Gradient";
-import { RankingScreen } from "../RankingScreen";
-import { DefaultWorkoutsScreen } from "../DefaultWorkoutsScreen";
-import { useEffect, useState } from "react";
+import { ContentIcon } from './style';
+import { colors } from '../../colors.config';
+import { MaterialIcons } from '@expo/vector-icons';
+import { Text } from 'react-native';
+import { Home } from '../Home';
+import Gradient from '../../components/Gradient';
+import { RankingScreen } from '../RankingScreen';
+import { DefaultWorkoutsScreen } from '../DefaultWorkoutsScreen';
+
+const Profile = () => {
+    return (
+        <>
+            <Text>Profile</Text>
+        </>
+    );
+};
 
 export const Main = ({ route }) => {
-
-
-    const Profile = () => {
-        return (
-            <>
-                <Text>Profile</Text>
-            </>
-        )
-    }
-    const Workouts = () => {
-        return (
-            <>
-                <Text>Workouts</Text>
-            </>
-        )
-    }
-
     return (
         <Gradient>
             <BottomTab.Navigator
-                initialRouteName={"Home"}
-
+                initialRouteName={'Home'}
                 screenOptions={({ route }) => ({
                     tabBarStyle: {
                         backgroundColor: '#27242B',
@@ -45,7 +34,7 @@ export const Main = ({ route }) => {
                         borderRadius: 20,
                         borderTopWidth: 0
                     },
-                    tabBarActiveBackgroundColor: "transparent",
+                    tabBarActiveBackgroundColor: 'transparent',
                     tabBarShowLabel: false,
                     headerShown: false,
 
@@ -71,33 +60,26 @@ export const Main = ({ route }) => {
                         }
                         return (
                             <ContentIcon>
-                                <MaterialIcons name={iconName} size={34} color={focused ? colors.orange : colors.white} />
+                                <MaterialIcons
+                                    name={iconName}
+                                    size={34}
+                                    color={
+                                        focused ? colors.orange : colors.white
+                                    }
+                                />
                             </ContentIcon>
-                        )
+                        );
                     }
                 })}
             >
-
-
-
-
+                <BottomTab.Screen name='Home' component={Home} />
                 <BottomTab.Screen
-                    name="Home"
-                    component={Home}
-                />
-                <BottomTab.Screen
-                    name="DefaultWorkoutsScreen"
+                    name='DefaultWorkoutsScreen'
                     component={DefaultWorkoutsScreen}
                 />
-                <BottomTab.Screen
-                    name="Ranking"
-                    component={RankingScreen}
-                />
-                <BottomTab.Screen
-                    name="Profile"
-                    component={Profile}
-                />
+                <BottomTab.Screen name='Ranking' component={RankingScreen} />
+                <BottomTab.Screen name='Profile' component={Profile} />
             </BottomTab.Navigator>
         </Gradient>
-    )
-}
+    );
+};
