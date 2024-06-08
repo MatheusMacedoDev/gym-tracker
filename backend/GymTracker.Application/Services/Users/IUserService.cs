@@ -19,5 +19,6 @@ public interface IUserService
 
     Task<int> GetLikesByUserID(Guid userId);
     Task<IEnumerable<RankUserDTO>> ListRankedUsersByLikesAmount();
+    Task<IEnumerable<RankUserDTO>> ListRankedUsersByLastProfileUpdate();
     Task RemoveUserLike(Guid userLikeId);
 }

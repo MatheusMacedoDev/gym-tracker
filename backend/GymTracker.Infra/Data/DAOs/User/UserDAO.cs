@@ -45,6 +45,35 @@ public class UserDAO : IUserDAO
         }
     }
 
+    public async Task<IEnumerable<RankUserDTO>> RankUsersByLastProfileUpdate()
+    {
+        try
+        {
+            using (var connection = new NpgsqlConnection(_connectionString))
+            {
+                string query = @"
+                    SELECT 
+                        U.user_id AS userId,
+                        U.name AS userName,
+                        U.profile_photo AS profilePhoto,
+                        COUNT(DISTINCT L.sender_user_id)::int AS likes
+                    FROM users AS U
+                    JOIN user_likes AS L
+                        ON L.receiver_user_id = U.user_id
+                    WHERE U.profile_updated_on IS NOT NULL
+                    GROUP BY U.user_id
+                    ORDER BY U.profile_updated_on DESC
+                ";
+
+                return (await connection.QueryAsync<RankUserDTO>(query))!;
+            }
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
     public async Task<IEnumerable<RankUserDTO>> RankUsersByLikes()
     {
         try

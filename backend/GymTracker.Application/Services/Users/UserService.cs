@@ -278,4 +278,16 @@ public class UserService : IUserService
             throw;
         }
     }
+
+    public async Task<IEnumerable<RankUserDTO>> ListRankedUsersByLastProfileUpdate()
+    {
+        try
+        {
+            return await _userDAO.RankUsersByLastProfileUpdate();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
 }
