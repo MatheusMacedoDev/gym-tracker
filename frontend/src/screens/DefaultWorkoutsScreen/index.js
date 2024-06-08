@@ -87,6 +87,7 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
                         )}
                     />
                 </ListContainer>
+
                 <Button
                     handleClickFn={() => setShowModalNewWorkout(true)}
                     marginTop={percentage(0.05, 'h')}

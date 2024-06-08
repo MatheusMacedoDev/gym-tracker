@@ -11,10 +11,12 @@ export const Button = ({
     handleClickFn = null,
     widthButton,
     heightButton,
+    alignCenter,
     fontSize
 }) => {
     return (
         <ButtonContainer
+            alignCenter={alignCenter}
             widthButton={widthButton}
             heightButton={heightButton}
             marginTop={marginTop}

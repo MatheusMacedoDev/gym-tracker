@@ -10,6 +10,7 @@ export const ButtonContainer = styled.TouchableOpacity`
     margin-top: ${props => props.marginTop || '0px'};
     margin-bottom: ${props =>
         props.marginBottom ? props.marginBottom : '0px'};
+    align-self: ${props => (props.alignCenter ? 'center' : 'flex-start')};
 `;
 
 export const GradientButton = styled(LinearGradient).attrs({
