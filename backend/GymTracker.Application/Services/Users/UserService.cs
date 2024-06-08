@@ -92,7 +92,9 @@ public class UserService : IUserService
     {
         try
         {
-            await _userRepository.GetUserById(request.userId);
+            var user = await _userRepository.GetUserById(request.userId);
+
+            user.MarkProfileAsUpdated();
 
             string? newEvolutionPhotoUri = null;
 
