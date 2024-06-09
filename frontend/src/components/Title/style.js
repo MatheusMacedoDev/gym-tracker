@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 
 export const Title = styled.Text`
+    width: 85%;
     font-family: 'Montserrat_700Bold';
     font-size: ${props => (props.fontSize ? `${props.fontSize}px` : '36px')};
     color: #ffffff;
