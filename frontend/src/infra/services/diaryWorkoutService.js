@@ -22,10 +22,10 @@ export async function CreateDiaryWorkout(defaultWorkoutId, workoutDate) {
   }
 }
 
-export async function DeleteDiaryWorkoutId(diaryWorkoutId) {
+export async function DeleteDiaryWorkout(diaryWorkoutId) {
   try {
     const response = await api.delete(
-      `${apiUrlLocal}${deleteDiaryWorkoutEndpoint}/diaryWorkoutId?=${diaryWorkoutId}`,
+      `${apiUrlLocal}${deleteDiaryWorkoutEndpoint}?diaryWorkoutId=${diaryWorkoutId}`,
     );
 
     return response;
@@ -51,11 +51,12 @@ export async function CreateDiaryExercise(defaultExerciseId, diaryWorkoutId) {
 }
 
 export async function GetExercisesByDiaryWorkout(date, userId) {
-  try {
-    const response = await api.get(
-      `${apiUrlLocal}${getExercisesByDiaryWorkoutEndpoint}/date?=${date}&userId?=${userId}`,
-    );
 
+  try {
+
+    const response = await api.get(
+      `${apiUrlLocal}${getExercisesByDiaryWorkoutEndpoint}?date=${date}&userId=${userId}`,
+    )
     return response;
   } catch (error) {
     console.log(error);

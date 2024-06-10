@@ -1,8 +1,9 @@
-import styled from "styled-components/native";
+import styled from 'styled-components/native';
 
 export const ExerciseSerieLabel = styled.View`
     flex-direction: row;
-    gap: 25%;
-    margin-bottom: 5%;
+    gap: 16px;
+    margin-bottom: ${props =>
+        props.marginBottom ? props.marginBottom : '0px'};
     align-self: flex-end;
 `;

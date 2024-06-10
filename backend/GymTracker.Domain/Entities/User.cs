@@ -46,6 +46,9 @@ public class User
     [Column("profile_photo")]
     public string? ProfilePhoto { get; set; }
 
+    [Column("profile_updated_on")]
+    public DateTime? ProfileUpdatedOn { get; set; }
+
     private readonly ICryptographyStrategy? _cryptographyStrategy;
 
     protected User()
@@ -72,5 +75,10 @@ public class User
             return;
 
         ProfilePhoto = photoUri;
+    }
+
+    public void MarkProfileAsUpdated()
+    {
+        ProfileUpdatedOn = DateTime.UtcNow;
     }
 }

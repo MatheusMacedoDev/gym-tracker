@@ -25,10 +25,20 @@ public class DefaultWorkoutDAO : IDefaultWorkoutDAO
             {
                 string query = @"
                     SELECT 
-                        default_workout_id AS defaultWorkoutId, 
-                        workout_name AS defaultWorkoutName
-                    FROM default_workouts
-                    WHERE user_id = @userId
+                        DW.default_workout_id AS defaultWorkoutId, 
+                        DW.workout_name AS defaultWorkoutName,
+                        STRING_AGG(DISTINCT MG.group_name, ', ') AS relatedMuscleGroups
+                    FROM default_workouts AS DW
+                    LEFT JOIN default_exercises AS DE
+                        ON DE.default_workout_id = DW.default_workout_id
+                    LEFT JOIN exercises AS E
+                        ON E.exercise_id = DE.exercise_id
+                    LEFT JOIN exercise_muscle_groups AS EMG
+                        ON EMG.exercise_id = E.exercise_id
+                    LEFT JOIN muscle_groups AS MG
+                        ON MG.muscle_group_id = EMG.muscle_group_id
+                    WHERE DW.user_id = @userId
+                    GROUP BY DW.default_workout_id
                 ";
 
                 return await connection.QueryAsync<DefaultWorkoutListItemDTO>(query, new { userId });

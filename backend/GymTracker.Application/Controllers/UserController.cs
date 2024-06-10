@@ -150,4 +150,34 @@ public class UserController : ControllerBase
             return BadRequest(error.ToString());
         }
     }
+
+    [HttpGet("/api/rank/users/by_likes")]
+    public async Task<IActionResult> ListRankedUsersByLikesAmount()
+    {
+        try
+        {
+            var response = await _userService.ListRankedUsersByLikesAmount();
+
+            return Ok(response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.ToString());
+        }
+    }
+
+    [HttpGet("/api/rank/users/by_latest_update")]
+    public async Task<IActionResult> ListRankedUsersByLatestUpdate()
+    {
+        try
+        {
+            var response = await _userService.ListRankedUsersByLastProfileUpdate();
+
+            return Ok(response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.ToString());
+        }
+    }
 }

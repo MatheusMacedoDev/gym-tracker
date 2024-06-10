@@ -1,48 +1,65 @@
-import { Button } from "../../components/Button"
-import { Container } from "../../components/Container/style"
-import { IconButton } from "../../components/IconButton"
-import { Logo } from "../../components/Logo"
-import { Title } from "../../components/Title/style"
+import { Button } from '../../components/Button';
+import { Container } from '../../components/Container/style';
+import { IconButton } from '../../components/IconButton';
+import { Logo } from '../../components/Logo';
+import { Title } from '../../components/Title/style';
 import { Entypo } from '@expo/vector-icons';
-import { MaterialIcons } from "@expo/vector-icons";
-import { CardsGender } from "../../components/CardsGender/index.js"
-import Gradient from "../../components/Gradient/index.js"
-import { useEffect, useState } from "react"
+import { MaterialIcons } from '@expo/vector-icons';
+import { CardsGender } from '../../components/CardsGender/index.js';
+import Gradient from '../../components/Gradient/index.js';
+import { useState } from 'react';
+import { percentage } from '../../utils/percentageFactory.js';
 
 export const GenderRegisterScreen = ({ navigation, route }) => {
     const [selectedGender, setSelectedGender] = useState();
 
-    async function handleContinue(){
-        navigation.navigate("BirthYearRegisterScreen", {
+    async function handleContinue() {
+        navigation.navigate('BirthYearRegisterScreen', {
             userData: {
                 ...route.params,
                 gender: selectedGender
             }
-        })
+        });
     }
 
     return (
         <Gradient>
             <Container>
                 <IconButton
-                    handleClickFn={() => navigation.navigate("AccountDataRegisterScreen")}
+                    handleClickFn={() => navigation.goBack()}
                     gradient={false}
                     icon={
-                        <MaterialIcons name="reply" size={40} color={'#FB6614'} />
+                        <MaterialIcons
+                            name='reply'
+                            size={40}
+                            color={'#FB6614'}
+                        />
                     }
                 />
-                <Logo marginTop={'17%'} />
-                <Title marginTop={'5%'} marginBottom={'25%'}>Qual o seu sexo?</Title>
-                <CardsGender selectedGender={selectedGender} setSelectedGender={setSelectedGender} />
+                <Logo marginTop={percentage(0.15, 'h')} />
+                <Title
+                    marginTop={percentage(0.03, 'h')}
+                    marginBottom={percentage(0.06, 'h')}
+                >
+                    Qual o seu sexo?
+                </Title>
+                <CardsGender
+                    selectedGender={selectedGender}
+                    setSelectedGender={setSelectedGender}
+                />
                 <Button
                     handleClickFn={handleContinue}
-                    marginTop={'20%'}
-                    title="Continuar"
+                    marginTop={percentage(0.06, 'h')}
+                    title='Continuar'
                     icon={(size, color) => (
-                        <Entypo name="chevron-right" size={size} color={color} />
+                        <Entypo
+                            name='chevron-right'
+                            size={size}
+                            color={color}
+                        />
                     )}
                 />
             </Container>
         </Gradient>
-    )
-}
+    );
+};
