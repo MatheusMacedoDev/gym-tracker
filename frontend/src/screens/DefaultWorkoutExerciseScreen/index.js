@@ -12,7 +12,6 @@ import { Fontisto } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { GetExercisesByDefaultWorkout } from '../../infra/services/defaultWorkoutService';
-import { MaterialIcons } from '@expo/vector-icons';
 import { percentage } from '../../utils/percentageFactory';
 
 export const DefaultWorkoutExerciseScreen = ({ navigation, route }) => {

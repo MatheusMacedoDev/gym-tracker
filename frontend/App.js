@@ -54,13 +54,14 @@ export default function App() {
         Montserrat_500Medium
     });
 
+    useEffect(async function getCurrentUser() {
+        setCurrentUser(await getUserToken());
+    }, []);
+    
     if (!fontsLoaded && !fontsError) {
         return null;
     }
 
-    useEffect(async function getCurrentUser() {
-        setCurrentUser(await getUserToken());
-    }, []);
 
     return (
         <AuthContext.Provider value={currentUser}>
