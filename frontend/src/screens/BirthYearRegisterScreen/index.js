@@ -9,8 +9,8 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { createArrayYears } from '../../utils/arraysFactory.js';
 import Gradient from '../../components/Gradient/index.js';
 import { SelectPicker } from '../../components/SelectPicker/index.js';
-import { registerUser } from '../../infra/services/userService.js';
 import { percentage } from '../../utils/percentageFactory.js';
+import { RegisterUser } from '../../infra/services/userService.js';
 
 export const BirthYearRegisterScreen = ({ navigation, route }) => {
     const [yearBirth, setYearBirth] = useState(2023);
@@ -21,8 +21,8 @@ export const BirthYearRegisterScreen = ({ navigation, route }) => {
         console.log(route.params);
     }, [route.params]);
 
-    async function RegisterUser() {
-        const response = await registerUser(
+    async function handleRegister() {
+        const response = await RegisterUser(
             userData.email,
             userData.password,
             userData.name,
@@ -31,7 +31,7 @@ export const BirthYearRegisterScreen = ({ navigation, route }) => {
         );
         console.log(response.status);
         if (response.status === 201) {
-            navigation.replace('Login');
+            navigation.replace('LoginScreen');
         }
     }
 
@@ -59,7 +59,7 @@ export const BirthYearRegisterScreen = ({ navigation, route }) => {
                     list={createArrayYears()}
                 />
                 <Button
-                    handleClickFn={RegisterUser}
+                    handleClickFn={handleRegister}
                     marginTop={percentage(0.1, 'h')}
                     title='Continuar'
                     icon={(size, color) => (

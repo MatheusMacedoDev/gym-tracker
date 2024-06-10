@@ -12,7 +12,7 @@ import { MakeLogin } from '../../infra/services/userService';
 import { percentage } from '../../utils/percentageFactory';
 
 export const LoginScreen = ({ navigation }) => {
-    const [email, setEmail] = useState('matheus.macedo@email.com');
+    const [email, setEmail] = useState('matheus@mail.com');
     const [password, setPassword] = useState('12345');
 
     async function handleLogin() {

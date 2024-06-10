@@ -5,5 +5,5 @@ export const LinkCommandText = styled.Text`
   font-family: "Montserrat_400Regular";
   font-size: 18px;
   color: ${props => props.colorText ? props.colorText : colors.white};
-  text-align: ${props => `${props.textAlign}` || 'left'};
+  text-align: ${props => props.textAlign ? props.textAlign : 'left'};
 `;

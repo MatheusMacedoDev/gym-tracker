@@ -57,7 +57,8 @@ export default function App() {
     useEffect(async function getCurrentUser() {
         setCurrentUser(await getUserToken());
     }, []);
-    
+
+
     if (!fontsLoaded && !fontsError) {
         return null;
     }

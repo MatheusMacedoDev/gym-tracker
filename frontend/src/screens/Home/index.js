@@ -25,6 +25,7 @@ import { percentage } from '../../utils/percentageFactory';
 import Gradient from '../../components/Gradient';
 import moment from 'moment';
 
+
 export const Home = ({ navigation }) => {
     const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
     const [exercises, setExercises] = useState([]);
