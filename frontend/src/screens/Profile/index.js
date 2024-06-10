@@ -3,8 +3,9 @@ import { FlatList, View } from 'react-native';
 import Gradient from '../../components/Gradient';
 import LineChartComponent from '../../components/Grafic';
 import ProfileBoxInput from '../../components/ProfileBoxInput/Input/style';
-import styles from './styles'; 
+import styles from './style'; 
 import ContainerBoxInput from '../../components/ProfileBoxInput/Container/style';
+import { Button } from '../../components/Button';
 
 const Profile = () => {
   const data = {
@@ -46,6 +47,7 @@ const Profile = () => {
           />
         </ContainerBoxInput>
       </View>
+      <Button/>
     </Gradient>
   );
 };
