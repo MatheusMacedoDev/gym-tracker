@@ -1,150 +1,180 @@
-import { Image, Modal, StyleSheet, TouchableOpacity, View } from "react-native"
-import { useEffect, useRef, useState } from "react"
-import { BoxCamera, BoxTop, BtnCapture, BtnFlash, BtnFlip, BtnReturnPhoto, ConfigBtnCapture, LastPhoto } from "./style"
-import { CameraView, useCameraPermissions } from 'expo-camera';
-import { FontAwesome6 } from '@expo/vector-icons';
-import * as MediaLibrary from 'expo-media-library'
-import * as ImagePicker from 'expo-image-picker'
-import { Ionicons } from '@expo/vector-icons';
-import { EvilIcons } from '@expo/vector-icons';
-import { Container } from "../Container/style";
+import { CameraView, useCameraPermissions } from "expo-camera";
+import { Camera as ExpoCamera } from 'expo-camera';
+import { useEffect, useRef, useState } from "react";
+import { ContainerHome, FooterCamera } from "../../components/Container/style";
+import { ButtonCamera, ButtonDefault, ButtonGallery, ButtonReturn, ImageCircle, ImageGallery, ImageReturn } from "../../components/Button/Button";
+import * as MediaLibrary from 'expo-media-library';
+import * as ImagePicker from 'expo-image-picker';
+import { Feather } from '@expo/vector-icons';
+import CameraIcon from "../../components/icons/CameraIcon";
+import { Image, Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
+import { Title } from "../../components/Title/style";
+import CameraReturn from "../../components/icons/CameraReturn";
+import GaleriaCamera from "../../components/icons/GaleriaCamera";
+
 
 
 export const Camera = ({ navigation, route }) => {
-    const cameraRef = useRef(null)
-    const [photo, setPhoto] = useState(null)
-    // const [openModal, setOpenModal] = useState(false)
-    const [tipoCamera, setTipoCamera] = useState('front')
-    const [flashOn, setFlashOn] = useState('off')
-    const [latestPhoto, setLatestPhoto] = useState(null)
+    const cameraRef = useRef(null);
+    const [photo, setPhoto] = useState(null);
+    const [tipoCamera, setTipoCamera] = useState('back');
+    const [flashMode, setFlashMode] = useState('off');
+    const [autoFocus, setAutoFocus] = useState('off');
+    const [lastedPhoto, setLastedPhoto] = useState(null);
+    const [openModal, setOpenModal] = useState(false);
+    const [permission, requestPermission] = useCameraPermissions();
 
-    const [cameraPermission, requestCameraPermissions] = useCameraPermissions();
-    const [mediaPermission, requestMediaPermissions] = MediaLibrary.usePermissions();
-
+    useEffect(() => {
+        (async () => {
+            const { status } = await requestPermission();
+            if (status !== 'granted') {
+                alert('Desculpe, precisamos de permissões da câmera para usar este recurso.');
+            }
+        })();
+    }, []);
 
     async function CapturePhoto() {
-        if (cameraRef) {
-            const photo = await cameraRef.current.takePictureAsync({ quality: 1 })
-            setPhoto(photo.uri)
-            // setOpenModal(true)
-        }
-    }
-
-    async function onPressToSend() {
-        // await setOpenModal(false)
-      navigation.navigate("Eduardo", { photoUri: photo }) 
-
-    }
-
-    async function GetLastPhoto() {
-        const { assets } = await MediaLibrary.getAssetsAsync({ sortBy: [[MediaLibrary.SortBy.creationTime, false]], first: 1 })
-
-
-        if (assets.length > 0) {
-            const infoAssets = await MediaLibrary.getAssetInfoAsync(assets[0].id)
-
-            setLatestPhoto(infoAssets.localUri)
+        if (cameraRef.current) {
+            const photo = await cameraRef.current.takePictureAsync({ quality: 1 });
+            setPhoto(photo.uri);
+            setOpenModal(true);
         }
     }
 
     async function SelectImageGallery() {
         const result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            quality: 1
+            quality: 1,
         });
 
         if (!result.canceled) {
-            setPhoto(result.assets[0].uri)
-            // setOpenModal(true)
+            setPhoto(result.assets[0].uri);
+            setOpenModal(true);
         }
     }
 
-    useEffect(() => {
-        (async () => {
-            if (cameraPermission && !cameraPermission.granted) {
-                await useCameraPermissions();
-            }
+    function ToggleFlashMode() {
+        setFlashMode(
+            flashMode === ExpoCamera.Constants.FlashMode.on
+                ? ExpoCamera.Constants.FlashMode.off
+                : ExpoCamera.Constants.FlashMode.on,
+        );
+    }
 
-            if (MediaLibrary.PermissionStatus.DENIED) {
-                await requestMediaPermissions();
-            }
-        })();
-    }, [])
+    function ClearPhoto() {
+        setPhoto(null);
+        setOpenModal(false);
+    }
 
-    useEffect(() => {
-        if (route.params) {
-            GetLastPhoto()
+    async function SendPhoto() {
+        if (photo) {
+            setOpenModal(false);
+            navigation.navigate('EditCar', { photoUri: photo });
         }
-    }, [])
+    }
+
+    function toggleCameraFacing() {
+        setTipoCamera(current => (current === 'back' ? 'front' : 'back'));
+    }
+
+
+    function backCamera(){
+        setOpenModal(false)
+    }
+
 
     return (
-        <Container>
+        <ContainerHome>
             <CameraView
-                ref={cameraRef}
+                style={{ flex: 1 }}
                 facing={tipoCamera}
-                style={styles.camera}
-                flash={flashOn}
-            >
-                <BoxTop>
-                    <BtnReturnPhoto onPress={() => navigation.navigate("Eduardo")}>
-                        <EvilIcons name="close-o" size={70} color="white" />
-                    </BtnReturnPhoto>
-                    <BtnFlash onPress={() => setFlashOn(flashOn == 'on' ? 'off' : 'on')}>
-                        <Ionicons name={flashOn === 'on' ? "flash" : "flash-off"} size={42} color={flashOn === 'on' ? "yellow" : "white"} />
-                    </BtnFlash>
-                </BoxTop>
-                <BoxCamera>
-                    <TouchableOpacity onPress={() => SelectImageGallery()}>
-                        {
-                            latestPhoto != null ?
-                                (
-                                    <LastPhoto source={{ uri: latestPhoto }} />
-                                ) : null
-                        }
-                    </TouchableOpacity>
+                ratio={'16:9'}
+                ref={cameraRef}
+                flashMode={flashMode}
+                autoFocus={autoFocus}
+            />
+            <FooterCamera >
+                <ButtonGallery 
+                    onPress={SelectImageGallery}
+                >
+                <GaleriaCamera 
+                color={'#F2732E'} 
+                />
+
+                    {/* <ImageGallery source={require("../../../assets/Img/picture.png")} /> */}
+                </ButtonGallery>
+
+                <ButtonCamera
+                    onPress={CapturePhoto}
+                >
+                    {/* {<CameraIcon color={"#F2732E"} size={60} />} */}
+                    <Feather name="camera" size={60} color="#F2732E" />
+                </ButtonCamera>
 
 
-                    <BtnCapture onPress={() => CapturePhoto()}>
-                        <ConfigBtnCapture></ConfigBtnCapture>
-                    </BtnCapture>
+                <ButtonReturn
+                    onPress={toggleCameraFacing}
+                >
+                    <CameraReturn 
+                    color={'#F2732E'}
+                    />
+                    {/* <ImageReturn source={require("../../../assets/Img/return.png")} /> */}
+                </ButtonReturn>
+            </FooterCamera>
 
-                    <BtnFlip onPress={() => setTipoCamera(tipoCamera == 'front' ? 'back' : 'front')}>
-                        <FontAwesome6 name="camera-rotate" size={45} color="white" />
-                    </BtnFlip>
 
-                </BoxCamera>
-            </CameraView>
-
-
-            {/* <Modal
-                animationType='slide'
+            <Modal
+                animationType="slide"
                 transparent={false}
                 visible={openModal}
             >
-                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 30 }}>
+                <View style={styles.modalCamera}>
+
+                    <Title
+                        margin={"0px 0px 20px 0px"}
+                        color={'#313'}
+                    >Lendo a placa</Title>
                     <Image
-                        style={{ width: '100%', height: 500, borderRadius: 10 }}
+                        style={styles.vizualizeImage}
                         source={{ uri: photo }}
+
                     />
-                    <Btn onPress={() => onPressToSend()}>
-                        <ButtonTitle >ENVIAR</ButtonTitle>
-                    </Btn>
+                    <View style={{ width: '100%', flexDirection: "row", justifyContent: "center", flexDirection:'column', alignItems:'center'}}>
 
-                    <LinkCancel onPress={() => setOpenModal(false)}>Refazer</LinkCancel>
+                        <ButtonDefault
+                            text={"Confirmar"}
+                            height={"58px"}
+                            margin={"10px 0px 0px 0px"}
+                            onPress={SendPhoto}
+                        />
+                        <ButtonDefault
+                            text={"Voltar"}
+                            height={"58px"}
+                            margin={"10px 0px 0px 0px"}
+                            onPress={backCamera}
+                        />
+                    </View>
                 </View>
+            </Modal>
 
-            </Modal> */}
-        </Container>
-    )
-}
+        </ContainerHome>
 
+
+    );
+};
 
 const styles = StyleSheet.create({
-    camera: {
+    modalCamera: {
         flex: 1,
-        height: '80%',
-        width: '100%',
-        borderWidth: 2,
-        borderColor: 'white'
-    }
-})
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: `rgba(0, 0, 0, 0.3)`
+    },
+    vizualizeImage: {
+        width: '80%',
+        height: 250,
+        borderRadius: 10,
+    },
+
+});
