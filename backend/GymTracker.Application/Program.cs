@@ -16,7 +16,7 @@ using GymTracker.Infra.Data.DAOs.UserLike;
 using GymTracker.Infra.Data.UnityOfWork;
 using GymTracker.Infra.Repositories;
 using GymTracker.Utils.Cryptography;
-using GymTracker.Utils.Mail;
+//using GymTracker.Utils.Mail;
 using GymTracker.Utils.Token;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Cors.Infrastructure;

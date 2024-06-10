@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿/*using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using GymTracker.Utils.Mail;
 
@@ -71,4 +71,4 @@ namespace GymTracker.Application.Controllers
             return Response;
         }
     }
-}
+}*/
