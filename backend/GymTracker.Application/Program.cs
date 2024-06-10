@@ -16,11 +16,9 @@ using GymTracker.Infra.Data.DAOs.UserLike;
 using GymTracker.Infra.Data.UnityOfWork;
 using GymTracker.Infra.Repositories;
 using GymTracker.Utils.Cryptography;
-using GymTracker.Utils.Mail;
+using GymTracker.Infra.Mail;
 using GymTracker.Utils.Token;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Cors.Infrastructure;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -67,9 +65,9 @@ var builder = WebApplication.CreateBuilder(args);
     var key = Encoding.ASCII.GetBytes(builder.Configuration["Token:SecurityKey"]!);
 
     // Email Settings
-    //builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection(nameof(EmailSettings)));
-    //builder.Services.AddScoped<EmailSendingService>();
-    //builder.Services.AddTransient<IEmailService, EmailService>();
+    builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection(nameof(EmailSettings)));
+    builder.Services.AddTransient<IEmailService, EmailService>();
+    builder.Services.AddScoped<EmailSendingService>();
 
 
     builder.Services.AddAuthentication(x =>

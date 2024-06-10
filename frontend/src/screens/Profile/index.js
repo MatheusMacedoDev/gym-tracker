@@ -1,0 +1,118 @@
+import React, { useEffect, useState } from 'react';
+import Gradient from '../../components/Gradient';
+import LineChartComponent from '../../components/Grafic';
+import { Button } from '../../components/Button';
+import CartaoPerfil from '../../components/CardProfile';
+import { Container, ScrollContainer } from '../../components/Container/style';
+import RegisterProgressingComponent from '../../components/RegisterProgressingComponent';
+import StatisticBox from './components/StatisticBox';
+import StatisticsContainer from './components/StatisticsContainer';
+
+const Profile = () => {
+    const [weight, setWeight] = useState('78');
+    const [height, setheight] = useState('178');
+    const [bodyFat, setBodyFat] = useState('14');
+    const [abdominalGirth, setAbdominalGirth] = useState('80');
+    const [scapularGirth, setScapularGirth] = useState('110');
+    const [hipGirth, setHipGirth] = useState('90');
+    const [armGirth, setArmGirth] = useState('38');
+    const [legGirth, setLegGirth] = useState('75');
+
+    const [isProfileEditing, setIsProfileEditing] = useState(true);
+
+    const data = {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [
+            {
+                data: [20, 45, 28, 80, 99, 43],
+                color: (opacity = 1) => `rgba(251, 102, 20, 0.8)`,
+                strokeWidth: 2
+            }
+        ],
+        legend: ['Progresso']
+    };
+
+    return (
+        <Gradient>
+            <Container>
+                <ScrollContainer
+                    contentContainerStyle={{
+                        alignItems: 'center',
+                        paddingBottom: 100
+                    }}
+                >
+                    <CartaoPerfil
+                        nome='João Oliveira'
+                        imagem='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCMi61i5ieAks081B7kEedNZtMWFpFjYyc79aQgPVuM7MhAW4gVPtvwYhkTjjHea3lG4E&usqp=CAU'
+                        curtidas='1,2k'
+                    />
+                    <LineChartComponent data={data} />
+                    <StatisticsContainer>
+                        <StatisticBox
+                            label='Peso'
+                            editable={isProfileEditing}
+                            value={weight}
+                            setValue={setWeight}
+                            unitText='kg'
+                        />
+                        <StatisticBox
+                            label='Altura'
+                            editable={isProfileEditing}
+                            value={height}
+                            setValue={setheight}
+                            unitText='cm'
+                        />
+                        <StatisticBox
+                            label='BF'
+                            editable={isProfileEditing}
+                            value={bodyFat}
+                            setValue={setBodyFat}
+                            unitText='%'
+                        />
+                        <StatisticBox
+                            label='Cintura'
+                            editable={isProfileEditing}
+                            value={abdominalGirth}
+                            setValue={setAbdominalGirth}
+                            unitText='cm'
+                        />
+                        <StatisticBox
+                            label='Ombros'
+                            editable={isProfileEditing}
+                            value={scapularGirth}
+                            setValue={setScapularGirth}
+                            unitText='cm'
+                        />
+                        <StatisticBox
+                            label='Quadril'
+                            editable={isProfileEditing}
+                            value={hipGirth}
+                            setValue={setHipGirth}
+                            unitText='cm'
+                        />
+                        <StatisticBox
+                            label='Braço'
+                            editable={isProfileEditing}
+                            value={armGirth}
+                            setValue={setArmGirth}
+                            unitText='cm'
+                        />
+                        <StatisticBox
+                            label='Perna'
+                            editable={isProfileEditing}
+                            value={legGirth}
+                            setValue={setLegGirth}
+                            unitText='cm'
+                        />
+                    </StatisticsContainer>
+                    <RegisterProgressingComponent
+                        handleClickFn={() => navigation.navigate('Camera')}
+                    />
+                    <Button title='Editar' />
+                </ScrollContainer>
+            </Container>
+        </Gradient>
+    );
+};
+
+export default Profile;

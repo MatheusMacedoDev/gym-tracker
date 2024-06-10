@@ -40,6 +40,7 @@ import { useState } from 'react';
 import AuthContext from './src/global/AuthContext';
 import { getUserToken } from './src/utils/tokenHandler';
 import { useEffect } from 'react';
+import Profile from './src/screens/Profile';
 
 const Stack = createNativeStackNavigator();
 
@@ -54,18 +55,22 @@ export default function App() {
         Montserrat_500Medium
     });
 
-    useEffect(async function getCurrentUser() {
-        setCurrentUser(await getUserToken());
-    }, []);
+    useEffect(() => {
+        async function getCurrentUser() {
+            setCurrentUser(await getUserToken());
+        }
 
+        getCurrentUser();
+    }, []);
 
     if (!fontsLoaded && !fontsError) {
         return null;
     }
 
-
     return (
-        <AuthContext.Provider value={currentUser}>
+        <AuthContext.Provider
+            value={{ user: currentUser, setUser: setCurrentUser }}
+        >
             <NavigationContainer>
                 <Stack.Navigator
                     screenOptions={{
@@ -156,6 +161,7 @@ export default function App() {
                         name='TrainingExercisesScreens'
                         component={TrainingExercisesScreens}
                     />
+                    <Stack.Screen name='Profile' component={Profile} />
                 </Stack.Navigator>
             </NavigationContainer>
         </AuthContext.Provider>

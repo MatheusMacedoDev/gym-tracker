@@ -58,4 +58,14 @@ public class UserRepository : IUserRepository
     {
         return (await _context.ProfileHistories!.FirstOrDefaultAsync(profile => profile.ProfileHistoryId == profileHistoryId))!;
     }
+
+    public async Task<User> GetUserByEmail(string emailUser)
+    {
+        var email = (await _context.Users!.FirstOrDefaultAsync(user => user.Email == emailUser))!;
+
+        if (email == null)
+            throw new KeyNotFoundException("User with this email was not found.");
+
+        return email;
+    }
 }

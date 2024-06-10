@@ -1,6 +1,9 @@
 import React from 'react';
 import Gradient from '../components/Gradient';
 import LineChartComponent from '../components/Grafic';
+import ProfileBoxInput from '../components/ProfileBoxInput';
+import ContainerBoxIput from '../components/ProfileBoxInput/Container/style';
+import { Button } from '../components/Button';
 
 const Joao = () => {
   const data = {
@@ -18,6 +21,7 @@ const Joao = () => {
   return (
     <Gradient>
       <LineChartComponent data={data} />
+  <Button/>
     </Gradient>
   );
 };
