@@ -9,6 +9,7 @@ import { Text } from 'react-native';
 import { Home } from '../Home';
 import { RankingScreen } from '../RankingScreen';
 import { DefaultWorkoutsScreen } from '../DefaultWorkoutsScreen';
+import Gradient from '../../components/Gradient';
 
 export const Main = () => {
     
