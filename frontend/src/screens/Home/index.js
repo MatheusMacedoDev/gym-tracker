@@ -23,14 +23,14 @@ import {
 } from '../../infra/services/diaryWorkoutService';
 import { percentage } from '../../utils/percentageFactory';
 import Gradient from '../../components/Gradient';
-import moment from 'moment';
 
 
 export const Home = ({ navigation }) => {
-    const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
-    const [exercises, setExercises] = useState([]);
-    const [workoutName, setWorkoutName] = useState();
-    const [workoutId, setWorkoutId] = useState();
+    const [date, setDate] = useState(null);
+    const [exercises, setExercises] = useState(null);
+    const [workoutName, setWorkoutName] = useState(null);
+    const [workoutId, setWorkoutId] = useState(null);
+    const [diaryWorkout, setDiaryWorkout] = useState(null)
 
     useEffect(() => {
         GetExercises();
@@ -39,7 +39,7 @@ export const Home = ({ navigation }) => {
     async function GetExercises() {
         const response = await GetExercisesByDiaryWorkout(
             date,
-            'c603fdc1-003b-410f-b5e5-3663a03e0028'
+            'c603fdc1-003b-410f-b5e5-3663a03e0028s'
         );
 
         if (!response.data) {
@@ -47,14 +47,19 @@ export const Home = ({ navigation }) => {
             return;
         }
 
-        setExercises(response.data.diaryExercises);
-        setWorkoutName(response.data.workoutName);
-        setWorkoutId(response.data.diaryWorkoutId);
+        // setExercises(response.data.diaryExercises);
+        // setWorkoutName(response.data.workoutName);
+        // setWorkoutId(response.data.diaryWorkoutId);
+        setDiaryWorkout(response.data)
         console.log(response.data);
     }
 
+    // useEffect(() => {
+    //     console.log(workoutId, exercises, workoutName);
+    // },[workoutId, exercises, workoutName])
+
     async function DeleteWorkout() {
-        const response = await DeleteDiaryWorkout(workoutId);
+        const response = await DeleteDiaryWorkout(diaryWorkout.diaryWorkoutId);
         console.log(response);
         if (response.status === 204) {
             GetExercises();
@@ -86,18 +91,18 @@ export const Home = ({ navigation }) => {
                 <CalendarHome setTrainingDate={setDate} />
                 <DiaryWorkoutContainer gap='0px'>
                     <WorkoutContent paddingLeft={percentage(0.01, 'w')}>
-                        {exercises ? (
+                        {diaryWorkout ? (
                             <>
                                 <Title
                                     alignSelf={'flex-start'}
                                     marginBottom={percentage(0.07, 'h')}
                                     fontSize={24}
                                 >
-                                    {workoutName}
+                                    {diaryWorkout.workoutName}
                                 </Title>
                                 <ListContainer heightContainer='55%'>
                                     <ListComponent
-                                        data={exercises}
+                                        data={diaryWorkout.diaryExercises}
                                         renderItem={({ item }) => (
                                             <ExistWorkoutComponent
                                                 nameExercise={

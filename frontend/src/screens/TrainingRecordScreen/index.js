@@ -9,7 +9,7 @@ import { Button } from '../../components/Button';
 import { Entypo } from '@expo/vector-icons';
 import { ListComponent } from '../../components/List/style';
 import { ListContainer } from '../../components/ListContainer/style';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import Gradient from '../../components/Gradient';
 import { percentage } from '../../utils/percentageFactory';
@@ -21,7 +21,7 @@ export const TrainingRecordScrenn = ({ navigation }) => {
 
     async function GetDefaultWorkout() {
         const response = await GetDefaultWorkoutsByUserId(
-            '92ef5d63-a75e-432d-aa7a-b3006f246b60'
+            'c603fdc1-003b-410f-b5e5-3663a03e0028'
         );
         setDefaultWorkouts(response.data);
         console.log(response.data);
