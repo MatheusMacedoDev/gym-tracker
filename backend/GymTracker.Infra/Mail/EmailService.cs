@@ -1,4 +1,4 @@
-﻿/*using MailKit.Net.Smtp;
+﻿using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Options;
@@ -63,4 +63,4 @@ namespace GymTracker.Infra.Mail
             }
         }
     }
-}*/
+}

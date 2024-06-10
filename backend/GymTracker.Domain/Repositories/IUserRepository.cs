@@ -1,4 +1,5 @@
 using GymTracker.Domain.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace GymTracker.Domain.Repositories;
 
@@ -13,5 +14,6 @@ public interface IUserRepository
     Task<List<ProfileHistory>> ListUserProfileHistoryByUserId(Guid userId);
     Task<ProfileHistory> GetUserProfileHistoryById(Guid profileHistoryId);
     Task<User> GetUserById(Guid userId);
+    Task<User> GetUserByEmail(string emailUser);
     Task<UserLike> GetUserLikeById(Guid userLikeId);
 }
