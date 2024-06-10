@@ -4,13 +4,14 @@ import { colors } from "../../../colors.config";
 const ProfileInput = styled.TextInput.attrs({
     placeholderTextColor: colors.orange
 })`
-    width: 100%;
+    width: 60px;
     border: 1px solid #F9F9F9;
-    height: 75%;
+    height: 60px;
     border-radius: 10px;
     color: ${colors.orange};
     font-family: "Montserrat_700Bold";
-    padding-left: 25%;
+    padding-left: 20px;
+    margin-top: 20px;
 `;
 
 export default ProfileInput;

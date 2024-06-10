@@ -6,22 +6,22 @@ import styles from './style';
 const screenWidth = Dimensions.get('window').width;
 
 const chartConfig = {
-  backgroundGradientFrom: "#FFA726", // Laranja claro
+  backgroundGradientFrom: "transparent", // Laranja claro
   backgroundGradientFromOpacity: 0,
-  backgroundGradientTo: "#FB8C00", // Laranja mais escuro
-  backgroundGradientToOpacity: 0.5,
-  color: (opacity = 1) => `rgba(255, 152, 0, ${opacity})`, // Laranja para os pontos e linhas
+  backgroundGradientTo: "transparent", // Laranja mais escuro
+  backgroundGradientToOpacity: 0,
+  color: (opacity = 1) => `rgba(255, 132, 52, ${opacity})`, // Laranja para os pontos e linhas
   strokeWidth: 3,
   barPercentage: 0.5,
   useShadowColorFromDataset: false,
   labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`, // Branco para os labels
-  fillShadowGradient: '#FF9800', // Laranja para a sombra abaixo da linha
+  fillShadowGradient:`rgba(255, 132, 52, )`, // Laranja para a sombra abaixo da linha
   fillShadowGradientOpacity: 0.3, // Transparência da sombra
   propsForDots: {
     r: "6",
     strokeWidth: "2",
-    stroke: "#ffa726",
-    fill: "#ffa726",
+    stroke: "#FF8434",
+    fill: "#FF8434",
   } 
 };
 

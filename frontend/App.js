@@ -36,11 +36,12 @@ import SelectGroupMuscle from "./src/screens/SelectGroupMuscle";
 import { Presentation } from "./src/screens/Presentation";
 import PresentationInitial from "./src/screens/PresentationInitial";
 import { TrainingExercisesScreens } from "./src/screens/TrainingExercisesScreens";
-import Profile from "./src/screens/Profile";
 import { useState } from 'react';
 import AuthContext from './src/global/AuthContext';
 import { getUserToken } from './src/utils/tokenHandler';
 import { useEffect } from 'react';
+import Profile from './src/screens/Profile';
+import { Camera } from './src/components/Camera';
 
 const Stack = createNativeStackNavigator();
 
@@ -155,6 +156,14 @@ export default function App() {
                     <Stack.Screen
                         name='TrainingExercisesScreens'
                         component={TrainingExercisesScreens}
+                    />
+                    <Stack.Screen
+                        name='Profile'
+                        component={Profile}
+                    />
+                    <Stack.Screen
+                        name='Camera'
+                        component={Camera}
                     />
                 </Stack.Navigator>
             </NavigationContainer>
