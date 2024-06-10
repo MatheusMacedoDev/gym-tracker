@@ -103,7 +103,7 @@ namespace GymTracker.Application.Controllers
                     return BadRequest("Invalid recovery code!");
                 }
 
-                user.PasswordRecoverCode = null;
+                //user.PasswordRecoverCode = null;
 
                 await _context.SaveChangesAsync();
 

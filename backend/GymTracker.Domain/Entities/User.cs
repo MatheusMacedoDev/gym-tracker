@@ -49,7 +49,7 @@ public class User
     [Column("profile_updated_on")]
     public DateTime? ProfileUpdatedOn { get; set; }
 
-    private readonly ICryptographyStrategy? _cryptographyStrategy;
+    private readonly ICryptographyStrategy _cryptographyStrategy;
 
     protected User()
     {
@@ -80,5 +80,11 @@ public class User
     public void MarkProfileAsUpdated()
     {
         ProfileUpdatedOn = DateTime.UtcNow;
+    }
+
+    public void ChangePassword(string newPassword, ICryptographyStrategy cryptographyStrategy)
+    { 
+        PasswordSalt = _cryptographyStrategy.MakeSalt();
+        PasswordHash = _cryptographyStrategy.MakeHashedPassword(newPassword, PasswordSalt);
     }
 }
