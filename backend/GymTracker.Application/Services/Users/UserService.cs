@@ -92,7 +92,9 @@ public class UserService : IUserService
     {
         try
         {
-            await _userRepository.GetUserById(request.userId);
+            var user = await _userRepository.GetUserById(request.userId);
+
+            user.MarkProfileAsUpdated();
 
             string? newEvolutionPhotoUri = null;
 
@@ -258,6 +260,30 @@ public class UserService : IUserService
             var response = new CanAddProfileHistoryResponse(havePermition);
 
             return response;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<IEnumerable<RankUserDTO>> ListRankedUsersByLikesAmount()
+    {
+        try
+        {
+            return await _userDAO.RankUsersByLikes();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<IEnumerable<RankUserDTO>> ListRankedUsersByLastProfileUpdate()
+    {
+        try
+        {
+            return await _userDAO.RankUsersByLastProfileUpdate();
         }
         catch (Exception)
         {

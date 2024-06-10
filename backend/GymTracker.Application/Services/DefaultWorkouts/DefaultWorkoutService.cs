@@ -37,6 +37,7 @@ public class DefaultWorkoutService : IDefaultWorkoutService
             await _unityOfWork.Commit();
 
             var response = new RegisterDefaultWorkoutResponse(
+                defaultWorkoutId: defaultWorkout.DefaultWorkoutId,
                 workoutName: defaultWorkout.DefaultWorkoutName!
             );
 
