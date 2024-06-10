@@ -1,5 +1,4 @@
 import { Container } from '../../components/Container/style';
-import Gradient from '../../components/Gradient';
 import { Logo } from '../../components/Logo';
 import { CalendarHome } from '../../components/Calendar';
 import { Title } from '../../components/Title/style';
@@ -23,9 +22,11 @@ import {
     GetExercisesByDiaryWorkout
 } from '../../infra/services/diaryWorkoutService';
 import { percentage } from '../../utils/percentageFactory';
+import Gradient from '../../components/Gradient';
+import moment from 'moment';
 
 export const Home = ({ navigation }) => {
-    const [date, setDate] = useState(null);
+    const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
     const [exercises, setExercises] = useState([]);
     const [workoutName, setWorkoutName] = useState();
     const [workoutId, setWorkoutId] = useState();
@@ -37,8 +38,14 @@ export const Home = ({ navigation }) => {
     async function GetExercises() {
         const response = await GetExercisesByDiaryWorkout(
             date,
-            '92ef5d63-a75e-432d-aa7a-b3006f246b60'
+            'c603fdc1-003b-410f-b5e5-3663a03e0028'
         );
+
+        if (!response.data) {
+            console.log('Deu ruim');
+            return;
+        }
+
         setExercises(response.data.diaryExercises);
         setWorkoutName(response.data.workoutName);
         setWorkoutId(response.data.diaryWorkoutId);
@@ -76,7 +83,7 @@ export const Home = ({ navigation }) => {
                     </TextWelcome>
                 </WelcomeContainer>
                 <CalendarHome setTrainingDate={setDate} />
-                <DiaryWorkoutContainer>
+                <DiaryWorkoutContainer gap='0px'>
                     <WorkoutContent paddingLeft={percentage(0.01, 'w')}>
                         {exercises ? (
                             <>
@@ -118,7 +125,6 @@ export const Home = ({ navigation }) => {
                             <>
                                 <LabelWorkout
                                     marginTop={percentage(0.05, 'h')}
-                                    marginLeft={percentage(0, 'w')}
                                 >
                                     Nenhum treino foi registrado hoje.
                                 </LabelWorkout>
