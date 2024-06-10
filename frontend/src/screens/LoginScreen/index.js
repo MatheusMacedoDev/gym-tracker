@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Button } from '../../components/Button';
 import { Container } from '../../components/Container/style';
 import Gradient from '../../components/Gradient';
@@ -10,15 +10,27 @@ import { LinkCommandText } from './components/linkCommandText';
 import { LinkContainer } from './components/linkContainer';
 import { MakeLogin } from '../../infra/services/userService';
 import { percentage } from '../../utils/percentageFactory';
+import { getUserToken, setUserToken } from '../../utils/tokenHandler';
+import AuthContext from '../../global/AuthContext';
 
 export const LoginScreen = ({ navigation }) => {
-    const [email, setEmail] = useState('matheus.macedo@email.com');
+    const {user, setUser} = useContext(AuthContext)
+
+    const [email, setEmail] = useState('matheus@mail.com');
     const [password, setPassword] = useState('12345');
 
     async function handleLogin() {
         const response = await MakeLogin(email, password);
-        console.log(response.data);
+
         if (response.status == 200) {
+            const token = response.data.authenticationToken;
+
+            await setUserToken(token);
+
+            const decodedTokent = await getUserToken();
+
+            setUser(decodedTokent);
+
             navigation.replace('Main');
         } else {
         }

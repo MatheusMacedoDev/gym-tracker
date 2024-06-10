@@ -41,7 +41,7 @@ export const Home = ({ navigation }) => {
             'c603fdc1-003b-410f-b5e5-3663a03e0028'
         );
 
-        if (!response.data) {
+        if (response.status == 400) {
             console.log('Deu ruim');
             return;
         }
