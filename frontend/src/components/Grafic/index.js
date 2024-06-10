@@ -25,18 +25,18 @@ const chartConfig = {
   } 
 };
 
-
 const LineChartComponent = ({ data }) => {
   return (
-    <View style={styles.container}>
-     <LineChart
-  data={data}
-  width={screenWidth}
-  height={150}
-  verticalLabelRotation={0}
-  chartConfig={chartConfig}
-  bezier
-/>
+    <View style={styles.chartContainer}>
+      <LineChart
+        data={data}
+        width={screenWidth * 0.9} // Diminui a largura do gráfico
+        height={160}
+        verticalLabelRotation={0}
+        chartConfig={chartConfig}
+        bezier
+        style={styles.chart}
+      />
     </View>
   );
 };

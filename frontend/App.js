@@ -36,6 +36,7 @@ import SelectGroupMuscle from "./src/screens/SelectGroupMuscle";
 import { Presentation } from "./src/screens/Presentation";
 import PresentationInitial from "./src/screens/PresentationInitial";
 import { TrainingExercisesScreens } from "./src/screens/TrainingExercisesScreens";
+import Profile from "./src/screens/Profile";
 
 const Stack = createNativeStackNavigator();
 
@@ -121,6 +122,10 @@ export default function App() {
         <Stack.Screen
           name="TrainingExercisesScreens"
           component={TrainingExercisesScreens}
+        />
+        <Stack.Screen
+          name="Profile"
+          component={Profile}
         />
       </Stack.Navigator>
     </NavigationContainer>
