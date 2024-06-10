@@ -19,8 +19,6 @@ using GymTracker.Utils.Cryptography;
 using GymTracker.Infra.Mail;
 using GymTracker.Utils.Token;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Cors.Infrastructure;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);

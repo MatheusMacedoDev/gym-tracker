@@ -113,7 +113,7 @@ export async function CreateProfileHistory(
 export async function GetProfileHistoriesByUserId(userId) {
   try {
     const response = await api.get(
-      `${apiUrlLocal}${getProfileHistoriesEndpoint}/userId?=${userId}`,
+      `${apiUrlLocal}${getProfileHistoriesEndpoint}?userId=${userId}`,
     );
 
     return response;

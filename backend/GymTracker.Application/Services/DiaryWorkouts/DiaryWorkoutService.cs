@@ -78,7 +78,7 @@ public class DiaryWorkoutService : IDiaryWorkoutService
             );
 
             if (diaryWorkout == null)
-                return new ListDiaryExercisesByDateResponse(Guid.Empty, "", null);
+                return null!;
 
             var exercisesList = await _diaryExerciseDAO.ListDiaryExercisesByDate(
                 date: request.date,
