@@ -161,10 +161,6 @@ export default function App() {
                         name='Profile'
                         component={Profile}
                     />
-                    <Stack.Screen
-                        name='Camera'
-                        component={Camera}
-                    />
                 </Stack.Navigator>
             </NavigationContainer>
         </AuthContext.Provider>

@@ -41,13 +41,12 @@ const Profile = () => {
   return (
     <Gradient>
       <Container>
-        <CartaoPerfil
-          nome="João Oliveira"
-          imagem="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCMi61i5ieAks081B7kEedNZtMWFpFjYyc79aQgPVuM7MhAW4gVPtvwYhkTjjHea3lG4E&usqp=CAU"
-          curtidas="1,2k"
-        />
-
-        <ScrollContainer>
+        <ScrollContainer contentContainerStyle={{ alignItems: 'center' }}>
+          <CartaoPerfil
+            nome="João Oliveira"
+            imagem="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCMi61i5ieAks081B7kEedNZtMWFpFjYyc79aQgPVuM7MhAW4gVPtvwYhkTjjHea3lG4E&usqp=CAU"
+            curtidas="1,2k"
+          />
           <LineChartComponent data={data} />
           <View style={styles.container}>
 
