@@ -79,6 +79,25 @@ public class ProfileHistory
         UserId = userId;
     }
 
+    public ProfileHistory(Guid userId, float weight, short height, float? abdominalGirth, float? scapularGirth, float? hipGirth, float? armGirth, float? legGirth, float? bodyFat, string? evolutionPhoto)
+    {
+        ProfileHistoryId = Guid.NewGuid();
+        ProfileDate = DateTime.UtcNow;
+
+        Weight = weight;
+        Height = height;
+
+        AbdominalGirth = abdominalGirth;
+        ScapularGirth = scapularGirth;
+        HipGirth = hipGirth;
+        ArmGirth = armGirth;
+        LegGirth = legGirth;
+        BodyFat = bodyFat;
+        EvolutionPhoto = evolutionPhoto;
+
+        UserId = userId;
+    }
+
     public bool IsValidSpaceBetweenDates(DateTime lastHistoryDate)
     {
         const int MIN_DAYS_BETWEEN_DATES = 7;
