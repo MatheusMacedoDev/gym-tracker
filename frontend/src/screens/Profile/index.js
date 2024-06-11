@@ -2,16 +2,20 @@ import React, { useEffect, useState } from 'react';
 import Gradient from '../../components/Gradient';
 import LineChartComponent from '../../components/Grafic';
 import { Container, ScrollContainer } from '../../components/Container/style';
-import RegisterProgressingComponent from '../../components/RegisterProgressingComponent';
 import StatisticBox from './components/StatisticBox';
 import StatisticsContainer from './components/StatisticsContainer';
 import { Title } from '../../components/Title/style';
 import { percentage } from '../../utils/percentageFactory';
 import { Button } from '../../components/Button';
 import ProfileView from './components/ProfileView';
-import { GetProfileHistoriesByUserId } from '../../infra/services/userService';
+import {
+    GetProfileHistoriesByUserId,
+    GetUserProfileImage
+} from '../../infra/services/userService';
 
 const Profile = () => {
+    const [profileImage, setProfileImage] = useState('');
+
     const [weight, setWeight] = useState('0');
     const [height, setHeight] = useState('0');
     const [bodyFat, setBodyFat] = useState('0');
@@ -65,6 +69,15 @@ const Profile = () => {
     }
 
     useEffect(() => {
+        async function getUserProfileImageData() {
+            const response = await GetUserProfileImage(
+                'f0678abe-0f99-4be8-bf8b-ea028c811d90'
+            );
+
+            console.log(response.data);
+            setProfileImage(response.data);
+        }
+
         async function getUserProfileData() {
             const response = await GetProfileHistoriesByUserId(
                 'f0678abe-0f99-4be8-bf8b-ea028c811d90'
@@ -91,6 +104,7 @@ const Profile = () => {
             setLegGirth(currentProfileHistoryData.legGirth);
         }
 
+        getUserProfileImageData();
         getUserProfileData();
     }, []);
 
@@ -130,7 +144,7 @@ const Profile = () => {
                 >
                     <ProfileView
                         userName='João Oliveira'
-                        avatarUri='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCMi61i5ieAks081B7kEedNZtMWFpFjYyc79aQgPVuM7MhAW4gVPtvwYhkTjjHea3lG4E&usqp=CAU'
+                        avatarUri={profileImage}
                         likesAmount='1,2k'
                     />
 
