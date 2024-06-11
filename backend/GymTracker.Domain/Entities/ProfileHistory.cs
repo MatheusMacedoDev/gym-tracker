@@ -60,7 +60,7 @@ public class ProfileHistory
 
     public ProfileHistory(DateTime lastHistoryDate, Guid userId, float weight, short height, float? abdominalGirth, float? scapularGirth, float? hipGirth, float? armGirth, float? legGirth, float? bodyFat, string? evolutionPhoto)
     {
-        SpaceBetweenProfileDatesValidation(lastHistoryDate);
+        //SpaceBetweenProfileDatesValidation(lastHistoryDate);
 
         ProfileHistoryId = Guid.NewGuid();
         ProfileDate = DateTime.UtcNow;

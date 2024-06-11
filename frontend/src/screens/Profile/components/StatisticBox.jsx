@@ -44,7 +44,7 @@ export default function StatisticBox({
         if (value) {
             setInputValue(value + unitText);
         }
-    }, []);
+    }, [value]);
 
     return (
         <Container>
