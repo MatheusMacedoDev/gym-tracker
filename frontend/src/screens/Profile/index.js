@@ -42,6 +42,20 @@ const Profile = () => {
 
     function logoutProfile() {}
 
+    function changeGraph(property, legend) {
+        let graphLabels = [];
+        let graphInfos = [];
+
+        profileHistoriesData.forEach((profileHistory, index) => {
+            graphLabels.push(index);
+            graphInfos.push(profileHistory[property]);
+        });
+
+        setSelectedGraphLabels(graphLabels);
+        setSelectedGraphInfos(graphInfos);
+        setSelectedGraphLegend(legend)
+    }
+
     useEffect(() => {
         async function getUserProfileData() {
             const response = await GetProfileHistoriesByUserId('c603fdc1-003b-410f-b5e5-3663a03e0028');
@@ -127,17 +141,7 @@ const Profile = () => {
                             setValue={setWeight}
                             unitText='kg'
                             handleClickFn={() => {
-                                let graphLabels = [];
-                                let graphInfos = [];
-
-                                profileHistoriesData.forEach((profileHistory, index) => {
-                                    graphLabels.push(index);
-                                    graphInfos.push(profileHistory.weight);
-                                });
-
-                                setSelectedGraphLabels(graphLabels);
-                                setSelectedGraphInfos(graphInfos);
-                                setSelectedGraphLegend('Peso')
+                                changeGraph('weight', 'Peso')
                             }}
                         />
                         <StatisticBox
@@ -146,6 +150,9 @@ const Profile = () => {
                             value={height}
                             setValue={setHeight}
                             unitText='cm'
+                            handleClickFn={() => {
+                                changeGraph('height', 'Altura (cm)')
+                            }}
                         />
                         <StatisticBox
                             label='BF'
@@ -153,6 +160,9 @@ const Profile = () => {
                             value={bodyFat}
                             setValue={setBodyFat}
                             unitText='%'
+                            handleClickFn={() => {
+                                changeGraph('bodyFat', '% de gordura')
+                            }}
                         />
                         <StatisticBox
                             label='Cintura'
@@ -160,6 +170,9 @@ const Profile = () => {
                             value={abdominalGirth}
                             setValue={setAbdominalGirth}
                             unitText='cm'
+                            handleClickFn={() => {
+                                changeGraph('abdominalGirth', 'Cintura (cm)')
+                            }}
                         />
                         <StatisticBox
                             label='Ombros'
@@ -167,6 +180,9 @@ const Profile = () => {
                             value={scapularGirth}
                             setValue={setScapularGirth}
                             unitText='cm'
+                            handleClickFn={() => {
+                                changeGraph('scapularGirth', 'Ombros (cm)')
+                            }}
                         />
                         <StatisticBox
                             label='Quadril'
@@ -174,6 +190,9 @@ const Profile = () => {
                             value={hipGirth}
                             setValue={setHipGirth}
                             unitText='cm'
+                            handleClickFn={() => {
+                                changeGraph('hipGirth', 'Quadril (cm)')
+                            }}
                         />
                         <StatisticBox
                             label='Braço'
@@ -181,6 +200,9 @@ const Profile = () => {
                             value={armGirth}
                             setValue={setArmGirth}
                             unitText='cm'
+                            handleClickFn={() => {
+                                changeGraph('armGirth', 'Braço (cm)')
+                            }}
                         />
                         <StatisticBox
                             label='Perna'
@@ -188,6 +210,9 @@ const Profile = () => {
                             value={legGirth}
                             setValue={setLegGirth}
                             unitText='cm'
+                            handleClickFn={() => {
+                                changeGraph('legGirth', 'Perna (cm)')
+                            }}
                         />
                     </StatisticsContainer>
 
