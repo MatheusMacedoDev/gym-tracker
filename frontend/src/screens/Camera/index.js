@@ -79,12 +79,14 @@ export default function Camera() {
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       quality: 1,
     });
-
+  
+    console.log('Resultado da seleção da imagem:', result); 
+  
     if (!result.cancelled) {
       setLastImage(result.uri);
+      setUriSelecionada(result.uri);
     }
   };
-
 
   if (!permission) {
     return <View />;
