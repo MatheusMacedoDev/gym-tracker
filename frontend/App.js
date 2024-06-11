@@ -41,6 +41,7 @@ import AuthContext from './src/global/AuthContext';
 import { getUserToken } from './src/utils/tokenHandler';
 import { useEffect } from 'react';
 import Profile from './src/screens/Profile';
+import Camera from './src/screens/Camera';
 
 const Stack = createNativeStackNavigator();
 
@@ -160,6 +161,10 @@ export default function App() {
                     <Stack.Screen
                         name='TrainingExercisesScreens'
                         component={TrainingExercisesScreens}
+                    />
+                    <Stack.Screen
+                        name='Camera'
+                        component={Camera}
                     />
                     <Stack.Screen name='Profile' component={Profile} />
                 </Stack.Navigator>
