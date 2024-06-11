@@ -9,6 +9,7 @@ import { percentage } from '../../utils/percentageFactory';
 import { Button } from '../../components/Button';
 import ProfileView from './components/ProfileView';
 import {
+    CreateProfileHistory,
     GetProfileHistoriesByUserId,
     GetUserProfileImage
 } from '../../infra/services/userService';
@@ -16,14 +17,15 @@ import {
 const Profile = () => {
     const [profileImage, setProfileImage] = useState('');
 
-    const [weight, setWeight] = useState('0');
-    const [height, setHeight] = useState('0');
-    const [bodyFat, setBodyFat] = useState('0');
-    const [abdominalGirth, setAbdominalGirth] = useState('0');
-    const [scapularGirth, setScapularGirth] = useState('0');
-    const [hipGirth, setHipGirth] = useState('0');
-    const [armGirth, setArmGirth] = useState('0');
-    const [legGirth, setLegGirth] = useState('0');
+    const [weight, setWeight] = useState(null);
+    const [height, setHeight] = useState(null);
+    const [bodyFat, setBodyFat] = useState(null);
+    const [abdominalGirth, setAbdominalGirth] = useState(null);
+    const [scapularGirth, setScapularGirth] = useState(null);
+    const [hipGirth, setHipGirth] = useState(null);
+    const [armGirth, setArmGirth] = useState(null);
+    const [legGirth, setLegGirth] = useState(null);
+    const [evolutionPhotoUri, setEvolutionPhotoUri] = useState('');
 
     const [allowEdit, setAllowEdit] = useState(true);
     const [isProfileEditing, setIsProfileEditing] = useState(false);
@@ -35,7 +37,40 @@ const Profile = () => {
     const [selectedGraphLegend, setSelectedGraphLegend] = useState('');
     const [selectedGraphData, setSelectedGraphData] = useState(null);
 
-    function saveProfileHistory() {
+    async function saveProfileHistory() {
+        const response = await CreateProfileHistory(
+            'f0678abe-0f99-4be8-bf8b-ea028c811d90',
+            weight != '0' ? weight : null,
+            height != '0' ? height : null,
+            abdominalGirth != '0' ? abdominalGirth : null,
+            scapularGirth != '0' ? scapularGirth : null,
+            hipGirth != '0' ? hipGirth : null,
+            armGirth != '0' ? armGirth : null,
+            legGirth != '0' ? legGirth : null,
+            bodyFat !== null && bodyFat != '0' ? bodyFat / 100 : null,
+            evolutionPhotoUri !== '' ? evolutionPhotoUri : null
+        );
+
+        const newProfileHistoryData = response.data;
+
+        setWeight(newProfileHistoryData.weight);
+        setHeight(newProfileHistoryData.height);
+
+        if (newProfileHistoryData.bodyFat) {
+            setBodyFat(parseFloat(newProfileHistoryData.bodyFat) * 100);
+        }
+
+        setAbdominalGirth(newProfileHistoryData.abdominalGirth);
+        setScapularGirth(newProfileHistoryData.scapularGirth);
+        setHipGirth(newProfileHistoryData.hipGirth);
+        setArmGirth(newProfileHistoryData.armGirth);
+        setLegGirth(newProfileHistoryData.legGirth);
+
+        setProfileHistoriesData([
+            ...profileHistoriesData,
+            newProfileHistoryData
+        ]);
+
         setIsProfileEditing(false);
         setAllowEdit(false);
     }
@@ -74,7 +109,6 @@ const Profile = () => {
                 'f0678abe-0f99-4be8-bf8b-ea028c811d90'
             );
 
-            console.log(response.data);
             setProfileImage(response.data);
         }
 
@@ -122,7 +156,7 @@ const Profile = () => {
             datasets: [
                 {
                     data: selectedGraphInfos,
-                    color: (opacity = 1) => `rgba(251, 102, 20, 0.8)`,
+                    color: () => `rgba(251, 102, 20, 0.8)`,
                     strokeWidth: 2
                 }
             ],
@@ -138,6 +172,7 @@ const Profile = () => {
         <Gradient>
             <Container>
                 <ScrollContainer
+                    showsVerticalScrollIndicator={false}
                     contentContainerStyle={{
                         alignItems: 'center'
                     }}
@@ -198,7 +233,7 @@ const Profile = () => {
                         <StatisticBox
                             label='BF'
                             editable={isProfileEditing}
-                            value={bodyFat}
+                            value={Math.round(bodyFat)}
                             setValue={setBodyFat}
                             unitText='%'
                             handleClickFn={() => {
@@ -270,19 +305,20 @@ const Profile = () => {
                         handleClickFn={() => navigation.navigate('Camera')}
                     />
 
-                    {allowEdit && isProfileEditing ? (
-                        <Button
-                            title='Salvar'
-                            marginTop={percentage(0.05, 'h')}
-                            handleClickFn={saveProfileHistory}
-                        />
-                    ) : (
-                        <Button
-                            title='Atualizar'
-                            marginTop={percentage(0.05, 'h')}
-                            handleClickFn={editProfileHistory}
-                        />
-                    )}
+                    {allowEdit &&
+                        (isProfileEditing ? (
+                            <Button
+                                title='Salvar'
+                                marginTop={percentage(0.05, 'h')}
+                                handleClickFn={saveProfileHistory}
+                            />
+                        ) : (
+                            <Button
+                                title='Atualizar'
+                                marginTop={percentage(0.05, 'h')}
+                                handleClickFn={editProfileHistory}
+                            />
+                        ))}
                     <Button
                         title='Sair'
                         marginTop={percentage(0.03, 'h')}

@@ -98,23 +98,49 @@ export async function CreateProfileHistory(
     evolutionPhotoUri
 ) {
     try {
-        const formData = FormData();
+        const formData = new FormData();
 
         formData.append('userId', userId);
-        formData.append('weight', weight);
-        formData.append('height', height);
-        formData.append('abdominalGirth', abdominalGirth);
-        formData.append('scapularGirth', scapularGirth);
-        formData.append('hipGirth', hipGirth);
-        formData.append('armGirth', armGirth);
-        formData.append('legGirth', legGirth);
-        formData.append('bodyFat', bodyFat);
 
-        formData.append('evolutionPhoto', {
-            uri: evolutionPhotoUri,
-            name: 'image.jpg',
-            type: 'image/jpg'
-        });
+        if (weight) {
+            formData.append('weight', weight);
+        }
+
+        if (height) {
+            formData.append('height', height);
+        }
+
+        if (abdominalGirth) {
+            formData.append('abdominalGirth', abdominalGirth);
+        }
+
+        if (scapularGirth) {
+            formData.append('scapularGirth', scapularGirth);
+        }
+
+        if (hipGirth) {
+            formData.append('hipGirth', hipGirth);
+        }
+
+        if (armGirth) {
+            formData.append('armGirth', armGirth);
+        }
+
+        if (legGirth) {
+            formData.append('legGirth', legGirth);
+        }
+
+        if (bodyFat) {
+            formData.append('bodyFat', bodyFat);
+        }
+
+        if (evolutionPhotoUri) {
+            formData.append('evolutionPhoto', {
+                uri: evolutionPhotoUri,
+                name: 'image.jpg',
+                type: 'image/jpg'
+            });
+        }
 
         const response = await api.post(
             apiUrlLocal + createProfileHistoryEndpoint,
@@ -128,7 +154,16 @@ export async function CreateProfileHistory(
 
         return response;
     } catch (error) {
-        console.log(error);
+        if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        } else if (error.request) {
+            console.log(error.request);
+        } else {
+            console.log('Error', error.message);
+        }
+        console.log(error.config);
     }
 }
 
