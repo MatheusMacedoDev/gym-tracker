@@ -9,7 +9,7 @@ const CartaoPerfil = ({ nome, imagem, curtidas }) => {
             <Image source={{ uri: imagem }} style={estilos.image} />
             <Text style={estilos.nome}>{nome}</Text>
             <View style={estilos.likesContainer}>
-                <AntDesign name='heart' size={24} color='#FF6347' />
+                <AntDesign name='heart' size={24} color='#FB6614' />
                 <Text style={estilos.curtidas}>{curtidas}</Text>
             </View>
         </View>

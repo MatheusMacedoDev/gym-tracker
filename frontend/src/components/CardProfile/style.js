@@ -3,7 +3,6 @@ import { StyleSheet } from 'react-native';
 const estilos = StyleSheet.create({
     container: {
         marginTop: 50,
-        marginBottom: 60,
         alignItems: 'center',
         borderRadius: 10,
         padding: 20,
@@ -27,7 +26,7 @@ const estilos = StyleSheet.create({
     curtidas: {
         marginLeft: 6,
         fontSize: 16,
-        color: '#FF6347'
+        color: '#FF8434'
     }
 });
 

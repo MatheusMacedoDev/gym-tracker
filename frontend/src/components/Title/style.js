@@ -9,5 +9,5 @@ export const Title = styled.Text`
     margin-top: ${props => (props.marginTop ? `${props.marginTop}` : '0px')};
     margin-bottom: ${props =>
         props.marginBottom ? `${props.marginBottom}` : '0px'};
-    text-align: center;
+    text-align: ${props => (props.alignLeft ? 'left' : 'center')};
 `;
