@@ -2,7 +2,7 @@ import { Container } from '../../components/Container/style';
 import { Logo } from '../../components/Logo';
 import { CalendarHome } from '../../components/Calendar';
 import { Title } from '../../components/Title/style';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import DiaryWorkoutContainer from './Style/DiaryWorkoutContainer';
 import ImageWelcome from './Style/ImageWelcome';
 import TextWelcome from './Style/TextWelcome';
@@ -23,13 +23,13 @@ import {
 } from '../../infra/services/diaryWorkoutService';
 import { percentage } from '../../utils/percentageFactory';
 import Gradient from '../../components/Gradient';
-import moment from 'moment';
+import AuthContext from '../../global/AuthContext';
+
 
 export const Home = ({ navigation }) => {
-    const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
-    const [exercises, setExercises] = useState([]);
-    const [workoutName, setWorkoutName] = useState();
-    const [workoutId, setWorkoutId] = useState();
+    const [date, setDate] = useState(null);
+    const [diaryWorkout, setDiaryWorkout] = useState(null)
+    const user = useContext(AuthContext)
 
     useEffect(() => {
         GetExercises();
@@ -38,22 +38,25 @@ export const Home = ({ navigation }) => {
     async function GetExercises() {
         const response = await GetExercisesByDiaryWorkout(
             date,
-            'c603fdc1-003b-410f-b5e5-3663a03e0028'
+            '050f4da3-c9ca-46c6-bf27-6cc1cbaa6bfc'
         );
 
-        if (!response.data) {
+        if (response.status == 400) {
             console.log('Deu ruim');
             return;
         }
 
-        setExercises(response.data.diaryExercises);
-        setWorkoutName(response.data.workoutName);
-        setWorkoutId(response.data.diaryWorkoutId);
-        console.log(response.data);
+        // setExercises(response.data.diaryExercises);
+        // setWorkoutName(response.data.workoutName);
+        // setWorkoutId(response.data.diaryWorkoutId);
+        setDiaryWorkout(response.data)
+        // console.log(response.data);
     }
 
+
+
     async function DeleteWorkout() {
-        const response = await DeleteDiaryWorkout(workoutId);
+        const response = await DeleteDiaryWorkout(diaryWorkout.diaryWorkoutId);
         console.log(response);
         if (response.status === 204) {
             GetExercises();
@@ -79,24 +82,24 @@ export const Home = ({ navigation }) => {
                         source={require('../../assets/joao.jpeg')}
                     />
                     <TextWelcome>
-                        Bem vindo,<Title fontSize={24}> Joao</Title>
+                        Bem vindo,<Title fontSize={24}> {user.user.name}</Title>
                     </TextWelcome>
                 </WelcomeContainer>
                 <CalendarHome setTrainingDate={setDate} />
                 <DiaryWorkoutContainer gap='0px'>
                     <WorkoutContent paddingLeft={percentage(0.01, 'w')}>
-                        {exercises ? (
+                        {diaryWorkout ? (
                             <>
                                 <Title
                                     alignSelf={'flex-start'}
                                     marginBottom={percentage(0.07, 'h')}
                                     fontSize={24}
                                 >
-                                    {workoutName}
+                                    {diaryWorkout.workoutName}
                                 </Title>
                                 <ListContainer heightContainer='55%'>
                                     <ListComponent
-                                        data={exercises}
+                                        data={diaryWorkout.diaryExercises}
                                         renderItem={({ item }) => (
                                             <ExistWorkoutComponent
                                                 nameExercise={
