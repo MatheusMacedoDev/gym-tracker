@@ -1,4 +1,5 @@
 import { Image } from 'react-native';
+import { useState } from 'react';
 import { Button } from '../../components/Button';
 import { CommandText } from '../../components/CommandText/style';
 import { Container } from '../../components/Container/style';
