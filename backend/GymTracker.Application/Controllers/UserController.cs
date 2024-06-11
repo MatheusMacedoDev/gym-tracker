@@ -31,6 +31,21 @@ public class UserController : ControllerBase
         }
     }
 
+    [HttpGet("profile_image")]
+    public async Task<IActionResult> GetProfileImage(Guid userId)
+    {
+        try
+        {
+            var response = await _userService.GetProfileImage(userId);
+
+            return Ok(response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
+
     [HttpPatch("update_profile_image")]
     public async Task<IActionResult> UpdateProfileImage([FromForm] ChangeUserProfileImageRequest request)
     {
@@ -40,10 +55,9 @@ public class UserController : ControllerBase
 
             return StatusCode(200, response);
         }
-        catch (System.Exception)
+        catch (Exception error)
         {
-
-            throw;
+            return BadRequest(error.Message);
         }
     }
 

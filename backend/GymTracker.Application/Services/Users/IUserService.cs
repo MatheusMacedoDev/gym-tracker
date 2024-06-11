@@ -11,6 +11,8 @@ public interface IUserService
     Task<RegisterUserLikeResponse> RegisterUserLike(RegisterUserLikeRequest request);
     Task<ChangeUserProfileImageResponse> ChangeUserProfileImage(ChangeUserProfileImageRequest request);
 
+    Task<string> GetProfileImage(Guid userId);
+
     Task<LoginResponse> Login(LoginRequest request);
 
     Task<RegisterProfileHistoryResponse> RegisterProfileHistory(RegisterProfileHistoryRequest request);
