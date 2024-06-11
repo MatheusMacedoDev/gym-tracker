@@ -38,19 +38,14 @@ export const Home = ({ navigation }) => {
     async function GetExercises() {
         const response = await GetExercisesByDiaryWorkout(
             date,
-            '050f4da3-c9ca-46c6-bf27-6cc1cbaa6bfc'
+            user.user.userId
         );
 
         if (response.status == 400) {
             console.log('Deu ruim');
             return;
         }
-
-        // setExercises(response.data.diaryExercises);
-        // setWorkoutName(response.data.workoutName);
-        // setWorkoutId(response.data.diaryWorkoutId);
         setDiaryWorkout(response.data)
-        // console.log(response.data);
     }
 
 
@@ -73,16 +68,15 @@ export const Home = ({ navigation }) => {
                     marginTop={percentage(0.05, 'h')}
                 />
                 <WelcomeContainer
-                    gap={percentage(0.05, 'h')}
+                    gap={percentage(0.02, 'h')}
                     marginTop={percentage(0.05, 'h')}
-                    marginBottom={percentage(0.01, 'h')}
                 >
                     <ImageWelcome
                         resizeMode='cover'
-                        source={require('../../assets/joao.jpeg')}
+                        source={{uri: user.user.profileImage}}
                     />
                     <TextWelcome>
-                        Bem vindo,<Title fontSize={24}> {user.user.name}</Title>
+                        Bem vindo,<Title fontSize={22}> {user.user.name}</Title>
                     </TextWelcome>
                 </WelcomeContainer>
                 <CalendarHome setTrainingDate={setDate} />

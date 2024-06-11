@@ -11,17 +11,28 @@ import { ListContainer } from '../../components/ListContainer/style';
 import { ListComponent } from '../../components/List/style';
 import { TouchableOpacity } from 'react-native';
 import { percentage } from '../../utils/percentageFactory';
+import { useEffect, useState } from 'react';
+import { GetExercisesByDefaultWorkout } from '../../infra/services/defaultWorkoutService';
 
-const exercises = [
-    { id: 1, exercise: 'Supino com halteres' },
-    { id: 2, exercise: 'Agachamento' },
-    { id: 3, exercise: 'Cadeira extensora' },
-    { id: 4, exercise: 'Abdominal' },
-    { id: 5, exercise: 'Flexao' },
-    { id: 6, exercise: 'Abdominal' }
-];
 
 export const TrainingExercisesScreens = ({ navigation, route }) => {
+    const [workout, setWorkout] = useState()
+    const [workoutexercises, setWorkoutExercises] = useState()
+
+    useEffect(() => {
+        setWorkout(route.params.selectedWorkout)
+    },[route])
+
+    useEffect(() => {
+        GetDefaultWorkoutExercises()
+    },[workout])
+
+    async function GetDefaultWorkoutExercises() {
+        const response = await GetExercisesByDefaultWorkout(workout.id)
+        console.log(response.data);
+        setWorkoutExercises(response.data)
+    }
+
     return (
         <Gradient>
             <Container>
@@ -46,21 +57,21 @@ export const TrainingExercisesScreens = ({ navigation, route }) => {
                     marginTop={percentage(0.02, 'h')}
                     marginBottom={percentage(0.08, 'h')}
                 >
-                    {route.params.trainingName}
+                    {workout ? workout.trainingName : null}
                 </Title>
                 <ListContainer heightContainer={'50%'}>
                     <ListComponent
-                        data={exercises}
+                        data={workoutexercises}
                         contentContainerStyle={{
                             gap: 16
                         }}
                         renderItem={({ item }) => (
                             <TouchableOpacity
                                 onPress={() =>
-                                    navigation.navigate('ExerciseRecord')
+                                    navigation.navigate('ExerciseRecord',{ seriesAmount: item.seriesAmount , repetitions: item.repetitionsRange})
                                 }
                             >
-                                <ExerciseCard titleExercise={item.exercise} />
+                                <ExerciseCard titleExercise={item.exerciseName} /> 
                             </TouchableOpacity>
                         )}
                     />

@@ -13,16 +13,27 @@ import { Label } from './Label/style';
 import { percentage } from '../../utils/percentageFactory';
 import { IconButton } from '../../components/IconButton';
 import { MaterialIcons } from '@expo/vector-icons';
+import { useEffect, useState } from 'react';
 
-const series = [
-    { id: 1, serialNumber: 1, reps: 12 },
-    { id: 2, serialNumber: 2, reps: 12 },
-    { id: 3, serialNumber: 3, reps: 12 },
-    { id: 4, serialNumber: 4, reps: 12 },
-    { id: 5, serialNumber: 5, reps: 12 }
-];
 
-export const ExerciseRecord = ({ navigation }) => {
+export const ExerciseRecord = ({ navigation, route }) => {
+    //const [repetitionsRange, setRepetitionsRange] = useState(0)
+    const [series, setSeries] = useState()
+
+    useEffect(() => {
+        console.log(route.params);
+
+        const seriesArray = [];
+        for (let i = 0; i < route.params.seriesAmount; i++) {
+            seriesArray.push({
+                id: i + 1,
+                reps: route.params.repetitions || 0
+            });
+        }
+        setSeries(seriesArray);
+    },[])
+
+
     return (
         <Gradient>
             <Container>
@@ -60,7 +71,7 @@ export const ExerciseRecord = ({ navigation }) => {
                         }}
                         renderItem={({ item }) => (
                             <ExerciseSerieCard
-                                serialNumber={item.serialNumber}
+                                serialNumber={item.id}
                                 reps={item.reps}
                             />
                         )}
