@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Gradient from '../../components/Gradient';
 import LineChartComponent from '../../components/Grafic';
-import CartaoPerfil from '../../components/CardProfile';
 import { Container, ScrollContainer } from '../../components/Container/style';
 import RegisterProgressingComponent from '../../components/RegisterProgressingComponent';
 import StatisticBox from './components/StatisticBox';
@@ -9,6 +8,7 @@ import StatisticsContainer from './components/StatisticsContainer';
 import { Title } from '../../components/Title/style';
 import { percentage } from '../../utils/percentageFactory';
 import { Button } from '../../components/Button';
+import ProfileView from './components/ProfileView';
 
 const Profile = () => {
     const [weight, setWeight] = useState('78');
@@ -54,15 +54,15 @@ const Profile = () => {
                         alignItems: 'center'
                     }}
                 >
-                    <CartaoPerfil
-                        nome='João Oliveira'
-                        imagem='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCMi61i5ieAks081B7kEedNZtMWFpFjYyc79aQgPVuM7MhAW4gVPtvwYhkTjjHea3lG4E&usqp=CAU'
-                        curtidas='1,2k'
+                    <ProfileView
+                        userName='João Oliveira'
+                        avatarUri='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCMi61i5ieAks081B7kEedNZtMWFpFjYyc79aQgPVuM7MhAW4gVPtvwYhkTjjHea3lG4E&usqp=CAU'
+                        likesAmount='1,2k'
                     />
 
                     <Title
                         fontSize={20}
-                        marginTop={percentage(0.07, 'h')}
+                        marginTop={percentage(0.03, 'h')}
                         marginBottom={percentage(0.05, 'h')}
                         alignSelf='flex-start'
                         alignLeft={true}
