@@ -3,6 +3,7 @@ using GymTracker.Application.Services.Contracts.Responses;
 using GymTracker.Domain.Entities;
 using GymTracker.Domain.Repositories;
 using GymTracker.Infra.CloudStorage;
+using GymTracker.Infra.Data;
 using GymTracker.Infra.Data.DAOs.ProfileHistory;
 using GymTracker.Infra.Data.DAOs.User;
 using GymTracker.Infra.Data.DAOs.UserLike;
@@ -10,6 +11,7 @@ using GymTracker.Infra.Data.UnityOfWork;
 using GymTracker.Utils.Cryptography;
 using GymTracker.Utils.DTOs;
 using GymTracker.Utils.Token;
+using Microsoft.EntityFrameworkCore;
 
 namespace GymTracker.Application.Services;
 
@@ -27,7 +29,9 @@ public class UserService : IUserService
 
     private readonly ICloudStorage _cloudStorage;
 
-    public UserService(IUserRepository userRepository, IUnityOfWork unityOfWork, ICryptographyStrategy cryptographyStrategy, IProfileHistoryDAO profileHistoryDAO, IUserDAO userDAO, IUserLikeDAO userLikeDAO, ITokenStrategy tokenStrategy, ICloudStorage cloudStorage)
+    private readonly DataContext _context;
+
+    public UserService(IUserRepository userRepository, IUnityOfWork unityOfWork, ICryptographyStrategy cryptographyStrategy, IProfileHistoryDAO profileHistoryDAO, IUserDAO userDAO, IUserLikeDAO userLikeDAO, ITokenStrategy tokenStrategy, ICloudStorage cloudStorage, DataContext context)
     {
         _userRepository = userRepository;
         _unityOfWork = unityOfWork;
@@ -40,6 +44,8 @@ public class UserService : IUserService
         _tokenStrategy = tokenStrategy;
 
         _cloudStorage = cloudStorage;
+
+        _context = context;
     }
 
     public async Task<RegisterUserResponse> RegisterUser(RegisterUserRequest request)
@@ -289,5 +295,28 @@ public class UserService : IUserService
         {
             throw;
         }
+    }
+
+    public async Task<ChangePasswordResponse> ChangePassword(ChangePasswordRequest request)
+    {
+        var user = await _userRepository.GetUserByEmail(request.userEmail);
+
+        if (user == null)
+        {
+            return new ChangePasswordResponse(false, "User not found.");
+        }
+
+        var isPasswordChanged = user.ChangePassword(request.newPassword, request.passwordRecoverCode, _cryptographyStrategy);
+
+        if (isPasswordChanged)
+        {
+            // Atualize o usuário diretamente usando o contexto
+            _context.Entry(user).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return new ChangePasswordResponse(true, "Password changed successfully.");
+        }
+
+        return new ChangePasswordResponse(false, "Invalid password recovery code.");
     }
 }

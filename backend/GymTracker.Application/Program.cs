@@ -69,6 +69,11 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddTransient<IEmailService, EmailService>();
     builder.Services.AddScoped<EmailSendingService>();
 
+    // Dependencies to save new password
+    builder.Services.AddScoped<ICryptographyStrategy, CryptographyStrategy>();
+    builder.Services.AddScoped<IUserService, UserService>();
+
+
 
     builder.Services.AddAuthentication(x =>
     {

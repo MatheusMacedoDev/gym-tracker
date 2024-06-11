@@ -82,9 +82,20 @@ public class User
         ProfileUpdatedOn = DateTime.UtcNow;
     }
 
-    public void ChangePassword(string newPassword, ICryptographyStrategy cryptographyStrategy)
-    { 
-        PasswordSalt = _cryptographyStrategy.MakeSalt();
-        PasswordHash = _cryptographyStrategy.MakeHashedPassword(newPassword, PasswordSalt);
+    public bool ValidatePasswordRecoverCode(string code)
+    {
+        return PasswordRecoverCode != null && PasswordRecoverCode == code;
+    }
+
+    public bool ChangePassword(string newPassword, string recoverCode, ICryptographyStrategy cryptographyStrategy)
+    {
+        if (ValidatePasswordRecoverCode(recoverCode))
+        {
+            PasswordSalt = cryptographyStrategy.MakeSalt();
+            PasswordHash = cryptographyStrategy.MakeHashedPassword(newPassword, PasswordSalt);
+            PasswordRecoverCode = null;
+            return true;
+        }
+        return false;
     }
 }
