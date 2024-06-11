@@ -1,4 +1,4 @@
-namespace GymTracker.Application.Services.Contracts.Requests;
+namespace GymTracker.Application.Services.Contracts.Responses;
 
 public record ChangeUserProfileImageResponse
 (
