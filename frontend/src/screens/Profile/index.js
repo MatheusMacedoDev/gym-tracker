@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Gradient from '../../components/Gradient';
 import LineChartComponent from '../../components/Grafic';
 import { Container, ScrollContainer } from '../../components/Container/style';
@@ -9,16 +9,17 @@ import { Title } from '../../components/Title/style';
 import { percentage } from '../../utils/percentageFactory';
 import { Button } from '../../components/Button';
 import ProfileView from './components/ProfileView';
+import { GetProfileHistoriesByUserId } from '../../infra/services/userService';
 
 const Profile = () => {
-    const [weight, setWeight] = useState('78');
-    const [height, setheight] = useState('178');
-    const [bodyFat, setBodyFat] = useState('14');
-    const [abdominalGirth, setAbdominalGirth] = useState('80');
-    const [scapularGirth, setScapularGirth] = useState('110');
-    const [hipGirth, setHipGirth] = useState('90');
-    const [armGirth, setArmGirth] = useState('38');
-    const [legGirth, setLegGirth] = useState('75');
+    const [weight, setWeight] = useState('0');
+    const [height, setHeight] = useState('0');
+    const [bodyFat, setBodyFat] = useState('0');
+    const [abdominalGirth, setAbdominalGirth] = useState('0');
+    const [scapularGirth, setScapularGirth] = useState('0');
+    const [hipGirth, setHipGirth] = useState('0');
+    const [armGirth, setArmGirth] = useState('0');
+    const [legGirth, setLegGirth] = useState('0');
 
     const [allowEdit, setAllowEdit] = useState(true);
     const [isProfileEditing, setIsProfileEditing] = useState(false);
@@ -45,6 +46,26 @@ const Profile = () => {
     }
 
     function logoutProfile() {}
+
+    useEffect(() => {
+        async function getUserProfileData() {
+            const response = await GetProfileHistoriesByUserId('c603fdc1-003b-410f-b5e5-3663a03e0028');
+
+            const allProfileHistoryData = response.data;
+            const currentProfileHistoryData = allProfileHistoryData[allProfileHistoryData.length - 1];
+
+            setWeight(currentProfileHistoryData.weight);
+            setHeight(currentProfileHistoryData.height);
+            setBodyFat(currentProfileHistoryData.bodyFat * 100);
+            setAbdominalGirth(currentProfileHistoryData.abdominalGirth);
+            setScapularGirth(currentProfileHistoryData.scapularGirth);
+            setHipGirth(currentProfileHistoryData.hipGirth);
+            setArm(currentProfileHistoryData.armGirth);
+            setLeg(currentProfileHistoryData.legGirth);
+        }
+
+        getUserProfileData();
+    }, [])
 
     return (
         <Gradient>
@@ -94,7 +115,7 @@ const Profile = () => {
                             label='Altura'
                             editable={isProfileEditing}
                             value={height}
-                            setValue={setheight}
+                            setValue={setHeight}
                             unitText='cm'
                         />
                         <StatisticBox
