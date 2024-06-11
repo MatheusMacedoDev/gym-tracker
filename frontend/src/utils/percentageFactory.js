@@ -1,8 +1,8 @@
-import { useWindowDimensions }  from "react-native";
-
+import { Dimensions } from 'react-native';
 
 export function percentage(percentageAmount, axis) {
-    const { width, height } = useWindowDimensions();
+    const width = Dimensions.get('window').width;
+    const height = Dimensions.get('window').height;
 
     axis = axis.toLowerCase();
 
@@ -11,6 +11,6 @@ export function percentage(percentageAmount, axis) {
     }
 
     if (axis === 'h') {
-        return `${Math.round(percentageAmount * height)}px`
+        return `${Math.round(percentageAmount * height)}px`;
     }
 }
