@@ -17,21 +17,23 @@ import { useEffect, useState } from 'react';
 
 
 export const ExerciseRecord = ({ navigation, route }) => {
-    //const [repetitionsRange, setRepetitionsRange] = useState(0)
-    const [series, setSeries] = useState()
+    const [series, setSeries] = useState([])
+    // const [repetitions, setRepetitions] = useState(null)
+    // const [overload, setOverload] = useState(null)
 
     useEffect(() => {
-        console.log(route.params);
 
         const seriesArray = [];
         for (let i = 0; i < route.params.seriesAmount; i++) {
             seriesArray.push({
                 id: i + 1,
-                reps: route.params.repetitions || 0
+                repsRange: route.params.repetitions,
+                repetitions: '',
+                overload: ''
             });
         }
         setSeries(seriesArray);
-    },[])
+    }, [])
 
 
     return (
@@ -71,8 +73,8 @@ export const ExerciseRecord = ({ navigation, route }) => {
                         }}
                         renderItem={({ item }) => (
                             <ExerciseSerieCard
-                                serialNumber={item.id}
-                                reps={item.reps}
+                                
+                                serie={item}
                             />
                         )}
                     />
@@ -80,7 +82,7 @@ export const ExerciseRecord = ({ navigation, route }) => {
                 <Button
                     marginTop={percentage(0.05, 'h')}
                     handleClickFn={() => {
-                        navigation.navigate('Main');
+                        navigation.navigate('TrainingExercisesScreen');
                     }}
                     title='Finalizar exercício'
                     icon={(size, color) => (

@@ -16,7 +16,7 @@ import { percentage } from '../../utils/percentageFactory';
 import { GetDefaultWorkoutsByUserId } from '../../infra/services/defaultWorkoutService';
 import AuthContext from '../../global/AuthContext';
 
-export const TrainingRecordScrenn = ({ navigation, children }) => {
+export const TrainingRecordScreen = ({ navigation, children }) => {
     const [selectedWorkout, setSelectedWorkout] = useState();
     const [defaultWorkouts, setDefaultWorkouts] = useState();
     const user = useContext(AuthContext)

@@ -65,11 +65,11 @@ export const Home = ({ navigation }) => {
                 <Logo
                     widthLogo={105}
                     heightLogo={50}
-                    marginTop={percentage(0.05, 'h')}
+                    marginTop={percentage(0.1, 'h')}
                 />
                 <WelcomeContainer
                     gap={percentage(0.02, 'h')}
-                    marginTop={percentage(0.05, 'h')}
+                    marginTop={percentage(0.03, 'h')}
                 >
                     <ImageWelcome
                         resizeMode='cover'
@@ -130,7 +130,7 @@ export const Home = ({ navigation }) => {
                                     title='Registrar treino'
                                     alignCenter={false}
                                     widthButton='90%'
-                                    heightButon='13%'
+                                    heightButton='12%'
                                     marginTop={percentage(0.05, 'h')}
                                     handleClickFn={() =>
                                         navigation.navigate(

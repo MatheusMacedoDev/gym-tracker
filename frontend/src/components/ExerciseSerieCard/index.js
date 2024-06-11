@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
     ContainerCard,
     ContainerInput,
@@ -6,12 +7,16 @@ import {
 import { InputExercise } from './Input/style';
 import { CardSubtitle, CardTitle } from './Title/style';
 
-export const ExerciseSerieCard = ({ serialNumber, reps, marginBottom }) => {
+export const ExerciseSerieCard = ({ serie,marginBottom }) => {
+
+    useEffect(() => {
+        console.log(serie);
+    },[serie])
     return (
         <ContainerCard marginBottom={marginBottom}>
             <ContainerText>
-                <CardTitle>Serie {serialNumber}</CardTitle>
-                <CardSubtitle>({reps} Repetições)</CardSubtitle>
+                <CardTitle>Serie {serie.id}</CardTitle>
+                <CardSubtitle>{serie.repsRange} Repetições</CardSubtitle>
             </ContainerText>
             <ContainerInput>
                 <InputExercise placeholder='Kg...' />
