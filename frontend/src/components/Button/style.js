@@ -2,7 +2,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import styled from 'styled-components/native';
 
 export const ButtonContainer = styled.TouchableOpacity`
-    height: ${props => (props.heightButton ? `${props.heightButton}` : '8%')};
+    height: ${props => (props.heightButton ? `${props.heightButton}` : '70px')};
     width: ${props => (props.widthButton ? `${props.widthButton}` : '100%')};
     border-radius: 15px;
     justify-content: center;
@@ -14,8 +14,7 @@ export const ButtonContainer = styled.TouchableOpacity`
 `;
 
 export const GradientButton = styled(LinearGradient).attrs({
-    colors: ['rgba(255, 132, 52, 0.39)', 'rgba(251, 102, 20, 0.9)'],
-    start: { x: 0, y: 0 },
+    start: { x: 0, y: 1 },
     end: { x: 0, y: 0 },
     locations: [0.39, 1]
 })`
