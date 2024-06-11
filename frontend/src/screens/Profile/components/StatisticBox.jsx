@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 
 const Container = styled.View`
@@ -28,7 +29,8 @@ export default function StatisticBox({
     editable,
     value,
     setValue,
-    unitText
+    unitText,
+    handleClickFn = null
 }) {
     const [inputValue, setInputValue] = useState('');
 
@@ -47,14 +49,16 @@ export default function StatisticBox({
     }, [value]);
 
     return (
-        <Container>
-            <Label>{label}</Label>
-            <StatusInput
-                name={label}
-                editable={editable}
-                value={inputValue}
-                onChangeText={handleChange}
-            />
-        </Container>
+        <TouchableOpacity onPress={handleClickFn} disabled={editable}>
+            <Container>
+                <Label>{label}</Label>
+                <StatusInput
+                    name={label}
+                    editable={editable}
+                    value={inputValue}
+                    onChangeText={handleChange}
+                />
+            </Container>
+        </TouchableOpacity>
     );
 }

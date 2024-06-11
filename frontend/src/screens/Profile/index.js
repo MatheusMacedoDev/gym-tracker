@@ -24,17 +24,12 @@ const Profile = () => {
     const [allowEdit, setAllowEdit] = useState(true);
     const [isProfileEditing, setIsProfileEditing] = useState(false);
 
-    const data = {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-        datasets: [
-            {
-                data: [20, 45, 28, 80, 99, 43],
-                color: (opacity = 1) => `rgba(251, 102, 20, 0.8)`,
-                strokeWidth: 2
-            }
-        ],
-        legend: ['Progresso']
-    };
+    const [profileHistoriesData, setProfileHistoriesData] = useState();
+
+    const [selectedGraphLabels, setSelectedGraphLabels] = useState(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'])
+    const [selectedGraphInfos, setSelectedGraphInfos] = useState([20, 45, 28, 80, 99, 43]);
+    const [selectedGraphLegend, setSelectedGraphLegend] = useState('Progresso')
+    const [selectedGraphData, setSelectedGraphData] = useState(null);
 
     function saveProfileHistory() {
         setIsProfileEditing(false);
@@ -52,6 +47,9 @@ const Profile = () => {
             const response = await GetProfileHistoriesByUserId('c603fdc1-003b-410f-b5e5-3663a03e0028');
 
             const allProfileHistoryData = response.data;
+
+            setProfileHistoriesData(allProfileHistoryData);
+
             const currentProfileHistoryData = allProfileHistoryData[allProfileHistoryData.length - 1];
 
             setWeight(currentProfileHistoryData.weight);
@@ -67,6 +65,20 @@ const Profile = () => {
         getUserProfileData();
     }, [])
 
+    useEffect(() => {
+        setSelectedGraphData({
+            labels: selectedGraphLabels,
+            datasets: [
+                {
+                    data: selectedGraphInfos,
+                    color: (opacity = 1) => `rgba(251, 102, 20, 0.8)`,
+                    strokeWidth: 2
+                }
+            ],
+            legend: [selectedGraphLegend]
+        });
+    }, [selectedGraphLabels]);
+
     return (
         <Gradient>
             <Container>
@@ -81,17 +93,21 @@ const Profile = () => {
                         likesAmount='1,2k'
                     />
 
-                    <Title
-                        fontSize={20}
-                        marginTop={percentage(0.03, 'h')}
-                        marginBottom={percentage(0.05, 'h')}
-                        alignSelf='flex-start'
-                        alignLeft={true}
-                    >
-                        Gráfico
-                    </Title>
+                    {selectedGraphData != null && (    
+                        <>
+                            <Title
+                                fontSize={20}
+                                marginTop={percentage(0.03, 'h')}
+                                marginBottom={percentage(0.05, 'h')}
+                                alignSelf='flex-start'
+                                alignLeft={true}
+                            >
+                                Gráfico
+                            </Title>
 
-                    <LineChartComponent data={data} />
+                            <LineChartComponent data={selectedGraphData} />
+                        </>
+                    )}
 
                     <Title
                         fontSize={20}
@@ -110,6 +126,19 @@ const Profile = () => {
                             value={weight}
                             setValue={setWeight}
                             unitText='kg'
+                            handleClickFn={() => {
+                                let graphLabels = [];
+                                let graphInfos = [];
+
+                                profileHistoriesData.forEach((profileHistory, index) => {
+                                    graphLabels.push(index);
+                                    graphInfos.push(profileHistory.weight);
+                                });
+
+                                setSelectedGraphLabels(graphLabels);
+                                setSelectedGraphInfos(graphInfos);
+                                setSelectedGraphLegend('Peso')
+                            }}
                         />
                         <StatisticBox
                             label='Altura'
