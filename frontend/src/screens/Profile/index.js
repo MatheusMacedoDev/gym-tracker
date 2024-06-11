@@ -26,9 +26,9 @@ const Profile = () => {
 
     const [profileHistoriesData, setProfileHistoriesData] = useState();
 
-    const [selectedGraphLabels, setSelectedGraphLabels] = useState(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'])
-    const [selectedGraphInfos, setSelectedGraphInfos] = useState([20, 45, 28, 80, 99, 43]);
-    const [selectedGraphLegend, setSelectedGraphLegend] = useState('Progresso')
+    const [selectedGraphLabels, setSelectedGraphLabels] = useState(null);
+    const [selectedGraphInfos, setSelectedGraphInfos] = useState(null);
+    const [selectedGraphLegend, setSelectedGraphLegend] = useState('');
     const [selectedGraphData, setSelectedGraphData] = useState(null);
 
     function saveProfileHistory() {
@@ -43,28 +43,43 @@ const Profile = () => {
     function logoutProfile() {}
 
     function changeGraph(property, legend) {
+        if (!profileHistoriesData) {
+            return;
+        }
+
         let graphLabels = [];
         let graphInfos = [];
 
         profileHistoriesData.forEach((profileHistory, index) => {
-            graphLabels.push(index);
-            graphInfos.push(profileHistory[property]);
+            const specificData = profileHistory[property];
+
+            if (specificData !== null) {
+                graphLabels.push(index);
+                graphInfos.push(specificData);
+            }
         });
 
         setSelectedGraphLabels(graphLabels);
         setSelectedGraphInfos(graphInfos);
-        setSelectedGraphLegend(legend)
+        setSelectedGraphLegend(legend);
     }
 
     useEffect(() => {
         async function getUserProfileData() {
-            const response = await GetProfileHistoriesByUserId('c603fdc1-003b-410f-b5e5-3663a03e0028');
+            const response = await GetProfileHistoriesByUserId(
+                'f0678abe-0f99-4be8-bf8b-ea028c811d90'
+            );
 
             const allProfileHistoryData = response.data;
 
+            if (allProfileHistoryData.length === 0) {
+                return;
+            }
+
             setProfileHistoriesData(allProfileHistoryData);
 
-            const currentProfileHistoryData = allProfileHistoryData[allProfileHistoryData.length - 1];
+            const currentProfileHistoryData =
+                allProfileHistoryData[allProfileHistoryData.length - 1];
 
             setWeight(currentProfileHistoryData.weight);
             setHeight(currentProfileHistoryData.height);
@@ -72,14 +87,22 @@ const Profile = () => {
             setAbdominalGirth(currentProfileHistoryData.abdominalGirth);
             setScapularGirth(currentProfileHistoryData.scapularGirth);
             setHipGirth(currentProfileHistoryData.hipGirth);
-            setArm(currentProfileHistoryData.armGirth);
-            setLeg(currentProfileHistoryData.legGirth);
+            setArmGirth(currentProfileHistoryData.armGirth);
+            setLegGirth(currentProfileHistoryData.legGirth);
         }
 
         getUserProfileData();
-    }, [])
+    }, []);
 
     useEffect(() => {
+        if (
+            !selectedGraphLabels ||
+            !selectedGraphInfos ||
+            selectedGraphLegend === ''
+        ) {
+            return;
+        }
+
         setSelectedGraphData({
             labels: selectedGraphLabels,
             datasets: [
@@ -92,6 +115,10 @@ const Profile = () => {
             legend: [selectedGraphLegend]
         });
     }, [selectedGraphLabels]);
+
+    useEffect(() => {
+        changeGraph('weight', 'Peso (kg)');
+    }, [profileHistoriesData]);
 
     return (
         <Gradient>
@@ -107,7 +134,7 @@ const Profile = () => {
                         likesAmount='1,2k'
                     />
 
-                    {selectedGraphData != null && (    
+                    {selectedGraphData != null && (
                         <>
                             <Title
                                 fontSize={20}
@@ -141,7 +168,7 @@ const Profile = () => {
                             setValue={setWeight}
                             unitText='kg'
                             handleClickFn={() => {
-                                changeGraph('weight', 'Peso')
+                                changeGraph('weight', 'Peso (kg)');
                             }}
                         />
                         <StatisticBox
@@ -151,7 +178,7 @@ const Profile = () => {
                             setValue={setHeight}
                             unitText='cm'
                             handleClickFn={() => {
-                                changeGraph('height', 'Altura (cm)')
+                                changeGraph('height', 'Altura (cm)');
                             }}
                         />
                         <StatisticBox
@@ -161,7 +188,7 @@ const Profile = () => {
                             setValue={setBodyFat}
                             unitText='%'
                             handleClickFn={() => {
-                                changeGraph('bodyFat', '% de gordura')
+                                changeGraph('bodyFat', 'BF (%)');
                             }}
                         />
                         <StatisticBox
@@ -171,7 +198,7 @@ const Profile = () => {
                             setValue={setAbdominalGirth}
                             unitText='cm'
                             handleClickFn={() => {
-                                changeGraph('abdominalGirth', 'Cintura (cm)')
+                                changeGraph('abdominalGirth', 'Cintura (cm)');
                             }}
                         />
                         <StatisticBox
@@ -181,7 +208,7 @@ const Profile = () => {
                             setValue={setScapularGirth}
                             unitText='cm'
                             handleClickFn={() => {
-                                changeGraph('scapularGirth', 'Ombros (cm)')
+                                changeGraph('scapularGirth', 'Ombros (cm)');
                             }}
                         />
                         <StatisticBox
@@ -191,7 +218,7 @@ const Profile = () => {
                             setValue={setHipGirth}
                             unitText='cm'
                             handleClickFn={() => {
-                                changeGraph('hipGirth', 'Quadril (cm)')
+                                changeGraph('hipGirth', 'Quadril (cm)');
                             }}
                         />
                         <StatisticBox
@@ -201,7 +228,7 @@ const Profile = () => {
                             setValue={setArmGirth}
                             unitText='cm'
                             handleClickFn={() => {
-                                changeGraph('armGirth', 'Braço (cm)')
+                                changeGraph('armGirth', 'Braço (cm)');
                             }}
                         />
                         <StatisticBox
@@ -211,7 +238,7 @@ const Profile = () => {
                             setValue={setLegGirth}
                             unitText='cm'
                             handleClickFn={() => {
-                                changeGraph('legGirth', 'Perna (cm)')
+                                changeGraph('legGirth', 'Perna (cm)');
                             }}
                         />
                     </StatisticsContainer>
