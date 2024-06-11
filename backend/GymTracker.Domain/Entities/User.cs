@@ -49,7 +49,7 @@ public class User
     [Column("profile_updated_on")]
     public DateTime? ProfileUpdatedOn { get; set; }
 
-    private readonly ICryptographyStrategy? _cryptographyStrategy;
+    private readonly ICryptographyStrategy _cryptographyStrategy;
 
     protected User()
     {
@@ -80,5 +80,22 @@ public class User
     public void MarkProfileAsUpdated()
     {
         ProfileUpdatedOn = DateTime.UtcNow;
+    }
+
+    public bool ValidatePasswordRecoverCode(string code)
+    {
+        return PasswordRecoverCode != null && PasswordRecoverCode == code;
+    }
+
+    public bool ChangePassword(string newPassword, string recoverCode, ICryptographyStrategy cryptographyStrategy)
+    {
+        if (ValidatePasswordRecoverCode(recoverCode))
+        {
+            PasswordSalt = cryptographyStrategy.MakeSalt();
+            PasswordHash = cryptographyStrategy.MakeHashedPassword(newPassword, PasswordSalt);
+            PasswordRecoverCode = null;
+            return true;
+        }
+        return false;
     }
 }

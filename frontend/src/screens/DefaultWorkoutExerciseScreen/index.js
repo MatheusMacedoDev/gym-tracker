@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Button } from '../../components/Button';
 import { CommandText } from '../../components/CommandText/style';
 import { Container } from '../../components/Container/style';
@@ -11,31 +11,37 @@ import { Title } from '../../components/Title/style';
 import { Fontisto } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
-import { GetExercisesByDefaultWorkout } from '../../infra/services/defaultWorkoutService';
+import { DeleteDefaultExerciseWorkout, GetExercisesByDefaultWorkout } from '../../infra/services/defaultWorkoutService';
 import { percentage } from '../../utils/percentageFactory';
+import { useFocusEffect } from '@react-navigation/native';
 
 export const DefaultWorkoutExerciseScreen = ({ navigation, route }) => {
     const [defaultWorkoutExercises, setDefaultWorkoutExercises] = useState();
     const defaultWorkoutId = route.params.defaultWorkoutId;
     const trainingName = route.params.trainingName;
 
-    useEffect(() => {
-        if (
-            route.params.defaultWorkoutId != null &&
-            route.params.defaultWorkoutId != undefined
-        ) {
-            console.log(defaultWorkoutId);
-            GetDefaultWorkoutExercise();
-        } else {
-            console.log('erro');
-        }
-    }, []);
+    useFocusEffect(
+        useCallback(() => {
+            if (
+                route.params.defaultWorkoutId != null &&
+                route.params.defaultWorkoutId != undefined
+            ) {
+                GetDefaultWorkoutExercise();
+
+            } else {
+                console.log('erro');
+            }
+        }, [])
+    );
 
     async function GetDefaultWorkoutExercise() {
-        console.log(defaultWorkoutId);
         const response = await GetExercisesByDefaultWorkout(defaultWorkoutId);
-        console.log(response.data);
         setDefaultWorkoutExercises(response.data);
+    }
+
+    async function DeleteDefaultWorkoutExercise(defaultExerciseId) {
+        const response = await DeleteDefaultExerciseWorkout(defaultExerciseId);
+        GetDefaultWorkoutExercise()
     }
 
     return (
@@ -76,6 +82,7 @@ export const DefaultWorkoutExerciseScreen = ({ navigation, route }) => {
                                         name='trash'
                                         size={size}
                                         color={color}
+                                        onPress={() => DeleteDefaultWorkoutExercise(item.defaultExerciseId)}
                                     />
                                 )}
                             />

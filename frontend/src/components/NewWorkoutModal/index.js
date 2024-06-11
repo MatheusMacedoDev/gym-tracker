@@ -8,6 +8,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../../colors.config';
 import Gradient from '../Gradient';
 import { percentage } from '../../utils/percentageFactory';
+import { useContext, useState } from 'react';
+import AuthContext from '../../global/AuthContext';
+import { CreateDefaultWorkout } from '../../infra/services/defaultWorkoutService';
 
 export const NewWorkoutModal = ({
     navigation,
@@ -17,14 +20,14 @@ export const NewWorkoutModal = ({
 }) => {
     const [trainingName, setTrainingName] = useState();
     const [workout, setWorkout] = useState();
+    const user = useContext(AuthContext)
 
     async function CreateWorkout() {
         const response = await CreateDefaultWorkout(
-            '92ef5d63-a75e-432d-aa7a-b3006f246b60',
+            user.user.userId,
             trainingName
         );
         setWorkout(response.data);
-        console.log(response.data);
         setShowModalNewWorkout(false);
         navigation.navigate('DefaultWorkoutExerciseScreen', {
             defaultWorkoutId: workout.defaultWorkoutId,
