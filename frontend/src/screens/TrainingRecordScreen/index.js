@@ -9,27 +9,30 @@ import { Button } from '../../components/Button';
 import { Entypo } from '@expo/vector-icons';
 import { ListComponent } from '../../components/List/style';
 import { ListContainer } from '../../components/ListContainer/style';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import Gradient from '../../components/Gradient';
 import { percentage } from '../../utils/percentageFactory';
 import { GetDefaultWorkoutsByUserId } from '../../infra/services/defaultWorkoutService';
+import AuthContext from '../../global/AuthContext';
 
-export const TrainingRecordScrenn = ({ navigation }) => {
+export const TrainingRecordScrenn = ({ navigation, children }) => {
     const [selectedWorkout, setSelectedWorkout] = useState();
     const [defaultWorkouts, setDefaultWorkouts] = useState();
+    const user = useContext(AuthContext)
 
     async function GetDefaultWorkout() {
         const response = await GetDefaultWorkoutsByUserId(
-            'c603fdc1-003b-410f-b5e5-3663a03e0028'
+            user.user.userId
         );
         setDefaultWorkouts(response.data);
-        console.log(response.data);
+        //console.log(response.data);
     }
 
     useEffect(() => {
         GetDefaultWorkout();
-    }, []);
+        console.log(selectedWorkout);
+    }, [selectedWorkout]);
 
     return (
         <Gradient>
@@ -75,8 +78,8 @@ export const TrainingRecordScrenn = ({ navigation }) => {
                                 }}
                             >
                                 <CardWorkout
-                                    trainingName={item.trainingName}
-                                    muscleGroups={item.muscleGroups}
+                                    trainingName={item.defaultWorkoutName}
+                                    muscleGroups={item.relatedMuscleGroups}
                                     isSelected={
                                         selectedWorkout
                                             ? item.defaultWorkoutId ==

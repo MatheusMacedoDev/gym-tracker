@@ -16,7 +16,7 @@ import AuthContext from '../../global/AuthContext';
 export const LoginScreen = ({ navigation }) => {
     const {user, setUser} = useContext(AuthContext)
 
-    const [email, setEmail] = useState('matheus@mail.com');
+    const [email, setEmail] = useState('eduardopasqualetti@gmail.com');
     const [password, setPassword] = useState('12345');
 
     async function handleLogin() {

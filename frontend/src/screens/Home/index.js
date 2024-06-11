@@ -2,7 +2,7 @@ import { Container } from '../../components/Container/style';
 import { Logo } from '../../components/Logo';
 import { CalendarHome } from '../../components/Calendar';
 import { Title } from '../../components/Title/style';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import DiaryWorkoutContainer from './Style/DiaryWorkoutContainer';
 import ImageWelcome from './Style/ImageWelcome';
 import TextWelcome from './Style/TextWelcome';
@@ -23,14 +23,13 @@ import {
 } from '../../infra/services/diaryWorkoutService';
 import { percentage } from '../../utils/percentageFactory';
 import Gradient from '../../components/Gradient';
+import AuthContext from '../../global/AuthContext';
 
 
 export const Home = ({ navigation }) => {
     const [date, setDate] = useState(null);
-    const [exercises, setExercises] = useState(null);
-    const [workoutName, setWorkoutName] = useState(null);
-    const [workoutId, setWorkoutId] = useState(null);
     const [diaryWorkout, setDiaryWorkout] = useState(null)
+    const user = useContext(AuthContext)
 
     useEffect(() => {
         GetExercises();
@@ -39,7 +38,7 @@ export const Home = ({ navigation }) => {
     async function GetExercises() {
         const response = await GetExercisesByDiaryWorkout(
             date,
-            'c603fdc1-003b-410f-b5e5-3663a03e0028s'
+            '050f4da3-c9ca-46c6-bf27-6cc1cbaa6bfc'
         );
 
         if (response.status == 400) {
@@ -51,12 +50,10 @@ export const Home = ({ navigation }) => {
         // setWorkoutName(response.data.workoutName);
         // setWorkoutId(response.data.diaryWorkoutId);
         setDiaryWorkout(response.data)
-        console.log(response.data);
+        // console.log(response.data);
     }
 
-    // useEffect(() => {
-    //     console.log(workoutId, exercises, workoutName);
-    // },[workoutId, exercises, workoutName])
+
 
     async function DeleteWorkout() {
         const response = await DeleteDiaryWorkout(diaryWorkout.diaryWorkoutId);
@@ -85,7 +82,7 @@ export const Home = ({ navigation }) => {
                         source={require('../../assets/joao.jpeg')}
                     />
                     <TextWelcome>
-                        Bem vindo,<Title fontSize={24}> Joao</Title>
+                        Bem vindo,<Title fontSize={24}> {user.user.name}</Title>
                     </TextWelcome>
                 </WelcomeContainer>
                 <CalendarHome setTrainingDate={setDate} />
