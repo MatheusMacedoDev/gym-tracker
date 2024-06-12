@@ -6,4 +6,5 @@ export default ImageWelcome = styled.Image`
     width: 60px;
     border-radius: 30px;
     border: 2px solid ${colors.orangeForWhite};
+    align-self: center;
 `;

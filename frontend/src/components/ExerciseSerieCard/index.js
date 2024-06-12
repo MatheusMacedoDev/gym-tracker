@@ -1,3 +1,4 @@
+import React from 'react';
 import {
     ContainerCard,
     ContainerInput,
@@ -6,16 +7,35 @@ import {
 import { InputExercise } from './Input/style';
 import { CardSubtitle, CardTitle } from './Title/style';
 
-export const ExerciseSerieCard = ({ serialNumber, reps, marginBottom }) => {
+export const ExerciseSerieCard = ({ data, setSeries, marginBottom }) => {
+
+    const handleOverloadChange = (text) => {
+        setSeries(data.id, 'overload', text);
+    };
+
+    const handleRepetitionsChange = (text) => {
+        setSeries(data.id, 'repetitions', text);
+    };
+
     return (
         <ContainerCard marginBottom={marginBottom}>
             <ContainerText>
-                <CardTitle>Serie {serialNumber}</CardTitle>
-                <CardSubtitle>({reps} Repetições)</CardSubtitle>
+                <CardTitle>Serie {data.id}</CardTitle>
+                <CardSubtitle>{data.repsRange} Repetições</CardSubtitle>
             </ContainerText>
             <ContainerInput>
-                <InputExercise placeholder='Kg...' />
-                <InputExercise placeholder='0...' />
+                <InputExercise
+                    onChangeText={handleOverloadChange}
+                    value={data.overload}
+                    placeholder='Kg...'
+                    keyboardType='numeric'
+                />
+                <InputExercise
+                    onChangeText={handleRepetitionsChange}
+                    value={data.repetitions}
+                    placeholder='0...'
+                    keyboardType='numeric'
+                />
             </ContainerInput>
         </ContainerCard>
     );
