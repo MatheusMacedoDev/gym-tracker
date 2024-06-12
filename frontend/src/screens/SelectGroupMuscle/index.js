@@ -22,7 +22,7 @@ const SelectGroupMuscle = ({ navigation }) => {
     const renderItem = ({ item }) => (
         <BtnExcercise2
             title={item.groupName}
-            onPress={() => navigation.navigate('SelectExercise')}
+            onPress={() => navigation.navigate('SelectExercise', {mucleGroupId: item.mucleGroupId})}
         />
     );
 
