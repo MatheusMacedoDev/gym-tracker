@@ -6,11 +6,13 @@ import * as MediaLibrary from 'expo-media-library';
 import * as ImagePicker from 'expo-image-picker'; 
 import { Ionicons } from '@expo/vector-icons';
 
-export default function Camera() {
+export default function Camera({ navigation, route }) {
   const [permission, requestPermission] = useCameraPermissions();
   const [lastImage, setLastImage] = useState(null);
   const cameraRef = useRef(null);
   const [tipoCamera, setTipoCamera] = useState('back');
+
+  const { handlePhoto } = route.params;
 
   useEffect(() => {
     (async () => {
@@ -40,10 +42,10 @@ export default function Camera() {
       try {
         const photo = await cameraRef.current.takePictureAsync({ quality: 1 });
         await savePhoto(photo.uri); 
-        await sendToServer(photo.uri); 
         await saveToGallery(photo.uri);
         setLastImage(photo.uri); 
-        alert('A foto foi tirada e enviada para o servidor.');
+
+        sendPhotoUriToLastScreen(photo.uri);
       } catch (error) {
         console.error('Erro ao tirar e processar a foto:', error);
       }
@@ -70,23 +72,25 @@ export default function Camera() {
     }
   };
 
-  const sendToServer = async (uri) => {
-  
-  };
-
   const handleImagePreviewClick = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       quality: 1,
     });
-  
-    console.log('Resultado da seleção da imagem:', result); 
+
+    if (result.assets[0].uri)
+      sendPhotoUriToLastScreen(result.assets[0].uri);
   
     if (!result.cancelled) {
-      setLastImage(result.uri);
+      //setLastImage(result.uri);
       setUriSelecionada(result.uri);
     }
   };
+
+  function sendPhotoUriToLastScreen(photoUri) {
+    handlePhoto(photoUri);
+    navigation.goBack();
+  }
 
   if (!permission) {
     return <View />;

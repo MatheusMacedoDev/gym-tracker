@@ -11,10 +11,11 @@ import ProfileView from './components/ProfileView';
 import {
     CreateProfileHistory,
     GetProfileHistoriesByUserId,
-    GetUserProfileImage
+    GetUserProfileImage,
+    UpdateProfileImage
 } from '../../infra/services/userService';
 
-const Profile = () => {
+const Profile = ({ navigation, route }) => {
     const [profileImage, setProfileImage] = useState('');
 
     const [weight, setWeight] = useState(null);
@@ -79,6 +80,22 @@ const Profile = () => {
         setIsProfileEditing(true);
     }
 
+    async function saveNewProfileImage(photoUri) {
+        if (!photoUri || photoUri.trim() === '') {
+            console.log('Uri vazia');
+            return;
+        }
+
+        const response = await UpdateProfileImage(
+            'c603fdc1-003b-410f-b5e5-3663a03e0028',
+            photoUri
+        );
+
+        console.log(response);
+
+        await getUserProfileImageData();
+    }
+
     function logoutProfile() {}
 
     function changeGraph(property, legend) {
@@ -103,41 +120,41 @@ const Profile = () => {
         setSelectedGraphLegend(legend);
     }
 
+    async function getUserProfileImageData() {
+        const response = await GetUserProfileImage(
+            'c603fdc1-003b-410f-b5e5-3663a03e0028'
+        );
+
+        setProfileImage(response.data);
+    }
+
+    async function getUserProfileData() {
+        const response = await GetProfileHistoriesByUserId(
+            'c603fdc1-003b-410f-b5e5-3663a03e0028'
+        );
+
+        const allProfileHistoryData = response.data;
+
+        if (allProfileHistoryData.length === 0) {
+            return;
+        }
+
+        setProfileHistoriesData(allProfileHistoryData);
+
+        const currentProfileHistoryData =
+            allProfileHistoryData[allProfileHistoryData.length - 1];
+
+        setWeight(currentProfileHistoryData.weight);
+        setHeight(currentProfileHistoryData.height);
+        setBodyFat(currentProfileHistoryData.bodyFat * 100);
+        setAbdominalGirth(currentProfileHistoryData.abdominalGirth);
+        setScapularGirth(currentProfileHistoryData.scapularGirth);
+        setHipGirth(currentProfileHistoryData.hipGirth);
+        setArmGirth(currentProfileHistoryData.armGirth);
+        setLegGirth(currentProfileHistoryData.legGirth);
+    }
+
     useEffect(() => {
-        async function getUserProfileImageData() {
-            const response = await GetUserProfileImage(
-                'c603fdc1-003b-410f-b5e5-3663a03e0028'
-            );
-
-            setProfileImage(response.data);
-        }
-
-        async function getUserProfileData() {
-            const response = await GetProfileHistoriesByUserId(
-                'c603fdc1-003b-410f-b5e5-3663a03e0028'
-            );
-
-            const allProfileHistoryData = response.data;
-
-            if (allProfileHistoryData.length === 0) {
-                return;
-            }
-
-            setProfileHistoriesData(allProfileHistoryData);
-
-            const currentProfileHistoryData =
-                allProfileHistoryData[allProfileHistoryData.length - 1];
-
-            setWeight(currentProfileHistoryData.weight);
-            setHeight(currentProfileHistoryData.height);
-            setBodyFat(currentProfileHistoryData.bodyFat * 100);
-            setAbdominalGirth(currentProfileHistoryData.abdominalGirth);
-            setScapularGirth(currentProfileHistoryData.scapularGirth);
-            setHipGirth(currentProfileHistoryData.hipGirth);
-            setArmGirth(currentProfileHistoryData.armGirth);
-            setLegGirth(currentProfileHistoryData.legGirth);
-        }
-
         getUserProfileImageData();
         getUserProfileData();
     }, []);
@@ -181,6 +198,9 @@ const Profile = () => {
                         userName='João Oliveira'
                         avatarUri={profileImage}
                         likesAmount='1,2k'
+                        handleEditClick={() => {
+                            navigation.navigate('Camera', { handlePhoto: saveNewProfileImage });
+                        }}
                     />
 
                     {selectedGraphData != null && (

@@ -59,7 +59,7 @@ export async function GetUserProfileImage(userId) {
 
 export async function UpdateProfileImage(userId, imageUri) {
     try {
-        const formData = FormData();
+        const formData = new FormData();
 
         formData.append('userId', userId);
 
