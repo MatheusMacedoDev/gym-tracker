@@ -32,7 +32,7 @@ public class DiaryWorkoutService : IDiaryWorkoutService
         _diaryWorkoutDAO = diaryWorkoutDAO;
     }
 
-    public async Task RegisterDiaryExercise(RegisterDiaryExerciseRequest request)
+    public async Task<RegisterDiaryExerciseResponse> RegisterDiaryExercise(RegisterDiaryExerciseRequest request)
     {
         try
         {
@@ -43,6 +43,14 @@ public class DiaryWorkoutService : IDiaryWorkoutService
 
             await _exerciseRepository.RegisterDiaryExercise(diaryExercise);
             await _unityOfWork.Commit();
+
+            var response = new RegisterDiaryExerciseResponse(
+                diaryExerciseId: diaryExercise.DiaryExerciseId,
+                defaultExerciseId: diaryExercise.DefaultExerciseId,
+                diaryWorkoutId: diaryExercise.DiaryWorkoutId
+            );
+
+            return response;
         }
         catch (Exception)
         {
@@ -50,17 +58,25 @@ public class DiaryWorkoutService : IDiaryWorkoutService
         }
     }
 
-    public async Task RegisterDiaryWorkout(RegisterDiaryWorkoutRequest request)
+    public async Task<RegisterDiaryWorkoutResponse> RegisterDiaryWorkout(RegisterDiaryWorkoutRequest request)
     {
         try
         {
-            var diatyWorkout = new DiaryWorkout(
+            var diaryWorkout = new DiaryWorkout(
                 defaultWorkoutId: request.defaultWorkoutId,
                 workoutDate: request.workoutDate
             );
 
-            await _workoutRepository.CreateDiaryWorkout(diatyWorkout);
+            await _workoutRepository.CreateDiaryWorkout(diaryWorkout);
             await _unityOfWork.Commit();
+
+            var response = new RegisterDiaryWorkoutResponse(
+                diaryWorkoutId: diaryWorkout.DiaryWorkoutId,
+                defaultWorkoutId: diaryWorkout.DefaultWorkoutId,
+                workoutDate: diaryWorkout.WorkoutDate
+            );
+
+            return response;
         }
         catch (Exception)
         {

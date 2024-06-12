@@ -18,6 +18,28 @@ public class UserDAO : IUserDAO
         _connectionString = config["ConnectionStrings:LocalHost"]!;
     }
 
+    public async Task<string> GetProfileImageUri(Guid userId)
+    {
+        try
+        {
+            using (var connection = new NpgsqlConnection(_connectionString))
+            {
+                string query = @"
+                    SELECT
+                        users.profile_photo
+                    FROM users
+                    WHERE users.user_id = @userId
+                ";
+
+                return (await connection.QueryFirstOrDefaultAsync<string>(query, new { userId }))!;
+            }
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
     public async Task<UserLoginDTO> GetUserByEmail(string userEmail)
     {
         try

@@ -111,19 +111,40 @@ public class UserService : IUserService
 
             var lastProfileHistory = await _profileHistoryDAO.GetLastProfileHistoryByUserId(request.userId);
 
-            var profileHistory = new ProfileHistory(
-                lastHistoryDate: lastProfileHistory.profileDate,
-                userId: request.userId,
-                weight: request.weight,
-                height: request.height,
-                abdominalGirth: request.abdominalGirth,
-                scapularGirth: request.scapularGirth,
-                hipGirth: request.hipGirth,
-                armGirth: request.armGirth,
-                legGirth: request.armGirth,
-                bodyFat: request.bodyFat,
-                evolutionPhoto: newEvolutionPhotoUri
-            );
+            ProfileHistory profileHistory;
+
+            if (lastProfileHistory != null)
+            {
+                profileHistory = new ProfileHistory(
+                    lastHistoryDate: lastProfileHistory.profileDate,
+                    userId: request.userId,
+                    weight: request.weight,
+                    height: request.height,
+                    abdominalGirth: request.abdominalGirth,
+                    scapularGirth: request.scapularGirth,
+                    hipGirth: request.hipGirth,
+                    armGirth: request.armGirth,
+                    legGirth: request.armGirth,
+                    bodyFat: request.bodyFat,
+                    evolutionPhoto: newEvolutionPhotoUri
+                );
+            }
+            else
+            {
+                profileHistory = new ProfileHistory(
+                    userId: request.userId,
+                    weight: request.weight,
+                    height: request.height,
+                    abdominalGirth: request.abdominalGirth,
+                    scapularGirth: request.scapularGirth,
+                    hipGirth: request.hipGirth,
+                    armGirth: request.armGirth,
+                    legGirth: request.armGirth,
+                    bodyFat: request.bodyFat,
+                    evolutionPhoto: newEvolutionPhotoUri
+                );
+            }
+
 
             await _userRepository.CreateUserProfileHistory(profileHistory);
             await _unityOfWork.Commit();
@@ -318,5 +339,10 @@ public class UserService : IUserService
         }
 
         return new ChangePasswordResponse(false, "Invalid password recovery code.");
+    }
+
+    public Task<string> GetProfileImage(Guid userId)
+    {
+        return _userDAO.GetProfileImageUri(userId);
     }
 }

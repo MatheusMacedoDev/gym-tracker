@@ -53,14 +53,12 @@ const LikesAmount = styled.Text`
     color: #ff8434;
 `;
 
-export default function ProfileView({ avatarUri, userName, likesAmount }) {
-    function changeProfileImage() {}
-
+export default function ProfileView({ avatarUri, userName, likesAmount, handleEditClick }) {
     return (
         <Container>
             <AvatarContainer>
                 <AvatarImage source={{ uri: avatarUri }} />
-                <EditContainer onPress={changeProfileImage}>
+                <EditContainer onPress={handleEditClick}>
                     <Entypo name='pencil' size={20} color='#fff' />
                 </EditContainer>
                 <UserName>{userName}</UserName>
