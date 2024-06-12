@@ -9,7 +9,7 @@ export const Presentation = ({navigation}) => {
   return (
     <Gradient>
 
-      <ContainerPresentation>
+      <ContainerPresentation marginTop={120}>
 
         <ContainerText>
 
