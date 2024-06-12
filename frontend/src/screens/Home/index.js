@@ -38,7 +38,6 @@ export const Home = ({ navigation }) => {
         const response = await GetExercisesByDiaryWorkout(date, user.userId);
 
         if (response.status == 400) {
-            console.log('Deu ruim');
             return;
         }
         setDiaryWorkout(response.data);
@@ -46,7 +45,7 @@ export const Home = ({ navigation }) => {
 
     async function DeleteWorkout() {
         const response = await DeleteDiaryWorkout(diaryWorkout.diaryWorkoutId);
-        console.log(response);
+
         if (response.status === 204) {
             GetExercises();
         } else {
@@ -73,18 +72,18 @@ export const Home = ({ navigation }) => {
                 <Logo
                     widthLogo={105}
                     heightLogo={50}
-                    marginTop={percentage(0.1, 'h')}
+                    marginTop={percentage(0.07, 'h')}
                 />
                 <WelcomeContainer
                     gap={percentage(0.02, 'h')}
-                    marginTop={percentage(0.03, 'h')}
+                    marginTop={percentage(0.04, 'h')}
                 >
                     <ImageWelcome
                         resizeMode='cover'
                         source={{ uri: profileImage }}
                     />
                     <TextWelcome>
-                        Bem vindo,<Title fontSize={22}> {user.name}</Title>
+                        Bem vindo,<Title fontSize={20}> {user.name}</Title>
                     </TextWelcome>
                 </WelcomeContainer>
                 <CalendarHome setTrainingDate={setDate} />
@@ -149,6 +148,8 @@ export const Home = ({ navigation }) => {
                         )}
                     </WorkoutContent>
                     <ImageRepresentation
+                        marginLeft={percentage(-0.04, 'w')}
+                        marginTop={percentage(0.01, 'h')}
                         resizeMode='contain'
                         source={require('../../assets/Images/MenRepresentation.png')}
                     />
