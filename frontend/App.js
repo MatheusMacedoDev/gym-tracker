@@ -24,10 +24,7 @@ import { AccountDataRegisterScreen } from './src/screens/AccountDataRegisterScre
 import { WeightRecordScreen } from './src/screens/WeightRecordScreen';
 import { GenderRegisterScreen } from './src/screens/GenderRegisterScreen';
 import { HeighRecordScreen } from './src/screens/HeightRecordScreen';
-import {
-    TrainingRecordScreen,
-    TrainingRecordScrenn
-} from './src/screens/TrainingRecordScreen';
+import { TrainingRecordScreen } from './src/screens/TrainingRecordScreen';
 import Joao from './src/teste/joao';
 import { SelectExercise } from './src/screens/SelectExercise';
 import { ExerciseRecord } from './src/screens/ExerciseRecord';

@@ -38,7 +38,7 @@ const Profile = ({ navigation }) => {
     const [selectedGraphLegend, setSelectedGraphLegend] = useState('');
     const [selectedGraphData, setSelectedGraphData] = useState(null);
 
-    const { user } = useContext(AuthContext);
+    const { user, setUser } = useContext(AuthContext);
     const { profileImage, setProfileImage } = useContext(ProfileImageContext);
 
     useEffect(() => {
@@ -100,7 +100,10 @@ const Profile = ({ navigation }) => {
         }
     }
 
-    function logoutProfile() {}
+    function logoutProfile() {
+        setUser(null);
+        navigation.replace('LoginScreen');
+    }
 
     function changeGraph(property, legend) {
         if (!profileHistoriesData) {
@@ -346,7 +349,7 @@ const Profile = ({ navigation }) => {
                     <Button
                         title='Sair'
                         marginTop={percentage(0.03, 'h')}
-                        marginBottom={percentage(0.03, 'h')}
+                        marginBottom={percentage(0.01, 'h')}
                         handleClickFn={logoutProfile}
                         hiddenButton={true}
                     />
