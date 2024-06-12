@@ -128,7 +128,7 @@ public class UserService : IUserService
                     bodyFat: request.bodyFat,
                     evolutionPhoto: newEvolutionPhotoUri
                 );
-            } 
+            }
             else
             {
                 profileHistory = new ProfileHistory(
@@ -339,5 +339,10 @@ public class UserService : IUserService
         }
 
         return new ChangePasswordResponse(false, "Invalid password recovery code.");
+    }
+
+    public Task<string> GetProfileImage(Guid userId)
+    {
+        return _userDAO.GetProfileImageUri(userId);
     }
 }

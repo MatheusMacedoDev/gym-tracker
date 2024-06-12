@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 
@@ -36,7 +36,7 @@ export default function StatisticBox({
 
     function handleChange(text) {
         const valueOnlyDigits = text.replace(/\D/g, '');
-        const maskedValue = valueOnlyDigits + 'cm';
+        const maskedValue = valueOnlyDigits + unitText;
 
         setInputValue(maskedValue);
         setValue(parseInt(valueOnlyDigits));
@@ -45,6 +45,8 @@ export default function StatisticBox({
     useEffect(() => {
         if (value) {
             setInputValue(value + unitText);
+        } else {
+            setInputValue('0' + unitText);
         }
     }, [value]);
 
