@@ -178,3 +178,63 @@ export async function GetProfileHistoriesByUserId(userId) {
         console.log(error);
     }
 }
+
+export async function GetUserLikesAmount(userId) {
+    const getUserLikesEndpoint = '/users/likes_amount';
+
+    try {
+        const response = await api.get(
+            `${apiUrlLocal}${getUserLikesEndpoint}?userId=${userId}`
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function GetUserLike(senderUserId, receiverUserId) {
+    const getUserLikeEndpoint = '/users/user_like';
+
+    try {
+        const response = await api.get(
+            `${apiUrlLocal}${getUserLikeEndpoint}?senderUserId=${senderUserId}&receiverUserId=${receiverUserId}`
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function CreateUserLike(senderUserId, receiverUserId) {
+    const createUserLikesEndpoint = '/users/user_like';
+
+    try {
+        const response = await api.post(
+            `${apiUrlLocal}${createUserLikesEndpoint}`,
+            {
+                senderUserId,
+                receiverUserId
+            }
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function DeleteUserLike(userLikeId) {
+    const deleteUserLikesEndpoint = '/users/user_like';
+
+    try {
+        const response = await api.delete(
+            `${apiUrlLocal}${deleteUserLikesEndpoint}?userLikeId=${userLikeId}`
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
