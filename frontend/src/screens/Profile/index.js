@@ -40,7 +40,7 @@ const Profile = ({ navigation, route }) => {
 
     async function saveProfileHistory() {
         const response = await CreateProfileHistory(
-            'c603fdc1-003b-410f-b5e5-3663a03e0028',
+            'f0678abe-0f99-4be8-bf8b-ea028c811d90',
             weight != '0' ? weight : null,
             height != '0' ? height : null,
             abdominalGirth != '0' ? abdominalGirth : null,
@@ -87,7 +87,7 @@ const Profile = ({ navigation, route }) => {
         }
 
         const response = await UpdateProfileImage(
-            'c603fdc1-003b-410f-b5e5-3663a03e0028',
+            'f0678abe-0f99-4be8-bf8b-ea028c811d90',
             photoUri
         );
 
@@ -122,7 +122,7 @@ const Profile = ({ navigation, route }) => {
 
     async function getUserProfileImageData() {
         const response = await GetUserProfileImage(
-            'c603fdc1-003b-410f-b5e5-3663a03e0028'
+            'f0678abe-0f99-4be8-bf8b-ea028c811d90'
         );
 
         setProfileImage(response.data);
@@ -130,7 +130,7 @@ const Profile = ({ navigation, route }) => {
 
     async function getUserProfileData() {
         const response = await GetProfileHistoriesByUserId(
-            'c603fdc1-003b-410f-b5e5-3663a03e0028'
+            'f0678abe-0f99-4be8-bf8b-ea028c811d90'
         );
 
         const allProfileHistoryData = response.data;
@@ -199,7 +199,9 @@ const Profile = ({ navigation, route }) => {
                         avatarUri={profileImage}
                         likesAmount='1,2k'
                         handleEditClick={() => {
-                            navigation.navigate('Camera', { handlePhoto: saveNewProfileImage });
+                            navigation.navigate('Camera', {
+                                handlePhoto: saveNewProfileImage
+                            });
                         }}
                     />
 
