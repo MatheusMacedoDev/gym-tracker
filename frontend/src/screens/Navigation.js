@@ -51,6 +51,9 @@ export const Navigation = ({ navigation }) => {
       <TouchableOpacity style={{ width: 90, height: 40, backgroundColor: 'orange', alignItems: "center", justifyContent: "center", marginTop: 5 }} onPress={() => { navigation.navigate("Profile") }}>
         <Text>Profile</Text>
       </TouchableOpacity>
+      <TouchableOpacity style={{ width: 90, height: 40, backgroundColor: 'orange', alignItems: "center", justifyContent: "center", marginTop: 5 }} onPress={() => { navigation.navigate("Camera") }}>
+        <Text>Camera</Text>
+      </TouchableOpacity>
     </View>
   );
 };

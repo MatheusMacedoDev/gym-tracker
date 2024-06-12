@@ -8,20 +8,24 @@ import { Title } from '../../components/Title/style';
 import { CardWorkout } from '../../components/CardWorkout';
 import { Button } from '../../components/Button';
 import { Entypo } from '@expo/vector-icons';
-import { useState } from 'react';
+import { useCallback, useContext } from 'react';
 import { NewWorkoutModal } from '../../components/NewWorkoutModal';
 import { percentage } from '../../utils/percentageFactory';
 import { GetDefaultWorkoutsByUserId } from '../../infra/services/defaultWorkoutService.js';
+import { useFocusEffect } from '@react-navigation/native';
+import { useState } from 'react';
+import AuthContext from '../../global/AuthContext.js';
 
 export const DefaultWorkoutsScreen = ({ navigation }) => {
     const [selectedWorkout, setSelectedWorkout] = useState();
     const [showModalNewWorkout, setShowModalNewWorkout] = useState(false);
     const [defaultWorkouts, setDefaultWorkouts] = useState();
+    const user = useContext(AuthContext)
 
     useFocusEffect(
         useCallback(() => {
             GetDefaultWorkout();
-        }, [])
+        }, []),
     );
 
     const seeTraining = item => {
@@ -37,7 +41,7 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
 
     async function GetDefaultWorkout() {
         const response = await GetDefaultWorkoutsByUserId(
-            '92ef5d63-a75e-432d-aa7a-b3006f246b60'
+            user.user.userId
         );
         setDefaultWorkouts(response.data);
         console.log(response.data);
@@ -55,7 +59,7 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
                 </Title>
                 <ListContainer heightContainer='40%'>
                     <ListComponent
-                        data={workouts}
+                        data={defaultWorkouts}
                         renderItem={({ item }) => (
                             <TouchableOpacity
                                 onPress={() => {
@@ -63,8 +67,8 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
                                 }}
                             >
                                 <CardWorkout
-                                    trainingName={item.trainingName}
-                                    muscleGroups={item.muscleGroups}
+                                    trainingName={item.defaultWorkoutName}
+                                    muscleGroups={item.relatedMuscleGroups}
                                     marginBottom='10px'
                                     isSelected={
                                         selectedWorkout

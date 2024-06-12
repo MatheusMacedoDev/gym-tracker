@@ -21,4 +21,5 @@ public interface IUserService
     Task<IEnumerable<RankUserDTO>> ListRankedUsersByLikesAmount();
     Task<IEnumerable<RankUserDTO>> ListRankedUsersByLastProfileUpdate();
     Task RemoveUserLike(Guid userLikeId);
+    Task<ChangePasswordResponse> ChangePassword(ChangePasswordRequest request);
 }

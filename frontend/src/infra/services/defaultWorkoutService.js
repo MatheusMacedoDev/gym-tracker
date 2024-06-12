@@ -7,7 +7,7 @@ const deleteDefaultWorkoutEndpoint = "/workouts/default_workout";
 const createDefaultExerciseEndpoint = "/workouts/default_workout/exercise";
 const getExercisesByDefaultWorkoutEndpoint =
   "/workouts/default_workout/exercise";
-const deleteDefaultExerciseEndpoint = "/workouts/default_workout/exercise";
+const deleteDefaultExerciseEndpoint = "/workouts/default_exercise";
 
 export async function CreateDefaultWorkout(userId, workoutName) {
   try {
@@ -84,10 +84,10 @@ export async function GetExercisesByDefaultWorkout(defaultWorkoutId) {
   }
 }
 
-export async function DeleteDefaultExerciseWorkoutId(defaultExerciseId) {
+export async function DeleteDefaultExerciseWorkout(defaultExerciseId) {
   try {
     const response = await api.delete(
-      `${apiUrlLocal}${deleteDefaultExerciseEndpoint}/defaultExerciseId?=${defaultExerciseId}`,
+      `${apiUrlLocal}${deleteDefaultExerciseEndpoint}?defaultExerciseId=${defaultExerciseId}`,
     );
 
     return response;

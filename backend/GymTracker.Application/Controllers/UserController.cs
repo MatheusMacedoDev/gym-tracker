@@ -1,4 +1,5 @@
 using GymTracker.Application.Services.Contracts.Requests;
+using GymTracker.Application.Services.Contracts.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GymTracker.Application.Controllers;
@@ -179,5 +180,23 @@ public class UserController : ControllerBase
         {
             return BadRequest(error.ToString());
         }
+    }
+
+    [HttpPost("change_password")]
+    public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        ChangePasswordResponse response = await _userService.ChangePassword(request);
+
+        if (response.success)
+        {
+            return Ok(response);
+        }
+
+        return BadRequest(response);
     }
 }
