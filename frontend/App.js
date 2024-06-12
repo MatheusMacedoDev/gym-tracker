@@ -42,6 +42,7 @@ import { getUserToken } from './src/utils/tokenHandler';
 import { useEffect } from 'react';
 import Profile from './src/screens/Profile';
 import Camera from './src/screens/Camera';
+import SharedProfile from './src/screens/ViewSharedProfile/index';
 
 const Stack = createNativeStackNavigator();
 
@@ -165,6 +166,10 @@ export default function App() {
                     <Stack.Screen
                         name='Camera'
                         component={Camera}
+                    />
+                    <Stack.Screen
+                        name='SharedProfile'
+                        component={SharedProfile}
                     />
                     <Stack.Screen name='Profile' component={Profile} />
                 </Stack.Navigator>
