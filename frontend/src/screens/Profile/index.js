@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Gradient from '../../components/Gradient';
 import LineChartComponent from '../../components/Grafic';
 import { Container, ScrollContainer } from '../../components/Container/style';
@@ -14,8 +14,9 @@ import {
     GetUserProfileImage,
     UpdateProfileImage
 } from '../../infra/services/userService';
+import AuthContext from '../../global/AuthContext';
 
-const Profile = ({ navigation, route }) => {
+const Profile = ({ navigation }) => {
     const [profileImage, setProfileImage] = useState('');
 
     const [weight, setWeight] = useState(null);
@@ -38,9 +39,15 @@ const Profile = ({ navigation, route }) => {
     const [selectedGraphLegend, setSelectedGraphLegend] = useState('');
     const [selectedGraphData, setSelectedGraphData] = useState(null);
 
+    const { user } = useContext(AuthContext);
+
+    useEffect(() => {
+        console.log(user);
+    }, [user]);
+
     async function saveProfileHistory() {
         const response = await CreateProfileHistory(
-            'f0678abe-0f99-4be8-bf8b-ea028c811d90',
+            user.userId,
             weight != '0' ? weight : null,
             height != '0' ? height : null,
             abdominalGirth != '0' ? abdominalGirth : null,
@@ -86,10 +93,7 @@ const Profile = ({ navigation, route }) => {
             return;
         }
 
-        const response = await UpdateProfileImage(
-            'f0678abe-0f99-4be8-bf8b-ea028c811d90',
-            photoUri
-        );
+        const response = await UpdateProfileImage(user.userId, photoUri);
 
         console.log(response);
 
@@ -121,17 +125,13 @@ const Profile = ({ navigation, route }) => {
     }
 
     async function getUserProfileImageData() {
-        const response = await GetUserProfileImage(
-            'f0678abe-0f99-4be8-bf8b-ea028c811d90'
-        );
+        const response = await GetUserProfileImage(user.userId);
 
         setProfileImage(response.data);
     }
 
     async function getUserProfileData() {
-        const response = await GetProfileHistoriesByUserId(
-            'f0678abe-0f99-4be8-bf8b-ea028c811d90'
-        );
+        const response = await GetProfileHistoriesByUserId(user.userId);
 
         const allProfileHistoryData = response.data;
 
@@ -195,7 +195,7 @@ const Profile = ({ navigation, route }) => {
                     }}
                 >
                     <ProfileView
-                        userName='João Oliveira'
+                        userName={user.name}
                         avatarUri={profileImage}
                         likesAmount='1,2k'
                         handleEditClick={() => {
