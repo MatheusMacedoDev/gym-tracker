@@ -39,7 +39,7 @@ const Profile = () => {
 
     async function saveProfileHistory() {
         const response = await CreateProfileHistory(
-            'f0678abe-0f99-4be8-bf8b-ea028c811d90',
+            'c603fdc1-003b-410f-b5e5-3663a03e0028',
             weight != '0' ? weight : null,
             height != '0' ? height : null,
             abdominalGirth != '0' ? abdominalGirth : null,
@@ -106,7 +106,7 @@ const Profile = () => {
     useEffect(() => {
         async function getUserProfileImageData() {
             const response = await GetUserProfileImage(
-                'f0678abe-0f99-4be8-bf8b-ea028c811d90'
+                'c603fdc1-003b-410f-b5e5-3663a03e0028'
             );
 
             setProfileImage(response.data);
@@ -114,7 +114,7 @@ const Profile = () => {
 
         async function getUserProfileData() {
             const response = await GetProfileHistoriesByUserId(
-                'f0678abe-0f99-4be8-bf8b-ea028c811d90'
+                'c603fdc1-003b-410f-b5e5-3663a03e0028'
             );
 
             const allProfileHistoryData = response.data;
@@ -322,7 +322,7 @@ const Profile = () => {
                     <Button
                         title='Sair'
                         marginTop={percentage(0.03, 'h')}
-                        marginBottom={percentage(0.05, 'h')}
+                        marginBottom={percentage(0.03, 'h')}
                         handleClickFn={logoutProfile}
                         hiddenButton={true}
                     />

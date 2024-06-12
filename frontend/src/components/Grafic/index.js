@@ -10,12 +10,12 @@ const chartConfig = {
   backgroundGradientFromOpacity: 0,
   backgroundGradientTo: "transparent", // Laranja mais escuro
   backgroundGradientToOpacity: 0,
-  color: (opacity = 1) => `rgba(255, 132, 52, ${opacity})`, // Laranja para os pontos e linhas
+  color: () => `rgba(255, 132, 52, 0.5)`, // Laranja para os pontos e linhas
   strokeWidth: 3,
   barPercentage: 0.5,
   useShadowColorFromDataset: false,
-  labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`, // Branco para os labels
-  fillShadowGradient:`rgba(255, 132, 52, )`, // Laranja para a sombra abaixo da linha
+  labelColor: () => `rgba(255, 255, 255, 1)`, // Branco para os labels
+  fillShadowGradient:`rgba(255, 132, 52, 1)`, // Laranja para a sombra abaixo da linha
   fillShadowGradientOpacity: 0.3, // Transparência da sombra
   propsForDots: {
     r: "6",
