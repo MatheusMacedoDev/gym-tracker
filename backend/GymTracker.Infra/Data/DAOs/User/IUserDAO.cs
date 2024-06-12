@@ -7,6 +7,8 @@ public interface IUserDAO
     Task<UserLoginDTO> GetUserByEmail(string userEmail);
     Task<string> GetProfileImageUri(Guid userId);
 
+    Task<Guid> GetUserLikeId(Guid senderUserId, Guid receiverUserId);
+
     Task<IEnumerable<RankUserDTO>> RankUsersByLikes();
     Task<IEnumerable<RankUserDTO>> RankUsersByLastProfileUpdate();
 }

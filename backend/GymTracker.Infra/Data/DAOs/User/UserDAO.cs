@@ -123,4 +123,27 @@ public class UserDAO : IUserDAO
             throw;
         }
     }
+
+    public async Task<Guid> GetUserLikeId(Guid senderUserId, Guid receiverUserId)
+    {
+        try
+        {
+            using (var connection = new NpgsqlConnection(_connectionString))
+            {
+                string query = @"
+                    SELECT
+                        user_like_id
+                    FROM user_likes
+                    WHERE sender_user_id = @senderUserId
+                        AND receiver_user_id = @receiverUserId
+                ";
+
+                return (await connection.QueryFirstOrDefaultAsync<Guid>(query, new { senderUserId, receiverUserId }))!;
+            }
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
 }

@@ -345,4 +345,9 @@ public class UserService : IUserService
     {
         return _userDAO.GetProfileImageUri(userId);
     }
+
+    public Task<Guid> GetUserLikeIdBySenderAndReceiver(Guid senderUserId, Guid receiverUserId)
+    {
+        return _userDAO.GetUserLikeId(senderUserId, receiverUserId);
+    }
 }

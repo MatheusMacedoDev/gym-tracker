@@ -20,8 +20,10 @@ public interface IUserService
     Task<CanAddProfileHistoryResponse> CanAddProfileHistory(Guid userId);
 
     Task<int> GetLikesByUserID(Guid userId);
+    Task<Guid> GetUserLikeIdBySenderAndReceiver(Guid senderUserId, Guid receiverUserId);
     Task<IEnumerable<RankUserDTO>> ListRankedUsersByLikesAmount();
     Task<IEnumerable<RankUserDTO>> ListRankedUsersByLastProfileUpdate();
     Task RemoveUserLike(Guid userLikeId);
+
     Task<ChangePasswordResponse> ChangePassword(ChangePasswordRequest request);
 }
