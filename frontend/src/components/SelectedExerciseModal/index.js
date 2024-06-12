@@ -11,17 +11,32 @@ import { colors } from '../../colors.config';
 import ExerciseImage from './style/ExerciseImage';
 import { useState } from 'react';
 import { percentage } from '../../utils/percentageFactory';
+import { CreateDefaultExercise } from '../../infra/services/defaultWorkoutService';
+import { repetitionsNumber, seriesNumber } from '../../utils/arraysFactory';
 
 export const SelectedExerciseModal = ({
-    nameExercise = 'Supino com halteres',
+    nameExercise,
     photoExercise,
     navigation,
     visible,
     setShowModalExercise,
+    defaultWorkoutId,
+    exerciseId,
+    trainingName,
     ...rest
 }) => {
     const [seriesAmount, setSeriesAmount] = useState();
     const [repetitionsAmount, setRepetitionsAmount] = useState();
+
+    async function CreateDefaultWorkoutExercise() {
+        const response = await CreateDefaultExercise(
+            exerciseId,
+            defaultWorkoutId,
+            repetitionsAmount,
+            seriesAmount
+        );
+        navigation.navigate("DefaultWorkoutExerciseScreen", {defaultWorkoutId: defaultWorkoutId, trainingName:trainingName})
+    }
 
     return (
         <Modal
@@ -42,10 +57,12 @@ export const SelectedExerciseModal = ({
                         <Select
                             label={'Series'}
                             setSelected={setSeriesAmount}
+                            data={seriesNumber}
                         />
                         <Select
                             label={'Repetições'}
                             setSelected={setRepetitionsAmount}
+                            data={repetitionsNumber}
                         />
                     </ViewSelect>
                     <Button
@@ -61,7 +78,7 @@ export const SelectedExerciseModal = ({
                                 color={colors.white}
                             />
                         )}
-                        handleClickFn={() => setShowModalExercise(false)}
+                        handleClickFn={CreateDefaultWorkoutExercise}
                     />
                     <Link
                         marginTop={percentage(0.02, 'h')}

@@ -70,7 +70,7 @@ export const DefaultWorkoutExerciseScreen = ({ navigation, route }) => {
                 >
                     {trainingName}
                 </Title>
-                <ListContainer heightContainer={'50%'}>
+                <ListContainer heightContainer={'40%'}>
                     <ListComponent
                         data={defaultWorkoutExercises}
                         renderItem={({ item }) => (
@@ -92,7 +92,8 @@ export const DefaultWorkoutExerciseScreen = ({ navigation, route }) => {
                 <Button
                     handleClickFn={() =>
                         navigation.navigate('SelectGroupMuscle', {
-                            trainingName: trainingName
+                            trainingName: trainingName,
+                            defaultWorkoutId: defaultWorkoutId
                         })
                     }
                     marginTop={percentage(0.03, 'h')}

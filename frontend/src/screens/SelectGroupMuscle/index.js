@@ -10,7 +10,7 @@ import MuscleGroupContainer from './components/MuscleGroupContainer';
 import { Container } from '../../components/Container/style';
 import { GetMuscleGroups } from '../../infra/services/exerciseService';
 
-const SelectGroupMuscle = ({ navigation }) => {
+const SelectGroupMuscle = ({ navigation, route }) => {
 
     const [muscleGroups, setMuscleGroups] = useState();
     const numColumns = 2;
@@ -22,7 +22,7 @@ const SelectGroupMuscle = ({ navigation }) => {
     const renderItem = ({ item }) => (
         <BtnExcercise2
             title={item.groupName}
-            onPress={() => navigation.navigate('SelectExercise', {mucleGroupId: item.mucleGroupId})}
+            onPress={() => navigation.navigate('SelectExercise', { mucleGroupId: item.mucleGroupId, defaultWorkoutId: route.params.defaultWorkoutId, trainingName: route.params.trainingName })}
         />
     );
 
