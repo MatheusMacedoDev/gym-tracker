@@ -160,7 +160,7 @@ public class UserService : IUserService
                 armGirth: profileHistory.ArmGirth,
                 legGirth: profileHistory.LegGirth,
                 bodyFat: profileHistory.BodyFat,
-                evolution_photo: profileHistory.EvolutionPhoto
+                evolutionPhoto: profileHistory.EvolutionPhoto
             );
 
             return response;

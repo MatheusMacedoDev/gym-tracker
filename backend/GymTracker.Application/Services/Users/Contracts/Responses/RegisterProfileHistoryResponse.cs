@@ -1,12 +1,11 @@
 namespace GymTracker.Application.Services.Contracts.Requests;
-
 public record RegisterProfileHistoryResponse
 (
     Guid profileHistoryId,
     Guid userId,
     float weight,
     short height,
-    string? evolution_photo,
+    string? evolutionPhoto,
     float? abdominalGirth,
     float? scapularGirth,
     float? hipGirth,
