@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
 import Gradient from '../../components/Gradient';
 import { IconButton } from '../../components/IconButton';
@@ -8,17 +8,29 @@ import BtnExcercise2 from './style';
 import { percentage } from '../../utils/percentageFactory';
 import MuscleGroupContainer from './components/MuscleGroupContainer';
 import { Container } from '../../components/Container/style';
+import { GetMuscleGroups } from '../../infra/services/exerciseService';
 
 const SelectGroupMuscle = ({ navigation }) => {
+
+    const [muscleGroups, setMuscleGroups] = useState();
     const numColumns = 2;
+
+    useEffect(() => {
+        GetAllMuscleGroups();
+    }, [])
 
     const renderItem = ({ item }) => (
         <BtnExcercise2
-            title={item.title}
-            image={item.image}
+            title={item.groupName}
             onPress={() => navigation.navigate('SelectExercise')}
         />
     );
+
+    async function GetAllMuscleGroups() {
+        const response = await GetMuscleGroups()
+        setMuscleGroups(response.data);
+        console.log(muscleGroups);
+    }
 
     return (
         <Gradient>
@@ -40,14 +52,14 @@ const SelectGroupMuscle = ({ navigation }) => {
                     marginBottom={percentage(0.05, 'h')}
                     FontSize={20}
                 >
-                    Exercicios
+                    Grupos musculares
                 </Title>
 
                 <MuscleGroupContainer>
                     <FlatList
-                        data={data}
+                        data={muscleGroups}
                         renderItem={renderItem}
-                        keyExtractor={item => item.id}
+                        keyExtractor={item => item.mucleGroupId}
                         numColumns={numColumns}
                         key={numColumns}
                         contentContainerStyle={{ justifyContent: 'center' }}

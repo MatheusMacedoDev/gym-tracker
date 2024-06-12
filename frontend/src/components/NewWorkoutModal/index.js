@@ -11,6 +11,8 @@ import { percentage } from '../../utils/percentageFactory';
 import { useContext, useState } from 'react';
 import AuthContext from '../../global/AuthContext';
 import { CreateDefaultWorkout } from '../../infra/services/defaultWorkoutService';
+import { IconButton } from '../IconButton';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export const NewWorkoutModal = ({
     navigation,
@@ -45,6 +47,19 @@ export const NewWorkoutModal = ({
         >
             <ContentModal style={{ shadowColor: 'white', shadowOpacity: 0.4 }}>
                 <Gradient locationOne={1} roundedBorders={true}>
+                <IconButton
+                    gradient={false}
+                    top={0}
+                    left={10}
+                    icon={
+                        <MaterialIcons
+                            name='reply'
+                            size={40}
+                            color={'#FB6614'}
+                            onPress={() => setShowModalNewWorkout(false)}
+                        />
+                    }
+                />
                     <Logo
                         widthLogo={'27%'}
                         heightLogo={'12%'}
