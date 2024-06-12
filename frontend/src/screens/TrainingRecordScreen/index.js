@@ -15,24 +15,37 @@ import Gradient from '../../components/Gradient';
 import { percentage } from '../../utils/percentageFactory';
 import { GetDefaultWorkoutsByUserId } from '../../infra/services/defaultWorkoutService';
 import AuthContext from '../../global/AuthContext';
+import { CreateDiaryWorkout } from '../../infra/services/diaryWorkoutService';
 
-export const TrainingRecordScreen = ({ navigation, children }) => {
+export const TrainingRecordScreen = ({ navigation, route }) => {
     const [selectedWorkout, setSelectedWorkout] = useState();
     const [defaultWorkouts, setDefaultWorkouts] = useState();
+    const [dateDiaryWorkout, setDiaryWorkout] = useState()
     const user = useContext(AuthContext)
 
-    async function GetDefaultWorkout() {
+    async function GetDefaultWorkouts() {
         const response = await GetDefaultWorkoutsByUserId(
             user.user.userId
         );
         setDefaultWorkouts(response.data);
-        //console.log(response.data);
     }
 
     useEffect(() => {
-        GetDefaultWorkout();
-        console.log(selectedWorkout);
-    }, [selectedWorkout]);
+        GetDefaultWorkouts();
+        setDiaryWorkout(route.params.date)
+    }, []);
+
+
+    async function RegisterDiaryWorkout() {
+        if (selectedWorkout && dateDiaryWorkout) {
+           const promisse = await CreateDiaryWorkout(selectedWorkout.id, dateDiaryWorkout)
+            navigation.replace("TrainingExercisesScreens", {selectedWorkout: selectedWorkout, idDiaryWorkout: promisse.data.diaryWorkoutId})
+        } else {
+
+        }
+
+
+    }
 
     return (
         <Gradient>
@@ -83,7 +96,7 @@ export const TrainingRecordScreen = ({ navigation, children }) => {
                                     isSelected={
                                         selectedWorkout
                                             ? item.defaultWorkoutId ==
-                                              selectedWorkout.id
+                                            selectedWorkout.id
                                             : false
                                     }
                                 />
@@ -101,11 +114,7 @@ export const TrainingRecordScreen = ({ navigation, children }) => {
                             color={color}
                         />
                     )}
-                    handleClickFn={() =>
-                        navigation.navigate('TrainingExercisesScreens', {
-                            selectedWorkout: selectedWorkout
-                        })
-                    }
+                    handleClickFn={RegisterDiaryWorkout}
                 />
             </Container>
         </Gradient>
