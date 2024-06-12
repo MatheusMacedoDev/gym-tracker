@@ -24,31 +24,25 @@ import {
 import { percentage } from '../../utils/percentageFactory';
 import Gradient from '../../components/Gradient';
 import AuthContext from '../../global/AuthContext';
-
+import ProfileImageContext from '../../global/ProfileImageContext';
+import { GetUserProfileImage } from '../../infra/services/userService';
 
 export const Home = ({ navigation }) => {
     const [date, setDate] = useState(null);
-    const [diaryWorkout, setDiaryWorkout] = useState(null)
-    const user = useContext(AuthContext)
+    const [diaryWorkout, setDiaryWorkout] = useState(null);
 
-    useEffect(() => {
-        GetExercises();
-    }, [date]);
+    const { user } = useContext(AuthContext);
+    const { profileImage, setProfileImage } = useContext(ProfileImageContext);
 
     async function GetExercises() {
-        const response = await GetExercisesByDiaryWorkout(
-            date,
-            user.user.userId
-        );
+        const response = await GetExercisesByDiaryWorkout(date, user.userId);
 
         if (response.status == 400) {
             console.log('Deu ruim');
             return;
         }
-        setDiaryWorkout(response.data)
+        setDiaryWorkout(response.data);
     }
-
-
 
     async function DeleteWorkout() {
         const response = await DeleteDiaryWorkout(diaryWorkout.diaryWorkoutId);
@@ -58,6 +52,20 @@ export const Home = ({ navigation }) => {
         } else {
         }
     }
+
+    async function getUserProfileImageData() {
+        const response = await GetUserProfileImage(user.userId);
+
+        setProfileImage(response.data);
+    }
+
+    useEffect(() => {
+        GetExercises();
+    }, [date]);
+
+    useEffect(() => {
+        getUserProfileImageData();
+    }, []);
 
     return (
         <Gradient>
@@ -73,10 +81,10 @@ export const Home = ({ navigation }) => {
                 >
                     <ImageWelcome
                         resizeMode='cover'
-                        source={{uri: user.user.profileImage}}
+                        source={{ uri: profileImage }}
                     />
                     <TextWelcome>
-                        Bem vindo,<Title fontSize={22}> {user.user.name}</Title>
+                        Bem vindo,<Title fontSize={22}> {user.name}</Title>
                     </TextWelcome>
                 </WelcomeContainer>
                 <CalendarHome setTrainingDate={setDate} />
@@ -120,9 +128,7 @@ export const Home = ({ navigation }) => {
                             </>
                         ) : (
                             <>
-                                <LabelWorkout
-                                    marginTop={percentage(0.05, 'h')}
-                                >
+                                <LabelWorkout marginTop={percentage(0.05, 'h')}>
                                     Nenhum treino foi registrado hoje.
                                 </LabelWorkout>
                                 <Button
@@ -133,7 +139,10 @@ export const Home = ({ navigation }) => {
                                     heightButton='12%'
                                     marginTop={percentage(0.05, 'h')}
                                     handleClickFn={() =>
-                                        navigation.replace('TrainingRecordScreen', {date: date})
+                                        navigation.replace(
+                                            'TrainingRecordScreen',
+                                            { date: date }
+                                        )
                                     }
                                 />
                             </>

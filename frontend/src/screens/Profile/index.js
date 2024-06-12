@@ -15,10 +15,9 @@ import {
     UpdateProfileImage
 } from '../../infra/services/userService';
 import AuthContext from '../../global/AuthContext';
+import ProfileImageContext from '../../global/ProfileImageContext';
 
 const Profile = ({ navigation }) => {
-    const [profileImage, setProfileImage] = useState('');
-
     const [weight, setWeight] = useState(null);
     const [height, setHeight] = useState(null);
     const [bodyFat, setBodyFat] = useState(null);
@@ -40,6 +39,7 @@ const Profile = ({ navigation }) => {
     const [selectedGraphData, setSelectedGraphData] = useState(null);
 
     const { user } = useContext(AuthContext);
+    const { profileImage, setProfileImage } = useContext(ProfileImageContext);
 
     useEffect(() => {
         console.log(user);
@@ -95,9 +95,9 @@ const Profile = ({ navigation }) => {
 
         const response = await UpdateProfileImage(user.userId, photoUri);
 
-        console.log(response);
-
-        await getUserProfileImageData();
+        if (response.data) {
+            setProfileImage(response.data.profileImageUri);
+        }
     }
 
     function logoutProfile() {}
@@ -125,6 +125,8 @@ const Profile = ({ navigation }) => {
     }
 
     async function getUserProfileImageData() {
+        if (profileImage !== '' && profileImage !== null) return;
+
         const response = await GetUserProfileImage(user.userId);
 
         setProfileImage(response.data);
