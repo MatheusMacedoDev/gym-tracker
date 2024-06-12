@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React from 'react';
 import {
     ContainerCard,
     ContainerInput,
@@ -7,20 +7,35 @@ import {
 import { InputExercise } from './Input/style';
 import { CardSubtitle, CardTitle } from './Title/style';
 
-export const ExerciseSerieCard = ({ serie,marginBottom }) => {
+export const ExerciseSerieCard = ({ data, setSeries, marginBottom }) => {
 
-    useEffect(() => {
-        console.log(serie);
-    },[serie])
+    const handleOverloadChange = (text) => {
+        setSeries(data.id, 'overload', text);
+    };
+
+    const handleRepetitionsChange = (text) => {
+        setSeries(data.id, 'repetitions', text);
+    };
+
     return (
         <ContainerCard marginBottom={marginBottom}>
             <ContainerText>
-                <CardTitle>Serie {serie.id}</CardTitle>
-                <CardSubtitle>{serie.repsRange} Repetições</CardSubtitle>
+                <CardTitle>Serie {data.id}</CardTitle>
+                <CardSubtitle>{data.repsRange} Repetições</CardSubtitle>
             </ContainerText>
             <ContainerInput>
-                <InputExercise placeholder='Kg...' />
-                <InputExercise placeholder='0...' />
+                <InputExercise
+                    onChangeText={handleOverloadChange}
+                    value={data.overload}
+                    placeholder='Kg...'
+                    keyboardType='numeric'
+                />
+                <InputExercise
+                    onChangeText={handleRepetitionsChange}
+                    value={data.repetitions}
+                    placeholder='0...'
+                    keyboardType='numeric'
+                />
             </ContainerInput>
         </ContainerCard>
     );

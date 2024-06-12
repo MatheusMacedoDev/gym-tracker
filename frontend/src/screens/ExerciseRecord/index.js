@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import { Button } from '../../components/Button';
 import { CommandText } from '../../components/CommandText/style';
 import { Container } from '../../components/Container/style';
@@ -13,19 +14,15 @@ import { Label } from './Label/style';
 import { percentage } from '../../utils/percentageFactory';
 import { IconButton } from '../../components/IconButton';
 import { MaterialIcons } from '@expo/vector-icons';
-import { useEffect, useState } from 'react';
-
 
 export const ExerciseRecord = ({ navigation, route }) => {
-    const [series, setSeries] = useState([])
-    // const [repetitions, setRepetitions] = useState(null)
-    // const [overload, setOverload] = useState(null)
+    const [series, setSeries] = useState([]);
 
     useEffect(() => {
-
         const seriesArray = [];
         for (let i = 0; i < route.params.seriesAmount; i++) {
             seriesArray.push({
+                diaryWorkoutId: route.params.diaryWorkoutId,
                 id: i + 1,
                 repsRange: route.params.repetitions,
                 repetitions: '',
@@ -33,7 +30,17 @@ export const ExerciseRecord = ({ navigation, route }) => {
             });
         }
         setSeries(seriesArray);
-    }, [])
+    }, [route.params]);
+
+    useEffect(() => {
+        console.log(series);
+    }, [series]);
+
+    const updateSeries = (id, field, value) => {
+        setSeries(x => x.map(serie =>
+            serie.id === id ? { ...serie, [field]: value } : serie
+        ));
+    };
 
 
     return (
@@ -73,8 +80,9 @@ export const ExerciseRecord = ({ navigation, route }) => {
                         }}
                         renderItem={({ item }) => (
                             <ExerciseSerieCard
-                                
-                                serie={item}
+                                key={item.id}
+                                data={item}
+                                setSeries={updateSeries}
                             />
                         )}
                     />
@@ -82,7 +90,7 @@ export const ExerciseRecord = ({ navigation, route }) => {
                 <Button
                     marginTop={percentage(0.05, 'h')}
                     handleClickFn={() => {
-                        navigation.navigate('TrainingExercisesScreen');
+                        navigation.navigate('TrainingExercisesScreens');
                     }}
                     title='Finalizar exercício'
                     icon={(size, color) => (

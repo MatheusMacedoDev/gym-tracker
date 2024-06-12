@@ -13,24 +13,37 @@ import { TouchableOpacity } from 'react-native';
 import { percentage } from '../../utils/percentageFactory';
 import { useEffect, useState } from 'react';
 import { GetExercisesByDefaultWorkout } from '../../infra/services/defaultWorkoutService';
+import { CreateDiaryExercise } from '../../infra/services/diaryWorkoutService';
 
 
 export const TrainingExercisesScreens = ({ navigation, route }) => {
-    const [workout, setWorkout] = useState()
+    const [defaultWorkout, setDefaultWorkout] = useState()
     const [workoutexercises, setWorkoutExercises] = useState()
+    const [idDiaryWorkout, setIdDefaultWorkout] = useState()
 
     useEffect(() => {
-        setWorkout(route.params.selectedWorkout)
-    },[route])
+        if (route.params != null) {
+            setDefaultWorkout(route.params.selectedWorkout)
+            setIdDefaultWorkout(route.params.idDiaryWorkout)
+        }
+
+    }, [route])
 
     useEffect(() => {
         GetDefaultWorkoutExercises()
-    },[workout])
+    }, [defaultWorkout])
 
     async function GetDefaultWorkoutExercises() {
-        const response = await GetExercisesByDefaultWorkout(workout.id)
-        console.log(response.data);
+        const response = await GetExercisesByDefaultWorkout(defaultWorkout.id)
         setWorkoutExercises(response.data)
+    }
+
+    async function RegisterDiaryExercise(defaultExerciseId, seriesAmount, repetitionsRange) {
+        const promisse = await CreateDiaryExercise(defaultExerciseId, idDiaryWorkout)
+        console.log(promisse.data);
+        navigation.navigate('ExerciseRecord', {
+            seriesAmount: seriesAmount, repetitions: repetitionsRange, diaryExerciseId: promisse.data.diaryExerciseId
+        })
     }
 
     return (
@@ -57,7 +70,7 @@ export const TrainingExercisesScreens = ({ navigation, route }) => {
                     marginTop={percentage(0.02, 'h')}
                     marginBottom={percentage(0.08, 'h')}
                 >
-                    {workout ? workout.trainingName : null}
+                    {defaultWorkout ? defaultWorkout.trainingName : null}
                 </Title>
                 <ListContainer heightContainer={'50%'}>
                     <ListComponent
@@ -67,11 +80,9 @@ export const TrainingExercisesScreens = ({ navigation, route }) => {
                         }}
                         renderItem={({ item }) => (
                             <TouchableOpacity
-                                onPress={() =>
-                                    navigation.navigate('ExerciseRecord',{ seriesAmount: item.seriesAmount , repetitions: item.repetitionsRange})
-                                }
+                                onPress={() => RegisterDiaryExercise(item.defaultExerciseId, item.seriesAmount, item.repetitionsRange)}
                             >
-                                <ExerciseCard titleExercise={item.exerciseName} /> 
+                                <ExerciseCard titleExercise={item.exerciseName} />
                             </TouchableOpacity>
                         )}
                     />
