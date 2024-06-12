@@ -7,8 +7,8 @@ namespace GymTracker.Application.Services.DiaryWorkouts;
 
 public interface IDiaryWorkoutService
 {
-    Task RegisterDiaryWorkout(RegisterDiaryWorkoutRequest request);
-    Task RegisterDiaryExercise(RegisterDiaryExerciseRequest request);
+    Task<RegisterDiaryWorkoutResponse> RegisterDiaryWorkout(RegisterDiaryWorkoutRequest request);
+    Task<RegisterDiaryExerciseResponse> RegisterDiaryExercise(RegisterDiaryExerciseRequest request);
     Task<RegisterDiaryExerciseSerieResponse> RegisterDiaryExerciseSerie(RegisterDiaryExerciseSerieRequest request);
     Task<ListDiaryExercisesByDateResponse> ListDiaryExercisesByDate(ListDiaryExercisesByDateRequest request);
     Task DeleteDiaryWorkout(Guid diaryWorkoutId);
