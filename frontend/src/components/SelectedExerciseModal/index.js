@@ -36,18 +36,31 @@ export const SelectedExerciseModal = ({
             repetitionsAmount,
             seriesAmount
         );
-        navigation.navigate("DefaultWorkoutExerciseScreen", {defaultWorkoutId: defaultWorkoutId, trainingName:trainingName})
+        navigation.navigate('DefaultWorkoutExerciseScreen', {
+            defaultWorkoutId: defaultWorkoutId,
+            trainingName: trainingName
+        });
     }
 
     return (
-        <ModalBackground>
-            <Modal
-                {...rest}
-                visible={visible}
-                transparent={true}
-                animationType='fade'
-            >
-                <ContentModal style={{ shadowColor: 'white', shadowOpacity: 0.8 }}>
+        <Modal
+            {...rest}
+            visible={visible}
+            transparent={true}
+            animationType='fade'
+        >
+            <ModalBackground>
+                <ContentModal
+                    style={{
+                        borderTopWidth: 2,
+                        borderLeftWidth: 2,
+                        borderRightWidth: 2,
+                        borderColor: colors.white,
+                        borderStyle: 'solid',
+                        borderTopStartRadius: 20,
+                        borderTopEndRadius: 20
+                    }}
+                >
                     <Gradient locationOne={1} roundedBorders={true}>
                         <Title fontSize={32} marginTop={percentage(0.05, 'h')}>
                             {nameExercise}
@@ -91,7 +104,7 @@ export const SelectedExerciseModal = ({
                         </Link>
                     </Gradient>
                 </ContentModal>
-            </Modal>
-        </ModalBackground>
+            </ModalBackground>
+        </Modal>
     );
 };
