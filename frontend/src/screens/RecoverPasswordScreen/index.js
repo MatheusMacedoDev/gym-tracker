@@ -1,4 +1,5 @@
 import { Image } from 'react-native';
+import { useState } from 'react';
 import { Button } from '../../components/Button';
 import { CommandText } from '../../components/CommandText/style';
 import { Container } from '../../components/Container/style';
@@ -10,10 +11,17 @@ import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import Gradient from '../../components/Gradient';
 import { percentage } from '../../utils/percentageFactory';
+import { SendPasswordRecoverCode } from '../../infra/services/userService';
 
 export const RecoverPasswordScreen = ({ navigation }) => {
-    async function passToEmailCode() {
-        navigation.navigate('EmailCodeScreen');
+    const [email, setEmail] = useState('matheus@mail.com');
+
+    async function handleSendRecoveryCode() {
+        const response = await SendPasswordRecoverCode(email);
+
+        if (response.status == 200) {
+            navigation.navigate('EmailCodeScreen');
+        } else {}
     }
 
     return (
@@ -41,9 +49,12 @@ export const RecoverPasswordScreen = ({ navigation }) => {
                 <Input
                     marginTop={percentage(0.12, 'h')}
                     placeholder='Email de recuperação...'
+                    value={email}
+                    onChangeText={setEmail}
+                    autoFocus
                 />
                 <Button
-                    handleClickFn={passToEmailCode}
+                    handleClickFn={handleSendRecoveryCode}
                     marginTop={percentage(0.12, 'h')}
                     title='Continuar'
                     icon={(size, color) => (
