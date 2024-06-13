@@ -7,6 +7,7 @@ import { ListContainer } from '../../components/ListContainer/style';
 import { ListComponent } from '../../components/List/style';
 import RankingCard from '../../components/RankingCard';
 import { percentage } from '../../utils/percentageFactory';
+import { limitCharacters } from '../../utils/stringHandler';
 
 const usuarios = [
     { id: 1, nome: 'Rubens Moura', curtidas: '2,9' },
@@ -46,7 +47,7 @@ export const RankingScreen = () => {
                         data={usuarios}
                         renderItem={({ item, index }) => (
                             <RankingCard
-                                name={item.nome}
+                                name={limitCharacters(item.nome, 14)}
                                 likes={item.curtidas}
                                 sequentialNumber={index + 1}
                             />
@@ -68,7 +69,7 @@ export const RankingScreen = () => {
                         data={usuarios}
                         renderItem={({ item, index }) => (
                             <RankingCard
-                                name={item.nome}
+                                name={limitCharacters(item.nome, 14)}
                                 likes={item.curtidas}
                                 sequentialNumber={index + 1}
                             />
