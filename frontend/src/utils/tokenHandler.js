@@ -26,7 +26,6 @@ export async function getUserToken() {
         token: userToken,
         userId: decodedUserToken.jti,
         name: decodedUserToken['unique_name'],
-        profileImage: decodedUserToken['profile_image'],
         gender: decodedUserToken.gender
     };
 }

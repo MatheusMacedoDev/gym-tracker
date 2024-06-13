@@ -14,9 +14,9 @@ import { getUserToken, setUserToken } from '../../utils/tokenHandler';
 import AuthContext from '../../global/AuthContext';
 
 export const LoginScreen = ({ navigation }) => {
-    const {user, setUser} = useContext(AuthContext)
+    const { user, setUser } = useContext(AuthContext);
 
-    const [email, setEmail] = useState('eduardopasqualetti@gmail.com');
+    const [email, setEmail] = useState('matheus@mail.com');
     const [password, setPassword] = useState('12345');
 
     async function handleLogin() {
@@ -46,10 +46,12 @@ export const LoginScreen = ({ navigation }) => {
                     placeholder='E-mail ou usuário...'
                     value={email}
                     onChangeText={setEmail}
+                    autoFocus
                 />
                 <Input
                     marginTop={percentage(0.03, 'h')}
                     placeholder='Senha...'
+                    secureTextEntry
                     value={password}
                     onChangeText={setPassword}
                 />

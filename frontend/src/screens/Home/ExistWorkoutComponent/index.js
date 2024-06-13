@@ -1,14 +1,23 @@
 import { colors } from '../../../colors.config';
 import ExerciseContainer from './Style/ExerciseContainer';
 import ExerciseTitle from './Style/ExerciseTitle';
-import { AntDesign } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import { percentage } from '../../../utils/percentageFactory';
+import CheckIconBackgroud from './Style/CheckIconBackgroud';
 
-export default ExistWorkoutComponent = ({ nameExercise }) => {
+export default ExistWorkoutComponent = ({ nameExercise, checked }) => {
     return (
         <ExerciseContainer>
-            <AntDesign name='checkcircle' size={22} color={colors.orange} />
-            <ExerciseTitle marginLeft={percentage(0.04, 'w')}>
+            <CheckIconBackgroud
+                color={checked ? colors.orange : colors.darkGray}
+            >
+                <FontAwesome
+                    name='check'
+                    size={18}
+                    color={checked ? colors.white : colors.lightGray}
+                />
+            </CheckIconBackgroud>
+            <ExerciseTitle marginLeft={percentage(0.03, 'w')}>
                 {nameExercise}
             </ExerciseTitle>
         </ExerciseContainer>

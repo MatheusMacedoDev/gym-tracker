@@ -3,9 +3,10 @@ import api, { apiUrlLocal } from '../apiAccesor';
 const registerUserEndpoint = '/users';
 const loginEndpoint = '/users/login';
 const updateProfileImageEndpoint = '/users/update_profile_image';
+const getUserProfileImageEndpoint = '/users/profile_image';
 const createProfileHistoryEndpoint = '/users/profile_history';
 const getProfileHistoriesEndpoint = '/users/profile_history';
-const sendPasswordRecoverCodeEndpoint = '/users/change_password';
+const sendPasswordRecoverCodeEndpoint = '/send_email/send_password_recovery_email';
 
 export async function MakeLogin(email, password) {
     try {
@@ -36,9 +37,30 @@ export async function RegisterUser(email, password, name, birthYear, gender) {
     }
 }
 
+export async function GetUserProfileImage(userId) {
+    try {
+        const response = await api.get(
+            `${apiUrlLocal}${getUserProfileImageEndpoint}?userId=${userId}`
+        );
+
+        return response;
+    } catch (error) {
+        if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        } else if (error.request) {
+            console.log(error.request);
+        } else {
+            console.log('Error', error.message);
+        }
+        console.log(error.config);
+    }
+}
+
 export async function UpdateProfileImage(userId, imageUri) {
     try {
-        const formData = FormData();
+        const formData = new FormData();
 
         formData.append('userId', userId);
 
@@ -77,23 +99,49 @@ export async function CreateProfileHistory(
     evolutionPhotoUri
 ) {
     try {
-        const formData = FormData();
+        const formData = new FormData();
 
         formData.append('userId', userId);
-        formData.append('weight', weight);
-        formData.append('height', height);
-        formData.append('abdominalGirth', abdominalGirth);
-        formData.append('scapularGirth', scapularGirth);
-        formData.append('hipGirth', hipGirth);
-        formData.append('armGirth', armGirth);
-        formData.append('legGirth', legGirth);
-        formData.append('bodyFat', bodyFat);
 
-        formData.append('evolutionPhoto', {
-            uri: evolutionPhotoUri,
-            name: 'image.jpg',
-            type: 'image/jpg'
-        });
+        if (weight) {
+            formData.append('weight', weight);
+        }
+
+        if (height) {
+            formData.append('height', height);
+        }
+
+        if (abdominalGirth) {
+            formData.append('abdominalGirth', abdominalGirth);
+        }
+
+        if (scapularGirth) {
+            formData.append('scapularGirth', scapularGirth);
+        }
+
+        if (hipGirth) {
+            formData.append('hipGirth', hipGirth);
+        }
+
+        if (armGirth) {
+            formData.append('armGirth', armGirth);
+        }
+
+        if (legGirth) {
+            formData.append('legGirth', legGirth);
+        }
+
+        if (bodyFat) {
+            formData.append('bodyFat', bodyFat);
+        }
+
+        if (evolutionPhotoUri) {
+            formData.append('evolutionPhoto', {
+                uri: evolutionPhotoUri,
+                name: 'image.jpg',
+                type: 'image/jpg'
+            });
+        }
 
         const response = await api.post(
             apiUrlLocal + createProfileHistoryEndpoint,
@@ -107,7 +155,16 @@ export async function CreateProfileHistory(
 
         return response;
     } catch (error) {
-        console.log(error);
+        if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        } else if (error.request) {
+            console.log(error.request);
+        } else {
+            console.log('Error', error.message);
+        }
+        console.log(error.config);
     }
 }
 
@@ -123,15 +180,81 @@ export async function GetProfileHistoriesByUserId(userId) {
     }
 }
 
-export async function sendPasswordRecoverCode(email) {
+export async function GetUserLikesAmount(userId) {
+    const getUserLikesEndpoint = '/users/likes_amount';
+
+    try {
+        const response = await api.get(
+            `${apiUrlLocal}${getUserLikesEndpoint}?userId=${userId}`
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function GetUserLike(senderUserId, receiverUserId) {
+    const getUserLikeEndpoint = '/users/user_like';
+
+    try {
+        const response = await api.get(
+            `${apiUrlLocal}${getUserLikeEndpoint}?senderUserId=${senderUserId}&receiverUserId=${receiverUserId}`
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function CreateUserLike(senderUserId, receiverUserId) {
+    const createUserLikesEndpoint = '/users/user_like';
+
     try {
         const response = await api.post(
-            apiUrlLocal + sendPasswordRecoverCodeEndpoint,
+            `${apiUrlLocal}${createUserLikesEndpoint}`,
             {
-                userEmail: email
+                senderUserId,
+                receiverUserId
             }
         );
 
+        return response;
+    } catch (error) {
+        if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        } else if (error.request) {
+            console.log(error.request);
+        } else {
+            console.log('Error', error.message);
+        }
+        console.log(error.config);
+        console.log(error);
+    }
+}
+
+export async function DeleteUserLike(userLikeId) {
+    const deleteUserLikesEndpoint = '/users/user_like';
+
+    try {
+        const response = await api.delete(
+            `${apiUrlLocal}${deleteUserLikesEndpoint}?userLikeId=${userLikeId}`
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function SendPasswordRecoverCode(email) {
+    try {
+        const response = await api.post(
+            `${apiUrlLocal}${sendPasswordRecoverCodeEndpoint}?email=${email}` 
+        );
         return response;
     } catch (error) {
         if (error.response) {

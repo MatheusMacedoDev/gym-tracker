@@ -24,45 +24,48 @@ import {
 import { percentage } from '../../utils/percentageFactory';
 import Gradient from '../../components/Gradient';
 import AuthContext from '../../global/AuthContext';
-
+import ProfileImageContext from '../../global/ProfileImageContext';
+import { GetUserProfileImage } from '../../infra/services/userService';
 
 export const Home = ({ navigation }) => {
     const [date, setDate] = useState(null);
-    const [diaryWorkout, setDiaryWorkout] = useState(null)
-    const user = useContext(AuthContext)
+    const [diaryWorkout, setDiaryWorkout] = useState(null);
 
-    useEffect(() => {
-        GetExercises();
-    }, [date]);
+    const { user } = useContext(AuthContext);
+    const { profileImage, setProfileImage } = useContext(ProfileImageContext);
 
     async function GetExercises() {
-        const response = await GetExercisesByDiaryWorkout(
-            date,
-            '050f4da3-c9ca-46c6-bf27-6cc1cbaa6bfc'
-        );
+        const response = await GetExercisesByDiaryWorkout(date, user.userId);
 
         if (response.status == 400) {
-            console.log('Deu ruim');
             return;
         }
 
-        // setExercises(response.data.diaryExercises);
-        // setWorkoutName(response.data.workoutName);
-        // setWorkoutId(response.data.diaryWorkoutId);
-        setDiaryWorkout(response.data)
-        // console.log(response.data);
+        setDiaryWorkout(response.data);
     }
-
-
 
     async function DeleteWorkout() {
         const response = await DeleteDiaryWorkout(diaryWorkout.diaryWorkoutId);
-        console.log(response);
+
         if (response.status === 204) {
             GetExercises();
         } else {
         }
     }
+
+    async function getUserProfileImageData() {
+        const response = await GetUserProfileImage(user.userId);
+
+        setProfileImage(response.data);
+    }
+
+    useEffect(() => {
+        GetExercises();
+    }, [date]);
+
+    useEffect(() => {
+        getUserProfileImageData();
+    }, []);
 
     return (
         <Gradient>
@@ -70,19 +73,18 @@ export const Home = ({ navigation }) => {
                 <Logo
                     widthLogo={105}
                     heightLogo={50}
-                    marginTop={percentage(0.05, 'h')}
+                    marginTop={percentage(0.07, 'h')}
                 />
                 <WelcomeContainer
-                    gap={percentage(0.05, 'h')}
-                    marginTop={percentage(0.05, 'h')}
-                    marginBottom={percentage(0.01, 'h')}
+                    gap={percentage(0.02, 'h')}
+                    marginTop={percentage(0.04, 'h')}
                 >
                     <ImageWelcome
                         resizeMode='cover'
-                        source={require('../../assets/joao.jpeg')}
+                        source={{ uri: profileImage }}
                     />
                     <TextWelcome>
-                        Bem vindo,<Title fontSize={24}> {user.user.name}</Title>
+                        Bem vindo,<Title fontSize={20}> {user.name}</Title>
                     </TextWelcome>
                 </WelcomeContainer>
                 <CalendarHome setTrainingDate={setDate} />
@@ -91,13 +93,15 @@ export const Home = ({ navigation }) => {
                         {diaryWorkout ? (
                             <>
                                 <Title
-                                    alignSelf={'flex-start'}
-                                    marginBottom={percentage(0.07, 'h')}
+                                    alignSelf='flex-start'
+                                    alignLeft={true}
+                                    marginTop={percentage(0.05, 'h')}
+                                    marginBottom={percentage(0.03, 'h')}
                                     fontSize={24}
                                 >
                                     {diaryWorkout.workoutName}
                                 </Title>
-                                <ListContainer heightContainer='55%'>
+                                <ListContainer heightContainer='50%'>
                                     <ListComponent
                                         data={diaryWorkout.diaryExercises}
                                         renderItem={({ item }) => (
@@ -107,12 +111,16 @@ export const Home = ({ navigation }) => {
                                                         ? item.exerciseName
                                                         : ''
                                                 }
+                                                checked={
+                                                    item.doneSeriesAmount >=
+                                                    item.originalSeriesAmount
+                                                }
                                             />
                                         )}
                                     />
                                 </ListContainer>
                                 <IconButton
-                                    left='5%'
+                                    left='2%'
                                     top='75%'
                                     handleClickFn={DeleteWorkout}
                                     icon={
@@ -126,9 +134,7 @@ export const Home = ({ navigation }) => {
                             </>
                         ) : (
                             <>
-                                <LabelWorkout
-                                    marginTop={percentage(0.05, 'h')}
-                                >
+                                <LabelWorkout marginTop={percentage(0.05, 'h')}>
                                     Nenhum treino foi registrado hoje.
                                 </LabelWorkout>
                                 <Button
@@ -136,11 +142,12 @@ export const Home = ({ navigation }) => {
                                     title='Registrar treino'
                                     alignCenter={false}
                                     widthButton='90%'
-                                    heightButon='13%'
+                                    heightButton='12%'
                                     marginTop={percentage(0.05, 'h')}
                                     handleClickFn={() =>
-                                        navigation.navigate(
-                                            'TrainingRecordScreen'
+                                        navigation.replace(
+                                            'TrainingRecordScreen',
+                                            { date: date }
                                         )
                                     }
                                 />
@@ -148,6 +155,8 @@ export const Home = ({ navigation }) => {
                         )}
                     </WorkoutContent>
                     <ImageRepresentation
+                        marginLeft={percentage(-0.04, 'w')}
+                        marginTop={percentage(0.01, 'h')}
                         resizeMode='contain'
                         source={require('../../assets/Images/MenRepresentation.png')}
                     />

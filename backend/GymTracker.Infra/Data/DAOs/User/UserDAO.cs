@@ -18,6 +18,28 @@ public class UserDAO : IUserDAO
         _connectionString = config["ConnectionStrings:LocalHost"]!;
     }
 
+    public async Task<string> GetProfileImageUri(Guid userId)
+    {
+        try
+        {
+            using (var connection = new NpgsqlConnection(_connectionString))
+            {
+                string query = @"
+                    SELECT
+                        users.profile_photo
+                    FROM users
+                    WHERE users.user_id = @userId
+                ";
+
+                return (await connection.QueryFirstOrDefaultAsync<string>(query, new { userId }))!;
+            }
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
     public async Task<UserLoginDTO> GetUserByEmail(string userEmail)
     {
         try
@@ -94,6 +116,29 @@ public class UserDAO : IUserDAO
                 ";
 
                 return (await connection.QueryAsync<RankUserDTO>(query))!;
+            }
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<Guid> GetUserLikeId(Guid senderUserId, Guid receiverUserId)
+    {
+        try
+        {
+            using (var connection = new NpgsqlConnection(_connectionString))
+            {
+                string query = @"
+                    SELECT
+                        user_like_id
+                    FROM user_likes
+                    WHERE sender_user_id = @senderUserId
+                        AND receiver_user_id = @receiverUserId
+                ";
+
+                return (await connection.QueryFirstOrDefaultAsync<Guid>(query, new { senderUserId, receiverUserId }))!;
             }
         }
         catch (Exception)
