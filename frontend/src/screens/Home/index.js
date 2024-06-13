@@ -146,12 +146,26 @@ export const Home = ({ navigation }) => {
                             </>
                         )}
                     </WorkoutContent>
-                    <ImageRepresentation
-                        marginLeft={percentage(-0.04, 'w')}
-                        marginTop={percentage(0.01, 'h')}
-                        resizeMode='contain'
-                        source={require('../../assets/Images/MenRepresentation.png')}
-                    />
+                    {
+                        user.gender === 'M' && (
+                            <ImageRepresentation
+                                marginLeft={percentage(-0.04, 'w')}
+                                marginTop={percentage(0.01, 'h')}
+                                resizeMode='contain'
+                                source={require('../../assets/Images/MenRepresentation.png')}
+                            />
+                        )
+                    }
+                    {
+                        user.gender === 'F' && (
+                            <ImageRepresentation
+                                marginLeft={percentage(-0.04, 'w')}
+                                marginTop={percentage(0.01, 'h')}
+                                resizeMode='contain'
+                                source={require('../../assets/Images/WomanRepresentation.png')}
+                            />
+                        )
+                    }
                 </DiaryWorkoutContainer>
             </Container>
         </Gradient>

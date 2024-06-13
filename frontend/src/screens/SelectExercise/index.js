@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Title } from '../../components/Title/style';
-import { Button } from '../../components/Button';
 import { IconButton } from '../../components/IconButton';
 import { MaterialIcons } from '@expo/vector-icons';
 import { FlatList, TouchableOpacity } from 'react-native';
-import BtnExercise from './style'; // Certifique-se de que o caminho está correto
 import Gradient from '../../components/Gradient';
 import { Container } from '../../components/Container/style';
 import { ListContainer } from '../../components/ListContainer/style';
