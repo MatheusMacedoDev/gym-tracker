@@ -40,6 +40,7 @@ export const Home = ({ navigation }) => {
         if (response.status == 400) {
             return;
         }
+
         setDiaryWorkout(response.data);
     }
 
@@ -92,13 +93,15 @@ export const Home = ({ navigation }) => {
                         {diaryWorkout ? (
                             <>
                                 <Title
-                                    alignSelf={'flex-start'}
-                                    marginBottom={percentage(0.07, 'h')}
+                                    alignSelf='flex-start'
+                                    alignLeft={true}
+                                    marginTop={percentage(0.05, 'h')}
+                                    marginBottom={percentage(0.03, 'h')}
                                     fontSize={24}
                                 >
                                     {diaryWorkout.workoutName}
                                 </Title>
-                                <ListContainer heightContainer='55%'>
+                                <ListContainer heightContainer='50%'>
                                     <ListComponent
                                         data={diaryWorkout.diaryExercises}
                                         renderItem={({ item }) => (
@@ -108,12 +111,16 @@ export const Home = ({ navigation }) => {
                                                         ? item.exerciseName
                                                         : ''
                                                 }
+                                                checked={
+                                                    item.doneSeriesAmount >=
+                                                    item.originalSeriesAmount
+                                                }
                                             />
                                         )}
                                     />
                                 </ListContainer>
                                 <IconButton
-                                    left='5%'
+                                    left='2%'
                                     top='75%'
                                     handleClickFn={DeleteWorkout}
                                     icon={
