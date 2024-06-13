@@ -60,8 +60,27 @@ public class ProfileHistory
 
     public ProfileHistory(DateTime lastHistoryDate, Guid userId, float weight, short height, float? abdominalGirth, float? scapularGirth, float? hipGirth, float? armGirth, float? legGirth, float? bodyFat, string? evolutionPhoto)
     {
-        SpaceBetweenProfileDatesValidation(lastHistoryDate);
+        //SpaceBetweenProfileDatesValidation(lastHistoryDate);
 
+        ProfileHistoryId = Guid.NewGuid();
+        ProfileDate = DateTime.UtcNow;
+
+        Weight = weight;
+        Height = height;
+
+        AbdominalGirth = abdominalGirth;
+        ScapularGirth = scapularGirth;
+        HipGirth = hipGirth;
+        ArmGirth = armGirth;
+        LegGirth = legGirth;
+        BodyFat = bodyFat;
+        EvolutionPhoto = evolutionPhoto;
+
+        UserId = userId;
+    }
+
+    public ProfileHistory(Guid userId, float weight, short height, float? abdominalGirth, float? scapularGirth, float? hipGirth, float? armGirth, float? legGirth, float? bodyFat, string? evolutionPhoto)
+    {
         ProfileHistoryId = Guid.NewGuid();
         ProfileDate = DateTime.UtcNow;
 

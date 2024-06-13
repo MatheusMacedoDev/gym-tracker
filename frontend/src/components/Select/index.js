@@ -5,7 +5,8 @@ import { LabelSelect } from "./Label/style";
 
 const seriesNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
-export const Select = ({ setSelected, label }) => {
+export const Select = ({ setSelected, label, data }) => {
+
   return (
     <SelectContainer>
     <LabelSelect>{label && label}</LabelSelect>
@@ -26,7 +27,7 @@ export const Select = ({ setSelected, label }) => {
       inputStyles={{ fontSize: 18, color: '#DBDADD'}}
       setSelected={setSelected}
       notFoundText=""
-      data={seriesNumber}
+      data={data}
     />
     </SelectContainer>
   );

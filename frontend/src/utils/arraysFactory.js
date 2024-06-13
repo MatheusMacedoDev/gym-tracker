@@ -27,3 +27,6 @@ export function createArrayYears() {
         }
         return centimeterArray;
       };
+
+  export const seriesNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+  export const repetitionsNumber = ["1-4", "4-8", "8-12", "12-16", "16-20", "20-24", "24-28"];

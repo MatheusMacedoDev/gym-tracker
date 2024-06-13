@@ -1,123 +1,240 @@
-import api, { apiUrlLocal } from "../apiAccesor";
+import api, { apiUrlLocal } from '../apiAccesor';
 
-const registerUserEndpoint = "/users";
-const loginEndpoint = "/users/login";
-const updateProfileImageEndpoint = "/users/update_profile_image";
-const createProfileHistoryEndpoint = "/users/profile_history";
-const getProfileHistoriesEndpoint = "/users/profile_history";
+const registerUserEndpoint = '/users';
+const loginEndpoint = '/users/login';
+const updateProfileImageEndpoint = '/users/update_profile_image';
+const getUserProfileImageEndpoint = '/users/profile_image';
+const createProfileHistoryEndpoint = '/users/profile_history';
+const getProfileHistoriesEndpoint = '/users/profile_history';
 
 export async function MakeLogin(email, password) {
-  try {
-    const response = await api.post(apiUrlLocal + loginEndpoint, {
-      userEmail: email,
-      userPassword: password,
-    });
+    try {
+        const response = await api.post(apiUrlLocal + loginEndpoint, {
+            userEmail: email,
+            userPassword: password
+        });
 
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 export async function RegisterUser(email, password, name, birthYear, gender) {
-  try {
-    const response = await api.post(apiUrlLocal + registerUserEndpoint, {
-      email,
-      password,
-      name,
-      birthYear,
-      gender,
-    });
+    try {
+        const response = await api.post(apiUrlLocal + registerUserEndpoint, {
+            email,
+            password,
+            name,
+            birthYear,
+            gender
+        });
 
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function GetUserProfileImage(userId) {
+    try {
+        const response = await api.get(
+            `${apiUrlLocal}${getUserProfileImageEndpoint}?userId=${userId}`
+        );
+
+        return response;
+    } catch (error) {
+        if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        } else if (error.request) {
+            console.log(error.request);
+        } else {
+            console.log('Error', error.message);
+        }
+        console.log(error.config);
+    }
 }
 
 export async function UpdateProfileImage(userId, imageUri) {
-  try {
-    const formData = FormData();
+    try {
+        const formData = new FormData();
 
-    formData.append("userId", userId);
+        formData.append('userId', userId);
 
-    formData.append("profileImageFile", {
-      uri: imageUri,
-      name: "image.jpg",
-      type: "image/jpg",
-    });
+        formData.append('profileImageFile', {
+            uri: imageUri,
+            name: 'image.jpg',
+            type: 'image/jpg'
+        });
 
-    const response = await api.patch(
-      apiUrlLocal + updateProfileImageEndpoint,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      },
-    );
+        const response = await api.patch(
+            apiUrlLocal + updateProfileImageEndpoint,
+            formData,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+        );
 
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 export async function CreateProfileHistory(
-  userId,
-  weight,
-  height,
-  abdominalGirth,
-  scapularGirth,
-  hipGirth,
-  armGirth,
-  legGirth,
-  bodyFat,
-  evolutionPhotoUri,
+    userId,
+    weight,
+    height,
+    abdominalGirth,
+    scapularGirth,
+    hipGirth,
+    armGirth,
+    legGirth,
+    bodyFat,
+    evolutionPhotoUri
 ) {
-  try {
-    const formData = FormData();
+    try {
+        const formData = new FormData();
 
-    formData.append("userId", userId);
-    formData.append("weight", weight);
-    formData.append("height", height);
-    formData.append("abdominalGirth", abdominalGirth);
-    formData.append("scapularGirth", scapularGirth);
-    formData.append("hipGirth", hipGirth);
-    formData.append("armGirth", armGirth);
-    formData.append("legGirth", legGirth);
-    formData.append("bodyFat", bodyFat);
+        formData.append('userId', userId);
 
-    formData.append("evolutionPhoto", {
-      uri: evolutionPhotoUri,
-      name: "image.jpg",
-      type: "image/jpg",
-    });
+        if (weight) {
+            formData.append('weight', weight);
+        }
 
-    const response = await api.post(
-      apiUrlLocal + createProfileHistoryEndpoint,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      },
-    );
+        if (height) {
+            formData.append('height', height);
+        }
 
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
+        if (abdominalGirth) {
+            formData.append('abdominalGirth', abdominalGirth);
+        }
+
+        if (scapularGirth) {
+            formData.append('scapularGirth', scapularGirth);
+        }
+
+        if (hipGirth) {
+            formData.append('hipGirth', hipGirth);
+        }
+
+        if (armGirth) {
+            formData.append('armGirth', armGirth);
+        }
+
+        if (legGirth) {
+            formData.append('legGirth', legGirth);
+        }
+
+        if (bodyFat) {
+            formData.append('bodyFat', bodyFat);
+        }
+
+        if (evolutionPhotoUri) {
+            formData.append('evolutionPhoto', {
+                uri: evolutionPhotoUri,
+                name: 'image.jpg',
+                type: 'image/jpg'
+            });
+        }
+
+        const response = await api.post(
+            apiUrlLocal + createProfileHistoryEndpoint,
+            formData,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+        );
+
+        return response;
+    } catch (error) {
+        if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        } else if (error.request) {
+            console.log(error.request);
+        } else {
+            console.log('Error', error.message);
+        }
+        console.log(error.config);
+    }
 }
 
 export async function GetProfileHistoriesByUserId(userId) {
-  try {
-    const response = await api.get(
-      `${apiUrlLocal}${getProfileHistoriesEndpoint}?userId=${userId}`,
-    );
+    try {
+        const response = await api.get(
+            `${apiUrlLocal}${getProfileHistoriesEndpoint}?userId=${userId}`
+        );
 
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function GetUserLikesAmount(userId) {
+    const getUserLikesEndpoint = '/users/likes_amount';
+
+    try {
+        const response = await api.get(
+            `${apiUrlLocal}${getUserLikesEndpoint}?userId=${userId}`
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function GetUserLike(senderUserId, receiverUserId) {
+    const getUserLikeEndpoint = '/users/user_like';
+
+    try {
+        const response = await api.get(
+            `${apiUrlLocal}${getUserLikeEndpoint}?senderUserId=${senderUserId}&receiverUserId=${receiverUserId}`
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function CreateUserLike(senderUserId, receiverUserId) {
+    const createUserLikesEndpoint = '/users/user_like';
+
+    try {
+        const response = await api.post(
+            `${apiUrlLocal}${createUserLikesEndpoint}`,
+            {
+                senderUserId,
+                receiverUserId
+            }
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function DeleteUserLike(userLikeId) {
+    const deleteUserLikesEndpoint = '/users/user_like';
+
+    try {
+        const response = await api.delete(
+            `${apiUrlLocal}${deleteUserLikesEndpoint}?userLikeId=${userLikeId}`
+        );
+
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
 }

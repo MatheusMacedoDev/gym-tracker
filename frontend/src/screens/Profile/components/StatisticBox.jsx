@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
 
 const Container = styled.View`
@@ -28,13 +29,14 @@ export default function StatisticBox({
     editable,
     value,
     setValue,
-    unitText
+    unitText,
+    handleClickFn = null
 }) {
     const [inputValue, setInputValue] = useState('');
 
     function handleChange(text) {
         const valueOnlyDigits = text.replace(/\D/g, '');
-        const maskedValue = valueOnlyDigits + 'cm';
+        const maskedValue = valueOnlyDigits + unitText;
 
         setInputValue(maskedValue);
         setValue(parseInt(valueOnlyDigits));
@@ -43,18 +45,22 @@ export default function StatisticBox({
     useEffect(() => {
         if (value) {
             setInputValue(value + unitText);
+        } else {
+            setInputValue('0' + unitText);
         }
-    }, []);
+    }, [value]);
 
     return (
-        <Container>
-            <Label>{label}</Label>
-            <StatusInput
-                name={label}
-                editable={editable}
-                value={inputValue}
-                onChangeText={handleChange}
-            />
-        </Container>
+        <TouchableOpacity onPress={handleClickFn} disabled={editable}>
+            <Container>
+                <Label>{label}</Label>
+                <StatusInput
+                    name={label}
+                    editable={editable}
+                    value={inputValue}
+                    onChangeText={handleChange}
+                />
+            </Container>
+        </TouchableOpacity>
     );
 }

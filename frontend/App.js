@@ -24,7 +24,7 @@ import { AccountDataRegisterScreen } from './src/screens/AccountDataRegisterScre
 import { WeightRecordScreen } from './src/screens/WeightRecordScreen';
 import { GenderRegisterScreen } from './src/screens/GenderRegisterScreen';
 import { HeighRecordScreen } from './src/screens/HeightRecordScreen';
-import { TrainingRecordScrenn } from './src/screens/TrainingRecordScreen';
+import { TrainingRecordScreen } from './src/screens/TrainingRecordScreen';
 import Joao from './src/teste/joao';
 import { SelectExercise } from './src/screens/SelectExercise';
 import { ExerciseRecord } from './src/screens/ExerciseRecord';
@@ -42,12 +42,13 @@ import { getUserToken } from './src/utils/tokenHandler';
 import { useEffect } from 'react';
 import Profile from './src/screens/Profile';
 import Camera from './src/screens/Camera';
-import SharedProfile from './src/screens/ViewSharedProfile/index';
+import ProfileImageContext from './src/global/ProfileImageContext';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
     const [currentUser, setCurrentUser] = useState({});
+    const [profileImage, setProfileImage] = useState('');
 
     const [fontsLoaded, fontsError] = useFonts({
         Montserrat_700Bold,
@@ -73,107 +74,110 @@ export default function App() {
         <AuthContext.Provider
             value={{ user: currentUser, setUser: setCurrentUser }}
         >
-            <NavigationContainer>
-                <Stack.Navigator
-                    screenOptions={{
-                        headerShown: false,
-                        gestureEnabled: false
-                    }}
-                >
-                    <Stack.Screen name='Navigation' component={Navigation} />
-                    <Stack.Screen name='Main' component={Main} />
-                    <Stack.Screen name='Home' component={Home} />
-                    <Stack.Screen name='Eduardo' component={Eduardo} />
-                    <Stack.Screen name='Rubens' component={Rubens} />
-                    <Stack.Screen name='Joao' component={Joao} />
-                    <Stack.Screen
-                        name='RecoverPasswordScreen'
-                        component={RecoverPasswordScreen}
-                    />
-                    <Stack.Screen
-                        name='EmailCodeScreen'
-                        component={EmailCodeScreen}
-                    />
-                    <Stack.Screen
-                        name='ResetPasswordScreen'
-                        component={ResetPasswordScreen}
-                    />
-                    <Stack.Screen name='LoginScreen' component={LoginScreen} />
-                    <Stack.Screen
-                        name='BirthYearRegisterScreen'
-                        component={BirthYearRegisterScreen}
-                    />
-                    <Stack.Screen
-                        name='NameRegisterScreen'
-                        component={NameRegisterScreen}
-                    />
-                    <Stack.Screen
-                        name='AccountDataRegisterScreen'
-                        component={AccountDataRegisterScreen}
-                    />
-                    <Stack.Screen
-                        name='WeightRecordScreen'
-                        component={WeightRecordScreen}
-                    />
-                    <Stack.Screen
-                        name='GenderRegisterScreen'
-                        component={GenderRegisterScreen}
-                    />
-                    <Stack.Screen
-                        name='HeighRecordScreen'
-                        component={HeighRecordScreen}
-                    />
-                    <Stack.Screen
-                        name='TrainingRecordScreen'
-                        component={TrainingRecordScrenn}
-                    />
-                    <Stack.Screen
-                        name='SelectExercise'
-                        component={SelectExercise}
-                    />
-                    <Stack.Screen
-                        name='ExerciseRecord'
-                        component={ExerciseRecord}
-                    />
-                    <Stack.Screen
-                        name='RankingScreen'
-                        component={RankingScreen}
-                    />
-                    <Stack.Screen
-                        name='DefaultWorkoutExerciseScreen'
-                        component={DefaultWorkoutExerciseScreen}
-                    />
-                    <Stack.Screen
-                        name='DefaultWorkoutsScreen'
-                        component={DefaultWorkoutsScreen}
-                    />
-                    <Stack.Screen
-                        name='SelectGroupMuscle'
-                        component={SelectGroupMuscle}
-                    />
-                    <Stack.Screen
-                        name='Presentation'
-                        component={Presentation}
-                    />
-                    <Stack.Screen
-                        name='PresentationInitial'
-                        component={PresentationInitial}
-                    />
-                    <Stack.Screen
-                        name='TrainingExercisesScreens'
-                        component={TrainingExercisesScreens}
-                    />
-                    <Stack.Screen
-                        name='Camera'
-                        component={Camera}
-                    />
-                    <Stack.Screen
-                        name='SharedProfile'
-                        component={SharedProfile}
-                    />
-                    <Stack.Screen name='Profile' component={Profile} />
-                </Stack.Navigator>
-            </NavigationContainer>
+            <ProfileImageContext.Provider
+                value={{ profileImage, setProfileImage }}
+            >
+                <NavigationContainer>
+                    <Stack.Navigator
+                        screenOptions={{
+                            headerShown: false,
+                            gestureEnabled: false
+                        }}
+                    >
+                        <Stack.Screen
+                            name='Navigation'
+                            component={Navigation}
+                        />
+                        <Stack.Screen name='Main' component={Main} />
+                        <Stack.Screen name='Home' component={Home} />
+                        <Stack.Screen name='Eduardo' component={Eduardo} />
+                        <Stack.Screen name='Rubens' component={Rubens} />
+                        <Stack.Screen name='Joao' component={Joao} />
+                        <Stack.Screen
+                            name='RecoverPasswordScreen'
+                            component={RecoverPasswordScreen}
+                        />
+                        <Stack.Screen
+                            name='EmailCodeScreen'
+                            component={EmailCodeScreen}
+                        />
+                        <Stack.Screen
+                            name='ResetPasswordScreen'
+                            component={ResetPasswordScreen}
+                        />
+                        <Stack.Screen
+                            name='LoginScreen'
+                            component={LoginScreen}
+                        />
+                        <Stack.Screen
+                            name='BirthYearRegisterScreen'
+                            component={BirthYearRegisterScreen}
+                        />
+                        <Stack.Screen
+                            name='NameRegisterScreen'
+                            component={NameRegisterScreen}
+                        />
+                        <Stack.Screen
+                            name='AccountDataRegisterScreen'
+                            component={AccountDataRegisterScreen}
+                        />
+                        <Stack.Screen
+                            name='WeightRecordScreen'
+                            component={WeightRecordScreen}
+                        />
+                        <Stack.Screen
+                            name='GenderRegisterScreen'
+                            component={GenderRegisterScreen}
+                        />
+                        <Stack.Screen
+                            name='HeighRecordScreen'
+                            component={HeighRecordScreen}
+                        />
+                        <Stack.Screen
+                            name='TrainingRecordScreen'
+                            component={TrainingRecordScreen}
+                        />
+                        <Stack.Screen
+                            name='SelectExercise'
+                            component={SelectExercise}
+                        />
+                        <Stack.Screen
+                            name='ExerciseRecord'
+                            component={ExerciseRecord}
+                        />
+                        <Stack.Screen
+                            name='RankingScreen'
+                            component={RankingScreen}
+                        />
+                        <Stack.Screen
+                            name='DefaultWorkoutExerciseScreen'
+                            component={DefaultWorkoutExerciseScreen}
+                        />
+                        <Stack.Screen
+                            name='DefaultWorkoutsScreen'
+                            component={DefaultWorkoutsScreen}
+                        />
+                        <Stack.Screen
+                            name='SelectGroupMuscle'
+                            component={SelectGroupMuscle}
+                        />
+                        <Stack.Screen
+                            name='Presentation'
+                            component={Presentation}
+                        />
+                        <Stack.Screen
+                            name='PresentationInitial'
+                            component={PresentationInitial}
+                        />
+                        <Stack.Screen
+                            name='TrainingExercisesScreens'
+                            component={TrainingExercisesScreens}
+                        />
+                        <Stack.Screen name='Camera' component={Camera} />
+                        <Stack.Screen name='Profile' component={Profile} />
+                    </Stack.Navigator>
+                </NavigationContainer>
+            </ProfileImageContext.Provider>
         </AuthContext.Provider>
     );
 }

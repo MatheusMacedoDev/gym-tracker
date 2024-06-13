@@ -58,9 +58,9 @@ public class WorkoutController : ControllerBase
     {
         try
         {
-            await _diaryWorkoutService.RegisterDiaryExercise(request);
+            var response = await _diaryWorkoutService.RegisterDiaryExercise(request);
 
-            return Created();
+            return Ok(response);
         }
         catch (Exception error)
         {
@@ -162,9 +162,9 @@ public class WorkoutController : ControllerBase
     {
         try
         {
-            await _diaryWorkoutService.RegisterDiaryWorkout(request);
+            var response = await _diaryWorkoutService.RegisterDiaryWorkout(request);
 
-            return Created();
+            return Ok(response);
         }
         catch (Exception error)
         {

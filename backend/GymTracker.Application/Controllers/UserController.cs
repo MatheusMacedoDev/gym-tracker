@@ -31,6 +31,21 @@ public class UserController : ControllerBase
         }
     }
 
+    [HttpGet("profile_image")]
+    public async Task<IActionResult> GetProfileImage(Guid userId)
+    {
+        try
+        {
+            var response = await _userService.GetProfileImage(userId);
+
+            return Ok(response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.Message);
+        }
+    }
+
     [HttpPatch("update_profile_image")]
     public async Task<IActionResult> UpdateProfileImage([FromForm] ChangeUserProfileImageRequest request)
     {
@@ -40,10 +55,9 @@ public class UserController : ControllerBase
 
             return StatusCode(200, response);
         }
-        catch (System.Exception)
+        catch (Exception error)
         {
-
-            throw;
+            return BadRequest(error.Message);
         }
     }
 
@@ -122,7 +136,7 @@ public class UserController : ControllerBase
         }
     }
 
-    [HttpGet("user_like")]
+    [HttpGet("likes_amount")]
     public async Task<IActionResult> GetLikesByUserId(Guid userId)
     {
         try
@@ -130,6 +144,24 @@ public class UserController : ControllerBase
             var response = await _userService.GetLikesByUserID(userId);
 
             return Ok(response);
+        }
+        catch (Exception error)
+        {
+            return BadRequest(error.ToString());
+        }
+    }
+
+    [HttpGet("user_like")]
+    public async Task<IActionResult> GetUserLikeBySenderAndReceiver(Guid senderUserId, Guid receiverUserId)
+    {
+        try
+        {
+            var userLikeId = await _userService.GetUserLikeIdBySenderAndReceiver(senderUserId, receiverUserId);
+
+            if (userLikeId == Guid.Empty)
+                return NotFound();
+
+            return Ok(userLikeId);
         }
         catch (Exception error)
         {

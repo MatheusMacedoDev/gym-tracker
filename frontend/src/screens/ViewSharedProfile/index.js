@@ -151,7 +151,7 @@ const SharedProfile = () => {
                         Fotos
                     </Title>
 
-                    <Carousel/>
+                    
 
                     {allowEdit && isProfileEditing ? (
                         <Button

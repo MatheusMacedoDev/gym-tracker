@@ -53,6 +53,7 @@ export const AccountDataRegisterScreen = ({ navigation, route }) => {
                 </CommandText>
                 <Input
                     marginTop={percentage(0.08, 'h')}
+                    autoFocus
                     placeholder='E-mail...'
                     value={email}
                     onChangeText={setEmail}
@@ -60,12 +61,14 @@ export const AccountDataRegisterScreen = ({ navigation, route }) => {
                 <Input
                     marginTop={percentage(0.02, 'h')}
                     placeholder='Senha...'
+                    secureTextEntry
                     value={password}
                     onChangeText={setPassword}
                 />
                 <Input
                     marginTop={percentage(0.02, 'h')}
                     placeholder='Confirme sua senha...'
+                    secureTextEntry
                     value={confirmPassword}
                     onChangeText={setConfirmPassword}
                 />
