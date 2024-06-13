@@ -11,6 +11,7 @@ import ProfileView from './components/ProfileView';
 import {
     CreateProfileHistory,
     GetProfileHistoriesByUserId,
+    GetUserLikesAmount,
     GetUserProfileImage,
     UpdateProfileImage
 } from '../../infra/services/userService';
@@ -38,12 +39,10 @@ const Profile = ({ navigation }) => {
     const [selectedGraphLegend, setSelectedGraphLegend] = useState('');
     const [selectedGraphData, setSelectedGraphData] = useState(null);
 
+    const [userLikesAmount, setUserLikesAmount] = useState(0);
+
     const { user, setUser } = useContext(AuthContext);
     const { profileImage, setProfileImage } = useContext(ProfileImageContext);
-
-    useEffect(() => {
-        console.log(user);
-    }, [user]);
 
     async function saveProfileHistory() {
         const response = await CreateProfileHistory(
@@ -89,7 +88,6 @@ const Profile = ({ navigation }) => {
 
     async function saveNewProfileImage(photoUri) {
         if (!photoUri || photoUri.trim() === '') {
-            console.log('Uri vazia');
             return;
         }
 
@@ -159,9 +157,24 @@ const Profile = ({ navigation }) => {
         setLegGirth(currentProfileHistoryData.legGirth);
     }
 
+    async function getUserLikesAmount() {
+        const response = await GetUserLikesAmount(user.userId);
+
+        console.log(response);
+
+        if (response.status === 400) {
+            return;
+        }
+
+        const likesAmount = response.data;
+
+        setUserLikesAmount(likesAmount);
+    }
+
     useEffect(() => {
         getUserProfileImageData();
         getUserProfileData();
+        getUserLikesAmount();
     }, []);
 
     useEffect(() => {
@@ -202,7 +215,7 @@ const Profile = ({ navigation }) => {
                     <ProfileView
                         userName={user.name}
                         avatarUri={profileImage}
-                        likesAmount='1,2k'
+                        likesAmount={userLikesAmount}
                         handleEditClick={() => {
                             navigation.navigate('Camera', {
                                 handlePhoto: saveNewProfileImage
