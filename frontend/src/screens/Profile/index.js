@@ -205,7 +205,6 @@ const Profile = ({ navigation }) => {
 
     return (
         <Gradient>
-            <Container>
                 <ScrollContainer
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{
@@ -362,12 +361,11 @@ const Profile = ({ navigation }) => {
                     <Button
                         title='Sair'
                         marginTop={percentage(0.03, 'h')}
-                        marginBottom={percentage(0.01, 'h')}
+                        marginBottom={percentage(0.04, 'h')}
                         handleClickFn={logoutProfile}
                         hiddenButton={true}
                     />
                 </ScrollContainer>
-            </Container>
         </Gradient>
     );
 };

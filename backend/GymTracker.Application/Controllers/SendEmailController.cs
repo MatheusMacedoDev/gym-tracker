@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GymTracker.Application.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/send_email")]
     [ApiController]
     public class SendEmailController : ControllerBase
     {

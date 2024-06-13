@@ -6,6 +6,7 @@ const updateProfileImageEndpoint = '/users/update_profile_image';
 const getUserProfileImageEndpoint = '/users/profile_image';
 const createProfileHistoryEndpoint = '/users/profile_history';
 const getProfileHistoriesEndpoint = '/users/profile_history';
+const sendPasswordRecoverCodeEndpoint = '/send_email/send_password_recovery_email';
 
 export async function MakeLogin(email, password) {
     try {
@@ -221,6 +222,16 @@ export async function CreateUserLike(senderUserId, receiverUserId) {
 
         return response;
     } catch (error) {
+        if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        } else if (error.request) {
+            console.log(error.request);
+        } else {
+            console.log('Error', error.message);
+        }
+        console.log(error.config);
         console.log(error);
     }
 }
@@ -236,5 +247,25 @@ export async function DeleteUserLike(userLikeId) {
         return response;
     } catch (error) {
         console.log(error);
+    }
+}
+
+export async function SendPasswordRecoverCode(email) {
+    try {
+        const response = await api.post(
+            `${apiUrlLocal}${sendPasswordRecoverCodeEndpoint}?email=${email}` 
+        );
+        return response;
+    } catch (error) {
+        if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        } else if (error.request) {
+            console.log(error.request);
+        } else {
+            console.log('Error', error.message);
+        }
+        console.log(error.config);
     }
 }

@@ -10,7 +10,8 @@ export const Container = styled.View`
 
 export const ScrollContainer = styled.ScrollView`
     flex: 1;
-    width: 100%;
+    width: 85%;
+    margin: auto;
 `;
 
 export const ContainerHome = styled.SafeAreaView`
