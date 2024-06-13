@@ -22,7 +22,6 @@ export const NewWorkoutModal = ({
     ...rest
 }) => {
     const [trainingName, setTrainingName] = useState();
-    const [workout, setWorkout] = useState();
     const user = useContext(AuthContext);
 
     async function CreateWorkout() {
@@ -30,8 +29,11 @@ export const NewWorkoutModal = ({
             user.user.userId,
             trainingName
         );
-        setWorkout(response.data);
+
+        const workout = response.data;
+
         setShowModalNewWorkout(false);
+
         navigation.navigate('DefaultWorkoutExerciseScreen', {
             defaultWorkoutId: workout.defaultWorkoutId,
             trainingName: trainingName
