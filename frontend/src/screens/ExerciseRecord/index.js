@@ -30,12 +30,11 @@ export const ExerciseRecord = ({ navigation, route }) => {
                 overload: ''
             });
         }
+        console.log(route.params);
         setSeries(seriesArray);
     }, [route.params]);
 
-    useEffect(() => {
-        console.log(series);
-    }, [series]);
+
 
     const updateSeries = (id, field, value) => {
         setSeries(x => x.map(serie =>
@@ -47,17 +46,19 @@ export const ExerciseRecord = ({ navigation, route }) => {
         if (series) {
             for (let index = 0; index < series.length; index++) {
                 if (series[index].repetitions && series[index].overload) {
-                    await RegisterDiaryExerciseSeries(
-                        series[index].diaryExerciseId,
-                        series[index].id,
-                        series[index].repetitions,
-                        series[index].overload
-                    )
+                    
                 }
-
+                await RegisterDiaryExerciseSeries(
+                    series[index].diaryExerciseId,
+                    series[index].id,
+                    series[index].repetitions,
+                    series[index].overload
+                )
             }
+            console.log(route.params.disableFn());
+            route.params.disableFn()
             navigation.navigate('TrainingExercisesScreens');
-        }
+        } else {alert("preencha todas repeticoes e cargas")}
     }
 
 

@@ -38,11 +38,24 @@ export const TrainingExercisesScreens = ({ navigation, route }) => {
         setWorkoutExercises(response.data)
     }
 
-    async function RegisterDiaryExercise(defaultExerciseId, seriesAmount, repetitionsRange) {
+    function DisableExerciceButton(index) {
+        let auxWorkoutExercises = workoutexercises;
+
+        auxWorkoutExercises[index] = {
+            ...auxWorkoutExercises[index],
+            disabled: true
+        }
+        
+        setWorkoutExercises(auxWorkoutExercises);
+    }
+
+    async function RegisterDiaryExercise(defaultExerciseId, seriesAmount, repetitionsRange, index) {
         const promisse = await CreateDiaryExercise(defaultExerciseId, idDiaryWorkout)
         console.log(promisse.data);
+
         navigation.navigate('ExerciseRecord', {
-            seriesAmount: seriesAmount, repetitions: repetitionsRange, diaryExerciseId: promisse.data.diaryExerciseId
+            seriesAmount: seriesAmount, repetitions: repetitionsRange, diaryExerciseId: promisse.data.diaryExerciseId,
+            disableFn: () => DisableExerciceButton(index)
         })
     }
 
@@ -78,9 +91,9 @@ export const TrainingExercisesScreens = ({ navigation, route }) => {
                         contentContainerStyle={{
                             gap: 16
                         }}
-                        renderItem={({ item }) => (
+                        renderItem={({ item, index }) => (
                             <TouchableOpacity
-                                onPress={() => RegisterDiaryExercise(item.defaultExerciseId, item.seriesAmount, item.repetitionsRange)}
+                                onPress={() => RegisterDiaryExercise(item.defaultExerciseId, item.seriesAmount, item.repetitionsRange, index)}
                             >
                                 <ExerciseCard titleExercise={item.exerciseName} />
                             </TouchableOpacity>
