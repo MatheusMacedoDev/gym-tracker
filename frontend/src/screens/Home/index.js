@@ -36,21 +36,13 @@ export const Home = ({ navigation }) => {
 
     async function GetExercises() {
         const response = await GetExercisesByDiaryWorkout(date, user.userId);
-
-        if (response.status == 400) {
-            return;
-        }
-
         setDiaryWorkout(response.data);
     }
 
     async function DeleteWorkout() {
         const response = await DeleteDiaryWorkout(diaryWorkout.diaryWorkoutId);
+        GetExercises();
 
-        if (response.status === 204) {
-            GetExercises();
-        } else {
-        }
     }
 
     async function getUserProfileImageData() {

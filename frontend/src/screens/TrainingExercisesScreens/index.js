@@ -89,7 +89,7 @@ export const TrainingExercisesScreens = ({ navigation, route }) => {
                 </ListContainer>
                 <Button
                     handleClickFn={() =>
-                        navigation.navigate('SelectGroupMuscle')
+                        navigation.navigate('Home')
                     }
                     marginTop={percentage(0.06, 'h')}
                     title='Finalizar Treino'
