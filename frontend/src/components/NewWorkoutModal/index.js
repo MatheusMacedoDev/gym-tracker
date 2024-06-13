@@ -13,6 +13,7 @@ import AuthContext from '../../global/AuthContext';
 import { CreateDefaultWorkout } from '../../infra/services/defaultWorkoutService';
 import { IconButton } from '../IconButton';
 import { MaterialIcons } from '@expo/vector-icons';
+import ModalBackground from '../ModalBackground/ModaBackground';
 
 export const NewWorkoutModal = ({
     navigation,
@@ -22,7 +23,7 @@ export const NewWorkoutModal = ({
 }) => {
     const [trainingName, setTrainingName] = useState();
     const [workout, setWorkout] = useState();
-    const user = useContext(AuthContext)
+    const user = useContext(AuthContext);
 
     async function CreateWorkout() {
         const response = await CreateDefaultWorkout(
@@ -45,52 +46,58 @@ export const NewWorkoutModal = ({
             statusBarTranslucent={false}
             animationType='fade'
         >
-            <ContentModal style={{ shadowColor: 'white', shadowOpacity: 0.4 }}>
-                <Gradient locationOne={1} roundedBorders={true}>
-                <IconButton
-                    gradient={false}
-                    top={0}
-                    left={10}
-                    icon={
-                        <MaterialIcons
-                            name='reply'
-                            size={40}
-                            color={'#FB6614'}
-                            onPress={() => setShowModalNewWorkout(false)}
+            <ModalBackground>
+                <ContentModal>
+                    <Gradient locationOne={1} roundedBorders={true}>
+                        <IconButton
+                            gradient={false}
+                            top='14px'
+                            left='14px'
+                            icon={
+                                <MaterialIcons
+                                    name='reply'
+                                    size={40}
+                                    color={'#FB6614'}
+                                    onPress={() =>
+                                        setShowModalNewWorkout(false)
+                                    }
+                                />
+                            }
                         />
-                    }
-                />
-                    <Logo
-                        widthLogo={'27%'}
-                        heightLogo={'12%'}
-                        marginTop={percentage(0.05, 'h')}
-                    />
-                    <Title fontSize={18} marginTop={percentage(0.05, 'h')}>
-                        Defina o nome do treino:
-                    </Title>
-                    <Input
-                        placeholder='Nome do treino...'
-                        widthInput={'85%'}
-                        heightInput={'13%'}
-                        marginTop={percentage(0.05, 'h')}
-                        onChangeText={setTrainingName}
-                    />
-                    <Button
-                        alignCenter={true}
-                        widthButton={'85%'}
-                        heightButton={'11%'}
-                        marginTop={percentage(0.05, 'h')}
-                        handleClickFn={CreateWorkout}
-                        icon={() => (
-                            <Ionicons
-                                name='send'
-                                size={20}
-                                color={colors.white}
-                            />
-                        )}
-                    />
-                </Gradient>
-            </ContentModal>
+                        <Logo
+                            widthLogo={'27%'}
+                            heightLogo={'12%'}
+                            marginTop={percentage(0.08, 'h')}
+                        />
+                        <Title fontSize={18} marginTop={percentage(0.06, 'h')}>
+                            Defina o nome do treino:
+                        </Title>
+                        <Input
+                            placeholder='Nome do treino...'
+                            widthInput={'85%'}
+                            heightInput={'13%'}
+                            marginTop={percentage(0.05, 'h')}
+                            onChangeText={setTrainingName}
+                        />
+                        <Button
+                            alignCenter={true}
+                            widthButton={'85%'}
+                            heightButton={'11%'}
+                            marginTop={percentage(0.06, 'h')}
+                            handleClickFn={CreateWorkout}
+                            title='Criar treino'
+                            fontSize={16}
+                            icon={() => (
+                                <Ionicons
+                                    name='send'
+                                    size={20}
+                                    color={colors.white}
+                                />
+                            )}
+                        />
+                    </Gradient>
+                </ContentModal>
+            </ModalBackground>
         </Modal>
     );
 };
