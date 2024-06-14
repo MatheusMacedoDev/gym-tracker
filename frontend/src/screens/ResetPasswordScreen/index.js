@@ -61,12 +61,14 @@ export const ResetPasswordScreen = ({ navigation, route }) => {
                     placeholder='Nova senha...'
                     value={newPassword}
                     onChangeText={setNewPassword}
+                    secureTextEntry={true}
                 />
                 <Input
                     marginTop={percentage(0.03, 'h')}
                     placeholder='Repita a nova senha...'
                     value={confirmNewPassword}
                     onChangeText={setConfirmNewPassword}
+                    secureTextEntry={true}
                 />
                 <Button
                     marginTop={percentage(0.12, 'h')}
