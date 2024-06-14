@@ -26,6 +26,9 @@ import { GetUserProfileImage } from '../../infra/services/userService';
 import Toast from 'react-native-toast-message';
 import { callWelcomeToast, toastConfig } from '../../utils/toastConfiguration';
 import moment from 'moment';
+import { IconButton } from '../../components/IconButton';
+import { colors } from '../../colors.config';
+import { FontAwesome } from '@expo/vector-icons';
 
 export const Home = ({ navigation }) => {
     const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
