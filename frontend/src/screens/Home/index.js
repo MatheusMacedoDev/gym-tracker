@@ -25,9 +25,10 @@ import ProfileImageContext from '../../global/ProfileImageContext';
 import { GetUserProfileImage } from '../../infra/services/userService';
 import Toast from 'react-native-toast-message';
 import { callWelcomeToast, toastConfig } from '../../utils/toastConfiguration';
+import moment from 'moment';
 
 export const Home = ({ navigation }) => {
-    const [date, setDate] = useState(null);
+    const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
     const [diaryWorkout, setDiaryWorkout] = useState(null);
 
     const { user } = useContext(AuthContext);
