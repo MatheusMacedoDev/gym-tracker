@@ -5,10 +5,14 @@ import styles from './style'; // Importa os estilos atualizados
 
 const screenWidth = Dimensions.get('window').width;
 
-const ITEM_WIDTH = 100; // Largura fixa de cada item
+const images = [
+ 
+];
+
+const ITEM_WIDTH = screenWidth * 0.2; // Largura de cada item na FlatList
 const ITEM_HEIGHT = ITEM_WIDTH * 1.2; // Altura de cada item
 
-const SELECTED_ITEM_WIDTH = 150; // Largura fixa do item selecionado
+const SELECTED_ITEM_WIDTH = screenWidth * 0.3; // Largura do item selecionado
 const SELECTED_ITEM_HEIGHT = SELECTED_ITEM_WIDTH * 1.2; // Altura do item selecionado
 
 const Carousel = ({ images }) => {
@@ -18,11 +22,11 @@ const Carousel = ({ images }) => {
   const handleSlideChange = (index) => {
     const newIndex = Math.max(0, Math.min(index, images.length - 1)); // Limita o índice entre 0 e o número de imagens - 1
     setSelectedImageIndex(newIndex);
-    scrollToSelectedImage(newIndex); // Corrigido para mover para a imagem selecionada
+    scrollToSelectedImage(2); // Move para a posição 2 do carrossel
   };
 
   const scrollToSelectedImage = (index) => {
-    const offsetX = index * ITEM_WIDTH;
+    const offsetX = index * screenWidth + (SELECTED_ITEM_WIDTH - screenWidth) / 2;
     scrollViewRef.current.scrollTo({ x: offsetX, animated: true });
   };
 
@@ -37,9 +41,9 @@ const Carousel = ({ images }) => {
           horizontal
           pagingEnabled
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingHorizontal: 10, width: ITEM_WIDTH * images.length }} // Define a largura total do conteúdo
+          contentContainerStyle={{ paddingHorizontal: 10 }} // Remove o alinhamento horizontal do ScrollView
           onScroll={(event) => {
-            const slideIndex = Math.round(event.nativeEvent.contentOffset.x / ITEM_WIDTH);
+            const slideIndex = Math.round(event.nativeEvent.contentOffset.x / screenWidth);
             setSelectedImageIndex(slideIndex); // Atualiza o índice da imagem selecionada ao rolar a lista
           }}
         >
@@ -47,7 +51,7 @@ const Carousel = ({ images }) => {
             const isSelected = selectedImageIndex === index; // Verifica se a imagem está selecionada
             const borderStyle = isSelected ? { borderColor: '#FFF', borderWidth: 2 } : {}; // Estilo da borda
             const containerStyle = isSelected
-              ? { width: SELECTED_ITEM_WIDTH, height: SELECTED_ITEM_HEIGHT } // Para trazer a imagem selecionada para a frente
+              ? { width: SELECTED_ITEM_WIDTH, height: SELECTED_ITEM_HEIGHT} // Para trazer a imagem selecionada para a frente
               : { width: ITEM_WIDTH, height: ITEM_HEIGHT, marginHorizontal: 5, opacity: 0.5, marginTop: 25 }; // Adiciona margem horizontal e opacidade às imagens não selecionadas
 
             return (

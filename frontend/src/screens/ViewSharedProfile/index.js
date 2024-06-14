@@ -36,6 +36,14 @@ const SharedProfile = () => {
         legend: ['Progresso']
     };
 
+
+    const [images, setImages] = useState([
+        'https://gymtrackerblobstorage.blob.core.windows.net/gymtrackerblobcontainer/094105daa6f644e4b40b22d064750162.jpg',
+        'https://gymtrackerblobstorage.blob.core.windows.net/gymtrackerblobcontainer/18acc85d1f764d8d9805cd3b2169aa53.jpg',
+        'https://gymtrackerblobstorage.blob.core.windows.net/gymtrackerblobcontainer/379b9af1338c42fdbb8b30fe088482f5.jpg'
+  
+    ]);
+
     function saveProfileHistory() {
         setIsProfileEditing(false);
         setAllowEdit(false);
@@ -45,7 +53,7 @@ const SharedProfile = () => {
         setIsProfileEditing(true);
     }
 
-    function logoutProfile() {}
+    function logoutProfile() { }
 
     return (
         <Gradient>
@@ -60,7 +68,7 @@ const SharedProfile = () => {
                         avatarUri='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCMi61i5ieAks081B7kEedNZtMWFpFjYyc79aQgPVuM7MhAW4gVPtvwYhkTjjHea3lG4E&usqp=CAU'
                         likesAmount='1,2k'
                     />
-
+<Carousel images={images}/>
                     <Title
                         fontSize={20}
                         marginTop={percentage(0.03, 'h')}
@@ -151,7 +159,7 @@ const SharedProfile = () => {
                         Fotos
                     </Title>
 
-                    
+
 
                     {allowEdit && isProfileEditing ? (
                         <Button

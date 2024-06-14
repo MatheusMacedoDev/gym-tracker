@@ -43,6 +43,8 @@ import { useEffect } from 'react';
 import Profile from './src/screens/Profile';
 import Camera from './src/screens/Camera';
 import ProfileImageContext from './src/global/ProfileImageContext';
+import SharedProfile from './src/screens/ViewSharedProfile';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -172,6 +174,10 @@ export default function App() {
                         <Stack.Screen
                             name='TrainingExercisesScreens'
                             component={TrainingExercisesScreens}
+                        />
+                        <Stack.Screen
+                            name='SharedProfile'
+                            component={SharedProfile}
                         />
                         <Stack.Screen name='Camera' component={Camera} />
                         <Stack.Screen name='Profile' component={Profile} />
