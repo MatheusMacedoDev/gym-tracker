@@ -58,7 +58,6 @@ export const TrainingRecordScreen = ({ navigation, route }) => {
                             name='reply'
                             size={40}
                             color={'#FB6614'}
-                            onPress={() => navigation.goBack()}
                         />
                     }
                 />

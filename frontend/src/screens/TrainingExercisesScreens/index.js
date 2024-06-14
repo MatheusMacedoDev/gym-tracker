@@ -14,7 +14,7 @@ import { percentage } from '../../utils/percentageFactory';
 import { useEffect, useState } from 'react';
 import { GetExercisesByDefaultWorkout } from '../../infra/services/defaultWorkoutService';
 import { CreateDiaryExercise } from '../../infra/services/diaryWorkoutService';
-
+import { FontAwesome } from '@expo/vector-icons';
 
 export const TrainingExercisesScreens = ({ navigation, route }) => {
     const [defaultWorkout, setDefaultWorkout] = useState()
@@ -38,24 +38,18 @@ export const TrainingExercisesScreens = ({ navigation, route }) => {
         setWorkoutExercises(response.data)
     }
 
-    function DisableExerciceButton(index) {
-        let auxWorkoutExercises = workoutexercises;
-
-        auxWorkoutExercises[index] = {
-            ...auxWorkoutExercises[index],
-            disabled: true
-        }
-        
-        setWorkoutExercises(auxWorkoutExercises);
+    function DisableExerciseButton(index) {
+        const updatedExercises = workoutexercises.map((exercise, i) => 
+            i === index ? { ...exercise, disabled: true } : exercise
+        );
+        setWorkoutExercises(updatedExercises);
     }
 
     async function RegisterDiaryExercise(defaultExerciseId, seriesAmount, repetitionsRange, index) {
-        const promisse = await CreateDiaryExercise(defaultExerciseId, idDiaryWorkout)
-        console.log(promisse.data);
-
+       const promisse = await CreateDiaryExercise(defaultExerciseId, idDiaryWorkout)
         navigation.navigate('ExerciseRecord', {
             seriesAmount: seriesAmount, repetitions: repetitionsRange, diaryExerciseId: promisse.data.diaryExerciseId,
-            disableFn: () => DisableExerciceButton(index)
+            disableFn: () => DisableExerciseButton(index)
         })
     }
 
@@ -93,9 +87,14 @@ export const TrainingExercisesScreens = ({ navigation, route }) => {
                         }}
                         renderItem={({ item, index }) => (
                             <TouchableOpacity
+                                disabled={item.disabled ? item.disabled : false}
                                 onPress={() => RegisterDiaryExercise(item.defaultExerciseId, item.seriesAmount, item.repetitionsRange, index)}
                             >
-                                <ExerciseCard titleExercise={item.exerciseName} />
+                                <ExerciseCard 
+                                disabledTrue={item.disabled ? item.disabled : false}
+                                 titleExercise={item.exerciseName} 
+                                icon={(size, color) => <FontAwesome name="lock" size={size} color={color} />}
+                                />
                             </TouchableOpacity>
                         )}
                     />
