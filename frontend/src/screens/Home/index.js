@@ -24,7 +24,7 @@ import AuthContext from '../../global/AuthContext';
 import ProfileImageContext from '../../global/ProfileImageContext';
 import { GetUserProfileImage } from '../../infra/services/userService';
 import Toast from 'react-native-toast-message';
-import { toastConfig } from '../../utils/toastConfiguration';
+import { callWelcomeToast, toastConfig } from '../../utils/toastConfiguration';
 
 export const Home = ({ navigation }) => {
     const [date, setDate] = useState(null);
@@ -56,6 +56,7 @@ export const Home = ({ navigation }) => {
 
     useEffect(() => {
         getUserProfileImageData();
+        callWelcomeToast(user.name);
     }, []);
 
     return (
