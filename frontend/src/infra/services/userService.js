@@ -292,7 +292,7 @@ export async function ValidatePasswordRecoverCode(email, code) {
     }
 }
 
-export async function ChangePassword() {
+export async function ChangePassword(email, newPassword, passwordRecoverCode) {
     try {
         const response = await api.post(apiUrlLocal + changePasswordEndpoint, {
             userEmail: email,

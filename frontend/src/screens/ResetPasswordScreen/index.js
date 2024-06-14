@@ -16,11 +16,18 @@ export const ResetPasswordScreen = ({ navigation, route }) => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
 
-    async function handleChangePassword(email, passwordRecoverCode) {
-        email = route.params.email;
-        passwordRecoverCode = route.params.code;
+    async function handleChangePassword() {
+        const email = route.params.email;
+        const passwordRecoverCode = route.params.code;
+         
+        if (newPassword !== confirmNewPassword) {
+            setError('Passwords do not match');
+            return;
+        }
 
-        if (Response.status == 200) {
+        const response = await ChangePassword(email, newPassword, passwordRecoverCode)
+
+        if (response.status == 200) {
             navigation.navigate('LoginScreen');
         }
     }
