@@ -9,26 +9,19 @@ import RankingCard from '../../components/RankingCard';
 import { percentage } from '../../utils/percentageFactory';
 import { limitCharacters } from '../../utils/stringHandler';
 import { useEffect, useState } from 'react';
-import { getRankUsersByLatestUpdate, getRankUsersByLikes } from '../../infra/services/rankUsersService';
-
-const usuarios = [
-    { id: 1, nome: 'Rubens Moura', curtidas: '2,9' },
-    { id: 2, nome: 'Matheus Macedo', curtidas: '2,5' },
-    { id: 4, nome: 'Joao Oliveira', curtidas: '1,4' },
-    { id: 5, nome: 'Gabriela Ramos', curtidas: '1,1' },
-    { id: 6, nome: 'Eduardo Pasqualetti', curtidas: '1,1' },
-    { id: 7, nome: 'Eduardo Pasqualetti', curtidas: '1,1' }
-];
+import {
+    getRankUsersByLatestUpdate,
+    getRankUsersByLikes
+} from '../../infra/services/rankUsersService';
 
 export const RankingScreen = () => {
-
     const [usersByLikes, setUsersByLikes] = useState();
     const [usersLatestUpdate, setUsersLatestUpdate] = useState();
 
     useEffect(() => {
         getRankUsersLikes();
         getRankUsersUpdateLatest();
-    },[])
+    }, []);
 
     async function getRankUsersLikes() {
         const response = await getRankUsersByLikes();
@@ -61,7 +54,7 @@ export const RankingScreen = () => {
                 >
                     Mais curtidas
                 </RankingTitle>
-                <ListContainer heightContainer={'30%'}>
+                <ListContainer maxHeightContainer={'30%'}>
                     <ListComponent
                         nestedScrollEnabled={true}
                         contentContainerStyle={{
@@ -84,7 +77,7 @@ export const RankingScreen = () => {
                 >
                     Mais recentes
                 </RankingTitle>
-                <ListContainer heightContainer={'30%'}>
+                <ListContainer maxHeightContainer={'30%'}>
                     <ListComponent
                         nestedScrollEnabled={true}
                         contentContainerStyle={{
