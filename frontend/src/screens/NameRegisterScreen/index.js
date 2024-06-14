@@ -7,7 +7,6 @@ import { Logo } from '../../components/Logo';
 import { Title } from '../../components/Title/style';
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
-import { useState } from 'react';
 import { percentage } from '../../utils/percentageFactory';
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -15,12 +14,12 @@ import ErrorMessageText from '../../components/ErrorMessageText/style';
 import { useForm } from 'react-hook-form';
 
 const schema = yup.object().shape({
-    name: yup.string().required("O nome não pode ser vazio").min(3,"O nome não pode ser pequeno assim")
+    name: yup.string().required("O nome não pode ser vazio").min(3,"Nome inválido")
 });
 
 export const NameRegisterScreen = ({ navigation }) => {
     
-    const { register, setValue, handleSubmit, formState: { errors } } = useForm({
+    const { setValue, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
 

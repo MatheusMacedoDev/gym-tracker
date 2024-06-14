@@ -12,16 +12,27 @@ import { MaterialIcons } from '@expo/vector-icons';
 import Gradient from '../../components/Gradient';
 import { percentage } from '../../utils/percentageFactory';
 import { SendPasswordRecoverCode } from '../../infra/services/userService';
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import ErrorMessageText from '../../components/ErrorMessageText/style';
+import { useForm } from 'react-hook-form';
+
+const schema = yup.object().shape({
+    email: yup.string().required("O nome não pode ser vazio").email('Digite um email válido')
+});
 
 export const RecoverPasswordScreen = ({ navigation }) => {
-    const [email, setEmail] = useState('');
 
-    async function handleSendRecoveryCode() {
-        const response = await SendPasswordRecoverCode(email);
+    const { setValue, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(schema)
+    });
+
+    async function handleSendRecoveryCode(data) {
+        const response = await SendPasswordRecoverCode(data.email);
 
         if (response.status == 200) {
             navigation.navigate('EmailCodeScreen', {
-                email: email 
+                email: data.email 
             });
         } else {}
     }
@@ -51,12 +62,13 @@ export const RecoverPasswordScreen = ({ navigation }) => {
                 <Input
                     marginTop={percentage(0.12, 'h')}
                     placeholder='Email de recuperação...'
-                    value={email}
-                    onChangeText={setEmail}
+                    onChangeText={text => setValue('email', text)}
+                    error={errors.email}
                     autoFocus
                 />
+                 {errors.email && <ErrorMessageText>{errors.email.message}</ErrorMessageText>}
                 <Button
-                    handleClickFn={handleSendRecoveryCode}
+                    handleClickFn={handleSubmit(handleSendRecoveryCode)}
                     marginTop={percentage(0.12, 'h')}
                     title='Continuar'
                     icon={(size, color) => (

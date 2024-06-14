@@ -16,19 +16,19 @@ import { ValidatePasswordRecoverCode } from '../../infra/services/userService';
 export const EmailCodeScreen = ({ navigation, route }) => {
     const [code, setCode] = useState('');
 
-    useEffect(() => {}, [code])
+    async function handleValidateRecoveryCode() {
+        if (code.length >= 5) {
+            email = route.params.email;
 
-    async function handleValidateRecoveryCode(email) {
-        email = route.params.email;
-
-        const response = await ValidatePasswordRecoverCode(email, code);
-
-        if (response.status == 200) {
-            navigation.navigate('ResetPasswordScreen', {
-                email: email,
-                code: code
-            });
-        } else {}
+            const response = await ValidatePasswordRecoverCode(email, code);
+    
+            if (response.status == 200) {
+                navigation.navigate('ResetPasswordScreen', {
+                    email: email,
+                    code: code
+                });
+            } else {}
+        } else {alert("vazio")}
     }
 
     return (
