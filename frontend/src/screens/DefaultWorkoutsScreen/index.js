@@ -7,7 +7,6 @@ import { Logo } from '../../components/Logo';
 import { Title } from '../../components/Title/style';
 import { CardWorkout } from '../../components/CardWorkout';
 import { Button } from '../../components/Button';
-import { Entypo } from '@expo/vector-icons';
 import { useCallback, useContext } from 'react';
 import { NewWorkoutModal } from '../../components/NewWorkoutModal';
 import { percentage } from '../../utils/percentageFactory';
@@ -17,6 +16,7 @@ import { useState } from 'react';
 import AuthContext from '../../global/AuthContext.js';
 import Toast from 'react-native-toast-message';
 import { toastConfig } from '../../utils/toastConfiguration.js';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export const DefaultWorkoutsScreen = ({ navigation }) => {
     const [selectedWorkout, setSelectedWorkout] = useState();
@@ -88,11 +88,11 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
 
                     <Button
                         handleClickFn={() => setShowModalNewWorkout(true)}
-                        marginTop={percentage(0.05, 'h')}
+                        marginTop={percentage(0.07, 'h')}
                         title='Adicionar treino'
                         icon={(size, color) => (
-                            <Entypo
-                                name='chevron-right'
+                            <MaterialIcons
+                                name='format-list-bulleted-add'
                                 size={size}
                                 color={color}
                             />
