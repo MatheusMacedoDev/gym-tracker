@@ -1,4 +1,4 @@
-import { BaseToast } from "react-native-toast-message";
+import Toast, { BaseToast } from "react-native-toast-message";
 import { colors } from "../colors.config";
 
 export const toastConfig = {
@@ -49,3 +49,32 @@ export const toastConfig = {
         </View>
     )
 };
+
+export const callWelcomeToast = userName => Toast.show({
+    type: 'success',
+    text1: `Olá, ${userName}, bora treinar?`,
+    text2: 'Não se preocupe, vamos acompanhar o seu progresso.'
+})
+
+export const callDefaultWorkoutCreatedToast = workoutName => Toast.show({
+    type: 'success',
+    text1: `O treino ${workoutName}, foi criado com sucesso!`,
+    text2: 'Agora basta adicionar os seus exercícios.'
+})
+
+export const callPhotoRegisteredToast = () => Toast.show({
+    type: 'success',
+    text1: `Foto registrada com sucesso`
+})
+
+export const callDefaultWorkoutExerciseCreatedToast = exerciseName => Toast.show({
+    type: 'success',
+    text1: `O exercício ${exerciseName}, foi adicionado ao seu treino diário com sucesso!`,
+    text2: 'Adicione mais exercícios se preferir.'
+})
+
+export const callProfileUpdatedToast = () => Toast.show({
+    type: 'success',
+    text1: `Parabéns pelo progresso!`,
+    text2: 'O seus novos dados já foram registrados.'
+})
