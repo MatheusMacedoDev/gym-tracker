@@ -7,4 +7,6 @@ export const PhotoLogo = styled.Image`
     margin-top: ${props => (props.marginTop ? `${props.marginTop}` : '0px')};
     margin-bottom: ${props =>
         props.marginBottom ? `${props.marginBottom}` : '0px'};
+    position: relative;
+    z-index: 0;
 `;
