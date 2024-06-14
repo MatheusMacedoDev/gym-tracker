@@ -14,12 +14,17 @@ export const GenderRegisterScreen = ({ navigation, route }) => {
     const [selectedGender, setSelectedGender] = useState();
 
     async function handleContinue() {
-        navigation.navigate('BirthYearRegisterScreen', {
-            userData: {
-                ...route.params,
-                gender: selectedGender
-            }
-        });
+        if (selectedGender) {
+            navigation.navigate('BirthYearRegisterScreen', {
+                userData: {
+                    ...route.params,
+                    gender: selectedGender
+                }
+            });
+        } else {
+            
+        }
+       
     }
 
     return (
