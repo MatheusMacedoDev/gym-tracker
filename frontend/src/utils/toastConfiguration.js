@@ -88,6 +88,12 @@ export const callPhotoRegisteredToast = () =>
         text1: `Foto registrada com sucesso`
     });
 
+export const callProfilePhotoUpdatedToast = () =>
+    Toast.show({
+        type: 'success',
+        text1: `Sua foto de perfil foi atualizada!`
+    });
+
 export const callDefaultWorkoutExerciseCreatedToast = exerciseName =>
     Toast.show({
         type: 'success',
