@@ -19,12 +19,18 @@ export const Main = () => {
                 screenOptions={({ route }) => ({
                     tabBarStyle: {
                         backgroundColor: '#27242B',
+                        width: '102%',
                         height: '10%',
+                        alignSelf: 'center',
                         paddingTop: 10,
                         paddingLeft: 40,
                         paddingRight: 40,
                         borderRadius: 20,
-                        borderTopWidth: 0
+                        borderTopWidth: 1,
+                        borderLeftWidth: 0.5,
+                        borderRightWidth: 0.5,
+                        borderColor: '#DBDADD',
+                        borderStyle: 'solid'
                     },
                     tabBarActiveBackgroundColor: 'transparent',
                     tabBarShowLabel: false,

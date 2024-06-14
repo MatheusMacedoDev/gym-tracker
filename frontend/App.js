@@ -47,7 +47,7 @@ import ProfileImageContext from './src/global/ProfileImageContext';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-    const [currentUser, setCurrentUser] = useState({});
+    const [currentUser, setCurrentUser] = useState(null);
     const [profileImage, setProfileImage] = useState('');
 
     const [fontsLoaded, fontsError] = useFonts({
@@ -83,6 +83,7 @@ export default function App() {
                             headerShown: false,
                             gestureEnabled: false
                         }}
+                        initialRouteName={!currentUser ? 'LoginScreen' : 'Main'}
                     >
                         <Stack.Screen
                             name='Navigation'

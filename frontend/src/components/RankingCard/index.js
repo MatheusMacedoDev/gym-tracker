@@ -7,14 +7,14 @@ import TextNumbersRanking from './Style/TextNumbersRanking';
 import ViewLikes from './Style/ViewLikes';
 import { percentage } from '../../utils/percentageFactory';
 
-export default RankingCard = ({ name, likes, sequentialNumber }) => {
+export default RankingCard = ({ name, likes, sequentialNumber, profilePhoto }) => {
     return (
         <ContainerRankingCard verticalPadding={percentage(0.03, 'h')}>
             <TextNumbersRanking>{sequentialNumber}°</TextNumbersRanking>
             <ImagePersonRanking
                 marginLeft={percentage(0.01, 'h')}
                 resizeMode='cover'
-                source={require('../../assets/joao.jpeg')}
+                source={{uri: profilePhoto}}
             />
             <NamePersonRanking marginLeft={percentage(0.02, 'h')}>
                 {name}
@@ -22,7 +22,7 @@ export default RankingCard = ({ name, likes, sequentialNumber }) => {
             <ViewLikes>
                 <AntDesign name='heart' size={20} color={colors.orange} />
                 <TextNumbersRanking colorText={colors.orange}>
-                    {likes}k
+                    {likes}
                 </TextNumbersRanking>
             </ViewLikes>
         </ContainerRankingCard>

@@ -11,7 +11,10 @@ import { Title } from '../../components/Title/style';
 import { Fontisto } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
-import { DeleteDefaultExerciseWorkout, GetExercisesByDefaultWorkout } from '../../infra/services/defaultWorkoutService';
+import {
+    DeleteDefaultExerciseWorkout,
+    GetExercisesByDefaultWorkout
+} from '../../infra/services/defaultWorkoutService';
 import { percentage } from '../../utils/percentageFactory';
 import { useFocusEffect } from '@react-navigation/native';
 
@@ -27,7 +30,6 @@ export const DefaultWorkoutExerciseScreen = ({ navigation, route }) => {
                 route.params.defaultWorkoutId != undefined
             ) {
                 GetDefaultWorkoutExercise();
-
             } else {
                 console.log('erro');
             }
@@ -41,7 +43,7 @@ export const DefaultWorkoutExerciseScreen = ({ navigation, route }) => {
 
     async function DeleteDefaultWorkoutExercise(defaultExerciseId) {
         const response = await DeleteDefaultExerciseWorkout(defaultExerciseId);
-        GetDefaultWorkoutExercise()
+        GetDefaultWorkoutExercise();
     }
 
     return (
@@ -60,17 +62,17 @@ export const DefaultWorkoutExerciseScreen = ({ navigation, route }) => {
                 />
                 <CommandText
                     textAlign={'center'}
-                    marginTop={percentage(0.2, 'h')}
+                    marginTop={percentage(0.15, 'h')}
                 >
                     Treinos predefinidos
                 </CommandText>
                 <Title
                     marginTop={percentage(0.02, 'h')}
-                    marginBottom={percentage(0.05, 'h')}
+                    marginBottom={percentage(0.07, 'h')}
                 >
                     {trainingName}
                 </Title>
-                <ListContainer heightContainer={'40%'}>
+                <ListContainer heightContainer={'48%'}>
                     <ListComponent
                         data={defaultWorkoutExercises}
                         renderItem={({ item }) => (
@@ -82,7 +84,11 @@ export const DefaultWorkoutExerciseScreen = ({ navigation, route }) => {
                                         name='trash'
                                         size={size}
                                         color={color}
-                                        onPress={() => DeleteDefaultWorkoutExercise(item.defaultExerciseId)}
+                                        onPress={() =>
+                                            DeleteDefaultWorkoutExercise(
+                                                item.defaultExerciseId
+                                            )
+                                        }
                                     />
                                 )}
                             />
@@ -96,7 +102,7 @@ export const DefaultWorkoutExerciseScreen = ({ navigation, route }) => {
                             defaultWorkoutId: defaultWorkoutId
                         })
                     }
-                    marginTop={percentage(0.03, 'h')}
+                    marginTop={percentage(0.07, 'h')}
                     title='Adicionar exercício'
                     icon={(size, color) => (
                         <Entypo

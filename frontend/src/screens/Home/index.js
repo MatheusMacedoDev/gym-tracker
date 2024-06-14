@@ -36,21 +36,13 @@ export const Home = ({ navigation }) => {
 
     async function GetExercises() {
         const response = await GetExercisesByDiaryWorkout(date, user.userId);
-
-        if (response.status == 400) {
-            return;
-        }
-
         setDiaryWorkout(response.data);
     }
 
     async function DeleteWorkout() {
         const response = await DeleteDiaryWorkout(diaryWorkout.diaryWorkoutId);
+        GetExercises();
 
-        if (response.status === 204) {
-            GetExercises();
-        } else {
-        }
     }
 
     async function getUserProfileImageData() {
@@ -154,12 +146,26 @@ export const Home = ({ navigation }) => {
                             </>
                         )}
                     </WorkoutContent>
-                    <ImageRepresentation
-                        marginLeft={percentage(-0.04, 'w')}
-                        marginTop={percentage(0.01, 'h')}
-                        resizeMode='contain'
-                        source={require('../../assets/Images/MenRepresentation.png')}
-                    />
+                    {
+                        user.gender === 'M' && (
+                            <ImageRepresentation
+                                marginLeft={percentage(-0.04, 'w')}
+                                marginTop={percentage(0.01, 'h')}
+                                resizeMode='contain'
+                                source={require('../../assets/Images/MenRepresentation.png')}
+                            />
+                        )
+                    }
+                    {
+                        user.gender === 'F' && (
+                            <ImageRepresentation
+                                marginLeft={percentage(-0.04, 'w')}
+                                marginTop={percentage(0.01, 'h')}
+                                resizeMode='contain'
+                                source={require('../../assets/Images/WomanRepresentation.png')}
+                            />
+                        )
+                    }
                 </DiaryWorkoutContainer>
             </Container>
         </Gradient>

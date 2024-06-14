@@ -28,7 +28,7 @@ export default function StatisticBox({
     label,
     editable,
     value,
-    setValue,
+    setValue = () => {},
     unitText,
     handleClickFn = null
 }) {

@@ -14,6 +14,7 @@ import { Label } from './Label/style';
 import { percentage } from '../../utils/percentageFactory';
 import { IconButton } from '../../components/IconButton';
 import { MaterialIcons } from '@expo/vector-icons';
+import { RegisterDiaryExerciseSeries } from '../../infra/services/diaryWorkoutService';
 
 export const ExerciseRecord = ({ navigation, route }) => {
     const [series, setSeries] = useState([]);
@@ -22,25 +23,43 @@ export const ExerciseRecord = ({ navigation, route }) => {
         const seriesArray = [];
         for (let i = 0; i < route.params.seriesAmount; i++) {
             seriesArray.push({
-                diaryWorkoutId: route.params.diaryWorkoutId,
+                diaryExerciseId: route.params.diaryExerciseId,
                 id: i + 1,
                 repsRange: route.params.repetitions,
                 repetitions: '',
                 overload: ''
             });
         }
+        console.log(route.params);
         setSeries(seriesArray);
     }, [route.params]);
 
-    useEffect(() => {
-        console.log(series);
-    }, [series]);
+
 
     const updateSeries = (id, field, value) => {
         setSeries(x => x.map(serie =>
             serie.id === id ? { ...serie, [field]: value } : serie
         ));
     };
+
+    async function RegisterExerciseSeries() {
+        if (series) {
+            for (let index = 0; index < series.length; index++) {
+                if (series[index].repetitions && series[index].overload) {
+
+
+                    await RegisterDiaryExerciseSeries(
+                        series[index].diaryExerciseId,
+                        series[index].id,
+                        series[index].repetitions,
+                        series[index].overload
+                    )
+                }
+            }
+            route.params.disableFn()
+            navigation.navigate('TrainingExercisesScreens');
+        } else { alert("preencha todas repeticoes e cargas") }
+    }
 
 
     return (
@@ -89,9 +108,7 @@ export const ExerciseRecord = ({ navigation, route }) => {
                 </ListContainer>
                 <Button
                     marginTop={percentage(0.05, 'h')}
-                    handleClickFn={() => {
-                        navigation.navigate('TrainingExercisesScreens');
-                    }}
+                    handleClickFn={() => RegisterExerciseSeries()}
                     title='Finalizar exercício'
                     icon={(size, color) => (
                         <Entypo

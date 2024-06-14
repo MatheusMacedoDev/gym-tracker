@@ -8,6 +8,8 @@ import { ListComponent } from '../../components/List/style';
 import RankingCard from '../../components/RankingCard';
 import { percentage } from '../../utils/percentageFactory';
 import { limitCharacters } from '../../utils/stringHandler';
+import { useEffect, useState } from 'react';
+import { getRankUsersByLatestUpdate, getRankUsersByLikes } from '../../infra/services/rankUsersService';
 
 const usuarios = [
     { id: 1, nome: 'Rubens Moura', curtidas: '2,9' },
@@ -19,6 +21,27 @@ const usuarios = [
 ];
 
 export const RankingScreen = () => {
+
+    const [usersByLikes, setUsersByLikes] = useState();
+    const [usersLatestUpdate, setUsersLatestUpdate] = useState();
+
+    useEffect(() => {
+        getRankUsersLikes();
+        getRankUsersUpdateLatest();
+    },[])
+
+    async function getRankUsersLikes() {
+        const response = await getRankUsersByLikes();
+        setUsersByLikes(response.data);
+        console.log(response.data);
+    }
+
+    async function getRankUsersUpdateLatest() {
+        const response = await getRankUsersByLatestUpdate();
+        setUsersLatestUpdate(response.data);
+        console.log(response.data);
+    }
+
     return (
         <Gradient>
             <ScrollContainer
@@ -44,12 +67,13 @@ export const RankingScreen = () => {
                         contentContainerStyle={{
                             gap: 18
                         }}
-                        data={usuarios}
+                        data={usersByLikes}
                         renderItem={({ item, index }) => (
                             <RankingCard
-                                name={limitCharacters(item.nome, 14)}
-                                likes={item.curtidas}
+                                name={limitCharacters(item.userName, 14)}
+                                likes={item.likes}
                                 sequentialNumber={index + 1}
+                                profilePhoto={item.profilePhoto}
                             />
                         )}
                     />
@@ -66,12 +90,13 @@ export const RankingScreen = () => {
                         contentContainerStyle={{
                             gap: 18
                         }}
-                        data={usuarios}
+                        data={usersLatestUpdate}
                         renderItem={({ item, index }) => (
                             <RankingCard
-                                name={limitCharacters(item.nome, 14)}
-                                likes={item.curtidas}
+                                name={limitCharacters(item.userName, 14)}
+                                likes={item.likes}
                                 sequentialNumber={index + 1}
+                                profilePhoto={item.profilePhoto}
                             />
                         )}
                     />
