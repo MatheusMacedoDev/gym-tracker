@@ -11,6 +11,7 @@ import Gradient from '../../components/Gradient/index.js';
 import { SelectPicker } from '../../components/SelectPicker/index.js';
 import { percentage } from '../../utils/percentageFactory.js';
 import { RegisterUser } from '../../infra/services/userService.js';
+import { SendWelcomeEmail } from '../../infra/services/userService.js';
 
 export const BirthYearRegisterScreen = ({ navigation, route }) => {
     const [yearBirth, setYearBirth] = useState(2023);
@@ -29,9 +30,14 @@ export const BirthYearRegisterScreen = ({ navigation, route }) => {
             parseInt(yearBirth),
             userData.gender
         );
+
         console.log(response.status);
+
         if (response.status === 201) {
+            await SendWelcomeEmail(userData.email, userData.name);
             navigation.replace('LoginScreen');
+        } else {
+            setError('Failed to register. Please try again.');
         }
     }
 
