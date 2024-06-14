@@ -43,6 +43,8 @@ import { useEffect } from 'react';
 import Profile from './src/screens/Profile';
 import Camera from './src/screens/Camera';
 import ProfileImageContext from './src/global/ProfileImageContext';
+import Toast from 'react-native-toast-message';
+import { toastConfig } from './src/utils/toastConfiguration';
 
 const Stack = createNativeStackNavigator();
 

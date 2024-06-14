@@ -42,10 +42,12 @@
     "react-native-gesture-handler": "~2.16.1",
     "react-native-linear-gradient": "^2.8.3",
     "react-native-mask-input": "^1.2.3",
+    "react-native-portalize": "^1.0.7",
     "react-native-reanimated": "~3.10.1",
     "react-native-reanimated-carousel": "^3.5.1",
     "react-native-snap-carousel": "^3.9.1",
     "react-native-swiper": "^1.6.0",
+    "react-native-toast-message": "^2.2.0",
     "styled-components": "^6.1.5-rc.0",
     "typescript": "~5.3.3",
     "yup": "^1.4.0"
