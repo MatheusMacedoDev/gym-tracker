@@ -137,7 +137,7 @@ export const Home = ({ navigation }) => {
                                     heightButton='12%'
                                     marginTop={percentage(0.05, 'h')}
                                     handleClickFn={() =>
-                                        navigation.replace(
+                                        navigation.navigate(
                                             'TrainingRecordScreen',
                                             { date: date }
                                         )

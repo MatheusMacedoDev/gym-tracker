@@ -77,6 +77,7 @@ export const DefaultWorkoutExerciseScreen = ({ navigation, route }) => {
                         data={defaultWorkoutExercises}
                         renderItem={({ item }) => (
                             <ExerciseCard
+                                defaultWorkout={true}
                                 marginBottom='16px'
                                 titleExercise={item.exerciseName}
                                 icon={(size, color) => (
