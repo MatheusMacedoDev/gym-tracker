@@ -30,16 +30,21 @@ export const SelectedExerciseModal = ({
     const [repetitionsAmount, setRepetitionsAmount] = useState();
 
     async function CreateDefaultWorkoutExercise() {
-        const response = await CreateDefaultExercise(
-            exerciseId,
-            defaultWorkoutId,
-            repetitionsAmount,
-            seriesAmount
-        );
-        navigation.navigate('DefaultWorkoutExerciseScreen', {
-            defaultWorkoutId: defaultWorkoutId,
-            trainingName: trainingName
-        });
+        if (seriesAmount && repetitionsAmount) {
+            await CreateDefaultExercise(
+                exerciseId,
+                defaultWorkoutId,
+                repetitionsAmount,
+                seriesAmount
+            );
+            navigation.navigate('DefaultWorkoutExerciseScreen', {
+                defaultWorkoutId: defaultWorkoutId,
+                trainingName: trainingName
+            });
+        } else {
+            
+        }
+
     }
 
     return (

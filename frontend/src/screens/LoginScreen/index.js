@@ -14,44 +14,37 @@ import { getUserToken, setUserToken } from '../../utils/tokenHandler';
 import AuthContext from '../../global/AuthContext';
 import { useForm } from 'react-hook-form';
 import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Text } from 'react-native';
+import ErrorMessageText from '../../components/ErrorMessageText/style';
+
+const schema = yup.object().shape({
+    email: yup.string().required('O email não pode ser vazio').email('Digite um email válido'),
+    password: yup.string().required('A senha não pode ser vazia').min(5, 'A senha deve conter pelo menos 6 dígitos')
+});
 
 export const LoginScreen = ({ navigation }) => {
     const { user, setUser } = useContext(AuthContext);
 
-    const [email, setEmail] = useState('matheus@mail.com');
-    const [password, setPassword] = useState('12345');
-    
-    const fieldsValidationSchema = yup.object().shape({
-        email: yup
-        .string()
-        .required('O email não pode ser vazio')
-        .email('Digite um email válido'),
-        password: yup
-        .string()
-        .required('A senha não pode ser vazia')
-        .min(6, 'A senha deve conter pelo menos 6 dígitos')
-      })
-      
-      const { register, setValue, handleSubmit, errors } = useForm({ validationSchema: fieldsValidationSchema })
+    const { register, setValue, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(schema)
+    });
 
     useEffect(() => {
-        register('email')
-        register('password')
-    }, [register])
+        register('email');
+        register('password');
+    }, [register]);
 
     async function handleLogin(data) {
         const response = await MakeLogin(data.email, data.password);
-        if (response.status == 200) {
+        if (response.status === 200) {
             const token = response.data.authenticationToken;
-
             await setUserToken(token);
-
-            const decodedTokent = await getUserToken();
-
-            setUser(decodedTokent);
-
+            const decodedToken = await getUserToken();
+            setUser(decodedToken);
             navigation.replace('Main');
         } else {
+            // Handle login error
         }
     }
 
@@ -64,20 +57,25 @@ export const LoginScreen = ({ navigation }) => {
                     marginTop={percentage(0.12, 'h')}
                     placeholder='E-mail...'
                     onChangeText={text => setValue('email', text)}
+                    error={errors.email}
                     autoFocus
                 />
+                {errors.email && <ErrorMessageText style={{ fontFamily: "Montserrat_400Regular", fontSize: 15, color: 'red', alignSelf: "flex-start", marginTop: 10, paddingLeft: 5 }}>{errors.email.message}</ErrorMessageText>}
                 <Input
                     marginTop={percentage(0.03, 'h')}
                     placeholder='Senha...'
                     secureTextEntry
+                    error={errors.password}
                     onChangeText={text => setValue('password', text)}
                 />
+                {errors.password && <Text style={{ fontFamily: "Montserrat_400Regular", fontSize: 15, color: 'red', alignSelf: "flex-start", marginTop: 10, paddingLeft: 5 }}>{errors.password.message}</Text>}
+
                 <Link
                     onPress={() => navigation.navigate('RecoverPasswordScreen')}
                     textAlign={'right'}
                     marginTop={percentage(0.03, 'h')}
                 >
-                    Esqueceu sua senha ?
+                    Esqueceu sua senha?
                 </Link>
                 <Button
                     marginTop={percentage(0.1, 'h')}
