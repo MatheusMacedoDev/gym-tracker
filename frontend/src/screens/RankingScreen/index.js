@@ -67,7 +67,7 @@ export const RankingScreen = () => {
                 </RankingTitle>
                 <ListContainer heightContainer={'30%'}>
                     {loading ? (
-                        <ActivityIndicator size='large' color='#0000ff' />
+                        <ActivityIndicator size='large' color='#FF8434' />
                     ) : (
                         <ListComponent
                             nestedScrollEnabled={true}
@@ -94,7 +94,7 @@ export const RankingScreen = () => {
                 </RankingTitle>
                 <ListContainer heightContainer={'30%'}>
                     {loading ? (
-                        <ActivityIndicator size='large' color='#0000ff' />
+                        <ActivityIndicator size='large' color='#FF8434' />
                     ) : (
                         <ListComponent
                             nestedScrollEnabled={true}
