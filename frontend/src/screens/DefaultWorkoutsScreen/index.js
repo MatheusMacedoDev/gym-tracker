@@ -20,12 +20,12 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
     const [selectedWorkout, setSelectedWorkout] = useState();
     const [showModalNewWorkout, setShowModalNewWorkout] = useState(false);
     const [defaultWorkouts, setDefaultWorkouts] = useState();
-    const user = useContext(AuthContext)
+    const user = useContext(AuthContext);
 
     useFocusEffect(
         useCallback(() => {
             GetDefaultWorkout();
-        }, []),
+        }, [])
     );
 
     const seeTraining = item => {
@@ -40,9 +40,7 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
     };
 
     async function GetDefaultWorkout() {
-        const response = await GetDefaultWorkoutsByUserId(
-            user.user.userId
-        );
+        const response = await GetDefaultWorkoutsByUserId(user.user.userId);
         setDefaultWorkouts(response.data);
         console.log(response.data);
     }
@@ -50,7 +48,7 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
     return (
         <Gradient>
             <Container>
-                <Logo marginTop={percentage(0.1, 'h')} />
+                <Logo marginTop={percentage(0.085, 'h')} />
                 <Title
                     marginTop={percentage(0.05, 'h')}
                     marginBottom={percentage(0.05, 'h')}
@@ -68,7 +66,10 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
                             >
                                 <CardWorkout
                                     trainingName={item.defaultWorkoutName}
-                                    muscleGroups={item.relatedMuscleGroups}
+                                    muscleGroups={
+                                        item.relatedMuscleGroups ||
+                                        'Sem exercícios ainda...'
+                                    }
                                     marginBottom='10px'
                                     isSelected={
                                         selectedWorkout

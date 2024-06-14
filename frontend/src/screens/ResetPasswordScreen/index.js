@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Button } from '../../components/Button';
 import { CommandText } from '../../components/CommandText/style';
 import { Container } from '../../components/Container/style';
@@ -9,8 +10,28 @@ import { Title } from '../../components/Title/style';
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { percentage } from '../../utils/percentageFactory';
+import { ChangePassword } from '../../infra/services/userService';
 
-export const ResetPasswordScreen = ({ navigation }) => {
+export const ResetPasswordScreen = ({ navigation, route }) => {
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmNewPassword, setConfirmNewPassword] = useState('');
+
+    async function handleChangePassword() {
+        const email = route.params.email;
+        const passwordRecoverCode = route.params.code;
+         
+        if (newPassword !== confirmNewPassword) {
+            setError('Passwords do not match');
+            return;
+        }
+
+        const response = await ChangePassword(email, newPassword, passwordRecoverCode)
+
+        if (response.status == 200) {
+            navigation.navigate('LoginScreen');
+        }
+    }
+
     return (
         <Gradient>
             <Container>
@@ -38,10 +59,16 @@ export const ResetPasswordScreen = ({ navigation }) => {
                 <Input
                     marginTop={percentage(0.12, 'h')}
                     placeholder='Nova senha...'
+                    value={newPassword}
+                    onChangeText={setNewPassword}
+                    secureTextEntry={true}
                 />
                 <Input
                     marginTop={percentage(0.03, 'h')}
                     placeholder='Repita a nova senha...'
+                    value={confirmNewPassword}
+                    onChangeText={setConfirmNewPassword}
+                    secureTextEntry={true}
                 />
                 <Button
                     marginTop={percentage(0.12, 'h')}
@@ -53,7 +80,7 @@ export const ResetPasswordScreen = ({ navigation }) => {
                             color={color}
                         />
                     )}
-                    handleClickFn={() => navigation.navigate('LoginScreen')}
+                    handleClickFn={() => handleChangePassword()}
                 />
             </Container>
         </Gradient>

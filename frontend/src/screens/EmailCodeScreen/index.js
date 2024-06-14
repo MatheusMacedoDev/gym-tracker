@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '../../components/Button';
 import CodeInput from '../../components/CodeInput';
 import { CommandText } from '../../components/CommandText/style';
@@ -11,12 +11,24 @@ import { Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { Logo } from '../../components/Logo';
 import Gradient from '../../components/Gradient';
 import { percentage } from '../../utils/percentageFactory';
+import { ValidatePasswordRecoverCode } from '../../infra/services/userService';
 
-export const EmailCodeScreen = ({ navigation }) => {
+export const EmailCodeScreen = ({ navigation, route }) => {
     const [code, setCode] = useState('');
 
-    async function passToResetPassword() {
-        navigation.navigate('ResetPasswordScreen');
+    useEffect(() => {}, [code])
+
+    async function handleValidateRecoveryCode(email) {
+        email = route.params.email;
+
+        const response = await ValidatePasswordRecoverCode(email, code);
+
+        if (response.status == 200) {
+            navigation.navigate('ResetPasswordScreen', {
+                email: email,
+                code: code
+            });
+        } else {}
     }
 
     return (
@@ -45,9 +57,12 @@ export const EmailCodeScreen = ({ navigation }) => {
                         Digite o cógido que foi enviado para o seu e-mail para
                         verficarmos o seu pedido.
                     </CommandText>
-                    <CodeInput code={code} setCode={setCode} />
+                    <CodeInput 
+                        code={code} 
+                        setCode={setCode} 
+                    />
                     <Button
-                        handleClickFn={passToResetPassword}
+                        handleClickFn={handleValidateRecoveryCode}
                         marginTop={percentage(0.12, 'h')}
                         title='Continuar'
                         icon={(size, color) => (

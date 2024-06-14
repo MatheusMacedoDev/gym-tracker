@@ -12,6 +12,7 @@ const Gradient = styled(LinearGradient).attrs(props => ({
     height: 100%;
     width: 100%;
     border-radius: ${props => (props.roundedBorders ? '15px' : '0px')};
+    position: relative;
 `;
 
 export default Gradient;

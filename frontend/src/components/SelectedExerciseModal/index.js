@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { percentage } from '../../utils/percentageFactory';
 import { CreateDefaultExercise } from '../../infra/services/defaultWorkoutService';
 import { repetitionsNumber, seriesNumber } from '../../utils/arraysFactory';
+import ModalBackground from '../ModalBackground/ModaBackground';
 
 export const SelectedExerciseModal = ({
     nameExercise,
@@ -29,13 +30,21 @@ export const SelectedExerciseModal = ({
     const [repetitionsAmount, setRepetitionsAmount] = useState();
 
     async function CreateDefaultWorkoutExercise() {
-        const response = await CreateDefaultExercise(
-            exerciseId,
-            defaultWorkoutId,
-            repetitionsAmount,
-            seriesAmount
-        );
-        navigation.navigate("DefaultWorkoutExerciseScreen", {defaultWorkoutId: defaultWorkoutId, trainingName:trainingName})
+        if (seriesAmount && repetitionsAmount) {
+            await CreateDefaultExercise(
+                exerciseId,
+                defaultWorkoutId,
+                repetitionsAmount,
+                seriesAmount
+            );
+            navigation.navigate('DefaultWorkoutExerciseScreen', {
+                defaultWorkoutId: defaultWorkoutId,
+                trainingName: trainingName
+            });
+        } else {
+            
+        }
+
     }
 
     return (
@@ -45,50 +54,62 @@ export const SelectedExerciseModal = ({
             transparent={true}
             animationType='fade'
         >
-            <ContentModal style={{ shadowColor: 'white', shadowOpacity: 0.8 }}>
-                <Gradient locationOne={1} roundedBorders={true}>
-                    <Title fontSize={32} marginTop={percentage(0.05, 'h')}>
-                        {nameExercise}
-                    </Title>
-                    <ExerciseImage
-                        source={require('../../assets/Images/ExerciseImage.png')}
-                    />
-                    <ViewSelect marginTop={percentage(0.05, 'h')}>
-                        <Select
-                            label={'Series'}
-                            setSelected={setSeriesAmount}
-                            data={seriesNumber}
+            <ModalBackground>
+                <ContentModal
+                    style={{
+                        borderTopWidth: 2,
+                        borderLeftWidth: 2,
+                        borderRightWidth: 2,
+                        borderColor: colors.white,
+                        borderStyle: 'solid',
+                        borderTopStartRadius: 20,
+                        borderTopEndRadius: 20
+                    }}
+                >
+                    <Gradient locationOne={1} roundedBorders={true}>
+                        <Title fontSize={32} marginTop={percentage(0.05, 'h')}>
+                            {nameExercise}
+                        </Title>
+                        <ExerciseImage
+                            source={require('../../assets/Images/ExerciseImage.png')}
                         />
-                        <Select
-                            label={'Repetições'}
-                            setSelected={setRepetitionsAmount}
-                            data={repetitionsNumber}
-                        />
-                    </ViewSelect>
-                    <Button
-                        marginTop={percentage(0.05, 'h')}
-                        widthButton={'85%'}
-                        heightButon={'9%'}
-                        alignCenter={true}
-                        title={'Salvar'}
-                        icon={(size, color) => (
-                            <Ionicons
-                                name='save'
-                                size={22}
-                                color={colors.white}
+                        <ViewSelect marginTop={percentage(0.05, 'h')}>
+                            <Select
+                                label={'Series'}
+                                setSelected={setSeriesAmount}
+                                data={seriesNumber}
                             />
-                        )}
-                        handleClickFn={CreateDefaultWorkoutExercise}
-                    />
-                    <Link
-                        marginTop={percentage(0.02, 'h')}
-                        textAlign={'center'}
-                        onPress={() => setShowModalExercise(false)}
-                    >
-                        Cancelar
-                    </Link>
-                </Gradient>
-            </ContentModal>
+                            <Select
+                                label={'Repetições'}
+                                setSelected={setRepetitionsAmount}
+                                data={repetitionsNumber}
+                            />
+                        </ViewSelect>
+                        <Button
+                            marginTop={percentage(0.05, 'h')}
+                            widthButton={'85%'}
+                            heightButon={'9%'}
+                            alignCenter={true}
+                            title={'Salvar'}
+                            icon={(size, color) => (
+                                <Ionicons
+                                    name='save'
+                                    size={22}
+                                    color={colors.white}
+                                />
+                            )}
+                            handleClickFn={CreateDefaultWorkoutExercise}
+                        />
+                        <Link
+                            marginTop={percentage(0.02, 'h')}
+                            textAlign={'center'}
+                            onPress={() => setShowModalExercise(false)}
+                        >
+                            Cancelar
+                        </Link>
+                    </Gradient>
+                </ContentModal>
+            </ModalBackground>
         </Modal>
     );
 };

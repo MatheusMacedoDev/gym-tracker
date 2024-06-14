@@ -4,7 +4,7 @@ import { colors } from '../../../colors.config';
 export default ContentModal = styled.View`
     border-radius: 15px;
     width: 90%;
-    height: 45%;
+    height: 55%;
     justify-content: center;
     align-items: center;
     align-self: center;

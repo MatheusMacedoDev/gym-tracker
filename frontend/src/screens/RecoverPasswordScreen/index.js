@@ -14,13 +14,15 @@ import { percentage } from '../../utils/percentageFactory';
 import { SendPasswordRecoverCode } from '../../infra/services/userService';
 
 export const RecoverPasswordScreen = ({ navigation }) => {
-    const [email, setEmail] = useState('matheus@mail.com');
+    const [email, setEmail] = useState('');
 
     async function handleSendRecoveryCode() {
         const response = await SendPasswordRecoverCode(email);
 
         if (response.status == 200) {
-            navigation.navigate('EmailCodeScreen');
+            navigation.navigate('EmailCodeScreen', {
+                email: email 
+            });
         } else {}
     }
 
