@@ -9,7 +9,11 @@ import RankingCard from '../../components/RankingCard';
 import { percentage } from '../../utils/percentageFactory';
 import { limitCharacters } from '../../utils/stringHandler';
 import { useEffect, useState } from 'react';
-import { getRankUsersByLatestUpdate, getRankUsersByLikes } from '../../infra/services/rankUsersService';
+import {
+    getRankUsersByLatestUpdate,
+    getRankUsersByLikes
+} from '../../infra/services/rankUsersService';
+import { ActivityIndicator } from 'react-native';
 
 const usuarios = [
     { id: 1, nome: 'Rubens Moura', curtidas: '2,9' },
@@ -21,25 +25,25 @@ const usuarios = [
 ];
 
 export const RankingScreen = () => {
-
+    const [loading, setLoading] = useState(true);
     const [usersByLikes, setUsersByLikes] = useState();
     const [usersLatestUpdate, setUsersLatestUpdate] = useState();
 
     useEffect(() => {
         getRankUsersLikes();
         getRankUsersUpdateLatest();
-    },[])
+    }, []);
 
     async function getRankUsersLikes() {
         const response = await getRankUsersByLikes();
         setUsersByLikes(response.data);
-        console.log(response.data);
+        setLoading(false);
     }
 
     async function getRankUsersUpdateLatest() {
         const response = await getRankUsersByLatestUpdate();
         setUsersLatestUpdate(response.data);
-        console.log(response.data);
+        setLoading(false);
     }
 
     return (
@@ -62,21 +66,25 @@ export const RankingScreen = () => {
                     Mais curtidas
                 </RankingTitle>
                 <ListContainer heightContainer={'30%'}>
-                    <ListComponent
-                        nestedScrollEnabled={true}
-                        contentContainerStyle={{
-                            gap: 18
-                        }}
-                        data={usersByLikes}
-                        renderItem={({ item, index }) => (
-                            <RankingCard
-                                name={limitCharacters(item.userName, 14)}
-                                likes={item.likes}
-                                sequentialNumber={index + 1}
-                                profilePhoto={item.profilePhoto}
-                            />
-                        )}
-                    />
+                    {loading ? (
+                        <ActivityIndicator size='large' color='#0000ff' />
+                    ) : (
+                        <ListComponent
+                            nestedScrollEnabled={true}
+                            contentContainerStyle={{
+                                gap: 18
+                            }}
+                            data={usersByLikes}
+                            renderItem={({ item, index }) => (
+                                <RankingCard
+                                    name={limitCharacters(item.userName, 14)}
+                                    likes={item.likes}
+                                    sequentialNumber={index + 1}
+                                    profilePhoto={item.profilePhoto}
+                                />
+                            )}
+                        />
+                    )}
                 </ListContainer>
                 <RankingTitle
                     marginTop={percentage(0.05, 'h')}
@@ -85,21 +93,25 @@ export const RankingScreen = () => {
                     Mais recentes
                 </RankingTitle>
                 <ListContainer heightContainer={'30%'}>
-                    <ListComponent
-                        nestedScrollEnabled={true}
-                        contentContainerStyle={{
-                            gap: 18
-                        }}
-                        data={usersLatestUpdate}
-                        renderItem={({ item, index }) => (
-                            <RankingCard
-                                name={limitCharacters(item.userName, 14)}
-                                likes={item.likes}
-                                sequentialNumber={index + 1}
-                                profilePhoto={item.profilePhoto}
-                            />
-                        )}
-                    />
+                    {loading ? (
+                        <ActivityIndicator size='large' color='#0000ff' />
+                    ) : (
+                        <ListComponent
+                            nestedScrollEnabled={true}
+                            contentContainerStyle={{
+                                gap: 18
+                            }}
+                            data={usersLatestUpdate}
+                            renderItem={({ item, index }) => (
+                                <RankingCard
+                                    name={limitCharacters(item.userName, 14)}
+                                    likes={item.likes}
+                                    sequentialNumber={index + 1}
+                                    profilePhoto={item.profilePhoto}
+                                />
+                            )}
+                        />
+                    )}
                 </ListContainer>
             </ScrollContainer>
         </Gradient>
