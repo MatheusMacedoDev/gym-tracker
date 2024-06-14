@@ -20,7 +20,7 @@ import ErrorMessageText from '../../components/ErrorMessageText/style';
 
 const schema = yup.object().shape({
     email: yup.string().required('O email não pode ser vazio').email('Digite um email válido'),
-    password: yup.string().required('A senha não pode ser vazia').min(5, 'A senha deve conter pelo menos 6 dígitos')
+    password: yup.string().required('A senha não pode ser vazia').min(5, 'A senha deve conter pelo menos 5 dígitos')
 });
 
 export const LoginScreen = ({ navigation }) => {
@@ -60,7 +60,7 @@ export const LoginScreen = ({ navigation }) => {
                     error={errors.email}
                     autoFocus
                 />
-                {errors.email && <ErrorMessageText style={{ fontFamily: "Montserrat_400Regular", fontSize: 15, color: 'red', alignSelf: "flex-start", marginTop: 10, paddingLeft: 5 }}>{errors.email.message}</ErrorMessageText>}
+                {errors.email && <ErrorMessageText>{errors.email.message}</ErrorMessageText>}
                 <Input
                     marginTop={percentage(0.03, 'h')}
                     placeholder='Senha...'
