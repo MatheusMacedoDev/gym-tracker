@@ -91,6 +91,7 @@ export const TrainingExercisesScreens = ({ navigation, route }) => {
                                 onPress={() => RegisterDiaryExercise(item.defaultExerciseId, item.seriesAmount, item.repetitionsRange, index)}
                             >
                                 <ExerciseCard 
+                                isDiary={true}
                                 disabledTrue={item.disabled ? item.disabled : false}
                                  titleExercise={item.exerciseName} 
                                 icon={(size, color) => <FontAwesome name="lock" size={size} color={color} />}
@@ -101,7 +102,7 @@ export const TrainingExercisesScreens = ({ navigation, route }) => {
                 </ListContainer>
                 <Button
                     handleClickFn={() =>
-                        navigation.navigate('Home')
+                        navigation.navigate('Main')
                     }
                     marginTop={percentage(0.06, 'h')}
                     title='Finalizar Treino'
