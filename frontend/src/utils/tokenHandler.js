@@ -17,7 +17,7 @@ export async function getUserToken() {
     const userToken = await AsyncStorage.getItem('userToken');
 
     if (userToken == null) {
-        return {};
+        return null;
     }
 
     const decodedUserToken = jwtDecode(userToken);
