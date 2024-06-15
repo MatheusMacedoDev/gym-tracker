@@ -78,6 +78,7 @@ export const AccountDataRegisterScreen = ({ navigation, route }) => {
                     marginTop={percentage(0.02, 'h')}
                     placeholder='Senha...'
                     secureTextEntry
+                    textContentType="oneTimeCode"
                     error={errors.password}
                     onChangeText={text => setValue('password', text)}
                 />
@@ -86,6 +87,7 @@ export const AccountDataRegisterScreen = ({ navigation, route }) => {
                     marginTop={percentage(0.02, 'h')}
                     placeholder='Confirme sua senha...'
                     secureTextEntry
+                    textContentType="oneTimeCode"
                     error={errors.confirmPassword}
                     onChangeText={text => setValue('confirmPassword', text)}
                 />
