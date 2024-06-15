@@ -85,16 +85,14 @@ export const Home = ({ navigation }) => {
                         heightLogo={50}
                         marginTop={percentage(0.07, 'h')}
                     />
-                    <WelcomeContainer
-                        gap={percentage(0.02, 'h')}
-                        marginTop={percentage(0.04, 'h')}
-                    >
+                    <WelcomeContainer marginTop={percentage(0.04, 'h')}>
                         <ImageWelcome
                             resizeMode='cover'
                             source={{ uri: profileImage }}
                         />
                         <TextWelcome>
-                            Bem vindo,<Title fontSize={20}> {user.name}</Title>
+                            Bem vind{user.gender === 'F' ? 'a' : 'o'},
+                            <Title fontSize={20}> {user.name}</Title>
                         </TextWelcome>
                     </WelcomeContainer>
                     <CalendarHome setTrainingDate={setDate} />
