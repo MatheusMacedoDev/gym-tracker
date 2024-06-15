@@ -29,6 +29,7 @@ import {
     toastConfig
 } from '../../utils/toastConfiguration';
 import { removeUserToken } from '../../utils/tokenHandler';
+import ParallaxCarousel from '../../components/ParallaxCarousel';
 
 const Profile = ({ navigation }) => {
     const [showConfirmEditModal, setShowConfirmEditModal] = useState(false);
@@ -47,6 +48,7 @@ const Profile = ({ navigation }) => {
     const [isProfileEditing, setIsProfileEditing] = useState(false);
 
     const [profileHistoriesData, setProfileHistoriesData] = useState();
+    const [evolutionPhotosData, setEvolutionPhotosData] = useState(null);
 
     const [selectedGraphLabels, setSelectedGraphLabels] = useState(null);
     const [selectedGraphInfos, setSelectedGraphInfos] = useState(null);
@@ -55,12 +57,17 @@ const Profile = ({ navigation }) => {
 
     const [userLikesAmount, setUserLikesAmount] = useState(0);
 
+    const [scrollEnabled, setScrollEnabled] = useState(true);
+
     const { user, setUser } = useContext(AuthContext);
     const { profileImage, setProfileImage } = useContext(ProfileImageContext);
 
     const scrollContainerRef = useRef(null);
 
     async function saveProfileHistory() {
+        setIsProfileEditing(false);
+        setAllowEdit(false);
+
         const response = await CreateProfileHistory(
             user.userId,
             weight != '0' ? weight : null,
@@ -78,6 +85,8 @@ const Profile = ({ navigation }) => {
             callProfileUpdatedToast();
         } else {
             callNetworkErrorOccuredToast();
+            setIsProfileEditing(true);
+            setAllowEdit(true);
             return;
         }
 
@@ -100,14 +109,11 @@ const Profile = ({ navigation }) => {
             ...profileHistoriesData,
             newProfileHistoryData
         ]);
-
-        setIsProfileEditing(false);
-        setAllowEdit(false);
     }
 
     function scrollToStatistics() {
         scrollContainerRef.current.scrollTo({
-            y: 90,
+            y: selectedGraphData ? 440 : 90,
             animated: true
         });
     }
@@ -223,6 +229,19 @@ const Profile = ({ navigation }) => {
         setUserLikesAmount(likesAmount);
     }
 
+    function getEvolutionPhotosHistoryData() {
+        if (!profileHistoriesData) return null;
+
+        const photoURIs = [];
+
+        profileHistoriesData.forEach(profileHistory => {
+            if (profileHistory.evolutionPhoto)
+                photoURIs.push(profileHistory.evolutionPhoto);
+        });
+
+        setEvolutionPhotosData(photoURIs);
+    }
+
     useEffect(() => {
         getUserProfileImageData();
         getUserProfileData();
@@ -253,12 +272,12 @@ const Profile = ({ navigation }) => {
 
     useEffect(() => {
         changeGraph('weight', 'Peso (kg)');
+        getEvolutionPhotosHistoryData();
     }, [profileHistoriesData]);
 
     return (
         <>
-            <Toast config={toastConfig} />
-
+            <Toast swipeable config={toastConfig} />
             <Gradient>
                 <ConfirmEditModal
                     visible={showConfirmEditModal}
@@ -281,6 +300,7 @@ const Profile = ({ navigation }) => {
                         alignItems: 'center'
                     }}
                     ref={scrollContainerRef}
+                    scrollEnabled={scrollEnabled}
                 >
                     <ProfileView
                         userName={user.name}
@@ -297,7 +317,7 @@ const Profile = ({ navigation }) => {
                         <>
                             <Title
                                 fontSize={20}
-                                marginTop={percentage(0.03, 'h')}
+                                marginTop={percentage(0, 'h')}
                                 marginBottom={percentage(0.05, 'h')}
                                 alignSelf='flex-start'
                                 alignLeft={true}
@@ -412,17 +432,26 @@ const Profile = ({ navigation }) => {
                         alignSelf='flex-start'
                         alignLeft={true}
                     >
-                        Fotos
+                        Fotos de Evolução
                     </Title>
 
-                    <RegisterProgressingComponent
-                        handleClickFn={() =>
-                            navigation.navigate('Camera', {
-                                handlePhoto: registerEvolutionPhoto
-                            })
-                        }
-                        editable={isProfileEditing}
-                    />
+                    {evolutionPhotosData ? (
+                        <ParallaxCarousel
+                            marginTop={percentage(0.06, 'h')}
+                            marginBottom={percentage(0.02, 'h')}
+                            data={evolutionPhotosData}
+                            setBackgroundScrollEnable={setScrollEnabled}
+                        />
+                    ) : (
+                        <RegisterProgressingComponent
+                            handleClickFn={() =>
+                                navigation.navigate('Camera', {
+                                    handlePhoto: registerEvolutionPhoto
+                                })
+                            }
+                            editable={isProfileEditing}
+                        />
+                    )}
 
                     {allowEdit &&
                         (isProfileEditing ? (

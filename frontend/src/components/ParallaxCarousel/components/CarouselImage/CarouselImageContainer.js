@@ -1,7 +1,8 @@
 import styled from 'styled-components/native';
 
 const CarouselImageContainer = styled.View`
-    height: 100%;
+    padding: 20px 0px;
+    margin-top: 18px;
     justify-content: center;
     align-items: center;
 `;

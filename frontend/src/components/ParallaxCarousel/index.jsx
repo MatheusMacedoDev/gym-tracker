@@ -9,7 +9,8 @@ const width = Dimensions.get('window').width;
 export default function ParallaxCarousel({
     data,
     marginTop = '20px',
-    marginBottom = '20px'
+    marginBottom = '20px',
+    setBackgroundScrollEnabled = () => {}
 }) {
     const selectedItem = useSharedValue(1);
 
@@ -18,7 +19,14 @@ export default function ParallaxCarousel({
             <Carousel
                 loop
                 width={width}
-                height={200}
+                style={{
+                    justifyContent: 'center',
+                    height: '100%'
+                }}
+                onScrollBegin={setBackgroundScrollEnabled(false)}
+                onScrollEnd={() => {
+                    setBackgroundScrollEnabled(true);
+                }}
                 pagingEnabled={true}
                 snapEnabled={true}
                 autoPlay={true}
