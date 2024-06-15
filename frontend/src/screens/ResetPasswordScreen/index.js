@@ -11,24 +11,31 @@ import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { percentage } from '../../utils/percentageFactory';
 import { ChangePassword } from '../../infra/services/userService';
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from 'react-hook-form';
+import ErrorMessageText from '../../components/ErrorMessageText/style';
+
+const schema = yup.object().shape({
+    newPassword: yup.string().required('A senha não pode ser vazia').min(5, 'A senha deve conter pelo menos 5 dígitos'),
+    confirmNewPassword: yup.string().oneOf([yup.ref('newPassword'), null], 'As senhas devem coincidir').required('A confirmação de senha não pode ser vazia')
+})
+
 
 export const ResetPasswordScreen = ({ navigation, route }) => {
-    const [newPassword, setNewPassword] = useState('');
-    const [confirmNewPassword, setConfirmNewPassword] = useState('');
 
-    async function handleChangePassword() {
+    const { setValue, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(schema)
+    });
+
+    async function handleChangePassword(data) {
         const email = route.params.email;
         const passwordRecoverCode = route.params.code;
-         
-        if (newPassword !== confirmNewPassword) {
-            setError('Passwords do not match');
-            return;
-        }
-
-        const response = await ChangePassword(email, newPassword, passwordRecoverCode)
-
-        if (response.status == 200) {
-            navigation.navigate('LoginScreen');
+        if (data.newPassword === data.confirmNewPassword) {
+            const response = await ChangePassword(email, data.confirmNewPassword, passwordRecoverCode)
+            if (response.status == 200) {
+                navigation.navigate('LoginScreen');
+            }
         }
     }
 
@@ -59,17 +66,19 @@ export const ResetPasswordScreen = ({ navigation, route }) => {
                 <Input
                     marginTop={percentage(0.12, 'h')}
                     placeholder='Nova senha...'
-                    value={newPassword}
-                    onChangeText={setNewPassword}
+                    error={errors.newPassword}
+                    onChangeText={text => setValue('newPassword', text)}
                     secureTextEntry={true}
                 />
+                 {errors.newPassword && <ErrorMessageText>{errors.newPassword.message}</ErrorMessageText>}
                 <Input
                     marginTop={percentage(0.03, 'h')}
                     placeholder='Repita a nova senha...'
-                    value={confirmNewPassword}
-                    onChangeText={setConfirmNewPassword}
+                    error={errors.confirmNewPassword}
+                    onChangeText={text => setValue('confirmNewPassword', text)}
                     secureTextEntry={true}
                 />
+                {errors.confirmNewPassword && <ErrorMessageText>{errors.confirmNewPassword.message}</ErrorMessageText>}
                 <Button
                     marginTop={percentage(0.12, 'h')}
                     title='Continuar'
@@ -80,7 +89,7 @@ export const ResetPasswordScreen = ({ navigation, route }) => {
                             color={color}
                         />
                     )}
-                    handleClickFn={() => handleChangePassword()}
+                    handleClickFn={handleSubmit(handleChangePassword)}
                 />
             </Container>
         </Gradient>

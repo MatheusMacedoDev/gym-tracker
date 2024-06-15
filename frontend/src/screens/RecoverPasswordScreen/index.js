@@ -34,7 +34,9 @@ export const RecoverPasswordScreen = ({ navigation }) => {
             navigation.navigate('EmailCodeScreen', {
                 email: data.email 
             });
-        } else {}
+        } else {
+            
+        }
     }
 
     return (
