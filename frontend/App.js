@@ -44,15 +44,15 @@ import Profile from './src/screens/Profile';
 import Camera from './src/screens/Camera';
 import ProfileImageContext from './src/global/ProfileImageContext';
 import SharedProfile from './src/screens/ViewSharedProfile';
-
-import Toast from 'react-native-toast-message';
-import { toastConfig } from './src/utils/toastConfiguration';
+import { configureNavigationBar } from './src/configs/navigationBarConfig';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
     const [currentUser, setCurrentUser] = useState(null);
     const [profileImage, setProfileImage] = useState('');
+
+    configureNavigationBar();
 
     const [fontsLoaded, fontsError] = useFonts({
         Montserrat_700Bold,
