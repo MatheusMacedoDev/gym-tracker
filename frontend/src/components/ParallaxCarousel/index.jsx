@@ -1,10 +1,8 @@
-import { useState } from 'react';
-import { Dimensions, Image, View } from 'react-native';
+import { Dimensions } from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 import CarouselContainer from './components/CarouselContainer';
 import CarouselImage from './components/CarouselImage';
-import CarouselImageBackground from './components/CarouselImageContainer';
-import CarouselImageContainer from './components/CarouselImageContainer';
+import { useSharedValue } from 'react-native-reanimated';
 
 const width = Dimensions.get('window').width;
 
@@ -13,7 +11,7 @@ export default function ParallaxCarousel({
     marginTop = '20px',
     marginBottom = '20px'
 }) {
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const selectedItem = useSharedValue(1);
 
     return (
         <CarouselContainer marginTop={marginTop} marginBottom={marginBottom}>
@@ -21,6 +19,8 @@ export default function ParallaxCarousel({
                 loop
                 width={width}
                 height={200}
+                pagingEnabled={true}
+                snapEnabled={true}
                 autoPlay={true}
                 data={data}
                 autoPlayInterval={3000}
@@ -31,21 +31,20 @@ export default function ParallaxCarousel({
                         damping: 16
                     }
                 }}
-                onSnapToItem={setCurrentImageIndex}
                 mode='parallax'
+                onSnapToItem={index => (selectedItem.value = index)}
                 modeConfig={{
-                    parallaxScrollingScale: 1,
-                    parallaxScrollingOffset: 260
+                    parallaxScrollingScale: 1.2,
+                    parallaxScrollingOffset: 280,
+                    parallaxAdjacentItemScale: 0.8
                 }}
-                renderItem={({ index }) => (
-                    <CarouselImageContainer>
-                        <CarouselImage
-                            snapped={index === currentImageIndex}
-                            source={{
-                                uri: data[index]
-                            }}
-                        />
-                    </CarouselImageContainer>
+                renderItem={({ item, index }) => (
+                    <CarouselImage
+                        key={index}
+                        index={index}
+                        imageUri={item}
+                        selectedItem={selectedItem}
+                    />
                 )}
             />
         </CarouselContainer>

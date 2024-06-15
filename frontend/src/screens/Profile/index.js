@@ -105,17 +105,17 @@ const Profile = ({ navigation }) => {
         setAllowEdit(false);
     }
 
-    function editProfileHistory() {
-        setIsProfileEditing(true);
-        scrollToStatistics();
-        callEditProfileStartsToast();
-    }
-
     function scrollToStatistics() {
         scrollContainerRef.current.scrollTo({
             y: 90,
             animated: true
         });
+    }
+
+    function editProfileHistory() {
+        setIsProfileEditing(true);
+        scrollToStatistics();
+        callEditProfileStartsToast();
     }
 
     function cancelEditProfileHistory() {
