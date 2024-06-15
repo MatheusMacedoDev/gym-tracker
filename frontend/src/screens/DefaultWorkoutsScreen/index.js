@@ -59,33 +59,35 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
                     >
                         Treinos predefinidos
                     </Title>
-                    <ListComponent
-                        data={defaultWorkouts}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity
-                                onPress={() => {
-                                    seeTraining(item);
-                                }}
-                            >
-                                <CardWorkout
-                                    trainingName={item.defaultWorkoutName}
-                                    muscleGroups={
-                                        item.relatedMuscleGroups ||
-                                        'Sem exercícios ainda...'
-                                    }
-                                    marginBottom='10px'
-                                    isSelected={
-                                        selectedWorkout
-                                            ? item.id == selectedWorkout.id
-                                            : false
-                                    }
-                                />
-                            </TouchableOpacity>
-                        )}
-                    />
+                    <ListContainer heightContainer='40%'>
+                        <ListComponent
+                            data={defaultWorkouts}
+                            renderItem={({ item }) => (
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        seeTraining(item);
+                                    }}
+                                >
+                                    <CardWorkout
+                                        trainingName={item.defaultWorkoutName}
+                                        muscleGroups={
+                                            item.relatedMuscleGroups ||
+                                            'Sem exercícios ainda...'
+                                        }
+                                        marginBottom='10px'
+                                        isSelected={
+                                            selectedWorkout
+                                                ? item.id == selectedWorkout.id
+                                                : false
+                                        }
+                                    />
+                                </TouchableOpacity>
+                            )}
+                        />
+                    </ListContainer>
                     <Button
                         handleClickFn={() => setShowModalNewWorkout(true)}
-                        marginTop={percentage(0.07, 'h')}
+                        marginTop={percentage(0.05, 'h')}
                         title='Adicionar treino'
                         icon={(size, color) => (
                             <MaterialIcons
