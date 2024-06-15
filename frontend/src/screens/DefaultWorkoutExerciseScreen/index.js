@@ -62,17 +62,17 @@ export const DefaultWorkoutExerciseScreen = ({ navigation, route }) => {
                 />
                 <CommandText
                     textAlign={'center'}
-                    marginTop={percentage(0.15, 'h')}
+                    marginTop={percentage(0.16, 'h')}
                 >
                     Treinos predefinidos
                 </CommandText>
                 <Title
                     marginTop={percentage(0.02, 'h')}
-                    marginBottom={percentage(0.07, 'h')}
+                    marginBottom={percentage(0.08, 'h')}
                 >
                     {trainingName}
                 </Title>
-                <ListContainer heightContainer={'48%'}>
+                <ListContainer heightContainer='50%'>
                     <ListComponent
                         data={defaultWorkoutExercises}
                         renderItem={({ item }) => (
@@ -103,7 +103,7 @@ export const DefaultWorkoutExerciseScreen = ({ navigation, route }) => {
                             defaultWorkoutId: defaultWorkoutId
                         })
                     }
-                    marginTop={percentage(0.07, 'h')}
+                    marginTop={percentage(0.05, 'h')}
                     title='Adicionar exercício'
                     icon={(size, color) => (
                         <Entypo

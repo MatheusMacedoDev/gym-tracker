@@ -34,7 +34,7 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
         setSelectedWorkout({
             id: item.defaultWorkoutId
         });
-        console.log(item.defaultWorkoutId);
+
         navigation.navigate('DefaultWorkoutExerciseScreen', {
             defaultWorkoutId: item.defaultWorkoutId,
             trainingName: item.defaultWorkoutName
@@ -43,8 +43,8 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
 
     async function GetDefaultWorkout() {
         const response = await GetDefaultWorkoutsByUserId(user.user.userId);
+
         setDefaultWorkouts(response.data);
-        console.log(response.data);
     }
 
     return (
@@ -59,33 +59,30 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
                     >
                         Treinos predefinidos
                     </Title>
-                    <ListContainer heightContainer='40%'>
-                        <ListComponent
-                            data={defaultWorkouts}
-                            renderItem={({ item }) => (
-                                <TouchableOpacity
-                                    onPress={() => {
-                                        seeTraining(item);
-                                    }}
-                                >
-                                    <CardWorkout
-                                        trainingName={item.defaultWorkoutName}
-                                        muscleGroups={
-                                            item.relatedMuscleGroups ||
-                                            'Sem exercícios ainda...'
-                                        }
-                                        marginBottom='10px'
-                                        isSelected={
-                                            selectedWorkout
-                                                ? item.id == selectedWorkout.id
-                                                : false
-                                        }
-                                    />
-                                </TouchableOpacity>
-                            )}
-                        />
-                    </ListContainer>
-
+                    <ListComponent
+                        data={defaultWorkouts}
+                        renderItem={({ item }) => (
+                            <TouchableOpacity
+                                onPress={() => {
+                                    seeTraining(item);
+                                }}
+                            >
+                                <CardWorkout
+                                    trainingName={item.defaultWorkoutName}
+                                    muscleGroups={
+                                        item.relatedMuscleGroups ||
+                                        'Sem exercícios ainda...'
+                                    }
+                                    marginBottom='10px'
+                                    isSelected={
+                                        selectedWorkout
+                                            ? item.id == selectedWorkout.id
+                                            : false
+                                    }
+                                />
+                            </TouchableOpacity>
+                        )}
+                    />
                     <Button
                         handleClickFn={() => setShowModalNewWorkout(true)}
                         marginTop={percentage(0.07, 'h')}
