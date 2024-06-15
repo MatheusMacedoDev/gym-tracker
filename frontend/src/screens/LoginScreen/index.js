@@ -67,6 +67,19 @@ export const LoginScreen = ({ navigation }) => {
         }
     }
 
+    useEffect(() => {
+        async function tryToUseSavedToken() {
+            const decodedToken = await getUserToken();
+            setUser(decodedToken);
+
+            if (decodedToken) {
+                navigation.replace('Main');
+            }
+        }
+
+        tryToUseSavedToken();
+    }, []);
+
     return (
         <>
             <Toast config={toastConfig} />

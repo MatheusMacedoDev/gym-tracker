@@ -163,3 +163,17 @@ export const callGenderNotSelectedErrorToast = () =>
         text1: 'Nenhum sexo selecionado!',
         text2: 'Selecione algum antes de continuar.'
     });
+
+export const callEditProfileStartsToast = () =>
+    Toast.show({
+        type: 'success',
+        text1: 'Modo de edição ativo!',
+        text2: 'Você já pode alterar os seus dados.'
+    });
+
+export const callCancelEditProfileStartsToast = () =>
+    Toast.show({
+        type: 'success',
+        text1: 'Modo de edição desativado!',
+        text2: 'Não será possível editar seus dados.'
+    });
