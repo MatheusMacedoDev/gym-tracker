@@ -42,7 +42,7 @@ export const TrainingRecordScreen = ({ navigation, route }) => {
                 dateDiaryWorkout
             );
 
-            navigation.replace('TrainingExercisesScreens', {
+            navigation.navigate('TrainingExercisesScreens', {
                 selectedWorkout: selectedWorkout,
                 idDiaryWorkout: promisse.data.diaryWorkoutId
             });
