@@ -156,3 +156,10 @@ export const callCodeVerifiedToast = () =>
         text1: 'Código de verificação validado!',
         text2: 'Já pode alterar a sua senha.'
     });
+
+export const callGenderNotSelectedErrorToast = () =>
+    Toast.show({
+        type: 'success',
+        text1: 'Nenhum sexo selecionado!',
+        text2: 'Selecione algum antes de continuar.'
+    });
