@@ -26,6 +26,7 @@ import {
     callProfileUpdatedToast,
     toastConfig
 } from '../../utils/toastConfiguration';
+import { removeUserToken } from '../../utils/tokenHandler';
 
 const Profile = ({ navigation }) => {
     const [showConfirmEditModal, setShowConfirmEditModal] = useState(false);
@@ -123,6 +124,7 @@ const Profile = ({ navigation }) => {
 
     function logoutProfile() {
         setUser(null);
+        removeUserToken();
         navigation.replace('LoginScreen');
     }
 
