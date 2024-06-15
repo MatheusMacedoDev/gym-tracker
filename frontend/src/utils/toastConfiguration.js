@@ -37,7 +37,7 @@ export const toastConfig = {
             style={{
                 borderLeftColor: '#D90926',
                 borderLeftWidth: 6,
-                backgroundColor: '#4c030d',
+                backgroundColor: colors.darkGray,
                 width: '90%',
                 height: 70,
                 position: 'absolute',
@@ -127,4 +127,32 @@ export const callNetworkErrorOccuredToast = () =>
         type: 'error',
         text1: 'Houve um erro!',
         text2: 'Verifique a sua conexão com a internet.'
+    });
+
+export const callEmailWithVerificationCodeSendedToast = () =>
+    Toast.show({
+        type: 'success',
+        text1: 'Código de verificação enviado!',
+        text2: 'Dê uma olhada em seu e-mail.'
+    });
+
+export const callCodeMinDigitsErrorToast = () =>
+    Toast.show({
+        type: 'error',
+        text1: 'Calma lá!',
+        text2: 'O seu código deve conter 5 digitos.'
+    });
+
+export const callCodeIncorrectErrorToast = () =>
+    Toast.show({
+        type: 'error',
+        text1: 'Código incorreto!',
+        text2: 'Reveja o código em seu e-mail.'
+    });
+
+export const callCodeVerifiedToast = () =>
+    Toast.show({
+        type: 'success',
+        text1: 'Código de verificação validado!',
+        text2: 'Já pode alterar a sua senha.'
     });
