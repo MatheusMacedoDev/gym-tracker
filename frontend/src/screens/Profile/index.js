@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Gradient from '../../components/Gradient';
 import LineChartComponent from '../../components/Grafic';
 import { ScrollContainer } from '../../components/Container/style';
@@ -20,12 +20,15 @@ import ProfileImageContext from '../../global/ProfileImageContext';
 import { ConfirmEditModal } from '../../components/ConfirmEditModal';
 import Toast from 'react-native-toast-message';
 import {
+    callCancelEditProfileStartsToast,
+    callEditProfileStartsToast,
     callNetworkErrorOccuredToast,
     callPhotoRegisteredToast,
     callProfilePhotoUpdatedToast,
     callProfileUpdatedToast,
     toastConfig
 } from '../../utils/toastConfiguration';
+import { removeUserToken } from '../../utils/tokenHandler';
 
 const Profile = ({ navigation }) => {
     const [showConfirmEditModal, setShowConfirmEditModal] = useState(false);
@@ -54,6 +57,8 @@ const Profile = ({ navigation }) => {
 
     const { user, setUser } = useContext(AuthContext);
     const { profileImage, setProfileImage } = useContext(ProfileImageContext);
+
+    const scrollContainerRef = useRef(null);
 
     async function saveProfileHistory() {
         const response = await CreateProfileHistory(
@@ -102,6 +107,21 @@ const Profile = ({ navigation }) => {
 
     function editProfileHistory() {
         setIsProfileEditing(true);
+        scrollToStatistics();
+        callEditProfileStartsToast();
+    }
+
+    function scrollToStatistics() {
+        scrollContainerRef.current.scrollTo({
+            y: 90,
+            animated: true
+        });
+    }
+
+    function cancelEditProfileHistory() {
+        setIsProfileEditing(false);
+        scrollToStatistics();
+        callCancelEditProfileStartsToast();
     }
 
     async function saveNewProfileImage(photoUri) {
@@ -121,8 +141,17 @@ const Profile = ({ navigation }) => {
         }
     }
 
+    function registerEvolutionPhoto(photoUri) {
+        if (!photoUri || photoUri.trim() === '') {
+            return;
+        }
+
+        setEvolutionPhotoUri(photoUri);
+    }
+
     function logoutProfile() {
         setUser(null);
+        removeUserToken();
         navigation.replace('LoginScreen');
     }
 
@@ -251,6 +280,7 @@ const Profile = ({ navigation }) => {
                     contentContainerStyle={{
                         alignItems: 'center'
                     }}
+                    ref={scrollContainerRef}
                 >
                     <ProfileView
                         userName={user.name}
@@ -281,7 +311,11 @@ const Profile = ({ navigation }) => {
 
                     <Title
                         fontSize={20}
-                        marginTop={percentage(0.07, 'h')}
+                        marginTop={
+                            selectedGraphData
+                                ? percentage(0.07, 'h')
+                                : percentage(0.03, 'h')
+                        }
                         marginBottom={percentage(0.05, 'h')}
                         alignSelf='flex-start'
                         alignLeft={true}
@@ -382,7 +416,12 @@ const Profile = ({ navigation }) => {
                     </Title>
 
                     <RegisterProgressingComponent
-                        handleClickFn={() => navigation.navigate('Camera')}
+                        handleClickFn={() =>
+                            navigation.navigate('Camera', {
+                                handlePhoto: registerEvolutionPhoto
+                            })
+                        }
+                        editable={isProfileEditing}
                     />
 
                     {allowEdit &&
@@ -401,13 +440,23 @@ const Profile = ({ navigation }) => {
                                 handleClickFn={editProfileHistory}
                             />
                         ))}
-                    <Button
-                        title='Sair'
-                        marginTop={percentage(0.03, 'h')}
-                        marginBottom={percentage(0.04, 'h')}
-                        handleClickFn={logoutProfile}
-                        hiddenButton={true}
-                    />
+                    {isProfileEditing ? (
+                        <Button
+                            title='Cancelar'
+                            marginTop={percentage(0.03, 'h')}
+                            marginBottom={percentage(0.04, 'h')}
+                            handleClickFn={cancelEditProfileHistory}
+                            hiddenButton={true}
+                        />
+                    ) : (
+                        <Button
+                            title='Sair'
+                            marginTop={percentage(0.03, 'h')}
+                            marginBottom={percentage(0.04, 'h')}
+                            handleClickFn={logoutProfile}
+                            hiddenButton={true}
+                        />
+                    )}
                 </ScrollContainer>
             </Gradient>
         </>

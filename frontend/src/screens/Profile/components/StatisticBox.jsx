@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import styled from 'styled-components/native';
+import { colors } from '../../../colors.config';
 
 const Container = styled.View`
     align-items: center;
@@ -16,12 +17,16 @@ const Label = styled.Text`
 const StatusInput = styled.TextInput`
     width: 64px;
     height: 64px;
-    border: 1px solid #fff;
+    border: 1px solid ${props => (props.editable ? colors.orange : '#fff')};
     border-radius: 12px;
-    color: #ff8434;
+    color: ${props => (props.editable ? '#fff' : colors.orange)};
     font-size: 14px;
     font-weight: bold;
     text-align: center;
+    ${props =>
+        props.editable ? `box-shadow: -4px -4px 4px ${colors.orange};` : ''}
+    elevation: 12;
+    background-color: ${colors.dark};
 `;
 
 export default function StatisticBox({
@@ -52,8 +57,8 @@ export default function StatisticBox({
 
     return (
         <TouchableOpacity onPress={handleClickFn} disabled={editable}>
-            <Container>
-                <Label>{label}</Label>
+            <Container editable={editable}>
+                <Label editable={editable}>{label}</Label>
                 <StatusInput
                     name={label}
                     editable={editable}

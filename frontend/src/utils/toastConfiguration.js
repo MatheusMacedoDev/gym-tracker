@@ -37,7 +37,7 @@ export const toastConfig = {
             style={{
                 borderLeftColor: '#D90926',
                 borderLeftWidth: 6,
-                backgroundColor: '#4c030d',
+                backgroundColor: colors.darkGray,
                 width: '90%',
                 height: 70,
                 position: 'absolute',
@@ -82,6 +82,27 @@ export const callDefaultWorkoutCreatedToast = workoutName =>
         text2: 'Agora basta adicionar os seus exercícios.'
     });
 
+export const callDefaultWorkoutExerciseCreatedToast = exerciseName =>
+    Toast.show({
+        type: 'success',
+        text1: `O exercício ${exerciseName}, foi adicionado ao seu treino diário com sucesso!`,
+        text2: 'Adicione mais exercícios se preferir.'
+    });
+
+export const callDefaultWorkoutExerciseDeletedToast = exerciseName =>
+    Toast.show({
+        type: 'success',
+        text1: `O exercício removido com sucesso!`,
+        text2: `O exercício ${exerciseName}, foi removido do seu treino!`
+    });
+
+export const callDiaryWorkoutDeletedToast = date =>
+    Toast.show({
+        type: 'success',
+        text1: `Registro de treino removido!`,
+        text2: `O treino do dia ${date} removido.`
+    });
+
 export const callPhotoRegisteredToast = () =>
     Toast.show({
         type: 'success',
@@ -92,13 +113,6 @@ export const callProfilePhotoUpdatedToast = () =>
     Toast.show({
         type: 'success',
         text1: `Sua foto de perfil foi atualizada!`
-    });
-
-export const callDefaultWorkoutExerciseCreatedToast = exerciseName =>
-    Toast.show({
-        type: 'success',
-        text1: `O exercício ${exerciseName}, foi adicionado ao seu treino diário com sucesso!`,
-        text2: 'Adicione mais exercícios se preferir.'
     });
 
 export const callProfileUpdatedToast = () =>
@@ -113,4 +127,53 @@ export const callNetworkErrorOccuredToast = () =>
         type: 'error',
         text1: 'Houve um erro!',
         text2: 'Verifique a sua conexão com a internet.'
+    });
+
+export const callEmailWithVerificationCodeSendedToast = () =>
+    Toast.show({
+        type: 'success',
+        text1: 'Código de verificação enviado!',
+        text2: 'Dê uma olhada em seu e-mail.'
+    });
+
+export const callCodeMinDigitsErrorToast = () =>
+    Toast.show({
+        type: 'error',
+        text1: 'Calma lá!',
+        text2: 'O seu código deve conter 5 digitos.'
+    });
+
+export const callCodeIncorrectErrorToast = () =>
+    Toast.show({
+        type: 'error',
+        text1: 'Código incorreto!',
+        text2: 'Reveja o código em seu e-mail.'
+    });
+
+export const callCodeVerifiedToast = () =>
+    Toast.show({
+        type: 'success',
+        text1: 'Código de verificação validado!',
+        text2: 'Já pode alterar a sua senha.'
+    });
+
+export const callGenderNotSelectedErrorToast = () =>
+    Toast.show({
+        type: 'success',
+        text1: 'Nenhum sexo selecionado!',
+        text2: 'Selecione algum antes de continuar.'
+    });
+
+export const callEditProfileStartsToast = () =>
+    Toast.show({
+        type: 'success',
+        text1: 'Modo de edição ativo!',
+        text2: 'Você já pode alterar os seus dados.'
+    });
+
+export const callCancelEditProfileStartsToast = () =>
+    Toast.show({
+        type: 'success',
+        text1: 'Modo de edição desativado!',
+        text2: 'Não será possível editar seus dados.'
     });

@@ -55,7 +55,7 @@ export const TrainingRecordScreen = ({ navigation, route }) => {
             <Container>
                 <IconButton
                     gradient={false}
-                    onPress={() => navigation.goBack()}
+                    handleClickFn={() => navigation.goBack()}
                     icon={
                         <MaterialIcons
                             name='reply'
@@ -70,7 +70,6 @@ export const TrainingRecordScreen = ({ navigation, route }) => {
                 </Title>
                 <CommandText
                     marginTop={percentage(0.03, 'h')}
-                    textAlign={'center'}
                     marginBottom={percentage(0.05, 'h')}
                 >
                     Aqui você poderá anotar os principais dados do seu treino

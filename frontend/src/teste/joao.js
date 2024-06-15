@@ -1,29 +1,30 @@
-import React from 'react';
-import Gradient from '../components/Gradient';
-import LineChartComponent from '../components/Grafic';
-import ProfileBoxInput from '../components/ProfileBoxInput';
-import ContainerBoxIput from '../components/ProfileBoxInput/Container/style';
-import { Button } from '../components/Button';
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import ParallaxCarousel from '../components/ParallaxCarousel';
 
 const Joao = () => {
-  const data = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-    datasets: [
-      {
-        data: [20, 45, 28, 80, 99, 43],
-        color: (opacity = 1) => `rgba(251, 102, 20, ${opacity})`,
-        strokeWidth: 2 // Largura da linha
-      }
-    ],
-    legend: ["Progresso"] // Legenda
-  };
+    const [imageURIs, setImageURIs] = useState([
+        'https://gymtrackerblobstorage.blob.core.windows.net/gymtrackerblobcontainer/f4dada883f5a4e35945875205d353c90.png',
+        'https://gymtrackerblobstorage.blob.core.windows.net/gymtrackerblobcontainer/f626ec9f90f841be9f0f329ac8aad635.jpg',
+        'https://gymtrackerblobstorage.blob.core.windows.net/gymtrackerblobcontainer/5cbc37bfb0fe4293b85d22ea749e542f.png',
+        'https://gymtrackerblobstorage.blob.core.windows.net/gymtrackerblobcontainer/4e0eff2f5e2744a9a737cf2ba6a03f7e.jpg',
+        'https://gymtrackerblobstorage.blob.core.windows.net/gymtrackerblobcontainer/c164557ec168482ebb8430e87ce88c25.jpg'
+    ]);
 
-  return (
-    <Gradient>
-      <LineChartComponent data={data} />
-  <Button/>
-    </Gradient>
-  );
+    return (
+        <View
+            style={{
+                flex: 1,
+                width: '100%',
+                height: '100%',
+                backgroundColor: '#000',
+                justifyContent: 'center',
+                alignItems: 'center'
+            }}
+        >
+            <ParallaxCarousel marginTop='100px' data={imageURIs} />
+        </View>
+    );
 };
 
 export default Joao;

@@ -25,6 +25,7 @@
     "expo-image-picker": "~15.0.5",
     "expo-linear-gradient": "^13.0.2",
     "expo-media-library": "^16.0.3",
+    "expo-navigation-bar": "~3.0.6",
     "expo-status-bar": "~1.12.1",
     "jwt-decode": "^4.0.0",
     "moment": "^2.30.1",

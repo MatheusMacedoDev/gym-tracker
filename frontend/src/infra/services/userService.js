@@ -7,8 +7,10 @@ const getUserProfileImageEndpoint = '/users/profile_image';
 const createProfileHistoryEndpoint = '/users/profile_history';
 const getProfileHistoriesEndpoint = '/users/profile_history';
 const sendWelcomeEmailEndpoint = '/send_email/send_welcome_email';
-const sendPasswordRecoverCodeEndpoint = '/send_email/send_password_recovery_email';
-const validatePasswordRecoverCodeEndpoint = '/send_email/validate_password_recovery_code';
+const sendPasswordRecoverCodeEndpoint =
+    '/send_email/send_password_recovery_email';
+const validatePasswordRecoverCodeEndpoint =
+    '/send_email/validate_password_recovery_code';
 const changePasswordEndpoint = '/users/change_password';
 
 export async function MakeLogin(email, password) {
@@ -256,7 +258,7 @@ export async function DeleteUserLike(userLikeId) {
 export async function SendWelcomeEmail(email, userName) {
     try {
         const response = await api.post(
-            `${apiUrlLocal}${sendWelcomeEmailEndpoint}?email=${email}&userName=${userName}` 
+            `${apiUrlLocal}${sendWelcomeEmailEndpoint}?email=${email}&userName=${userName}`
         );
         return response;
     } catch (error) {
@@ -276,7 +278,7 @@ export async function SendWelcomeEmail(email, userName) {
 export async function SendPasswordRecoverCode(email) {
     try {
         const response = await api.post(
-            `${apiUrlLocal}${sendPasswordRecoverCodeEndpoint}?email=${email}` 
+            `${apiUrlLocal}${sendPasswordRecoverCodeEndpoint}?email=${email}`
         );
         return response;
     } catch (error) {
@@ -296,8 +298,9 @@ export async function SendPasswordRecoverCode(email) {
 export async function ValidatePasswordRecoverCode(email, code) {
     try {
         const response = await api.post(
-            `${apiUrlLocal}${validatePasswordRecoverCodeEndpoint}?email=${email}&code=${code}` 
+            `${apiUrlLocal}${validatePasswordRecoverCodeEndpoint}?email=${email}&code=${code}`
         );
+
         return response;
     } catch (error) {
         if (error.response) {
@@ -310,6 +313,8 @@ export async function ValidatePasswordRecoverCode(email, code) {
             console.log('Error', error.message);
         }
         console.log(error.config);
+
+        return { status: 400 };
     }
 }
 
