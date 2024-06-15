@@ -5,9 +5,6 @@ import styles from './style'; // Importa os estilos atualizados
 
 const screenWidth = Dimensions.get('window').width;
 
-const images = [
- 
-];
 
 const ITEM_WIDTH = screenWidth * 0.2; // Largura de cada item na FlatList
 const ITEM_HEIGHT = ITEM_WIDTH * 1.2; // Altura de cada item
