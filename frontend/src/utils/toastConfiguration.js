@@ -82,6 +82,20 @@ export const callDefaultWorkoutCreatedToast = workoutName =>
         text2: 'Agora basta adicionar os seus exercícios.'
     });
 
+export const callDefaultWorkoutExerciseCreatedToast = exerciseName =>
+    Toast.show({
+        type: 'success',
+        text1: `O exercício ${exerciseName}, foi adicionado ao seu treino diário com sucesso!`,
+        text2: 'Adicione mais exercícios se preferir.'
+    });
+
+export const callDefaultWorkoutExerciseDeletedToast = exerciseName =>
+    Toast.show({
+        type: 'success',
+        text1: `O exercício removido com sucesso!`,
+        text2: `O exercício ${exerciseName}, foi removido do seu treino!`
+    });
+
 export const callPhotoRegisteredToast = () =>
     Toast.show({
         type: 'success',
@@ -92,13 +106,6 @@ export const callProfilePhotoUpdatedToast = () =>
     Toast.show({
         type: 'success',
         text1: `Sua foto de perfil foi atualizada!`
-    });
-
-export const callDefaultWorkoutExerciseCreatedToast = exerciseName =>
-    Toast.show({
-        type: 'success',
-        text1: `O exercício ${exerciseName}, foi adicionado ao seu treino diário com sucesso!`,
-        text2: 'Adicione mais exercícios se preferir.'
     });
 
 export const callProfileUpdatedToast = () =>
