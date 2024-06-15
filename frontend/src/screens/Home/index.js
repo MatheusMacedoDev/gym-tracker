@@ -24,7 +24,12 @@ import AuthContext from '../../global/AuthContext';
 import ProfileImageContext from '../../global/ProfileImageContext';
 import { GetUserProfileImage } from '../../infra/services/userService';
 import Toast from 'react-native-toast-message';
-import { callWelcomeToast, toastConfig } from '../../utils/toastConfiguration';
+import {
+    callDiaryWorkoutDeletedToast,
+    callNetworkErrorOccuredToast,
+    callWelcomeToast,
+    toastConfig
+} from '../../utils/toastConfiguration';
 import moment from 'moment';
 import { IconButton } from '../../components/IconButton';
 import { colors } from '../../colors.config';
@@ -46,6 +51,13 @@ export const Home = ({ navigation }) => {
         const response = await DeleteDiaryWorkout(diaryWorkout.diaryWorkoutId);
 
         GetExercises();
+
+        if (response.status === 204) {
+            const formatedDate = moment(date).format('DD/MM/YYYY');
+            callDiaryWorkoutDeletedToast(formatedDate);
+        } else {
+            callNetworkErrorOccuredToast();
+        }
     }
 
     async function getUserProfileImageData() {

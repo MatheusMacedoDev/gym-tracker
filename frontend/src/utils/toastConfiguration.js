@@ -96,6 +96,13 @@ export const callDefaultWorkoutExerciseDeletedToast = exerciseName =>
         text2: `O exercício ${exerciseName}, foi removido do seu treino!`
     });
 
+export const callDiaryWorkoutDeletedToast = date =>
+    Toast.show({
+        type: 'success',
+        text1: `Registro de treino removido!`,
+        text2: `O treino do dia ${date} removido.`
+    });
+
 export const callPhotoRegisteredToast = () =>
     Toast.show({
         type: 'success',
