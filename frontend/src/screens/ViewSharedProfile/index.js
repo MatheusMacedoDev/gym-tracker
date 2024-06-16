@@ -1,89 +1,229 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Gradient from '../../components/Gradient';
 import LineChartComponent from '../../components/Grafic';
-import { Container, ScrollContainer } from '../../components/Container/style';
-import RegisterProgressingComponent from '../../components/RegisterProgressingComponent';
+import { ScrollContainer } from '../../components/Container/style';
+import StatisticBox from '../Profile/components/StatisticBox';
+import StatisticsContainer from '../Profile/components/StatisticsContainer';
 import { Title } from '../../components/Title/style';
 import { percentage } from '../../utils/percentageFactory';
-import { Button } from '../../components/Button';
-import StatisticsContainer from '../Profile/components/StatisticsContainer';
-import StatisticBox from '../Profile/components/StatisticBox';
 import ProfileView from '../Profile/components/ProfileView';
-import Carousel from '../../components/Carousel';
+import {
+    GetProfileHistoriesByUserId,
+    GetUserLikesAmount,
+    GetUserProfileImage
+} from '../../infra/services/userService';
+import AuthContext from '../../global/AuthContext';
+import ProfileImageContext from '../../global/ProfileImageContext';
+import Toast from 'react-native-toast-message';
+import { toastConfig } from '../../utils/toastConfiguration';
+import ParallaxCarousel from '../../components/ParallaxCarousel';
 
-const SharedProfile = () => {
-    const [weight, setWeight] = useState('78');
-    const [height, setheight] = useState('178');
-    const [bodyFat, setBodyFat] = useState('14');
-    const [abdominalGirth, setAbdominalGirth] = useState('80');
-    const [scapularGirth, setScapularGirth] = useState('110');
-    const [hipGirth, setHipGirth] = useState('90');
-    const [armGirth, setArmGirth] = useState('38');
-    const [legGirth, setLegGirth] = useState('75');
+const ViewSharedProfile = ({ navigation, route }) => {
+    const [weight, setWeight] = useState(null);
+    const [height, setHeight] = useState(null);
+    const [bodyFat, setBodyFat] = useState(null);
+    const [abdominalGirth, setAbdominalGirth] = useState(null);
+    const [scapularGirth, setScapularGirth] = useState(null);
+    const [hipGirth, setHipGirth] = useState(null);
+    const [armGirth, setArmGirth] = useState(null);
+    const [legGirth, setLegGirth] = useState(null);
 
-    const [allowEdit, setAllowEdit] = useState(true);
-    const [isProfileEditing, setIsProfileEditing] = useState(false);
+    const [profileHistoriesData, setProfileHistoriesData] = useState();
+    const [evolutionPhotosData, setEvolutionPhotosData] = useState(null);
 
-    const data = {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-        datasets: [
-            {
-                data: [20, 45, 28, 80, 99, 43],
-                color: (opacity = 1) => `rgba(251, 102, 20, 0.8)`,
-                strokeWidth: 2
+    const [selectedGraphLabels, setSelectedGraphLabels] = useState(null);
+    const [selectedGraphInfos, setSelectedGraphInfos] = useState(null);
+    const [selectedGraphLegend, setSelectedGraphLegend] = useState('');
+    const [selectedGraphData, setSelectedGraphData] = useState(null);
+
+    const [userLikesAmount, setUserLikesAmount] = useState(0);
+
+    const [scrollEnabled, setScrollEnabled] = useState(true);
+
+    const { user, setUser } = useContext(AuthContext);
+    const { profileImage, setProfileImage } = useContext(ProfileImageContext);
+
+    const scrollContainerRef = useRef(null);
+
+    const { userId } = route.params;
+
+    function changeGraph(property, legend) {
+        if (!profileHistoriesData) {
+            return;
+        }
+
+        let graphLabels = [];
+        let graphInfos = [];
+
+        profileHistoriesData.forEach((profileHistory, index) => {
+            const specificData = profileHistory[property];
+
+            if (specificData !== null) {
+                graphLabels.push(index);
+                graphInfos.push(specificData);
             }
-        ],
-        legend: ['Progresso']
-    };
+        });
 
-
-    const [images, setImages] = useState([
-        'https://gymtrackerblobstorage.blob.core.windows.net/gymtrackerblobcontainer/094105daa6f644e4b40b22d064750162.jpg',
-        'https://gymtrackerblobstorage.blob.core.windows.net/gymtrackerblobcontainer/18acc85d1f764d8d9805cd3b2169aa53.jpg',
-        'https://gymtrackerblobstorage.blob.core.windows.net/gymtrackerblobcontainer/379b9af1338c42fdbb8b30fe088482f5.jpg'
-  
-    ]);
-
-    function saveProfileHistory() {
-        setIsProfileEditing(false);
-        setAllowEdit(false);
+        setSelectedGraphLabels(graphLabels);
+        setSelectedGraphInfos(graphInfos);
+        setSelectedGraphLegend(legend);
     }
 
-    function editProfileHistory() {
-        setIsProfileEditing(true);
+    async function getUserProfileImageData() {
+        if (profileImage !== '' && profileImage !== null) return;
+
+        const response = await GetUserProfileImage(userId);
+
+        setProfileImage(response.data);
     }
 
-    function logoutProfile() { }
+    async function getUserProfileData() {
+        const response = await GetProfileHistoriesByUserId(userId);
+
+        const allProfileHistoryData = response.data;
+
+        if (allProfileHistoryData.length === 0) {
+            return;
+        }
+
+        setProfileHistoriesData(allProfileHistoryData);
+
+        const currentProfileHistoryData =
+            allProfileHistoryData[allProfileHistoryData.length - 1];
+
+        setWeight(currentProfileHistoryData.weight);
+        setHeight(currentProfileHistoryData.height);
+        setBodyFat(currentProfileHistoryData.bodyFat * 100);
+        setAbdominalGirth(currentProfileHistoryData.abdominalGirth);
+        setScapularGirth(currentProfileHistoryData.scapularGirth);
+        setHipGirth(currentProfileHistoryData.hipGirth);
+        setArmGirth(currentProfileHistoryData.armGirth);
+        setLegGirth(currentProfileHistoryData.legGirth);
+    }
+
+    async function getUserLikesAmount() {
+        const response = await GetUserLikesAmount(userId);
+
+        console.log(response);
+
+        if (response.status === 400) {
+            return;
+        }
+
+        const likesAmount = response.data;
+
+        setUserLikesAmount(likesAmount);
+    }
+
+    function getEvolutionPhotosHistoryData() {
+        if (!profileHistoriesData) return null;
+
+        const photoURIs = [];
+
+        profileHistoriesData.forEach(profileHistory => {
+            if (profileHistory.evolutionPhoto)
+                photoURIs.push(profileHistory.evolutionPhoto);
+        });
+
+        setEvolutionPhotosData(photoURIs);
+    }
+
+    useEffect(() => {
+        getUserProfileImageData();
+        getUserProfileData();
+        getUserLikesAmount();
+    }, []);
+
+    useEffect(() => {
+        if (
+            !selectedGraphLabels ||
+            !selectedGraphInfos ||
+            selectedGraphLegend === ''
+        ) {
+            return;
+        }
+
+        setSelectedGraphData({
+            labels: selectedGraphLabels,
+            datasets: [
+                {
+                    data: selectedGraphInfos,
+                    color: () => `rgba(251, 102, 20, 0.8)`,
+                    strokeWidth: 2
+                }
+            ],
+            legend: [selectedGraphLegend]
+        });
+    }, [selectedGraphLabels]);
+
+    useEffect(() => {
+        changeGraph('weight', 'Peso (kg)');
+        getEvolutionPhotosHistoryData();
+    }, [profileHistoriesData]);
 
     return (
-        <Gradient>
-            <Container>
+        <>
+            <Toast swipeable config={toastConfig} />
+            <Gradient>
                 <ScrollContainer
+                    showsVerticalScrollIndicator={false}
                     contentContainerStyle={{
                         alignItems: 'center'
                     }}
+                    ref={scrollContainerRef}
+                    scrollEnabled={scrollEnabled}
                 >
                     <ProfileView
-                        userName='João Oliveira'
-                        avatarUri='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCMi61i5ieAks081B7kEedNZtMWFpFjYyc79aQgPVuM7MhAW4gVPtvwYhkTjjHea3lG4E&usqp=CAU'
-                        likesAmount='1,2k'
+                        userName={user.name}
+                        avatarUri={profileImage}
+                        likesAmount={userLikesAmount}
+                        disableEditButton
                     />
-<Carousel images={images}/>
+
                     <Title
                         fontSize={20}
-                        marginTop={percentage(0.03, 'h')}
-                        marginBottom={percentage(0.05, 'h')}
+                        marginTop={percentage(0, 'h')}
                         alignSelf='flex-start'
                         alignLeft={true}
                     >
-                        Gráfico
+                        Fotos de Evolução
                     </Title>
 
-                    <LineChartComponent data={data} />
+                    {evolutionPhotosData ? (
+                        <ParallaxCarousel
+                            marginTop={percentage(0.03, 'h')}
+                            marginBottom={percentage(0.03, 'h')}
+                            data={evolutionPhotosData}
+                            setBackgroundScrollEnable={setScrollEnabled}
+                            editable={false}
+                        />
+                    ) : (
+                        <RegisterProgressingComponent editable={false} />
+                    )}
+
+                    {selectedGraphData != null && (
+                        <>
+                            <Title
+                                fontSize={20}
+                                marginTop={percentage(0, 'h')}
+                                marginBottom={percentage(0.03, 'h')}
+                                alignSelf='flex-start'
+                                alignLeft={true}
+                            >
+                                Gráfico
+                            </Title>
+
+                            <LineChartComponent data={selectedGraphData} />
+                        </>
+                    )}
 
                     <Title
                         fontSize={20}
-                        marginTop={percentage(0.07, 'h')}
+                        marginTop={
+                            selectedGraphData
+                                ? percentage(0.07, 'h')
+                                : percentage(0.03, 'h')
+                        }
                         marginBottom={percentage(0.05, 'h')}
                         alignSelf='flex-start'
                         alignLeft={true}
@@ -91,100 +231,84 @@ const SharedProfile = () => {
                         Atualmente
                     </Title>
 
-                    <StatisticsContainer>
+                    <StatisticsContainer marginBottom={percentage(0.07, 'h')}>
                         <StatisticBox
                             label='Peso'
-                            editable={isProfileEditing}
+                            editable={false}
                             value={weight}
-                            setValue={setWeight}
                             unitText='kg'
+                            handleClickFn={() => {
+                                changeGraph('weight', 'Peso (kg)');
+                            }}
                         />
                         <StatisticBox
                             label='Altura'
-                            editable={isProfileEditing}
+                            editable={false}
                             value={height}
-                            setValue={setheight}
                             unitText='cm'
+                            handleClickFn={() => {
+                                changeGraph('height', 'Altura (cm)');
+                            }}
                         />
                         <StatisticBox
                             label='BF'
-                            editable={isProfileEditing}
-                            value={bodyFat}
-                            setValue={setBodyFat}
+                            editable={false}
+                            value={Math.round(bodyFat)}
                             unitText='%'
+                            handleClickFn={() => {
+                                changeGraph('bodyFat', 'BF (%)');
+                            }}
                         />
                         <StatisticBox
                             label='Cintura'
-                            editable={isProfileEditing}
+                            editable={false}
                             value={abdominalGirth}
-                            setValue={setAbdominalGirth}
                             unitText='cm'
+                            handleClickFn={() => {
+                                changeGraph('abdominalGirth', 'Cintura (cm)');
+                            }}
                         />
                         <StatisticBox
                             label='Ombros'
-                            editable={isProfileEditing}
+                            editable={false}
                             value={scapularGirth}
-                            setValue={setScapularGirth}
                             unitText='cm'
+                            handleClickFn={() => {
+                                changeGraph('scapularGirth', 'Ombros (cm)');
+                            }}
                         />
                         <StatisticBox
                             label='Quadril'
-                            editable={isProfileEditing}
+                            editable={false}
                             value={hipGirth}
-                            setValue={setHipGirth}
                             unitText='cm'
+                            handleClickFn={() => {
+                                changeGraph('hipGirth', 'Quadril (cm)');
+                            }}
                         />
                         <StatisticBox
                             label='Braço'
-                            editable={isProfileEditing}
+                            editable={false}
                             value={armGirth}
-                            setValue={setArmGirth}
                             unitText='cm'
+                            handleClickFn={() => {
+                                changeGraph('armGirth', 'Braço (cm)');
+                            }}
                         />
                         <StatisticBox
                             label='Perna'
-                            editable={isProfileEditing}
+                            editable={false}
                             value={legGirth}
-                            setValue={setLegGirth}
                             unitText='cm'
+                            handleClickFn={() => {
+                                changeGraph('legGirth', 'Perna (cm)');
+                            }}
                         />
                     </StatisticsContainer>
-
-                    <Title
-                        fontSize={20}
-                        marginTop={percentage(0.07, 'h')}
-                        alignSelf='flex-start'
-                        alignLeft={true}
-                    >
-                        Fotos
-                    </Title>
-
-
-
-                    {allowEdit && isProfileEditing ? (
-                        <Button
-                            title='Salvar'
-                            marginTop={percentage(0.05, 'h')}
-                            handleClickFn={saveProfileHistory}
-                        />
-                    ) : (
-                        <Button
-                            title='Atualizar'
-                            marginTop={percentage(0.05, 'h')}
-                            handleClickFn={editProfileHistory}
-                        />
-                    )}
-                    <Button
-                        title='Sair'
-                        marginTop={percentage(0.03, 'h')}
-                        marginBottom={percentage(0.05, 'h')}
-                        handleClickFn={logoutProfile}
-                        hiddenButton={true}
-                    />
                 </ScrollContainer>
-            </Container>
-        </Gradient>
+            </Gradient>
+        </>
     );
 };
 
-export default SharedProfile;
+export default ViewSharedProfile;

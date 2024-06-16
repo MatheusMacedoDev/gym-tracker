@@ -59,15 +59,18 @@ export default function ProfileView({
     avatarUri,
     userName,
     likesAmount,
-    handleEditClick
+    handleEditClick,
+    disableEditButton = false
 }) {
     return (
         <Container>
             <AvatarContainer>
                 <AvatarImage source={{ uri: avatarUri }} />
-                <EditContainer onPress={handleEditClick}>
-                    <Entypo name='pencil' size={20} color='#fff' />
-                </EditContainer>
+                {!disableEditButton && (
+                    <EditContainer onPress={handleEditClick}>
+                        <Entypo name='pencil' size={20} color='#fff' />
+                    </EditContainer>
+                )}
                 <UserName>{userName}</UserName>
             </AvatarContainer>
             <LikesContainer>

@@ -19,7 +19,7 @@ import {
 } from '../../utils/toastConfiguration';
 import Toast from 'react-native-toast-message';
 
-export const RankingScreen = () => {
+export const RankingScreen = ({ navigation }) => {
     const [usersByLikes, setUsersByLikes] = useState();
     const [usersLatestUpdate, setUsersLatestUpdate] = useState();
 
@@ -101,10 +101,12 @@ export const RankingScreen = () => {
                             data={usersLatestUpdate}
                             renderItem={({ item, index }) => (
                                 <RankingCard
+                                    userId={item.userId}
                                     name={limitCharacters(item.userName, 14)}
                                     likes={item.likes}
                                     sequentialNumber={index + 1}
                                     profilePhoto={item.profilePhoto}
+                                    navigation={navigation}
                                 />
                             )}
                         />

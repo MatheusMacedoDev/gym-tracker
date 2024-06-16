@@ -7,14 +7,30 @@ import TextNumbersRanking from './Style/TextNumbersRanking';
 import ViewLikes from './Style/ViewLikes';
 import { percentage } from '../../utils/percentageFactory';
 
-export default RankingCard = ({ name, likes, sequentialNumber, profilePhoto }) => {
+export default RankingCard = ({
+    userId,
+    name,
+    likes,
+    sequentialNumber,
+    profilePhoto,
+    navigation
+}) => {
+    function moveToSharedProfile() {
+        navigation.navigate('SharedProfile', {
+            userId
+        });
+    }
+
     return (
-        <ContainerRankingCard verticalPadding={percentage(0.03, 'h')}>
+        <ContainerRankingCard
+            verticalPadding={percentage(0.03, 'h')}
+            onPress={moveToSharedProfile}
+        >
             <TextNumbersRanking>{sequentialNumber}°</TextNumbersRanking>
             <ImagePersonRanking
                 marginLeft={percentage(0.01, 'h')}
                 resizeMode='cover'
-                source={{uri: profilePhoto}}
+                source={{ uri: profilePhoto }}
             />
             <NamePersonRanking marginLeft={percentage(0.02, 'h')}>
                 {name}
