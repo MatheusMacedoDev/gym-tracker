@@ -122,7 +122,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("user_like")]
-    public async Task<IActionResult> RegisterUserLike([FromForm] RegisterUserLikeRequest request)
+    public async Task<IActionResult> RegisterUserLike([FromBody] RegisterUserLikeRequest request)
     {
         try
         {
