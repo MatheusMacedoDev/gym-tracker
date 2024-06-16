@@ -54,12 +54,12 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
                 <Container>
                     <Logo marginTop={percentage(0.085, 'h')} />
                     <Title
-                        marginTop={percentage(0.05, 'h')}
+                        marginTop={percentage(0.06, 'h')}
                         marginBottom={percentage(0.05, 'h')}
                     >
                         Treinos predefinidos
                     </Title>
-                    <ListContainer heightContainer='40%'>
+                    <ListContainer heightContainer='43%'>
                         <ListComponent
                             data={defaultWorkouts}
                             renderItem={({ item }) => (
