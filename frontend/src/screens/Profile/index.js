@@ -160,7 +160,8 @@ const Profile = ({ navigation }) => {
     function logoutProfile() {
         setUser(null);
         removeUserToken();
-        navigation.replace('LoginScreen');
+
+        navigation.replace('Presentation');
     }
 
     function changeGraph(property, legend) {
