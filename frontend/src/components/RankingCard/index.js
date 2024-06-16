@@ -17,7 +17,9 @@ export default RankingCard = ({
 }) => {
     function moveToSharedProfile() {
         navigation.navigate('SharedProfile', {
-            userId
+            userId,
+            userName: name,
+            userProfileImage: profilePhoto
         });
     }
 

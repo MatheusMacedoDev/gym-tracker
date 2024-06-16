@@ -51,7 +51,7 @@ const ViewSharedProfile = ({ navigation, route }) => {
 
     const scrollContainerRef = useRef(null);
 
-    const { userId } = route.params;
+    const { userId, userName, userProfileImage } = route.params;
 
     function changeGraph(property, legend) {
         if (!profileHistoriesData) {
@@ -197,8 +197,8 @@ const ViewSharedProfile = ({ navigation, route }) => {
                         />
                     )}
                     <ProfileView
-                        userName={user.name}
-                        avatarUri={profileImage}
+                        userName={userName}
+                        avatarUri={userProfileImage}
                         likesAmount={userLikesAmount}
                         disableEditButton
                     />
