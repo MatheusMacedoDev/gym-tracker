@@ -3,6 +3,10 @@ import Carousel from 'react-native-reanimated-carousel';
 import CarouselContainer from './components/CarouselContainer';
 import CarouselImage from './components/CarouselImage';
 import { useSharedValue } from 'react-native-reanimated';
+import { Entypo } from '@expo/vector-icons';
+import { IconButton } from '../IconButton';
+import { colors } from '../../colors.config';
+import { percentage } from '../../utils/percentageFactory';
 
 const width = Dimensions.get('window').width;
 
@@ -10,7 +14,9 @@ export default function ParallaxCarousel({
     data,
     marginTop = '20px',
     marginBottom = '20px',
-    setBackgroundScrollEnabled = () => {}
+    editable = false,
+    setBackgroundScrollEnabled = () => {},
+    handleAddClickFn = () => {}
 }) {
     const selectedItem = useSharedValue(1);
 
@@ -55,6 +61,16 @@ export default function ParallaxCarousel({
                     />
                 )}
             />
+            {editable && (
+                <IconButton
+                    handleClickFn={handleAddClickFn}
+                    left={percentage(0.6, 'w')}
+                    bottom={10}
+                    widthButton={50}
+                    heightButton={50}
+                    icon={<Entypo name='plus' size={42} color={colors.white} />}
+                />
+            )}
         </CarouselContainer>
     );
 }

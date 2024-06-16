@@ -153,6 +153,8 @@ const Profile = ({ navigation }) => {
         }
 
         setEvolutionPhotoUri(photoUri);
+
+        callPhotoRegisteredToast();
     }
 
     function logoutProfile() {
@@ -441,6 +443,12 @@ const Profile = ({ navigation }) => {
                             marginBottom={percentage(0.02, 'h')}
                             data={evolutionPhotosData}
                             setBackgroundScrollEnable={setScrollEnabled}
+                            editable={isProfileEditing}
+                            handleAddClickFn={() =>
+                                navigation.navigate('Camera', {
+                                    handlePhoto: registerEvolutionPhoto
+                                })
+                            }
                         />
                     ) : (
                         <RegisterProgressingComponent
