@@ -90,7 +90,7 @@ export const DefaultWorkoutExerciseScreen = ({ navigation, route }) => {
                     >
                         {trainingName}
                     </Title>
-                    <ListContainer heightContainer='50%'>
+                    <ListContainer heightContainer='46%'>
                         <ListComponent
                             data={defaultWorkoutExercises}
                             renderItem={({ item }) => (
