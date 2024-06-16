@@ -8,7 +8,7 @@ import { ListComponent } from '../../components/List/style';
 import RankingCard from '../../components/RankingCard';
 import { percentage } from '../../utils/percentageFactory';
 import { limitCharacters } from '../../utils/stringHandler';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import {
     getRankUsersByLatestUpdate,
     getRankUsersByLikes
@@ -18,15 +18,18 @@ import {
     toastConfig
 } from '../../utils/toastConfiguration';
 import Toast from 'react-native-toast-message';
+import { useFocusEffect } from '@react-navigation/native';
 
 export const RankingScreen = ({ navigation }) => {
     const [usersByLikes, setUsersByLikes] = useState();
     const [usersLatestUpdate, setUsersLatestUpdate] = useState();
 
-    useEffect(() => {
-        getRankUsersLikes();
-        getRankUsersUpdateLatest();
-    }, []);
+    useFocusEffect(
+        useCallback(() => {
+            getRankUsersLikes();
+            getRankUsersUpdateLatest();
+        }, [])
+    );
 
     async function getRankUsersLikes() {
         const response = await getRankUsersByLikes();
@@ -56,6 +59,7 @@ export const RankingScreen = ({ navigation }) => {
                     contentContainerStyle={{
                         maxHeight: 1200
                     }}
+                    nestedScrollEnabled={true}
                 >
                     <Logo
                         widthLogo={105}
@@ -78,10 +82,12 @@ export const RankingScreen = ({ navigation }) => {
                             data={usersByLikes}
                             renderItem={({ item, index }) => (
                                 <RankingCard
+                                    userId={item.userId}
                                     name={limitCharacters(item.userName, 14)}
                                     likes={item.likes}
                                     sequentialNumber={index + 1}
                                     profilePhoto={item.profilePhoto}
+                                    navigation={navigation}
                                 />
                             )}
                         />

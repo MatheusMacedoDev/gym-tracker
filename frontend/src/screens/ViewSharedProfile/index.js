@@ -15,8 +15,14 @@ import {
 import AuthContext from '../../global/AuthContext';
 import ProfileImageContext from '../../global/ProfileImageContext';
 import Toast from 'react-native-toast-message';
-import { toastConfig } from '../../utils/toastConfiguration';
+import {
+    callNetworkErrorOccuredToast,
+    toastConfig
+} from '../../utils/toastConfiguration';
 import ParallaxCarousel from '../../components/ParallaxCarousel';
+import LikeButton from './components/LikeButton';
+import { IconButton } from '../../components/IconButton';
+import { MaterialIcons } from '@expo/vector-icons';
 
 const ViewSharedProfile = ({ navigation, route }) => {
     const [weight, setWeight] = useState(null);
@@ -104,9 +110,8 @@ const ViewSharedProfile = ({ navigation, route }) => {
     async function getUserLikesAmount() {
         const response = await GetUserLikesAmount(userId);
 
-        console.log(response);
-
         if (response.status === 400) {
+            callNetworkErrorOccuredToast();
             return;
         }
 
@@ -163,7 +168,7 @@ const ViewSharedProfile = ({ navigation, route }) => {
 
     return (
         <>
-            <Toast swipeable config={toastConfig} />
+            <Toast swippeable config={toastConfig} />
             <Gradient>
                 <ScrollContainer
                     showsVerticalScrollIndicator={false}
@@ -173,6 +178,24 @@ const ViewSharedProfile = ({ navigation, route }) => {
                     ref={scrollContainerRef}
                     scrollEnabled={scrollEnabled}
                 >
+                    <IconButton
+                        handleClickFn={() => navigation.goBack()}
+                        gradient={false}
+                        icon={
+                            <MaterialIcons
+                                name='reply'
+                                size={40}
+                                color={'#FB6614'}
+                            />
+                        }
+                    />
+                    {!(user.userId === userId) && (
+                        <LikeButton
+                            senderUserId={user.userId}
+                            receiverUserId={userId}
+                            updateUserLikesFn={getUserLikesAmount}
+                        />
+                    )}
                     <ProfileView
                         userName={user.name}
                         avatarUri={profileImage}
