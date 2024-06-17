@@ -1,8 +1,6 @@
-import { Image } from 'react-native';
-import { useState } from 'react';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 import { Button } from '../../components/Button';
 import { CommandText } from '../../components/CommandText/style';
-import { Container } from '../../components/Container/style';
 import { IconButton } from '../../components/IconButton';
 import { Input } from '../../components/Input/style';
 import { Logo } from '../../components/Logo';
@@ -21,6 +19,7 @@ import {
     callNetworkErrorOccuredToast,
     toastConfig
 } from '../../utils/toastConfiguration';
+import { ScrollContainer } from '../../components/ScrollContainer';
 
 const schema = yup.object().shape({
     email: yup
@@ -54,50 +53,55 @@ export const RecoverPasswordScreen = ({ navigation }) => {
         <>
             <Toast swipeable config={toastConfig} />
             <Gradient>
-                <Container>
-                    <IconButton
-                        handleClickFn={() => navigation.goBack()}
-                        gradient={false}
-                        icon={
-                            <MaterialIcons
-                                name='reply'
-                                size={40}
-                                color={'#FB6614'}
-                            />
-                        }
-                    />
-                    <Logo marginTop={percentage(0.15, 'h')} />
-                    <Title marginTop={percentage(0.05, 'h')}>
-                        Esqueceu a senha?
-                    </Title>
-                    <CommandText marginTop={percentage(0.05, 'h')}>
-                        Digite o seu e-mail para que possamos enviar um código
-                        de recuperação.
-                    </CommandText>
-                    <Input
-                        marginTop={percentage(0.12, 'h')}
-                        placeholder='Email de recuperação...'
-                        onChangeText={text => setValue('email', text)}
-                        error={errors.email}
-                    />
-                    {errors.email && (
-                        <ErrorMessageText>
-                            {errors.email.message}
-                        </ErrorMessageText>
-                    )}
-                    <Button
-                        handleClickFn={handleSubmit(handleSendRecoveryCode)}
-                        marginTop={percentage(0.12, 'h')}
-                        title='Continuar'
-                        icon={(size, color) => (
-                            <Entypo
-                                name='chevron-right'
-                                size={size}
-                                color={color}
-                            />
+                <KeyboardAvoidingView
+                    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                    style={{ flex: 1 }}
+                >
+                    <ScrollContainer  showsVerticalScrollIndicator={false} widthScroll={'85%'}>
+                        <IconButton
+                            handleClickFn={() => navigation.goBack()}
+                            gradient={false}
+                            icon={
+                                <MaterialIcons
+                                    name='reply'
+                                    size={40}
+                                    color={'#FB6614'}
+                                />
+                            }
+                        />
+                        <Logo marginTop={percentage(0.15, 'h')} />
+                        <Title marginTop={percentage(0.05, 'h')}>
+                            Esqueceu a senha?
+                        </Title>
+                        <CommandText marginTop={percentage(0.05, 'h')}>
+                            Digite o seu e-mail para que possamos enviar um código
+                            de recuperação.
+                        </CommandText>
+                        <Input
+                            marginTop={percentage(0.12, 'h')}
+                            placeholder='Email de recuperação...'
+                            onChangeText={text => setValue('email', text)}
+                            error={errors.email}
+                        />
+                        {errors.email && (
+                            <ErrorMessageText>
+                                {errors.email.message}
+                            </ErrorMessageText>
                         )}
-                    />
-                </Container>
+                        <Button
+                            handleClickFn={handleSubmit(handleSendRecoveryCode)}
+                            marginTop={percentage(0.12, 'h')}
+                            title='Continuar'
+                            icon={(size, color) => (
+                                <Entypo
+                                    name='chevron-right'
+                                    size={size}
+                                    color={color}
+                                />
+                            )}
+                        />
+                    </ScrollContainer>
+                </KeyboardAvoidingView>
             </Gradient>
         </>
     );

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from '../../components/Button';
 import { CommandText } from '../../components/CommandText/style';
-import { Container } from '../../components/Container/style';
 import { ExerciseSerieCard } from '../../components/ExerciseSerieCard';
 import Gradient from '../../components/Gradient';
 import { ListComponent } from '../../components/List/style';
@@ -15,6 +14,8 @@ import { percentage } from '../../utils/percentageFactory';
 import { IconButton } from '../../components/IconButton';
 import { MaterialIcons } from '@expo/vector-icons';
 import { RegisterDiaryExerciseSeries } from '../../infra/services/diaryWorkoutService';
+import { ScrollContainer } from '../../components/ScrollContainer';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 
 export const ExerciseRecord = ({ navigation, route }) => {
     const [series, setSeries] = useState([]);
@@ -34,8 +35,6 @@ export const ExerciseRecord = ({ navigation, route }) => {
         setSeries(seriesArray);
     }, [route.params]);
 
-
-
     const updateSeries = (id, field, value) => {
         setSeries(x => x.map(serie =>
             serie.id === id ? { ...serie, [field]: value } : serie
@@ -43,11 +42,9 @@ export const ExerciseRecord = ({ navigation, route }) => {
     };
 
     async function RegisterExerciseSeries() {
-        if (series) {
+        if (series.length >= 1) {
             for (let index = 0; index < series.length; index++) {
                 if (series[index].repetitions && series[index].overload) {
-
-
                     await RegisterDiaryExerciseSeries(
                         series[index].diaryExerciseId,
                         series[index].id,
@@ -61,64 +58,68 @@ export const ExerciseRecord = ({ navigation, route }) => {
         } else { alert("preencha todas repeticoes e cargas") }
     }
 
-
     return (
         <Gradient>
-            <Container>
-                <IconButton
-                    handleClickFn={() => navigation.goBack()}
-                    gradient={false}
-                    icon={
-                        <MaterialIcons
-                            name='reply'
-                            size={40}
-                            color={'#FB6614'}
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                style={{ flex: 1 }}
+            >
+                <ScrollContainer showsVerticalScrollIndicator={false} widthScroll={'85%'}>
+                    <IconButton
+                        handleClickFn={() => navigation.goBack()}
+                        gradient={false}
+                        icon={
+                            <MaterialIcons
+                                name='reply'
+                                size={40}
+                                color={'#FB6614'}
+                            />
+                        }
+                    />
+                    <Logo marginTop={percentage(0.08, 'h')} />
+                    <Title marginTop={percentage(0.05, 'h')}>
+                        Registro de exercício
+                    </Title>
+                    <CommandText
+                        marginTop={percentage(0.03, 'h')}
+                        marginBottom={percentage(0.05, 'h')}
+                        textAlign={'center'}
+                    >
+                        Preencha os dados da série a seguir:
+                    </CommandText>
+                    <ExerciseSerieLabel marginBottom={percentage(0.03, 'h')}>
+                        <Label>Carga</Label>
+                        <Label>Repetições</Label>
+                    </ExerciseSerieLabel>
+                    <ListContainer>
+                        <ListComponent
+                            data={series}
+                            contentContainerStyle={{
+                                gap: 16
+                            }}
+                            renderItem={({ item }) => (
+                                <ExerciseSerieCard
+                                    key={item.id}
+                                    data={item}
+                                    setSeries={updateSeries}
+                                />
+                            )}
                         />
-                    }
-                />
-                <Logo marginTop={percentage(0.08, 'h')} />
-                <Title marginTop={percentage(0.05, 'h')}>
-                    Registro de exercício
-                </Title>
-                <CommandText
-                    marginTop={percentage(0.03, 'h')}
-                    marginBottom={percentage(0.05, 'h')}
-                    textAlign={'center'}
-                >
-                    Preencha os dados da série a seguir:
-                </CommandText>
-                <ExerciseSerieLabel marginBottom={percentage(0.03, 'h')}>
-                    <Label>Carga</Label>
-                    <Label>Repetições</Label>
-                </ExerciseSerieLabel>
-                <ListContainer>
-                    <ListComponent
-                        data={series}
-                        contentContainerStyle={{
-                            gap: 16
-                        }}
-                        renderItem={({ item }) => (
-                            <ExerciseSerieCard
-                                key={item.id}
-                                data={item}
-                                setSeries={updateSeries}
+                    </ListContainer>
+                    <Button
+                        marginTop={percentage(0.05, 'h')}
+                        handleClickFn={() => RegisterExerciseSeries()}
+                        title='Finalizar exercício'
+                        icon={(size, color) => (
+                            <Entypo
+                                name='chevron-right'
+                                size={size}
+                                color={color}
                             />
                         )}
                     />
-                </ListContainer>
-                <Button
-                    marginTop={percentage(0.05, 'h')}
-                    handleClickFn={() => RegisterExerciseSeries()}
-                    title='Finalizar exercício'
-                    icon={(size, color) => (
-                        <Entypo
-                            name='chevron-right'
-                            size={size}
-                            color={color}
-                        />
-                    )}
-                />
-            </Container>
+                </ScrollContainer>
+            </KeyboardAvoidingView>
         </Gradient>
     );
 };
