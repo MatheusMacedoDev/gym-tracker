@@ -26,6 +26,7 @@ import { GetUserProfileImage } from '../../infra/services/userService';
 import Toast from 'react-native-toast-message';
 import {
     callDiaryWorkoutDeletedToast,
+    callInvalidDateErrorToast,
     callNetworkErrorOccuredToast,
     callWelcomeToast,
     toastConfig
@@ -155,6 +156,19 @@ export const Home = ({ navigation }) => {
                                         heightButton='12%'
                                         marginTop={percentage(0.05, 'h')}
                                         handleClickFn={() => {
+                                            const currentDate = moment();
+                                            const selectedDate = moment(date);
+
+                                            const diff = selectedDate.diff(
+                                                currentDate,
+                                                'minutes'
+                                            );
+
+                                            if (diff > 0) {
+                                                callInvalidDateErrorToast();
+                                                return;
+                                            }
+
                                             navigation.navigate(
                                                 'TrainingRecordScreen',
                                                 { date: date }

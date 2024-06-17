@@ -184,3 +184,10 @@ export const callCancelEditProfileStartsToast = () =>
         text1: 'Modo de edição desativado!',
         text2: 'Não será possível editar seus dados.'
     });
+
+export const callInvalidDateErrorToast = () =>
+    Toast.show({
+        type: 'error',
+        text1: 'Data escolhida inválida!',
+        text2: 'Escolha uma data anterior.'
+    });

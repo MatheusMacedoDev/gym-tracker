@@ -437,7 +437,6 @@ const Profile = ({ navigation }) => {
                     >
                         Fotos de Evolução
                     </Title>
-
                     {evolutionPhotosData ? (
                         <ParallaxCarousel
                             marginTop={percentage(0.06, 'h')}
