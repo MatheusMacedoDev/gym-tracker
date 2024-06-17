@@ -2,7 +2,7 @@ import { TouchableOpacity } from 'react-native';
 import { Container } from '../../components/Container/style';
 import Gradient from '../../components/Gradient';
 import { ListComponent } from '../../components/List/style';
-import ListContainer from '../../components/ListContainer';
+import { ListContainer } from '../../components/ListContainer';
 import { Logo } from '../../components/Logo';
 import { Title } from '../../components/Title/style';
 import { CardWorkout } from '../../components/CardWorkout';

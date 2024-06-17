@@ -5,7 +5,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
 import Gradient from '../../components/Gradient';
 import { Container } from '../../components/Container/style';
-import ListContainer from '../../components/ListContainer'; 
+import { ListContainer } from '../../components/ListContainer';
 import { SelectedExerciseModal } from '../../components/SelectedExerciseModal';
 import { percentage } from '../../utils/percentageFactory';
 import { GetExercisesByMuscleGroupId } from '../../infra/services/exerciseService';
