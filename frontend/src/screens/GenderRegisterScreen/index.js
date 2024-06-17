@@ -9,6 +9,11 @@ import { CardsGender } from '../../components/CardsGender/index.js';
 import Gradient from '../../components/Gradient/index.js';
 import { useState } from 'react';
 import { percentage } from '../../utils/percentageFactory.js';
+import Toast from 'react-native-toast-message';
+import {
+    callGenderNotSelectedErrorToast,
+    toastConfig
+} from '../../utils/toastConfiguration.js';
 
 export const GenderRegisterScreen = ({ navigation, route }) => {
     const [selectedGender, setSelectedGender] = useState();
@@ -22,49 +27,51 @@ export const GenderRegisterScreen = ({ navigation, route }) => {
                 }
             });
         } else {
-            
+            callGenderNotSelectedErrorToast();
         }
-       
     }
 
     return (
-        <Gradient>
-            <Container>
-                <IconButton
-                    handleClickFn={() => navigation.goBack()}
-                    gradient={false}
-                    icon={
-                        <MaterialIcons
-                            name='reply'
-                            size={40}
-                            color={'#FB6614'}
-                        />
-                    }
-                />
-                <Logo marginTop={percentage(0.15, 'h')} />
-                <Title
-                    marginTop={percentage(0.03, 'h')}
-                    marginBottom={percentage(0.06, 'h')}
-                >
-                    Qual o seu sexo?
-                </Title>
-                <CardsGender
-                    selectedGender={selectedGender}
-                    setSelectedGender={setSelectedGender}
-                />
-                <Button
-                    handleClickFn={handleContinue}
-                    marginTop={percentage(0.06, 'h')}
-                    title='Continuar'
-                    icon={(size, color) => (
-                        <Entypo
-                            name='chevron-right'
-                            size={size}
-                            color={color}
-                        />
-                    )}
-                />
-            </Container>
-        </Gradient>
+        <>
+            <Toast config={toastConfig} />
+            <Gradient>
+                <Container>
+                    <IconButton
+                        handleClickFn={() => navigation.goBack()}
+                        gradient={false}
+                        icon={
+                            <MaterialIcons
+                                name='reply'
+                                size={40}
+                                color={'#FB6614'}
+                            />
+                        }
+                    />
+                    <Logo marginTop={percentage(0.15, 'h')} />
+                    <Title
+                        marginTop={percentage(0.03, 'h')}
+                        marginBottom={percentage(0.06, 'h')}
+                    >
+                        Qual o seu sexo?
+                    </Title>
+                    <CardsGender
+                        selectedGender={selectedGender}
+                        setSelectedGender={setSelectedGender}
+                    />
+                    <Button
+                        handleClickFn={handleContinue}
+                        marginTop={percentage(0.06, 'h')}
+                        title='Continuar'
+                        icon={(size, color) => (
+                            <Entypo
+                                name='chevron-right'
+                                size={size}
+                                color={color}
+                            />
+                        )}
+                    />
+                </Container>
+            </Gradient>
+        </>
     );
 };

@@ -2,38 +2,29 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import Gradient from '../../components/Gradient';
 import LineChartComponent from '../../components/Grafic';
 import { ScrollContainer } from '../../components/Container/style';
-import StatisticBox from './components/StatisticBox';
-import StatisticsContainer from './components/StatisticsContainer';
+import StatisticBox from '../Profile/components/StatisticBox';
+import StatisticsContainer from '../Profile/components/StatisticsContainer';
 import { Title } from '../../components/Title/style';
 import { percentage } from '../../utils/percentageFactory';
-import { Button } from '../../components/Button';
-import ProfileView from './components/ProfileView';
+import ProfileView from '../Profile/components/ProfileView';
 import {
-    CreateProfileHistory,
     GetProfileHistoriesByUserId,
     GetUserLikesAmount,
-    GetUserProfileImage,
-    UpdateProfileImage
+    GetUserProfileImage
 } from '../../infra/services/userService';
 import AuthContext from '../../global/AuthContext';
 import ProfileImageContext from '../../global/ProfileImageContext';
-import { ConfirmEditModal } from '../../components/ConfirmEditModal';
 import Toast from 'react-native-toast-message';
 import {
-    callCancelEditProfileStartsToast,
-    callEditProfileStartsToast,
     callNetworkErrorOccuredToast,
-    callPhotoRegisteredToast,
-    callProfilePhotoUpdatedToast,
-    callProfileUpdatedToast,
     toastConfig
 } from '../../utils/toastConfiguration';
-import { removeUserToken } from '../../utils/tokenHandler';
 import ParallaxCarousel from '../../components/ParallaxCarousel';
+import LikeButton from './components/LikeButton';
+import { IconButton } from '../../components/IconButton';
+import { MaterialIcons } from '@expo/vector-icons';
 
-const Profile = ({ navigation }) => {
-    const [showConfirmEditModal, setShowConfirmEditModal] = useState(false);
-
+const ViewSharedProfile = ({ navigation, route }) => {
     const [weight, setWeight] = useState(null);
     const [height, setHeight] = useState(null);
     const [bodyFat, setBodyFat] = useState(null);
@@ -42,10 +33,6 @@ const Profile = ({ navigation }) => {
     const [hipGirth, setHipGirth] = useState(null);
     const [armGirth, setArmGirth] = useState(null);
     const [legGirth, setLegGirth] = useState(null);
-    const [evolutionPhotoUri, setEvolutionPhotoUri] = useState('');
-
-    const [allowEdit, setAllowEdit] = useState(true);
-    const [isProfileEditing, setIsProfileEditing] = useState(false);
 
     const [profileHistoriesData, setProfileHistoriesData] = useState();
     const [evolutionPhotosData, setEvolutionPhotosData] = useState(null);
@@ -64,104 +51,7 @@ const Profile = ({ navigation }) => {
 
     const scrollContainerRef = useRef(null);
 
-    async function saveProfileHistory() {
-        setIsProfileEditing(false);
-        setAllowEdit(false);
-
-        const response = await CreateProfileHistory(
-            user.userId,
-            weight != '0' ? weight : null,
-            height != '0' ? height : null,
-            abdominalGirth != '0' ? abdominalGirth : null,
-            scapularGirth != '0' ? scapularGirth : null,
-            hipGirth != '0' ? hipGirth : null,
-            armGirth != '0' ? armGirth : null,
-            legGirth != '0' ? legGirth : null,
-            bodyFat !== null && bodyFat != '0' ? bodyFat / 100 : null,
-            evolutionPhotoUri !== '' ? evolutionPhotoUri : null
-        );
-
-        if (response.status === 201) {
-            callProfileUpdatedToast();
-        } else {
-            callNetworkErrorOccuredToast();
-            setIsProfileEditing(true);
-            setAllowEdit(true);
-            return;
-        }
-
-        const newProfileHistoryData = response.data;
-
-        setWeight(newProfileHistoryData.weight);
-        setHeight(newProfileHistoryData.height);
-
-        if (newProfileHistoryData.bodyFat) {
-            setBodyFat(parseFloat(newProfileHistoryData.bodyFat) * 100);
-        }
-
-        setAbdominalGirth(newProfileHistoryData.abdominalGirth);
-        setScapularGirth(newProfileHistoryData.scapularGirth);
-        setHipGirth(newProfileHistoryData.hipGirth);
-        setArmGirth(newProfileHistoryData.armGirth);
-        setLegGirth(newProfileHistoryData.legGirth);
-
-        setProfileHistoriesData([
-            ...profileHistoriesData,
-            newProfileHistoryData
-        ]);
-    }
-
-    function scrollToStatistics() {
-        scrollContainerRef.current.scrollTo({
-            y: selectedGraphData ? 440 : 90,
-            animated: true
-        });
-    }
-
-    function editProfileHistory() {
-        setIsProfileEditing(true);
-        scrollToStatistics();
-        callEditProfileStartsToast();
-    }
-
-    function cancelEditProfileHistory() {
-        setIsProfileEditing(false);
-        scrollToStatistics();
-        callCancelEditProfileStartsToast();
-    }
-
-    async function saveNewProfileImage(photoUri) {
-        if (!photoUri || photoUri.trim() === '') {
-            return;
-        }
-
-        callPhotoRegisteredToast();
-
-        const response = await UpdateProfileImage(user.userId, photoUri);
-
-        if (response.status === 200) {
-            setProfileImage(response.data.profileImageUri);
-            callProfilePhotoUpdatedToast();
-        } else {
-            callNetworkErrorOccuredToast();
-        }
-    }
-
-    function registerEvolutionPhoto(photoUri) {
-        if (!photoUri || photoUri.trim() === '') {
-            return;
-        }
-
-        setEvolutionPhotoUri(photoUri);
-
-        callPhotoRegisteredToast();
-    }
-
-    function logoutProfile() {
-        setUser(null);
-        removeUserToken();
-        navigation.replace('LoginScreen');
-    }
+    const { userId, userName, userProfileImage } = route.params;
 
     function changeGraph(property, legend) {
         if (!profileHistoriesData) {
@@ -188,13 +78,13 @@ const Profile = ({ navigation }) => {
     async function getUserProfileImageData() {
         if (profileImage !== '' && profileImage !== null) return;
 
-        const response = await GetUserProfileImage(user.userId);
+        const response = await GetUserProfileImage(userId);
 
         setProfileImage(response.data);
     }
 
     async function getUserProfileData() {
-        const response = await GetProfileHistoriesByUserId(user.userId);
+        const response = await GetProfileHistoriesByUserId(userId);
 
         const allProfileHistoryData = response.data;
 
@@ -218,11 +108,10 @@ const Profile = ({ navigation }) => {
     }
 
     async function getUserLikesAmount() {
-        const response = await GetUserLikesAmount(user.userId);
-
-        console.log(response);
+        const response = await GetUserLikesAmount(userId);
 
         if (response.status === 400) {
+            callNetworkErrorOccuredToast();
             return;
         }
 
@@ -279,23 +168,8 @@ const Profile = ({ navigation }) => {
 
     return (
         <>
-            <Toast swipeable config={toastConfig} />
+            <Toast swippeable config={toastConfig} />
             <Gradient>
-                <ConfirmEditModal
-                    visible={showConfirmEditModal}
-                    setVisible={setShowConfirmEditModal}
-                    statisticsData={{
-                        weight,
-                        height,
-                        abdominalGirth,
-                        scapularGirth,
-                        hipGirth,
-                        legGirth,
-                        armGirth,
-                        bodyFat
-                    }}
-                    afterConfirmationActionFn={saveProfileHistory}
-                />
                 <ScrollContainer
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{
@@ -304,23 +178,58 @@ const Profile = ({ navigation }) => {
                     ref={scrollContainerRef}
                     scrollEnabled={scrollEnabled}
                 >
-                    <ProfileView
-                        userName={user.name}
-                        avatarUri={profileImage}
-                        likesAmount={userLikesAmount}
-                        handleEditClick={() => {
-                            navigation.navigate('Camera', {
-                                handlePhoto: saveNewProfileImage
-                            });
-                        }}
+                    <IconButton
+                        handleClickFn={() => navigation.goBack()}
+                        gradient={false}
+                        icon={
+                            <MaterialIcons
+                                name='reply'
+                                size={40}
+                                color={'#FB6614'}
+                            />
+                        }
                     />
+                    {!(user.userId === userId) && (
+                        <LikeButton
+                            senderUserId={user.userId}
+                            receiverUserId={userId}
+                            updateUserLikesFn={getUserLikesAmount}
+                        />
+                    )}
+                    <ProfileView
+                        userName={userName}
+                        avatarUri={userProfileImage}
+                        likesAmount={userLikesAmount}
+                        disableEditButton
+                    />
+
+                    <Title
+                        fontSize={20}
+                        marginTop={percentage(0, 'h')}
+                        alignSelf='flex-start'
+                        alignLeft={true}
+                    >
+                        Fotos de Evolução
+                    </Title>
+
+                    {evolutionPhotosData ? (
+                        <ParallaxCarousel
+                            marginTop={percentage(0.03, 'h')}
+                            marginBottom={percentage(0.03, 'h')}
+                            data={evolutionPhotosData}
+                            setBackgroundScrollEnable={setScrollEnabled}
+                            editable={false}
+                        />
+                    ) : (
+                        <RegisterProgressingComponent editable={false} />
+                    )}
 
                     {selectedGraphData != null && (
                         <>
                             <Title
                                 fontSize={20}
                                 marginTop={percentage(0, 'h')}
-                                marginBottom={percentage(0.05, 'h')}
+                                marginBottom={percentage(0.03, 'h')}
                                 alignSelf='flex-start'
                                 alignLeft={true}
                             >
@@ -345,12 +254,11 @@ const Profile = ({ navigation }) => {
                         Atualmente
                     </Title>
 
-                    <StatisticsContainer>
+                    <StatisticsContainer marginBottom={percentage(0.07, 'h')}>
                         <StatisticBox
                             label='Peso'
-                            editable={isProfileEditing}
+                            editable={false}
                             value={weight}
-                            setValue={setWeight}
                             unitText='kg'
                             handleClickFn={() => {
                                 changeGraph('weight', 'Peso (kg)');
@@ -358,9 +266,8 @@ const Profile = ({ navigation }) => {
                         />
                         <StatisticBox
                             label='Altura'
-                            editable={isProfileEditing}
+                            editable={false}
                             value={height}
-                            setValue={setHeight}
                             unitText='cm'
                             handleClickFn={() => {
                                 changeGraph('height', 'Altura (cm)');
@@ -368,9 +275,8 @@ const Profile = ({ navigation }) => {
                         />
                         <StatisticBox
                             label='BF'
-                            editable={isProfileEditing}
+                            editable={false}
                             value={Math.round(bodyFat)}
-                            setValue={setBodyFat}
                             unitText='%'
                             handleClickFn={() => {
                                 changeGraph('bodyFat', 'BF (%)');
@@ -378,9 +284,8 @@ const Profile = ({ navigation }) => {
                         />
                         <StatisticBox
                             label='Cintura'
-                            editable={isProfileEditing}
+                            editable={false}
                             value={abdominalGirth}
-                            setValue={setAbdominalGirth}
                             unitText='cm'
                             handleClickFn={() => {
                                 changeGraph('abdominalGirth', 'Cintura (cm)');
@@ -388,9 +293,8 @@ const Profile = ({ navigation }) => {
                         />
                         <StatisticBox
                             label='Ombros'
-                            editable={isProfileEditing}
+                            editable={false}
                             value={scapularGirth}
-                            setValue={setScapularGirth}
                             unitText='cm'
                             handleClickFn={() => {
                                 changeGraph('scapularGirth', 'Ombros (cm)');
@@ -398,9 +302,8 @@ const Profile = ({ navigation }) => {
                         />
                         <StatisticBox
                             label='Quadril'
-                            editable={isProfileEditing}
+                            editable={false}
                             value={hipGirth}
-                            setValue={setHipGirth}
                             unitText='cm'
                             handleClickFn={() => {
                                 changeGraph('hipGirth', 'Quadril (cm)');
@@ -408,9 +311,8 @@ const Profile = ({ navigation }) => {
                         />
                         <StatisticBox
                             label='Braço'
-                            editable={isProfileEditing}
+                            editable={false}
                             value={armGirth}
-                            setValue={setArmGirth}
                             unitText='cm'
                             handleClickFn={() => {
                                 changeGraph('armGirth', 'Braço (cm)');
@@ -418,86 +320,18 @@ const Profile = ({ navigation }) => {
                         />
                         <StatisticBox
                             label='Perna'
-                            editable={isProfileEditing}
+                            editable={false}
                             value={legGirth}
-                            setValue={setLegGirth}
                             unitText='cm'
                             handleClickFn={() => {
                                 changeGraph('legGirth', 'Perna (cm)');
                             }}
                         />
                     </StatisticsContainer>
-
-                    <Title
-                        fontSize={20}
-                        marginTop={percentage(0.07, 'h')}
-                        alignSelf='flex-start'
-                        alignLeft={true}
-                    >
-                        Fotos de Evolução
-                    </Title>
-
-                    {evolutionPhotosData ? (
-                        <ParallaxCarousel
-                            marginTop={percentage(0.06, 'h')}
-                            marginBottom={percentage(0.02, 'h')}
-                            data={evolutionPhotosData}
-                            setBackgroundScrollEnable={setScrollEnabled}
-                            editable={isProfileEditing}
-                            handleAddClickFn={() =>
-                                navigation.navigate('Camera', {
-                                    handlePhoto: registerEvolutionPhoto
-                                })
-                            }
-                        />
-                    ) : (
-                        <RegisterProgressingComponent
-                            handleClickFn={() =>
-                                navigation.navigate('Camera', {
-                                    handlePhoto: registerEvolutionPhoto
-                                })
-                            }
-                            editable={isProfileEditing}
-                        />
-                    )}
-
-                    {allowEdit &&
-                        (isProfileEditing ? (
-                            <Button
-                                title='Salvar'
-                                marginTop={percentage(0.05, 'h')}
-                                handleClickFn={() =>
-                                    setShowConfirmEditModal(true)
-                                }
-                            />
-                        ) : (
-                            <Button
-                                title='Atualizar'
-                                marginTop={percentage(0.05, 'h')}
-                                handleClickFn={editProfileHistory}
-                            />
-                        ))}
-                    {isProfileEditing ? (
-                        <Button
-                            title='Cancelar'
-                            marginTop={percentage(0.03, 'h')}
-                            marginBottom={percentage(0.04, 'h')}
-                            handleClickFn={cancelEditProfileHistory}
-                            hiddenButton={true}
-                        />
-                    ) : (
-                        <Button
-                            title='Sair'
-                            marginTop={percentage(0.03, 'h')}
-                            marginBottom={percentage(0.04, 'h')}
-                            handleClickFn={logoutProfile}
-                            hiddenButton={true}
-                        />
-                    )}
                 </ScrollContainer>
             </Gradient>
         </>
     );
 };
 
-export default Profile;
+export default ViewSharedProfile;

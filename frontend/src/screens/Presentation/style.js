@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 export const TextTitle = styled.Text`
   font-family: "Montserrat_600Bold";
   font-size: 32px;
-  width: 100%;
+  width: 320px;
   color: #FF8434;
   text-align: left;
 
@@ -19,32 +19,34 @@ export const TextDescription = styled.Text`
 
 export const ContainerPresentation = styled.SafeAreaView`
   align-items: center;
-  width: 85%;
+  width: 320px;
   align-self: center;
   justify-content: space-between;
-  height: 100%;
+  height: 640px;
+  margin-top: ${props => props.marginTop? props.marginTop : 0}
 `;
 
 export const ContainerText = styled.View`
   flex-direction: column;
-  width:100%;
-  align-self: center;
-  justify-content: center;
+  width:320px;
+  align-self:flex-start;
+  margin-top: -250px;
+
 `;
 
-export const Container2 = styled.View`
-margin-top: 80%;
+export const Container2 = styled.View` 
+margin-top: 379px;
   flex-direction: row;
   align-items: center;
   justify-content: space-between; 
-  width: 100%;
+  width: 319px;
   margin-bottom: 20px;
 `;
 
 export const RoundImage = styled.Image`
-  border-radius: 100%;
-  width: 90px;
-  height: 90px;
+  border-radius: 200px;
+  width: 81px;
+  height: 81px;
   right: 100px;
   
 `;

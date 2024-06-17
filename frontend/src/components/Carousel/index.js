@@ -5,11 +5,6 @@ import styles from './style'; // Importa os estilos atualizados
 
 const screenWidth = Dimensions.get('window').width;
 
-const images = [
-  require('../../Assets/joao.jpeg'),
-  require('../../Assets/jota.jpeg'),
-  require('../../Assets/jotinha.jpeg')
-];
 
 const ITEM_WIDTH = screenWidth * 0.2; // Largura de cada item na FlatList
 const ITEM_HEIGHT = ITEM_WIDTH * 1.2; // Altura de cada item
@@ -17,7 +12,7 @@ const ITEM_HEIGHT = ITEM_WIDTH * 1.2; // Altura de cada item
 const SELECTED_ITEM_WIDTH = screenWidth * 0.3; // Largura do item selecionado
 const SELECTED_ITEM_HEIGHT = SELECTED_ITEM_WIDTH * 1.2; // Altura do item selecionado
 
-const Carousel = () => {
+const Carousel = ({ images }) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const scrollViewRef = useRef(null);
 

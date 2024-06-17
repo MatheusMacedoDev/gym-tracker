@@ -7,7 +7,6 @@ import { Logo } from '../../components/Logo';
 import { Title } from '../../components/Title/style';
 import { CardWorkout } from '../../components/CardWorkout';
 import { Button } from '../../components/Button';
-import { Entypo } from '@expo/vector-icons';
 import { useCallback, useContext } from 'react';
 import { NewWorkoutModal } from '../../components/NewWorkoutModal';
 import { percentage } from '../../utils/percentageFactory';
@@ -15,6 +14,9 @@ import { GetDefaultWorkoutsByUserId } from '../../infra/services/defaultWorkoutS
 import { useFocusEffect } from '@react-navigation/native';
 import { useState } from 'react';
 import AuthContext from '../../global/AuthContext.js';
+import Toast from 'react-native-toast-message';
+import { toastConfig } from '../../utils/toastConfiguration.js';
+import { MaterialIcons } from '@expo/vector-icons';
 
 export const DefaultWorkoutsScreen = ({ navigation }) => {
     const [selectedWorkout, setSelectedWorkout] = useState();
@@ -32,7 +34,7 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
         setSelectedWorkout({
             id: item.defaultWorkoutId
         });
-        console.log(item.defaultWorkoutId);
+
         navigation.navigate('DefaultWorkoutExerciseScreen', {
             defaultWorkoutId: item.defaultWorkoutId,
             trainingName: item.defaultWorkoutName
@@ -41,66 +43,68 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
 
     async function GetDefaultWorkout() {
         const response = await GetDefaultWorkoutsByUserId(user.user.userId);
+
         setDefaultWorkouts(response.data);
-        console.log(response.data);
     }
 
     return (
-        <Gradient>
-            <Container>
-                <Logo marginTop={percentage(0.085, 'h')} />
-                <Title
-                    marginTop={percentage(0.05, 'h')}
-                    marginBottom={percentage(0.05, 'h')}
-                >
-                    Treinos predefinidos
-                </Title>
-                <ListContainer heightContainer='40%'>
-                    <ListComponent
-                        data={defaultWorkouts}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity
-                                onPress={() => {
-                                    seeTraining(item);
-                                }}
-                            >
-                                <CardWorkout
-                                    trainingName={item.defaultWorkoutName}
-                                    muscleGroups={
-                                        item.relatedMuscleGroups ||
-                                        'Sem exercícios ainda...'
-                                    }
-                                    marginBottom='10px'
-                                    isSelected={
-                                        selectedWorkout
-                                            ? item.id == selectedWorkout.id
-                                            : false
-                                    }
-                                />
-                            </TouchableOpacity>
+        <>
+            <Toast swipeable config={toastConfig} />
+            <Gradient>
+                <Container>
+                    <Logo marginTop={percentage(0.085, 'h')} />
+                    <Title
+                        marginTop={percentage(0.06, 'h')}
+                        marginBottom={percentage(0.05, 'h')}
+                    >
+                        Treinos predefinidos
+                    </Title>
+                    <ListContainer heightContainer='43%'>
+                        <ListComponent
+                            data={defaultWorkouts}
+                            renderItem={({ item }) => (
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        seeTraining(item);
+                                    }}
+                                >
+                                    <CardWorkout
+                                        trainingName={item.defaultWorkoutName}
+                                        muscleGroups={
+                                            item.relatedMuscleGroups ||
+                                            'Sem exercícios ainda...'
+                                        }
+                                        marginBottom='10px'
+                                        isSelected={
+                                            selectedWorkout
+                                                ? item.id == selectedWorkout.id
+                                                : false
+                                        }
+                                    />
+                                </TouchableOpacity>
+                            )}
+                        />
+                    </ListContainer>
+                    <Button
+                        handleClickFn={() => setShowModalNewWorkout(true)}
+                        marginTop={percentage(0.05, 'h')}
+                        title='Adicionar treino'
+                        icon={(size, color) => (
+                            <MaterialIcons
+                                name='format-list-bulleted-add'
+                                size={size}
+                                color={color}
+                            />
                         )}
                     />
-                </ListContainer>
 
-                <Button
-                    handleClickFn={() => setShowModalNewWorkout(true)}
-                    marginTop={percentage(0.05, 'h')}
-                    title='Adicionar treino'
-                    icon={(size, color) => (
-                        <Entypo
-                            name='chevron-right'
-                            size={size}
-                            color={color}
-                        />
-                    )}
-                />
-
-                <NewWorkoutModal
-                    visible={showModalNewWorkout}
-                    setShowModalNewWorkout={setShowModalNewWorkout}
-                    navigation={navigation}
-                />
-            </Container>
-        </Gradient>
+                    <NewWorkoutModal
+                        visible={showModalNewWorkout}
+                        setShowModalNewWorkout={setShowModalNewWorkout}
+                        navigation={navigation}
+                    />
+                </Container>
+            </Gradient>
+        </>
     );
 };

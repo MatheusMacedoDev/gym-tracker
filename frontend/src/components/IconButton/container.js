@@ -1,6 +1,5 @@
-import styled from "styled-components/native";
-import { colors } from "../../colors.config";
-
+import styled from 'styled-components/native';
+import { colors } from '../../colors.config';
 
 export default IconButtonContainer = styled.TouchableOpacity`
     position: absolute;
@@ -8,12 +7,12 @@ export default IconButtonContainer = styled.TouchableOpacity`
     justify-content: center;
     align-items: center;
     left: ${props => `${props.left}`};
-    top:  ${props => `${props.top}`};
+    top: ${props => `${props.top}`};
     right: ${props => `${props.right}`};
-    bottom:  ${props => `${props.bottom}`};
-    height: ${props => props.heightButon ? `${props.heightButon}`: "45px"};
-    width: ${props => props.widthButton ? `${props.widthButton}` : "45px"};
-    border-radius: 30px;
+    bottom: ${props => `${props.bottom}`};
+    height: ${props => (props.heightButon ? `${props.heightButon}` : '45px')};
+    width: ${props => (props.widthButton ? `${props.widthButton}` : '45px')};
+    border-radius: 50px;
     align-items: center;
-    background-color: ${props => props.background ? colors.orange : null}
+    background-color: ${props => (props.background ? colors.orange : null)};
 `;

@@ -17,13 +17,14 @@ export const PresentationInitial = ({ navigation }) => {
       <ContainerPresentation>
         <ImageFIsic source={Fisic} />
 
-        <Logo marginTop={"-44"} heightLogo={40} widthLogo={80} />
+        <Logo marginTop={"-200"} marginBottom={"8px"} heightLogo={40} widthLogo={80} />
 
-        <Title FontSize={20} marginTop={"3%"}>Bem Vindo ao{"\n"} Gym Tracker</Title>
-        <Subtitulo FontSize={12} marginTop={"2%"}>Seu app de treinos diarios</Subtitulo>
+        <Title FontSize={20} marginTop={"2px"}>Bem Vindo ao{"\n"} Gym Tracker</Title>
+        <Subtitulo FontSize={12} marginTop={"23px"} marginBottom={"8px"}>Seu app de treinos diarios</Subtitulo>
 
         <Button
-          marginTop={"8%"}
+          marginTop={"2px"}
+          marginBottom={"35px"}
           title="Continuar"
           handleClickFn={() => navigation.navigate("LoginScreen")}
         />
