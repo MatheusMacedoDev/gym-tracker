@@ -17,6 +17,7 @@ import AuthContext from '../../global/AuthContext.js';
 import Toast from 'react-native-toast-message';
 import { toastConfig } from '../../utils/toastConfiguration.js';
 import { MaterialIcons } from '@expo/vector-icons';
+import { ListEmptyComponent } from '../../components/ListEmptyComponent/index.js';
 
 export const DefaultWorkoutsScreen = ({ navigation }) => {
     const [selectedWorkout, setSelectedWorkout] = useState();
@@ -62,6 +63,7 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
                     <ListContainer heightContainer='43%'>
                         <ListComponent
                             data={defaultWorkouts}
+                            ListEmptyComponent={<ListEmptyComponent title={"Não há nenhum treino"} commandText={"Adicione um treino"}/>}
                             renderItem={({ item }) => (
                                 <TouchableOpacity
                                     onPress={() => {

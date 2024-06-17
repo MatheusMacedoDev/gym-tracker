@@ -16,6 +16,7 @@ import { percentage } from '../../utils/percentageFactory';
 import { GetDefaultWorkoutsByUserId } from '../../infra/services/defaultWorkoutService';
 import AuthContext from '../../global/AuthContext';
 import { CreateDiaryWorkout } from '../../infra/services/diaryWorkoutService';
+import { ListEmptyComponent } from '../../components/ListEmptyComponent';
 
 export const TrainingRecordScreen = ({ navigation, route }) => {
     const [selectedWorkout, setSelectedWorkout] = useState();
@@ -79,6 +80,7 @@ export const TrainingRecordScreen = ({ navigation, route }) => {
                 <ListContainer heightContainer='34%'>
                     <ListComponent
                         data={defaultWorkouts}
+                        ListEmptyComponent={<ListEmptyComponent title={"Nenhum treino predefinido"} commandText={"Antes de regidtrar um treino, você deve criar um treino predefinido"}/>}
                         contentContainerStyle={{
                             gap: 12
                         }}
