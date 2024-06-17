@@ -28,7 +28,7 @@ export const ConfirmEditModal = ({
         >
             <ModalBackground>
                 <ContentModal>
-                    <Gradient roundedBorders={true}>
+                    <Gradient padding='0px 10px' roundedBorders={true}>
                         <Logo
                             widthLogo={'78px'}
                             heightLogo={'39px'}
@@ -55,6 +55,7 @@ export const ConfirmEditModal = ({
                         </CommandText>
                         <StatisticsContainer
                             style={{
+                                gap: 8,
                                 width: '85%',
                                 marginHorizontal: 'auto'
                             }}
