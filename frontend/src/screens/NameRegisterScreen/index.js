@@ -42,8 +42,8 @@ export const NameRegisterScreen = ({ navigation }) => {
                         />
                     }
                 />
-                <Logo marginTop={percentage(0.2, 'h')} />
-                <Title fontSize={38} marginTop={percentage(0.05, 'h')}>
+                <Logo marginTop={percentage(0.18, 'h')} />
+                <Title fontSize={38} marginTop={percentage(0.04, 'h')}>
                     Qual o seu nome?
                 </Title>
                 <Input
@@ -55,7 +55,7 @@ export const NameRegisterScreen = ({ navigation }) => {
                 {errors.name && <ErrorMessageText>{errors.name.message}</ErrorMessageText>}
                 <Button
                     handleClickFn={handleSubmit(passToAccountData)}
-                    marginTop={percentage(0.25, 'h')}
+                    marginTop={percentage(0.23, 'h')}
                     title='Continuar'
                     icon={(size, color) => (
                         <Entypo name='chevron-right' size={28} color={color} />

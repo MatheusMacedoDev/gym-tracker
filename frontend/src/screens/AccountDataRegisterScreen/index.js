@@ -1,6 +1,5 @@
 import { Button } from '../../components/Button';
 import { CommandText } from '../../components/CommandText/style';
-import { Container } from '../../components/Container/style';
 import Gradient from '../../components/Gradient';
 import { IconButton } from '../../components/IconButton';
 import { Input } from '../../components/Input/style';
@@ -8,12 +7,14 @@ import { Logo } from '../../components/Logo';
 import { Title } from '../../components/Title/style';
 import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { percentage } from '../../utils/percentageFactory';
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from 'react-hook-form';
 import ErrorMessageText from '../../components/ErrorMessageText/style';
+import { ScrollContainer } from '../../components/ScrollContainer';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 
 const schema = yup.object().shape({
     email: yup.string().required('O email não pode ser vazio').email('Digite um email válido'),
@@ -43,7 +44,11 @@ export const AccountDataRegisterScreen = ({ navigation, route }) => {
 
     return (
         <Gradient>
-            <Container>
+             <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                style={{ flex: 1 }}
+            >
+            <ScrollContainer showsVerticalScrollIndicator={false} widthScroll={'85%'}>
                 <IconButton
                     handleClickFn={() => {
                         navigation.goBack();
@@ -95,6 +100,7 @@ export const AccountDataRegisterScreen = ({ navigation, route }) => {
                 <Button
                     handleClickFn={handleSubmit(handleContinue)}
                     marginTop={percentage(0.08, 'h')}
+                    marginBottom={percentage(0.05, 'h')}
                     title='Continuar'
                     icon={(size, color) => (
                         <Entypo
@@ -104,7 +110,8 @@ export const AccountDataRegisterScreen = ({ navigation, route }) => {
                         />
                     )}
                 />
-            </Container>
+            </ScrollContainer>
+            </KeyboardAvoidingView>
         </Gradient>
     );
 };

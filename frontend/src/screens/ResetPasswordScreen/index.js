@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Button } from '../../components/Button';
 import { CommandText } from '../../components/CommandText/style';
 import { Container } from '../../components/Container/style';
@@ -21,6 +21,8 @@ import {
     callNetworkErrorOccuredToast,
     toastConfig
 } from '../../utils/toastConfiguration';
+import { ScrollContainer } from '../../components/ScrollContainer';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 
 const schema = yup.object().shape({
     newPassword: yup
@@ -69,67 +71,72 @@ export const ResetPasswordScreen = ({ navigation, route }) => {
         <>
             <Toast config={toastConfig} />
             <Gradient>
-                <Container>
-                    <IconButton
-                        handleClickFn={() => {
-                            navigation.goBack();
-                        }}
-                        gradient={false}
-                        icon={
-                            <MaterialIcons
-                                name='reply'
-                                size={40}
-                                color={'#FB6614'}
-                            />
-                        }
-                    />
-                    <Logo marginTop={percentage(0.15, 'h')} />
-                    <Title marginTop={percentage(0.05, 'h')}>Quase lá</Title>
-                    <CommandText
-                        textAlign={'center'}
-                        marginTop={percentage(0.05, 'h')}
-                    >
-                        Altere sua senha
-                    </CommandText>
-                    <Input
-                        marginTop={percentage(0.12, 'h')}
-                        placeholder='Nova senha...'
-                        error={errors.newPassword}
-                        onChangeText={text => setValue('newPassword', text)}
-                        secureTextEntry={true}
-                    />
-                    {errors.newPassword && (
-                        <ErrorMessageText>
-                            {errors.newPassword.message}
-                        </ErrorMessageText>
-                    )}
-                    <Input
-                        marginTop={percentage(0.03, 'h')}
-                        placeholder='Repita a nova senha...'
-                        error={errors.confirmNewPassword}
-                        onChangeText={text =>
-                            setValue('confirmNewPassword', text)
-                        }
-                        secureTextEntry={true}
-                    />
-                    {errors.confirmNewPassword && (
-                        <ErrorMessageText>
-                            {errors.confirmNewPassword.message}
-                        </ErrorMessageText>
-                    )}
-                    <Button
-                        marginTop={percentage(0.12, 'h')}
-                        title='Continuar'
-                        icon={(size, color) => (
-                            <Entypo
-                                name='chevron-right'
-                                size={size}
-                                color={color}
-                            />
+                <KeyboardAvoidingView
+                    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                    style={{ flex: 1 }}
+                >
+                    <ScrollContainer  showsVerticalScrollIndicator={false} widthScroll={'85%'}>
+                        <IconButton
+                            handleClickFn={() => {
+                                navigation.goBack();
+                            }}
+                            gradient={false}
+                            icon={
+                                <MaterialIcons
+                                    name='reply'
+                                    size={40}
+                                    color={'#FB6614'}
+                                />
+                            }
+                        />
+                        <Logo marginTop={percentage(0.15, 'h')} />
+                        <Title marginTop={percentage(0.05, 'h')}>Quase lá</Title>
+                        <CommandText
+                            textAlign={'center'}
+                            marginTop={percentage(0.05, 'h')}
+                        >
+                            Altere sua senha
+                        </CommandText>
+                        <Input
+                            marginTop={percentage(0.12, 'h')}
+                            placeholder='Nova senha...'
+                            error={errors.newPassword}
+                            onChangeText={text => setValue('newPassword', text)}
+                            secureTextEntry={true}
+                        />
+                        {errors.newPassword && (
+                            <ErrorMessageText>
+                                {errors.newPassword.message}
+                            </ErrorMessageText>
                         )}
-                        handleClickFn={handleSubmit(handleChangePassword)}
-                    />
-                </Container>
+                        <Input
+                            marginTop={percentage(0.03, 'h')}
+                            placeholder='Repita a nova senha...'
+                            error={errors.confirmNewPassword}
+                            onChangeText={text =>
+                                setValue('confirmNewPassword', text)
+                            }
+                            secureTextEntry={true}
+                        />
+                        {errors.confirmNewPassword && (
+                            <ErrorMessageText>
+                                {errors.confirmNewPassword.message}
+                            </ErrorMessageText>
+                        )}
+                        <Button
+                            marginTop={percentage(0.12, 'h')}
+                            title='Continuar'
+                            icon={(size, color) => (
+                                <Entypo
+                                    name='chevron-right'
+                                    size={size}
+                                    color={color}
+                                />
+                            )}
+                            handleClickFn={handleSubmit(handleChangePassword)}
+                        />
+                    </ScrollContainer>
+                </KeyboardAvoidingView>
             </Gradient>
         </>
     );
