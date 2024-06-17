@@ -54,7 +54,7 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
                 <Container>
                     <Logo marginTop={percentage(0.085, 'h')} />
                     <Title
-                        marginTop={percentage(0.06, 'h')}
+                        marginTop={percentage(0.04, 'h')}
                         marginBottom={percentage(0.05, 'h')}
                     >
                         Treinos predefinidos

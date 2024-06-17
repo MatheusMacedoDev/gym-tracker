@@ -46,6 +46,7 @@ import ProfileImageContext from './src/global/ProfileImageContext';
 import SharedProfile from './src/screens/ViewSharedProfile';
 import { configureNavigationBar } from './src/configs/navigationBarConfig';
 import { StatusBar } from 'expo-status-bar';
+import { LogBox } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
@@ -54,6 +55,9 @@ export default function App() {
     const [profileImage, setProfileImage] = useState('');
 
     configureNavigationBar();
+
+    LogBox.ignoreLogs(['Warning: ...']);
+    LogBox.ignoreAllLogs();
 
     const [fontsLoaded, fontsError] = useFonts({
         Montserrat_700Bold,
@@ -91,7 +95,7 @@ export default function App() {
                                 gestureEnabled: false
                             }}
                             initialRouteName={
-                                !currentUser ? 'LoginScreen' : 'Main'
+                                !currentUser ? 'Presentation' : 'Main'
                             }
                         >
                             <Stack.Screen

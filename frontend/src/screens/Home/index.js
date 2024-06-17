@@ -2,7 +2,7 @@ import { Container } from '../../components/Container/style';
 import { Logo } from '../../components/Logo';
 import { CalendarHome } from '../../components/Calendar';
 import { Title } from '../../components/Title/style';
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import DiaryWorkoutContainer from './Style/DiaryWorkoutContainer';
 import ImageWelcome from './Style/ImageWelcome';
 import TextWelcome from './Style/TextWelcome';
@@ -26,6 +26,7 @@ import { GetUserProfileImage } from '../../infra/services/userService';
 import Toast from 'react-native-toast-message';
 import {
     callDiaryWorkoutDeletedToast,
+    callInvalidDateErrorToast,
     callNetworkErrorOccuredToast,
     callWelcomeToast,
     toastConfig
@@ -34,6 +35,7 @@ import moment from 'moment';
 import { IconButton } from '../../components/IconButton';
 import { colors } from '../../colors.config';
 import { FontAwesome } from '@expo/vector-icons';
+import { useFocusEffect } from '@react-navigation/native';
 
 export const Home = ({ navigation }) => {
     const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
@@ -66,9 +68,11 @@ export const Home = ({ navigation }) => {
         setProfileImage(response.data);
     }
 
-    useEffect(() => {
-        GetExercises();
-    }, [date]);
+    useFocusEffect(
+        useCallback(() => {
+            GetExercises();
+        }, [date])
+    );
 
     useEffect(() => {
         getUserProfileImageData();
@@ -155,6 +159,19 @@ export const Home = ({ navigation }) => {
                                         heightButton='12%'
                                         marginTop={percentage(0.05, 'h')}
                                         handleClickFn={() => {
+                                            const currentDate = moment();
+                                            const selectedDate = moment(date);
+
+                                            const diff = selectedDate.diff(
+                                                currentDate,
+                                                'minutes'
+                                            );
+
+                                            if (diff > 0) {
+                                                callInvalidDateErrorToast();
+                                                return;
+                                            }
+
                                             navigation.navigate(
                                                 'TrainingRecordScreen',
                                                 { date: date }

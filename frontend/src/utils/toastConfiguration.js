@@ -129,6 +129,13 @@ export const callNetworkErrorOccuredToast = () =>
         text2: 'Verifique a sua conexão com a internet.'
     });
 
+export const callLoginErrorOccuredToast = () =>
+    Toast.show({
+        type: 'error',
+        text1: 'E-mail ou senha incorreta!',
+        text2: 'Verifique os dados informados.'
+    });
+
 export const callEmailWithVerificationCodeSendedToast = () =>
     Toast.show({
         type: 'success',
@@ -176,4 +183,11 @@ export const callCancelEditProfileStartsToast = () =>
         type: 'success',
         text1: 'Modo de edição desativado!',
         text2: 'Não será possível editar seus dados.'
+    });
+
+export const callInvalidDateErrorToast = () =>
+    Toast.show({
+        type: 'error',
+        text1: 'Data escolhida inválida!',
+        text2: 'Escolha uma data anterior.'
     });

@@ -160,7 +160,8 @@ const Profile = ({ navigation }) => {
     function logoutProfile() {
         setUser(null);
         removeUserToken();
-        navigation.replace('LoginScreen');
+
+        navigation.replace('Presentation');
     }
 
     function changeGraph(property, legend) {
@@ -436,7 +437,6 @@ const Profile = ({ navigation }) => {
                     >
                         Fotos de Evolução
                     </Title>
-
                     {evolutionPhotosData ? (
                         <ParallaxCarousel
                             marginTop={percentage(0.06, 'h')}
