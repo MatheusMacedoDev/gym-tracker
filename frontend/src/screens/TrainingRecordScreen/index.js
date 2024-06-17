@@ -20,31 +20,34 @@ import { CreateDiaryWorkout } from '../../infra/services/diaryWorkoutService';
 export const TrainingRecordScreen = ({ navigation, route }) => {
     const [selectedWorkout, setSelectedWorkout] = useState();
     const [defaultWorkouts, setDefaultWorkouts] = useState();
-    const [dateDiaryWorkout, setDiaryWorkout] = useState()
-    const user = useContext(AuthContext)
+    const [dateDiaryWorkout, setDiaryWorkout] = useState();
+    const user = useContext(AuthContext);
 
     async function GetDefaultWorkouts() {
-        const response = await GetDefaultWorkoutsByUserId(
-            user.user.userId
-        );
+        const response = await GetDefaultWorkoutsByUserId(user.user.userId);
         setDefaultWorkouts(response.data);
     }
 
     useEffect(() => {
         GetDefaultWorkouts();
-        setDiaryWorkout(route.params.date)
+        setDiaryWorkout(route.params.date);
     }, []);
 
-
     async function RegisterDiaryWorkout() {
+        console.log(selectedWorkout);
+        console.log(dateDiaryWorkout);
         if (selectedWorkout && dateDiaryWorkout) {
-           const promisse = await CreateDiaryWorkout(selectedWorkout.id, dateDiaryWorkout)
-            navigation.replace("TrainingExercisesScreens", {selectedWorkout: selectedWorkout, idDiaryWorkout: promisse.data.diaryWorkoutId})
+            const promisse = await CreateDiaryWorkout(
+                selectedWorkout.id,
+                dateDiaryWorkout
+            );
+
+            navigation.navigate('TrainingExercisesScreens', {
+                selectedWorkout: selectedWorkout,
+                idDiaryWorkout: promisse.data.diaryWorkoutId
+            });
         } else {
-
         }
-
-
     }
 
     return (
@@ -52,13 +55,12 @@ export const TrainingRecordScreen = ({ navigation, route }) => {
             <Container>
                 <IconButton
                     gradient={false}
-                    onPress={() => navigation.goBack()}
+                    handleClickFn={() => navigation.goBack()}
                     icon={
                         <MaterialIcons
                             name='reply'
                             size={40}
                             color={'#FB6614'}
-                            onPress={() => navigation.goBack()}
                         />
                     }
                 />
@@ -68,14 +70,13 @@ export const TrainingRecordScreen = ({ navigation, route }) => {
                 </Title>
                 <CommandText
                     marginTop={percentage(0.03, 'h')}
-                    textAlign={'center'}
                     marginBottom={percentage(0.05, 'h')}
                 >
                     Aqui você poderá anotar os principais dados do seu treino
                     para podermos medir a sua progressão. Antes de tudo
                     selecione o seu treino base:
                 </CommandText>
-                <ListContainer>
+                <ListContainer heightContainer='34%'>
                     <ListComponent
                         data={defaultWorkouts}
                         contentContainerStyle={{
@@ -89,14 +90,18 @@ export const TrainingRecordScreen = ({ navigation, route }) => {
                                         trainingName: item.defaultWorkoutName
                                     });
                                 }}
+                                disabled={!item.relatedMuscleGroups}
                             >
                                 <CardWorkout
                                     trainingName={item.defaultWorkoutName}
-                                    muscleGroups={item.relatedMuscleGroups}
+                                    muscleGroups={
+                                        item.relatedMuscleGroups ||
+                                        'Sem exercícios ainda...'
+                                    }
                                     isSelected={
                                         selectedWorkout
                                             ? item.defaultWorkoutId ==
-                                            selectedWorkout.id
+                                              selectedWorkout.id
                                             : false
                                     }
                                 />

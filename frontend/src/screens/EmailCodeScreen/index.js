@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '../../components/Button';
 import CodeInput from '../../components/CodeInput';
 import { CommandText } from '../../components/CommandText/style';
@@ -11,55 +11,85 @@ import { Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { Logo } from '../../components/Logo';
 import Gradient from '../../components/Gradient';
 import { percentage } from '../../utils/percentageFactory';
+import { ValidatePasswordRecoverCode } from '../../infra/services/userService';
+import Toast from 'react-native-toast-message';
+import {
+    callCodeIncorrectErrorToast,
+    callCodeMinDigitsErrorToast,
+    callEmailWithVerificationCodeSendedToast,
+    toastConfig
+} from '../../utils/toastConfiguration';
 
-export const EmailCodeScreen = ({ navigation }) => {
+export const EmailCodeScreen = ({ navigation, route }) => {
     const [code, setCode] = useState('');
 
-    async function passToResetPassword() {
-        navigation.navigate('ResetPasswordScreen');
+    async function handleValidateRecoveryCode() {
+        if (code.length >= 5) {
+            email = route.params.email;
+
+            const response = await ValidatePasswordRecoverCode(email, code);
+
+            if (response.status === 200) {
+                navigation.navigate('ResetPasswordScreen', {
+                    email: email,
+                    code: code
+                });
+            } else {
+                callCodeIncorrectErrorToast();
+            }
+        } else {
+            callCodeMinDigitsErrorToast();
+        }
     }
 
+    useEffect(() => {
+        callEmailWithVerificationCodeSendedToast();
+    }, []);
+
     return (
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <Gradient>
-                <Container>
-                    <IconButton
-                        handleClickFn={() => navigation.goBack()}
-                        gradient={false}
-                        icon={
-                            <MaterialIcons
-                                name='reply'
-                                size={40}
-                                color={'#FB6614'}
-                            />
-                        }
-                    />
-                    <Logo marginTop={percentage(0.15, 'h')} />
-                    <Title marginTop={percentage(0.05, 'h')}>
-                        Código de verificação
-                    </Title>
-                    <CommandText
-                        marginTop={percentage(0.05, 'h')}
-                        marginBottom={percentage(0.12, 'h')}
-                    >
-                        Digite o cógido que foi enviado para o seu e-mail para
-                        verficarmos o seu pedido.
-                    </CommandText>
-                    <CodeInput code={code} setCode={setCode} />
-                    <Button
-                        handleClickFn={passToResetPassword}
-                        marginTop={percentage(0.12, 'h')}
-                        title='Continuar'
-                        icon={(size, color) => (
-                            <Entypo
-                                name='chevron-right'
-                                size={size}
-                                color={color}
-                            />
-                        )}
-                    />
-                </Container>
-            </Gradient>
-        </TouchableWithoutFeedback>
+        <>
+            <Toast swipeable config={toastConfig} />
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <Gradient>
+                    <Container>
+                        <IconButton
+                            handleClickFn={() => navigation.goBack()}
+                            gradient={false}
+                            icon={
+                                <MaterialIcons
+                                    name='reply'
+                                    size={40}
+                                    color={'#FB6614'}
+                                />
+                            }
+                        />
+                        <Logo marginTop={percentage(0.15, 'h')} />
+                        <Title marginTop={percentage(0.05, 'h')}>
+                            Código de verificação
+                        </Title>
+                        <CommandText
+                            marginTop={percentage(0.05, 'h')}
+                            marginBottom={percentage(0.12, 'h')}
+                        >
+                            Digite o cógido que foi enviado para o seu e-mail
+                            para verficarmos o seu pedido.
+                        </CommandText>
+                        <CodeInput code={code} setCode={setCode} />
+                        <Button
+                            handleClickFn={handleValidateRecoveryCode}
+                            marginTop={percentage(0.12, 'h')}
+                            title='Continuar'
+                            icon={(size, color) => (
+                                <Entypo
+                                    name='chevron-right'
+                                    size={size}
+                                    color={color}
+                                />
+                            )}
+                        />
+                    </Container>
+                </Gradient>
+            </TouchableWithoutFeedback>
+        </>
     );
 };

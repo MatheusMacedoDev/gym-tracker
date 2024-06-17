@@ -22,15 +22,17 @@ const AvatarImage = styled.Image`
 
 const EditContainer = styled.TouchableOpacity`
     position: absolute;
-    right: 4%;
-    bottom: 28%;
+    right: 14%;
+    bottom: 31%;
     z-index: 100;
-    width: ${percentage(0.08, 'w')};
-    height: ${percentage(0.08, 'w')};
+    width: 32px;
+    height: 32px;
     background-color: #fb6614;
     border-radius: 100px;
     align-items: center;
     justify-content: center;
+    box-shadow: -3px -3px 6px black;
+    elevation: 10;
 `;
 
 const UserName = styled.Text`
@@ -57,15 +59,18 @@ export default function ProfileView({
     avatarUri,
     userName,
     likesAmount,
-    handleEditClick
+    handleEditClick,
+    disableEditButton = false
 }) {
     return (
         <Container>
             <AvatarContainer>
                 <AvatarImage source={{ uri: avatarUri }} />
-                <EditContainer onPress={handleEditClick}>
-                    <Entypo name='pencil' size={20} color='#fff' />
-                </EditContainer>
+                {!disableEditButton && (
+                    <EditContainer onPress={handleEditClick}>
+                        <Entypo name='pencil' size={20} color='#fff' />
+                    </EditContainer>
+                )}
                 <UserName>{userName}</UserName>
             </AvatarContainer>
             <LikesContainer>

@@ -2,7 +2,7 @@ import { Container } from '../../components/Container/style';
 import { Logo } from '../../components/Logo';
 import { CalendarHome } from '../../components/Calendar';
 import { Title } from '../../components/Title/style';
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import DiaryWorkoutContainer from './Style/DiaryWorkoutContainer';
 import ImageWelcome from './Style/ImageWelcome';
 import TextWelcome from './Style/TextWelcome';
@@ -13,9 +13,6 @@ import { Button } from '../../components/Button';
 import { ListContainer } from '../../components/ListContainer/style';
 import { ListComponent } from '../../components/List/style';
 import ExistWorkoutComponent from './ExistWorkoutComponent';
-import { IconButton } from '../../components/IconButton';
-import { FontAwesome } from '@expo/vector-icons';
-import { colors } from '../../colors.config';
 import LabelWorkout from './NotExistWorkout/LabelWorkout';
 import {
     DeleteDiaryWorkout,
@@ -27,10 +24,21 @@ import AuthContext from '../../global/AuthContext';
 import ProfileImageContext from '../../global/ProfileImageContext';
 import { GetUserProfileImage } from '../../infra/services/userService';
 import Toast from 'react-native-toast-message';
-import { callWelcomeToast, toastConfig } from '../../utils/toastConfiguration';
+import {
+    callDiaryWorkoutDeletedToast,
+    callInvalidDateErrorToast,
+    callNetworkErrorOccuredToast,
+    callWelcomeToast,
+    toastConfig
+} from '../../utils/toastConfiguration';
+import moment from 'moment';
+import { IconButton } from '../../components/IconButton';
+import { colors } from '../../colors.config';
+import { FontAwesome } from '@expo/vector-icons';
+import { useFocusEffect } from '@react-navigation/native';
 
 export const Home = ({ navigation }) => {
-    const [date, setDate] = useState(null);
+    const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
     const [diaryWorkout, setDiaryWorkout] = useState(null);
 
     const { user } = useContext(AuthContext);
@@ -45,6 +53,13 @@ export const Home = ({ navigation }) => {
         const response = await DeleteDiaryWorkout(diaryWorkout.diaryWorkoutId);
 
         GetExercises();
+
+        if (response.status === 204) {
+            const formatedDate = moment(date).format('DD/MM/YYYY');
+            callDiaryWorkoutDeletedToast(formatedDate);
+        } else {
+            callNetworkErrorOccuredToast();
+        }
     }
 
     async function getUserProfileImageData() {
@@ -53,9 +68,11 @@ export const Home = ({ navigation }) => {
         setProfileImage(response.data);
     }
 
-    useEffect(() => {
-        GetExercises();
-    }, [date]);
+    useFocusEffect(
+        useCallback(() => {
+            GetExercises();
+        }, [date])
+    );
 
     useEffect(() => {
         getUserProfileImageData();
@@ -72,16 +89,14 @@ export const Home = ({ navigation }) => {
                         heightLogo={50}
                         marginTop={percentage(0.07, 'h')}
                     />
-                    <WelcomeContainer
-                        gap={percentage(0.02, 'h')}
-                        marginTop={percentage(0.04, 'h')}
-                    >
+                    <WelcomeContainer marginTop={percentage(0.04, 'h')}>
                         <ImageWelcome
                             resizeMode='cover'
                             source={{ uri: profileImage }}
                         />
                         <TextWelcome>
-                            Bem vindo,<Title fontSize={20}> {user.name}</Title>
+                            Bem vind{user.gender === 'F' ? 'a' : 'o'},
+                            <Title fontSize={20}> {user.name}</Title>
                         </TextWelcome>
                     </WelcomeContainer>
                     <CalendarHome setTrainingDate={setDate} />
@@ -144,6 +159,19 @@ export const Home = ({ navigation }) => {
                                         heightButton='12%'
                                         marginTop={percentage(0.05, 'h')}
                                         handleClickFn={() => {
+                                            const currentDate = moment();
+                                            const selectedDate = moment(date);
+
+                                            const diff = selectedDate.diff(
+                                                currentDate,
+                                                'minutes'
+                                            );
+
+                                            if (diff > 0) {
+                                                callInvalidDateErrorToast();
+                                                return;
+                                            }
+
                                             navigation.navigate(
                                                 'TrainingRecordScreen',
                                                 { date: date }

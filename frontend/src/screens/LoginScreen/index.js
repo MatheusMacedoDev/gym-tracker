@@ -13,88 +13,139 @@ import { percentage } from '../../utils/percentageFactory';
 import { getUserToken, setUserToken } from '../../utils/tokenHandler';
 import AuthContext from '../../global/AuthContext';
 import { useForm } from 'react-hook-form';
-import * as yup from "yup";
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Text } from 'react-native';
+import ErrorMessageText from '../../components/ErrorMessageText/style';
+import {
+    callLoginErrorOccuredToast,
+    toastConfig
+} from '../../utils/toastConfiguration';
+import Toast from 'react-native-toast-message';
 
-export const LoginScreen = ({ navigation }) => {
-    const { user, setUser } = useContext(AuthContext);
-
-    const [email, setEmail] = useState('matheus@mail.com');
-    const [password, setPassword] = useState('12345');
-    
-    const fieldsValidationSchema = yup.object().shape({
-        email: yup
+const schema = yup.object().shape({
+    email: yup
         .string()
         .required('O email não pode ser vazio')
         .email('Digite um email válido'),
-        password: yup
+    password: yup
         .string()
         .required('A senha não pode ser vazia')
-        .min(6, 'A senha deve conter pelo menos 6 dígitos')
-      })
-      
-      const { register, setValue, handleSubmit, errors } = useForm({ validationSchema: fieldsValidationSchema })
+        .min(5, 'A senha deve conter pelo menos 5 dígitos')
+});
+
+export const LoginScreen = ({ navigation }) => {
+    const { setUser } = useContext(AuthContext);
+
+    const {
+        register,
+        setValue,
+        handleSubmit,
+        formState: { errors }
+    } = useForm({
+        resolver: yupResolver(schema)
+    });
 
     useEffect(() => {
-        register('email')
-        register('password')
-    }, [register])
+        register('email');
+        register('password');
+    }, [register]);
 
     async function handleLogin(data) {
         const response = await MakeLogin(data.email, data.password);
-        if (response.status == 200) {
+
+        if (response.status === 200) {
             const token = response.data.authenticationToken;
 
             await setUserToken(token);
-
-            const decodedTokent = await getUserToken();
-
-            setUser(decodedTokent);
+            const decodedToken = await getUserToken();
+            setUser(decodedToken);
 
             navigation.replace('Main');
         } else {
+            callLoginErrorOccuredToast();
         }
     }
 
+    useEffect(() => {
+        async function tryToUseSavedToken() {
+            const decodedToken = await getUserToken();
+            setUser(decodedToken);
+
+            if (decodedToken) {
+                navigation.replace('Main');
+            }
+        }
+
+        tryToUseSavedToken();
+    }, []);
+
     return (
-        <Gradient>
-            <Container>
-                <Logo marginTop={percentage(0.15, 'h')} />
-                <Title marginTop={percentage(0.05, 'h')}>Bem vindo</Title>
-                <Input
-                    marginTop={percentage(0.12, 'h')}
-                    placeholder='E-mail...'
-                    onChangeText={text => setValue('email', text)}
-                    autoFocus
-                />
-                <Input
-                    marginTop={percentage(0.03, 'h')}
-                    placeholder='Senha...'
-                    secureTextEntry
-                    onChangeText={text => setValue('password', text)}
-                />
-                <Link
-                    onPress={() => navigation.navigate('RecoverPasswordScreen')}
-                    textAlign={'right'}
-                    marginTop={percentage(0.03, 'h')}
-                >
-                    Esqueceu sua senha ?
-                </Link>
-                <Button
-                    marginTop={percentage(0.1, 'h')}
-                    title='Login'
-                    handleClickFn={handleSubmit(handleLogin)}
-                />
-                <LinkContainer marginTop={percentage(0.04, 'h')}>
-                    <LinkCommandText>Não tem uma conta?</LinkCommandText>
+        <>
+            <Toast config={toastConfig} />
+            <Gradient>
+                <Container>
+                    <Logo marginTop={percentage(0.15, 'h')} />
+                    <Title marginTop={percentage(0.05, 'h')}>Bem-vindo</Title>
+                    <Input
+                        marginTop={percentage(0.12, 'h')}
+                        placeholder='E-mail...'
+                        onChangeText={text => setValue('email', text)}
+                        error={errors.email}
+                    />
+                    {errors.email && (
+                        <ErrorMessageText>
+                            {errors.email.message}
+                        </ErrorMessageText>
+                    )}
+                    <Input
+                        marginTop={percentage(0.03, 'h')}
+                        placeholder='Senha...'
+                        secureTextEntry
+                        error={errors.password}
+                        onChangeText={text => setValue('password', text)}
+                    />
+                    {errors.password && (
+                        <Text
+                            style={{
+                                fontFamily: 'Montserrat_400Regular',
+                                fontSize: 15,
+                                color: 'red',
+                                alignSelf: 'flex-start',
+                                marginTop: 10,
+                                paddingLeft: 5
+                            }}
+                        >
+                            {errors.password.message}
+                        </Text>
+                    )}
+
                     <Link
                         onPress={() =>
-                            navigation.navigate('NameRegisterScreen')
+                            navigation.navigate('RecoverPasswordScreen')
                         }
+                        textAlign={'right'}
+                        marginTop={percentage(0.03, 'h')}
                     >
-                        Cadastre-se
+                        Esqueceu sua senha?
                     </Link>
-                </LinkContainer>
-            </Container>
-        </Gradient>
+                    <Button
+                        marginTop={percentage(0.1, 'h')}
+                        title='Login'
+                        handleClickFn={handleSubmit(handleLogin)}
+                    />
+                    <LinkContainer marginTop={percentage(0.04, 'h')}>
+                        <LinkCommandText>Não tem uma conta?</LinkCommandText>
+                        <Link
+                            onPress={() =>
+                                navigation.navigate('NameRegisterScreen')
+                            }
+                        >
+                            Cadastre-se
+                        </Link>
+                    </LinkContainer>
+                </Container>
+            </Gradient>
+        </>
     );
 };

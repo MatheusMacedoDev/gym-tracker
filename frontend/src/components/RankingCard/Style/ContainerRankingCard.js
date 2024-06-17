@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import { colors } from '../../../colors.config';
 
-export default ContainerRankingCard = styled.View`
+export default ContainerRankingCard = styled.TouchableOpacity`
     background-color: ${colors.lightBlack};
     border-radius: 16px;
     height: 65px;

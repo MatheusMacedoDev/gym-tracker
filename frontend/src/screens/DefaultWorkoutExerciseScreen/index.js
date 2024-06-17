@@ -17,6 +17,12 @@ import {
 } from '../../infra/services/defaultWorkoutService';
 import { percentage } from '../../utils/percentageFactory';
 import { useFocusEffect } from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
+import {
+    callDefaultWorkoutExerciseDeletedToast,
+    callNetworkErrorOccuredToast,
+    toastConfig
+} from '../../utils/toastConfiguration';
 
 export const DefaultWorkoutExerciseScreen = ({ navigation, route }) => {
     const [defaultWorkoutExercises, setDefaultWorkoutExercises] = useState();
@@ -41,78 +47,93 @@ export const DefaultWorkoutExerciseScreen = ({ navigation, route }) => {
         setDefaultWorkoutExercises(response.data);
     }
 
-    async function DeleteDefaultWorkoutExercise(defaultExerciseId) {
+    async function DeleteDefaultWorkoutExercise(
+        defaultExerciseId,
+        exerciseName
+    ) {
         const response = await DeleteDefaultExerciseWorkout(defaultExerciseId);
+
+        if (response.status === 204) {
+            callDefaultWorkoutExerciseDeletedToast(exerciseName);
+        } else {
+            callNetworkErrorOccuredToast();
+        }
+
         GetDefaultWorkoutExercise();
     }
 
     return (
-        <Gradient>
-            <Container>
-                <IconButton
-                    gradient={false}
-                    icon={
-                        <MaterialIcons
-                            name='reply'
-                            size={40}
-                            color={'#FB6614'}
-                            onPress={() => navigation.goBack()}
+        <>
+            <Toast config={toastConfig} />
+            <Gradient>
+                <Container>
+                    <IconButton
+                        gradient={false}
+                        icon={
+                            <MaterialIcons
+                                name='reply'
+                                size={40}
+                                color={'#FB6614'}
+                                onPress={() => navigation.goBack()}
+                            />
+                        }
+                    />
+                    <CommandText
+                        textAlign={'center'}
+                        marginTop={percentage(0.16, 'h')}
+                    >
+                        Treinos predefinidos
+                    </CommandText>
+                    <Title
+                        marginTop={percentage(0.02, 'h')}
+                        marginBottom={percentage(0.08, 'h')}
+                    >
+                        {trainingName}
+                    </Title>
+                    <ListContainer heightContainer='46%'>
+                        <ListComponent
+                            data={defaultWorkoutExercises}
+                            renderItem={({ item }) => (
+                                <ExerciseCard
+                                    defaultWorkout={true}
+                                    marginBottom='16px'
+                                    titleExercise={item.exerciseName}
+                                    icon={(size, color) => (
+                                        <Fontisto
+                                            name='trash'
+                                            size={size}
+                                            color={color}
+                                            onPress={() =>
+                                                DeleteDefaultWorkoutExercise(
+                                                    item.defaultExerciseId,
+                                                    item.exerciseName
+                                                )
+                                            }
+                                        />
+                                    )}
+                                />
+                            )}
                         />
-                    }
-                />
-                <CommandText
-                    textAlign={'center'}
-                    marginTop={percentage(0.15, 'h')}
-                >
-                    Treinos predefinidos
-                </CommandText>
-                <Title
-                    marginTop={percentage(0.02, 'h')}
-                    marginBottom={percentage(0.07, 'h')}
-                >
-                    {trainingName}
-                </Title>
-                <ListContainer heightContainer={'48%'}>
-                    <ListComponent
-                        data={defaultWorkoutExercises}
-                        renderItem={({ item }) => (
-                            <ExerciseCard
-                                marginBottom='16px'
-                                titleExercise={item.exerciseName}
-                                icon={(size, color) => (
-                                    <Fontisto
-                                        name='trash'
-                                        size={size}
-                                        color={color}
-                                        onPress={() =>
-                                            DeleteDefaultWorkoutExercise(
-                                                item.defaultExerciseId
-                                            )
-                                        }
-                                    />
-                                )}
+                    </ListContainer>
+                    <Button
+                        handleClickFn={() =>
+                            navigation.navigate('SelectGroupMuscle', {
+                                trainingName: trainingName,
+                                defaultWorkoutId: defaultWorkoutId
+                            })
+                        }
+                        marginTop={percentage(0.05, 'h')}
+                        title='Adicionar exercício'
+                        icon={(size, color) => (
+                            <Entypo
+                                name='chevron-right'
+                                size={size}
+                                color={color}
                             />
                         )}
                     />
-                </ListContainer>
-                <Button
-                    handleClickFn={() =>
-                        navigation.navigate('SelectGroupMuscle', {
-                            trainingName: trainingName,
-                            defaultWorkoutId: defaultWorkoutId
-                        })
-                    }
-                    marginTop={percentage(0.07, 'h')}
-                    title='Adicionar exercício'
-                    icon={(size, color) => (
-                        <Entypo
-                            name='chevron-right'
-                            size={size}
-                            color={color}
-                        />
-                    )}
-                />
-            </Container>
-        </Gradient>
+                </Container>
+            </Gradient>
+        </>
     );
 };

@@ -30,16 +30,19 @@ export const SelectedExerciseModal = ({
     const [repetitionsAmount, setRepetitionsAmount] = useState();
 
     async function CreateDefaultWorkoutExercise() {
-        const response = await CreateDefaultExercise(
-            exerciseId,
-            defaultWorkoutId,
-            repetitionsAmount,
-            seriesAmount
-        );
-        navigation.navigate('DefaultWorkoutExerciseScreen', {
-            defaultWorkoutId: defaultWorkoutId,
-            trainingName: trainingName
-        });
+        if (seriesAmount && repetitionsAmount) {
+            await CreateDefaultExercise(
+                exerciseId,
+                defaultWorkoutId,
+                repetitionsAmount,
+                seriesAmount
+            );
+            navigation.navigate('DefaultWorkoutExerciseScreen', {
+                defaultWorkoutId: defaultWorkoutId,
+                trainingName: trainingName
+            });
+        } else {
+        }
     }
 
     return (
@@ -68,7 +71,7 @@ export const SelectedExerciseModal = ({
                         <ExerciseImage
                             source={require('../../assets/Images/ExerciseImage.png')}
                         />
-                        <ViewSelect marginTop={percentage(0.05, 'h')}>
+                        <ViewSelect marginTop={percentage(0.07, 'h')}>
                             <Select
                                 label={'Series'}
                                 setSelected={setSeriesAmount}
@@ -81,9 +84,9 @@ export const SelectedExerciseModal = ({
                             />
                         </ViewSelect>
                         <Button
-                            marginTop={percentage(0.05, 'h')}
+                            marginTop={percentage(0.08, 'h')}
                             widthButton={'85%'}
-                            heightButon={'9%'}
+                            heightButton={'9%'}
                             alignCenter={true}
                             title={'Salvar'}
                             icon={(size, color) => (

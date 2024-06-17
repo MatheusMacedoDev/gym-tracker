@@ -1,14 +1,18 @@
-import styled from "styled-components/native";
-import { colors } from "../../../colors.config";
+import styled from 'styled-components/native';
+import { colors } from '../../../colors.config';
 
 export const ContainerExerciseCard = styled.View`
-    background-color: ${colors.darkGray};
+    background-color: ${props =>
+        props.disabledTrue ? '#361E0E' : colors.darkGray};
     border-radius: 10px;
-    height: 50px;
+    height: 64px;
     width: 100%;
     flex-direction: row;
-    margin-top: ${props => props.marginTop ? `${props.marginTop}` : '0px'};
-    margin-bottom: ${props => props.marginBottom ? `${props.marginBottom}` : '0px'};
+    border: red;
+    margin-top: ${props => (props.marginTop ? `${props.marginTop}` : '0px')};
+    margin-bottom: ${props =>
+        props.marginBottom ? `${props.marginBottom}` : '0px'};
+    border: ${props => (props.disabledTrue ? colors.orange : null)};
 `;
 
 export const ContainerIconTrash = styled.View`
