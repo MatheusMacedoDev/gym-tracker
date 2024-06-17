@@ -223,6 +223,8 @@ export async function GetUserLike(senderUserId, receiverUserId) {
         }
         console.log(error.config);
         console.log(error);
+
+        return error.response;
     }
 }
 

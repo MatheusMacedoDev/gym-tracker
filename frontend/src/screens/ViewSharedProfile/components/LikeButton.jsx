@@ -18,10 +18,6 @@ export default function LikeButton({
 }) {
     const [userLikeId, setUserLikeId] = useState(0);
 
-    useEffect(() => {
-        console.log(userLikeId);
-    }, [userLikeId]);
-
     async function getIsLikedData() {
         const response = await GetUserLike(senderUserId, receiverUserId);
 
@@ -43,9 +39,6 @@ export default function LikeButton({
 
         if (!userLikeId) {
             const response = await CreateUserLike(senderUserId, receiverUserId);
-
-            console.log('Create');
-            console.log(response);
 
             if (response.status === 201) {
                 setUserLikeId(response.data.userLikeId);
