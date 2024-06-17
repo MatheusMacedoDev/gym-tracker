@@ -63,7 +63,13 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
                     <ListContainer heightContainer='43%'>
                         <ListComponent
                             data={defaultWorkouts}
-                            ListEmptyComponent={<ListEmptyComponent title={"Não há nenhum treino"} commandText={"Adicione um treino"}/>}
+                            contentContainerStyle={{ flex: 1 }}
+                            ListEmptyComponent={
+                                <ListEmptyComponent
+                                    title='Não há nenhum treino'
+                                    commandText='Crie um treino e então adicione alguns exercícios nele.'
+                                />
+                            }
                             renderItem={({ item }) => (
                                 <TouchableOpacity
                                     onPress={() => {

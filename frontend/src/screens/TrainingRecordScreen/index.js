@@ -80,9 +80,15 @@ export const TrainingRecordScreen = ({ navigation, route }) => {
                 <ListContainer heightContainer='34%'>
                     <ListComponent
                         data={defaultWorkouts}
-                        ListEmptyComponent={<ListEmptyComponent title={"Nenhum treino predefinido"} commandText={"Antes de regidtrar um treino, você deve criar um treino predefinido"}/>}
+                        ListEmptyComponent={
+                            <ListEmptyComponent
+                                title='Nenhum treino predefinido'
+                                commandText='Antes de registrar um treino, você deve criar um treino predefinido.'
+                            />
+                        }
                         contentContainerStyle={{
-                            gap: 12
+                            gap: 12,
+                            flex: 1
                         }}
                         renderItem={({ item }) => (
                             <TouchableOpacity
