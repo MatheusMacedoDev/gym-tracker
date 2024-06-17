@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from '../../components/Button';
 import { CommandText } from '../../components/CommandText/style';
-import { Container } from '../../components/Container/style';
 import { ExerciseSerieCard } from '../../components/ExerciseSerieCard';
 import Gradient from '../../components/Gradient';
 import { ListComponent } from '../../components/List/style';
@@ -36,8 +35,6 @@ export const ExerciseRecord = ({ navigation, route }) => {
         setSeries(seriesArray);
     }, [route.params]);
 
-
-
     const updateSeries = (id, field, value) => {
         setSeries(x => x.map(serie =>
             serie.id === id ? { ...serie, [field]: value } : serie
@@ -45,11 +42,9 @@ export const ExerciseRecord = ({ navigation, route }) => {
     };
 
     async function RegisterExerciseSeries() {
-        if (series) {
+        if (series.length >= 1) {
             for (let index = 0; index < series.length; index++) {
                 if (series[index].repetitions && series[index].overload) {
-
-
                     await RegisterDiaryExerciseSeries(
                         series[index].diaryExerciseId,
                         series[index].id,
@@ -62,7 +57,6 @@ export const ExerciseRecord = ({ navigation, route }) => {
             navigation.navigate('TrainingExercisesScreens');
         } else { alert("preencha todas repeticoes e cargas") }
     }
-
 
     return (
         <Gradient>
