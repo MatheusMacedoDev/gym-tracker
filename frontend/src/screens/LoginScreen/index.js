@@ -22,6 +22,7 @@ import {
     toastConfig
 } from '../../utils/toastConfiguration';
 import Toast from 'react-native-toast-message';
+import { ScrollContainer } from '../../components/ScrollContainer';
 
 const schema = yup.object().shape({
     email: yup
@@ -84,7 +85,7 @@ export const LoginScreen = ({ navigation }) => {
         <>
             <Toast config={toastConfig} />
             <Gradient>
-                <Container>
+                <ScrollContainer>
                     <Logo marginTop={percentage(0.15, 'h')} />
                     <Title marginTop={percentage(0.05, 'h')}>Bem-vindo</Title>
                     <Input
@@ -134,7 +135,7 @@ export const LoginScreen = ({ navigation }) => {
                         title='Login'
                         handleClickFn={handleSubmit(handleLogin)}
                     />
-                    <LinkContainer marginTop={percentage(0.04, 'h')}>
+                    <LinkContainer marginTop={percentage(0.04, 'h')} marginBottom={percentage(0.1, 'h')}>
                         <LinkCommandText>Não tem uma conta?</LinkCommandText>
                         <Link
                             onPress={() =>
@@ -144,7 +145,7 @@ export const LoginScreen = ({ navigation }) => {
                             Cadastre-se
                         </Link>
                     </LinkContainer>
-                </Container>
+                </ScrollContainer>
             </Gradient>
         </>
     );
