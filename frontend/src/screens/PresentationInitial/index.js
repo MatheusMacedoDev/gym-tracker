@@ -21,7 +21,7 @@ export const PresentationInitial = ({ navigation }) => {
                         width='100%'
                         marginTop={percentage(0.03, 'h')}
                     >
-                        Bem Vindo ao Gym Tracker
+                        Bem-vindo ao Gym Tracker
                     </Title>
 
                     <Subtitulo FontSize={12} marginTop={percentage(0.02, 'h')}>

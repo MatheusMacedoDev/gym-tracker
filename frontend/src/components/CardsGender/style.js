@@ -27,7 +27,7 @@ export const ViewCircle = styled.View`
     width: 20px;
     height: 20px;
     border-radius: 15px;
-    background-color: orange;
+    background-color: ${colors.orange};
     align-items: center;
     display: ${props => (props.isSelected ? 'block' : 'none')};
 `;

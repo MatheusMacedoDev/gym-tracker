@@ -12,7 +12,7 @@ import { Button } from '../../components/Button';
 import Gradient from '../../components/Gradient';
 import { percentage } from '../../utils/percentageFactory';
 
-const roundImageSource = require('../../assets/Images/joaocantor.jpg');
+const roundImageSource = require('../../assets/Images/lee_priest.png');
 
 export const Presentation = ({ navigation }) => {
     return (
