@@ -76,7 +76,7 @@ export const TrainingRecordScreen = ({ navigation, route }) => {
                     para podermos medir a sua progressão. Antes de tudo
                     selecione o seu treino base:
                 </CommandText>
-                <ListContainer>
+                <ListContainer heightContainer='34%'>
                     <ListComponent
                         data={defaultWorkouts}
                         contentContainerStyle={{
