@@ -8,7 +8,7 @@ import { ListComponent } from '../../components/List/style';
 import RankingCard from '../../components/RankingCard';
 import { percentage } from '../../utils/percentageFactory';
 import { limitCharacters } from '../../utils/stringHandler';
-import { useEffect, useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import {
     getRankUsersByLatestUpdate,
     getRankUsersByLikes
