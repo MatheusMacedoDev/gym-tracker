@@ -22,7 +22,7 @@ const AvatarImage = styled.Image`
 
 const EditContainer = styled.TouchableOpacity`
     position: absolute;
-    right: 14%;
+    right: 7%;
     bottom: 31%;
     z-index: 100;
     width: 32px;
