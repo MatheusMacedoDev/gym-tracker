@@ -18,7 +18,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Text } from 'react-native';
 import ErrorMessageText from '../../components/ErrorMessageText/style';
 import {
-    callNetworkErrorOccuredToast,
+    callLoginErrorOccuredToast,
     toastConfig
 } from '../../utils/toastConfiguration';
 import Toast from 'react-native-toast-message';
@@ -63,7 +63,7 @@ export const LoginScreen = ({ navigation }) => {
 
             navigation.replace('Main');
         } else {
-            callNetworkErrorOccuredToast();
+            callLoginErrorOccuredToast();
         }
     }
 
