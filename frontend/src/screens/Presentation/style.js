@@ -21,7 +21,6 @@ export const ContainerPresentation = styled.SafeAreaView`
     align-items: center;
     width: 80%;
     align-self: center;
-    justify-content: space-between;
     height: 640px;
     margin-top: ${props => (props.marginTop ? props.marginTop : '0px')};
 `;

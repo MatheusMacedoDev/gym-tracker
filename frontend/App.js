@@ -91,7 +91,7 @@ export default function App() {
                                 gestureEnabled: false
                             }}
                             initialRouteName={
-                                !currentUser ? 'LoginScreen' : 'Main'
+                                !currentUser ? 'Presentation' : 'Main'
                             }
                         >
                             <Stack.Screen

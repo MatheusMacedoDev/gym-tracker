@@ -38,7 +38,7 @@ export const Presentation = ({ navigation }) => {
                     </TextContainer>
                 </ContainerText>
                 <Button
-                    marginTop={percentage(0, 'h')}
+                    marginTop={percentage(0.28, 'h')}
                     title='Continuar'
                     handleClickFn={() =>
                         navigation.navigate('PresentationInitial')
