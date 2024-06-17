@@ -127,6 +127,12 @@ const Profile = ({ navigation }) => {
     function cancelEditProfileHistory() {
         setIsProfileEditing(false);
         scrollToStatistics();
+
+        const photosArray = evolutionPhotosData.filter(photo => photo !== evolutionPhotoUri);
+        setEvolutionPhotosData(photosArray);
+
+        setEvolutionPhotoUri('');
+
         callCancelEditProfileStartsToast();
     }
 
@@ -277,6 +283,15 @@ const Profile = ({ navigation }) => {
         changeGraph('weight', 'Peso (kg)');
         getEvolutionPhotosHistoryData();
     }, [profileHistoriesData]);
+
+    useEffect(() => {
+        console.log(evolutionPhotoUri);
+
+        if (!evolutionPhotoUri || evolutionPhotoUri.trim() === '')
+            return;
+
+        setEvolutionPhotosData([...evolutionPhotosData, evolutionPhotoUri]);
+    }, [evolutionPhotoUri]);
 
     return (
         <>
@@ -437,7 +452,7 @@ const Profile = ({ navigation }) => {
                     >
                         Fotos de Evolução
                     </Title>
-                    {evolutionPhotosData ? (
+                    {(evolutionPhotosData && evolutionPhotosData.length > 0) ? (
                         <ParallaxCarousel
                             marginTop={percentage(0.06, 'h')}
                             marginBottom={percentage(0.02, 'h')}
