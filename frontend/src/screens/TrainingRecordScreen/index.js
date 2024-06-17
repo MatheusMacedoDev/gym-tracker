@@ -1,16 +1,18 @@
+import React, { useEffect, useState } from 'react';
+import { CommandText } from '../../components/CommandText/style';
 import { Container } from '../../components/Container/style';
+import Gradient from '../../components/Gradient';
 import { IconButton } from '../../components/IconButton';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Logo } from '../../components/Logo';
 import { Title } from '../../components/Title/style';
-import { CommandText } from '../../components/CommandText/style';
 import { CardWorkout } from '../../components/CardWorkout';
 import { Button } from '../../components/Button';
 import { Entypo } from '@expo/vector-icons';
 import { ListComponent } from '../../components/List/style';
 import { ListContainer } from '../../components/ListContainer/style';
 import { useContext, useEffect, useState } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, ActivityIndicator, View } from 'react-native'; 
 import Gradient from '../../components/Gradient';
 import { percentage } from '../../utils/percentageFactory';
 import { GetDefaultWorkoutsByUserId } from '../../infra/services/defaultWorkoutService';
@@ -18,14 +20,16 @@ import AuthContext from '../../global/AuthContext';
 import { CreateDiaryWorkout } from '../../infra/services/diaryWorkoutService';
 
 export const TrainingRecordScreen = ({ navigation, route }) => {
-    const [selectedWorkout, setSelectedWorkout] = useState();
-    const [defaultWorkouts, setDefaultWorkouts] = useState();
-    const [dateDiaryWorkout, setDiaryWorkout] = useState();
+    const [selectedWorkout, setSelectedWorkout] = useState(null);
+    const [defaultWorkouts, setDefaultWorkouts] = useState([]);
+    const [dateDiaryWorkout, setDiaryWorkout] = useState(null);
+    const [loading, setLoading] = useState(true); 
     const user = useContext(AuthContext);
 
     async function GetDefaultWorkouts() {
         const response = await GetDefaultWorkoutsByUserId(user.user.userId);
         setDefaultWorkouts(response.data);
+        setLoading(false); 
     }
 
     useEffect(() => {
@@ -47,6 +51,7 @@ export const TrainingRecordScreen = ({ navigation, route }) => {
                 idDiaryWorkout: promisse.data.diaryWorkoutId
             });
         } else {
+            
         }
     }
 
@@ -76,39 +81,45 @@ export const TrainingRecordScreen = ({ navigation, route }) => {
                     para podermos medir a sua progressão. Antes de tudo
                     selecione o seu treino base:
                 </CommandText>
-                <ListContainer>
-                    <ListComponent
-                        data={defaultWorkouts}
-                        contentContainerStyle={{
-                            gap: 12
-                        }}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity
-                                onPress={() => {
-                                    setSelectedWorkout({
-                                        id: item.defaultWorkoutId,
-                                        trainingName: item.defaultWorkoutName
-                                    });
-                                }}
-                                disabled={!item.relatedMuscleGroups}
-                            >
-                                <CardWorkout
-                                    trainingName={item.defaultWorkoutName}
-                                    muscleGroups={
-                                        item.relatedMuscleGroups ||
-                                        'Sem exercícios ainda...'
-                                    }
-                                    isSelected={
-                                        selectedWorkout
-                                            ? item.defaultWorkoutId ==
-                                              selectedWorkout.id
-                                            : false
-                                    }
-                                />
-                            </TouchableOpacity>
-                        )}
-                    />
-                </ListContainer>
+                {loading ? ( 
+                    <View style={{ flex: 1, justifyContent: 'center' }}>
+                        <ActivityIndicator size="large" color="#fb6614" />
+                    </View>
+                ) : (
+                    <ListContainer>
+                        <ListComponent
+                            data={defaultWorkouts}
+                            contentContainerStyle={{
+                                gap: 12
+                            }}
+                            renderItem={({ item }) => (
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        setSelectedWorkout({
+                                            id: item.defaultWorkoutId,
+                                            trainingName: item.defaultWorkoutName
+                                        });
+                                    }}
+                                    disabled={!item.relatedMuscleGroups}
+                                >
+                                    <CardWorkout
+                                        trainingName={item.defaultWorkoutName}
+                                        muscleGroups={
+                                            item.relatedMuscleGroups ||
+                                            'Sem exercícios ainda...'
+                                        }
+                                        isSelected={
+                                            selectedWorkout
+                                                ? item.defaultWorkoutId ==
+                                                  selectedWorkout.id
+                                                : false
+                                        }
+                                    />
+                                </TouchableOpacity>
+                            )}
+                        />
+                    </ListContainer>
+                )}
                 <Button
                     marginTop={percentage(0.05, 'h')}
                     title='Continuar'

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, ActivityIndicator } from 'react-native';
 import Gradient from '../../components/Gradient';
 import { IconButton } from '../../components/IconButton';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -11,25 +11,32 @@ import { Container } from '../../components/Container/style';
 import { GetMuscleGroups } from '../../infra/services/exerciseService';
 
 const SelectGroupMuscle = ({ navigation, route }) => {
-
     const [muscleGroups, setMuscleGroups] = useState();
+    const [loading, setLoading] = useState(true);
     const numColumns = 2;
 
     useEffect(() => {
         GetAllMuscleGroups();
-    }, [])
+    }, []);
 
     const renderItem = ({ item }) => (
         <BtnExcercise2
             title={item.groupName}
-            onPress={() => navigation.navigate('SelectExercise', { mucleGroupId: item.mucleGroupId, defaultWorkoutId: route.params.defaultWorkoutId, trainingName: route.params.trainingName })}
+            onPress={() =>
+                navigation.navigate('SelectExercise', {
+                    mucleGroupId: item.mucleGroupId,
+                    defaultWorkoutId: route.params.defaultWorkoutId,
+                    trainingName: route.params.trainingName
+                })
+            }
         />
     );
 
     async function GetAllMuscleGroups() {
-        const response = await GetMuscleGroups()
+        setLoading(true);
+        const response = await GetMuscleGroups();
         setMuscleGroups(response.data);
-        console.log(muscleGroups);
+        setLoading(false);
     }
 
     return (
@@ -56,13 +63,18 @@ const SelectGroupMuscle = ({ navigation, route }) => {
                 </Title>
 
                 <MuscleGroupContainer>
+                    {loading ? (
+                        <ActivityIndicator size='large' color='#fb6614' />
+                    ) : null}
                     <FlatList
                         data={muscleGroups}
                         renderItem={renderItem}
                         keyExtractor={item => item.mucleGroupId}
                         numColumns={numColumns}
                         key={numColumns}
-                        contentContainerStyle={{ justifyContent: 'center' }}
+                        contentContainerStyle={{
+                            justifyContent: 'center'
+                        }}
                     />
                 </MuscleGroupContainer>
             </Container>

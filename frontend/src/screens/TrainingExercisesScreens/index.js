@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import { CommandText } from '../../components/CommandText/style';
 import { Container } from '../../components/Container/style';
 import Gradient from '../../components/Gradient';
@@ -7,19 +8,19 @@ import { Title } from '../../components/Title/style';
 import { ExerciseCard } from '../../components/ExerciseCard';
 import { Button } from '../../components/Button';
 import { Entypo } from '@expo/vector-icons';
-import { ListContainer } from '../../components/ListContainer/style';
+import ListContainer from '../../components/ListContainer/style'; 
 import { ListComponent } from '../../components/List/style';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, ActivityIndicator, View } from 'react-native'; 
 import { percentage } from '../../utils/percentageFactory';
-import { useEffect, useState } from 'react';
 import { GetExercisesByDefaultWorkout } from '../../infra/services/defaultWorkoutService';
 import { CreateDiaryExercise } from '../../infra/services/diaryWorkoutService';
 import { FontAwesome } from '@expo/vector-icons';
 
 export const TrainingExercisesScreens = ({ navigation, route }) => {
-    const [defaultWorkout, setDefaultWorkout] = useState();
-    const [workoutexercises, setWorkoutExercises] = useState();
+    const [defaultWorkout, setDefaultWorkout] = useState(null);
+    const [workoutexercises, setWorkoutExercises] = useState([]);
     const [idDiaryWorkout, setIdDefaultWorkout] = useState();
+    const [loading, setLoading] = useState(true); 
 
     useEffect(() => {
         if (route.params != null) {
@@ -29,12 +30,16 @@ export const TrainingExercisesScreens = ({ navigation, route }) => {
     }, [route]);
 
     useEffect(() => {
-        GetDefaultWorkoutExercises();
+        if (defaultWorkout) {
+            GetDefaultWorkoutExercises();
+        }
     }, [defaultWorkout]);
 
     async function GetDefaultWorkoutExercises() {
+        setLoading(true); 
         const response = await GetExercisesByDefaultWorkout(defaultWorkout.id);
         setWorkoutExercises(response.data);
+        setLoading(false); 
     }
 
     function DisableExerciceButton(index) {
@@ -95,36 +100,19 @@ export const TrainingExercisesScreens = ({ navigation, route }) => {
                     {defaultWorkout ? defaultWorkout.trainingName : null}
                 </Title>
                 <ListContainer heightContainer={'50%'}>
-                    <ListComponent
-                        data={workoutexercises}
-                        contentContainerStyle={{
-                            gap: 16
-                        }}
-                        renderItem={({ item, index }) => (
-                            <TouchableOpacity
-                                disabled={item.disabled ? item.disabled : false}
-                                onPress={() =>
-                                    RegisterDiaryExercise(
-                                        item.defaultExerciseId,
-                                        item.seriesAmount,
-                                        item.repetitionsRange,
-                                        index
-                                    )
-                                }
-                            >
-                                <ExerciseCard
-                                    isDiary={true}
-                                    disabledTrue={
-                                        item.disabled ? item.disabled : false
-                                    }
-                                    titleExercise={item.exerciseName}
-                                    icon={(size, color) => (
-                                        <FontAwesome
-                                            name='lock'
-                                            size={size}
-                                            color={color}
-                                        />
-                                    )}
+                    {loading ? ( 
+                        <View style={{ flex: 1, justifyContent: 'center' }}>
+                            <ActivityIndicator size="large" color="#fb6614" />
+                        </View>
+                    ) : (
+                        <ListComponent
+                            data={workoutexercises}
+                            contentContainerStyle={{
+                                gap: 16
+                            }}
+                            renderItem={({ item, index }) => (
+                                <TouchableOpacity
+                                    disabled={item.disabled}
                                     onPress={() =>
                                         RegisterDiaryExercise(
                                             item.defaultExerciseId,
@@ -133,10 +121,31 @@ export const TrainingExercisesScreens = ({ navigation, route }) => {
                                             index
                                         )
                                     }
-                                />
-                            </TouchableOpacity>
-                        )}
-                    />
+                                >
+                                    <ExerciseCard
+                                        isDiary={true}
+                                        disabledTrue={item.disabled}
+                                        titleExercise={item.exerciseName}
+                                        icon={(size, color) => (
+                                            <FontAwesome
+                                                name='lock'
+                                                size={size}
+                                                color={color}
+                                            />
+                                        )}
+                                        onPress={() =>
+                                            RegisterDiaryExercise(
+                                                item.defaultExerciseId,
+                                                item.seriesAmount,
+                                                item.repetitionsRange,
+                                                index
+                                            )
+                                        }
+                                    />
+                                </TouchableOpacity>
+                            )}
+                        />
+                    )}
                 </ListContainer>
                 <Button
                     handleClickFn={() => navigation.navigate('Main')}

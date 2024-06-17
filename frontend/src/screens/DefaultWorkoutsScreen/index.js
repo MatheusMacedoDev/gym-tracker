@@ -2,17 +2,16 @@ import { TouchableOpacity } from 'react-native';
 import { Container } from '../../components/Container/style';
 import Gradient from '../../components/Gradient';
 import { ListComponent } from '../../components/List/style';
-import { ListContainer } from '../../components/ListContainer/style';
+import ListContainer from '../../components/ListContainer';
 import { Logo } from '../../components/Logo';
 import { Title } from '../../components/Title/style';
 import { CardWorkout } from '../../components/CardWorkout';
 import { Button } from '../../components/Button';
-import { useCallback, useContext } from 'react';
+import { useCallback, useContext, useState } from 'react';
 import { NewWorkoutModal } from '../../components/NewWorkoutModal';
 import { percentage } from '../../utils/percentageFactory';
 import { GetDefaultWorkoutsByUserId } from '../../infra/services/defaultWorkoutService.js';
 import { useFocusEffect } from '@react-navigation/native';
-import { useState } from 'react';
 import AuthContext from '../../global/AuthContext.js';
 import Toast from 'react-native-toast-message';
 import { toastConfig } from '../../utils/toastConfiguration.js';
@@ -22,6 +21,7 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
     const [selectedWorkout, setSelectedWorkout] = useState();
     const [showModalNewWorkout, setShowModalNewWorkout] = useState(false);
     const [defaultWorkouts, setDefaultWorkouts] = useState();
+    const [loading, setLoading] = useState(true);
     const user = useContext(AuthContext);
 
     useFocusEffect(
@@ -42,9 +42,10 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
     };
 
     async function GetDefaultWorkout() {
+        setLoading(true);
         const response = await GetDefaultWorkoutsByUserId(user.user.userId);
-
         setDefaultWorkouts(response.data);
+        setLoading(false);
     }
 
     return (
@@ -59,7 +60,7 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
                     >
                         Treinos predefinidos
                     </Title>
-                    <ListContainer heightContainer='43%'>
+                    <ListContainer heightContainer='43%' loading={loading}>
                         <ListComponent
                             data={defaultWorkouts}
                             renderItem={({ item }) => (
