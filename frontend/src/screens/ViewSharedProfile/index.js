@@ -212,7 +212,7 @@ const ViewSharedProfile = ({ navigation, route }) => {
                         Fotos de Evolução
                     </Title>
 
-                    {evolutionPhotosData ? (
+                    {evolutionPhotosData && evolutionPhotosData.length > 0 ? (
                         <ParallaxCarousel
                             marginTop={percentage(0.03, 'h')}
                             marginBottom={percentage(0.03, 'h')}
