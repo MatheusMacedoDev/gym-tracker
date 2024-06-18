@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Button } from '../../components/Button';
 import { CommandText } from '../../components/CommandText/style';
 import { Container } from '../../components/Container/style';
@@ -8,9 +8,7 @@ import { IconButton } from '../../components/IconButton';
 import { ListComponent } from '../../components/List/style';
 import { ListContainer } from '../../components/ListContainer/style';
 import { Title } from '../../components/Title/style';
-import { Fontisto } from '@expo/vector-icons';
-import { Entypo } from '@expo/vector-icons';
-import { MaterialIcons } from '@expo/vector-icons';
+import { Fontisto, Entypo, MaterialIcons } from '@expo/vector-icons';
 import {
     DeleteDefaultExerciseWorkout,
     GetExercisesByDefaultWorkout
@@ -25,16 +23,14 @@ import {
 } from '../../utils/toastConfiguration';
 
 export const DefaultWorkoutExerciseScreen = ({ navigation, route }) => {
-    const [defaultWorkoutExercises, setDefaultWorkoutExercises] = useState();
+    const [defaultWorkoutExercises, setDefaultWorkoutExercises] = useState([]);
+    const [loading, setLoading] = useState(true);
     const defaultWorkoutId = route.params.defaultWorkoutId;
     const trainingName = route.params.trainingName;
 
     useFocusEffect(
         useCallback(() => {
-            if (
-                route.params.defaultWorkoutId != null &&
-                route.params.defaultWorkoutId != undefined
-            ) {
+            if (defaultWorkoutId != null && defaultWorkoutId != undefined) {
                 GetDefaultWorkoutExercise();
             } else {
                 console.log('erro');
@@ -43,14 +39,13 @@ export const DefaultWorkoutExerciseScreen = ({ navigation, route }) => {
     );
 
     async function GetDefaultWorkoutExercise() {
+        setLoading(true);
         const response = await GetExercisesByDefaultWorkout(defaultWorkoutId);
         setDefaultWorkoutExercises(response.data);
+        setLoading(false);
     }
 
-    async function DeleteDefaultWorkoutExercise(
-        defaultExerciseId,
-        exerciseName
-    ) {
+    async function DeleteDefaultWorkoutExercise(defaultExerciseId, exerciseName) {
         const response = await DeleteDefaultExerciseWorkout(defaultExerciseId);
 
         if (response.status === 204) {
@@ -90,7 +85,7 @@ export const DefaultWorkoutExerciseScreen = ({ navigation, route }) => {
                     >
                         {trainingName}
                     </Title>
-                    <ListContainer heightContainer='46%'>
+                    <ListContainer heightContainer='50%' loading={loading}>
                         <ListComponent
                             data={defaultWorkoutExercises}
                             renderItem={({ item }) => (

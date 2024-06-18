@@ -55,6 +55,8 @@ export const LoginScreen = ({ navigation }) => {
     async function handleLogin(data) {
         const response = await MakeLogin(data.email, data.password);
 
+        console.log(response);
+
         if (response.status === 200) {
             const token = response.data.authenticationToken;
 

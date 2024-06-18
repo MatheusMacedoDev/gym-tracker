@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
+import { ActivityIndicator } from 'react-native';
 import Gradient from '../../components/Gradient';
 import LineChartComponent from '../../components/Grafic';
 import { ScrollContainer } from '../../components/Container/style';
@@ -58,6 +59,10 @@ const Profile = ({ navigation }) => {
     const [userLikesAmount, setUserLikesAmount] = useState(0);
 
     const [scrollEnabled, setScrollEnabled] = useState(true);
+
+    const [loadingGraphData, setLoadingGraphData] = useState(true);
+    const [loadingStatistics, setLoadingStatistics] = useState(true);
+    const [loadingParallax, setLoadingParallax] = useState(true);
 
     const { user, setUser } = useContext(AuthContext);
     const { profileImage, setProfileImage } = useContext(ProfileImageContext);
@@ -224,6 +229,8 @@ const Profile = ({ navigation }) => {
         setHipGirth(currentProfileHistoryData.hipGirth);
         setArmGirth(currentProfileHistoryData.armGirth);
         setLegGirth(currentProfileHistoryData.legGirth);
+
+        setLoadingStatistics(false);
     }
 
     async function getUserLikesAmount() {
@@ -251,6 +258,7 @@ const Profile = ({ navigation }) => {
         });
 
         setEvolutionPhotosData(photoURIs);
+        setLoadingParallax(false);
     }
 
     useEffect(() => {
@@ -279,6 +287,8 @@ const Profile = ({ navigation }) => {
             ],
             legend: [selectedGraphLegend]
         });
+
+        setLoadingGraphData(false);
     }, [selectedGraphLabels]);
 
     useEffect(() => {
@@ -332,20 +342,24 @@ const Profile = ({ navigation }) => {
                         }}
                     />
 
-                    {selectedGraphData != null && (
-                        <>
-                            <Title
-                                fontSize={20}
-                                marginTop={percentage(0, 'h')}
-                                marginBottom={percentage(0.05, 'h')}
-                                alignSelf='flex-start'
-                                alignLeft={true}
-                            >
-                                Gráfico
-                            </Title>
+                    {loadingGraphData ? (
+                        <ActivityIndicator size="large" color="#fb6614" />
+                    ) : (
+                        selectedGraphData != null && (
+                            <>
+                                <Title
+                                    fontSize={20}
+                                    marginTop={percentage(0, 'h')}
+                                    marginBottom={percentage(0.05, 'h')}
+                                    alignSelf='flex-start'
+                                    alignLeft={true}
+                                >
+                                    Gráfico
+                                </Title>
 
-                            <LineChartComponent data={selectedGraphData} />
-                        </>
+                                <LineChartComponent data={selectedGraphData} />
+                            </>
+                        )
                     )}
 
                     <Title
@@ -362,88 +376,92 @@ const Profile = ({ navigation }) => {
                         Atualmente
                     </Title>
 
-                    <StatisticsContainer>
-                        <StatisticBox
-                            label='Peso'
-                            editable={isProfileEditing}
-                            value={weight}
-                            setValue={setWeight}
-                            unitText='kg'
-                            handleClickFn={() => {
-                                changeGraph('weight', 'Peso (kg)');
-                            }}
-                        />
-                        <StatisticBox
-                            label='Altura'
-                            editable={isProfileEditing}
-                            value={height}
-                            setValue={setHeight}
-                            unitText='cm'
-                            handleClickFn={() => {
-                                changeGraph('height', 'Altura (cm)');
-                            }}
-                        />
-                        <StatisticBox
-                            label='BF'
-                            editable={isProfileEditing}
-                            value={Math.round(bodyFat)}
-                            setValue={setBodyFat}
-                            unitText='%'
-                            handleClickFn={() => {
-                                changeGraph('bodyFat', 'BF (%)');
-                            }}
-                        />
-                        <StatisticBox
-                            label='Cintura'
-                            editable={isProfileEditing}
-                            value={abdominalGirth}
-                            setValue={setAbdominalGirth}
-                            unitText='cm'
-                            handleClickFn={() => {
-                                changeGraph('abdominalGirth', 'Cintura (cm)');
-                            }}
-                        />
-                        <StatisticBox
-                            label='Ombros'
-                            editable={isProfileEditing}
-                            value={scapularGirth}
-                            setValue={setScapularGirth}
-                            unitText='cm'
-                            handleClickFn={() => {
-                                changeGraph('scapularGirth', 'Ombros (cm)');
-                            }}
-                        />
-                        <StatisticBox
-                            label='Quadril'
-                            editable={isProfileEditing}
-                            value={hipGirth}
-                            setValue={setHipGirth}
-                            unitText='cm'
-                            handleClickFn={() => {
-                                changeGraph('hipGirth', 'Quadril (cm)');
-                            }}
-                        />
-                        <StatisticBox
-                            label='Braço'
-                            editable={isProfileEditing}
-                            value={armGirth}
-                            setValue={setArmGirth}
-                            unitText='cm'
-                            handleClickFn={() => {
-                                changeGraph('armGirth', 'Braço (cm)');
-                            }}
-                        />
-                        <StatisticBox
-                            label='Perna'
-                            editable={isProfileEditing}
-                            value={legGirth}
-                            setValue={setLegGirth}
-                            unitText='cm'
-                            handleClickFn={() => {
-                                changeGraph('legGirth', 'Perna (cm)');
-                            }}
-                        />
-                    </StatisticsContainer>
+                    {loadingStatistics ? (
+                        <ActivityIndicator size="large" color="#fb6614" />
+                    ) : (
+                        <StatisticsContainer>
+                            <StatisticBox
+                                label='Peso'
+                                editable={isProfileEditing}
+                                value={weight}
+                                setValue={setWeight}
+                                unitText='kg'
+                                handleClickFn={() => {
+                                    changeGraph('weight', 'Peso (kg)');
+                                }}
+                            />
+                            <StatisticBox
+                                label='Altura'
+                                editable={isProfileEditing}
+                                value={height}
+                                setValue={setHeight}
+                                unitText='cm'
+                                handleClickFn={() => {
+                                    changeGraph('height', 'Altura (cm)');
+                                }}
+                            />
+                            <StatisticBox
+                                label='BF'
+                                editable={isProfileEditing}
+                                value={Math.round(bodyFat)}
+                                setValue={setBodyFat}
+                                unitText='%'
+                                handleClickFn={() => {
+                                    changeGraph('bodyFat', 'BF (%)');
+                                }}
+                            />
+                            <StatisticBox
+                                label='Cintura'
+                                editable={isProfileEditing}
+                                value={abdominalGirth}
+                                setValue={setAbdominalGirth}
+                                unitText='cm'
+                                handleClickFn={() => {
+                                    changeGraph('abdominalGirth', 'Cintura (cm)');
+                                }}
+                            />
+                            <StatisticBox
+                                label='Ombros'
+                                editable={isProfileEditing}
+                                value={scapularGirth}
+                                setValue={setScapularGirth}
+                                unitText='cm'
+                                handleClickFn={() => {
+                                    changeGraph('scapularGirth', 'Ombros (cm)');
+                                }}
+                            />
+                            <StatisticBox
+                                label='Quadril'
+                                editable={isProfileEditing}
+                                value={hipGirth}
+                                setValue={setHipGirth}
+                                unitText='cm'
+                                handleClickFn={() => {
+                                    changeGraph('hipGirth', 'Quadril (cm)');
+                                }}
+                            />
+                            <StatisticBox
+                                label='Braço'
+                                editable={isProfileEditing}
+                                value={armGirth}
+                                setValue={setArmGirth}
+                                unitText='cm'
+                                handleClickFn={() => {
+                                    changeGraph('armGirth', 'Braço (cm)');
+                                }}
+                            />
+                            <StatisticBox
+                                label='Perna'
+                                editable={isProfileEditing}
+                                value={legGirth}
+                                setValue={setLegGirth}
+                                unitText='cm'
+                                handleClickFn={() => {
+                                    changeGraph('legGirth', 'Perna (cm)');
+                                }}
+                            />
+                        </StatisticsContainer>
+                    )}
 
                     <Title
                         fontSize={20}
@@ -453,28 +471,33 @@ const Profile = ({ navigation }) => {
                     >
                         Fotos de Evolução
                     </Title>
-                    {evolutionPhotosData && evolutionPhotosData.length > 0 ? (
-                        <ParallaxCarousel
-                            marginTop={percentage(0.06, 'h')}
-                            marginBottom={percentage(0.02, 'h')}
-                            data={evolutionPhotosData}
-                            setBackgroundScrollEnable={setScrollEnabled}
-                            editable={isProfileEditing}
-                            handleAddClickFn={() =>
-                                navigation.navigate('Camera', {
-                                    handlePhoto: registerEvolutionPhoto
-                                })
-                            }
-                        />
+
+                    {loadingParallax ? (
+                        <ActivityIndicator size="large" color="#fb6614" />
                     ) : (
-                        <RegisterProgressingComponent
-                            handleClickFn={() =>
-                                navigation.navigate('Camera', {
-                                    handlePhoto: registerEvolutionPhoto
-                                })
-                            }
-                            editable={isProfileEditing}
-                        />
+                        evolutionPhotosData ? (
+                            <ParallaxCarousel
+                                marginTop={percentage(0.06, 'h')}
+                                marginBottom={percentage(0.02, 'h')}
+                                data={evolutionPhotosData}
+                                setBackgroundScrollEnable={setScrollEnabled}
+                                editable={isProfileEditing}
+                                handleAddClickFn={() =>
+                                    navigation.navigate('Camera', {
+                                        handlePhoto: registerEvolutionPhoto
+                                    })
+                                }
+                            />
+                        ) : (
+                            <RegisterProgressingComponent
+                                handleClickFn={() =>
+                                    navigation.navigate('Camera', {
+                                        handlePhoto: registerEvolutionPhoto
+                                    })
+                                }
+                                editable={isProfileEditing}
+                            />
+                        )
                     )}
 
                     {allowEdit &&

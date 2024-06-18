@@ -8,7 +8,7 @@ import { ListComponent } from '../../components/List/style';
 import RankingCard from '../../components/RankingCard';
 import { percentage } from '../../utils/percentageFactory';
 import { limitCharacters } from '../../utils/stringHandler';
-import { useState, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import {
     getRankUsersByLatestUpdate,
     getRankUsersByLikes
@@ -19,10 +19,13 @@ import {
 } from '../../utils/toastConfiguration';
 import Toast from 'react-native-toast-message';
 import { useFocusEffect } from '@react-navigation/native';
+import { ActivityIndicator } from 'react-native';
 
 export const RankingScreen = ({ navigation }) => {
     const [usersByLikes, setUsersByLikes] = useState();
     const [usersLatestUpdate, setUsersLatestUpdate] = useState();
+    const [loadingLikes, setLoadingLikes] = useState(true);
+    const [loadingLatestUpdate, setLoadingLatestUpdate] = useState(true);
 
     useFocusEffect(
         useCallback(() => {
@@ -32,22 +35,24 @@ export const RankingScreen = ({ navigation }) => {
     );
 
     async function getRankUsersLikes() {
-        const response = await getRankUsersByLikes();
-
-        if (response.status === 200) {
+        try {
+            const response = await getRankUsersByLikes();
             setUsersByLikes(response.data);
-        } else {
-            callNetworkErrorOccuredToast();
+        } catch (error) {
+            console.error('Error fetching users by likes:', error);
+        } finally {
+            setLoadingLikes(false);
         }
     }
 
     async function getRankUsersUpdateLatest() {
-        const response = await getRankUsersByLatestUpdate();
-
-        if (response.status === 200) {
+        try {
+            const response = await getRankUsersByLatestUpdate();
             setUsersLatestUpdate(response.data);
-        } else {
-            callNetworkErrorOccuredToast();
+        } catch (error) {
+            console.error('Error fetching users by latest update:', error);
+        } finally {
+            setLoadingLatestUpdate(false);
         }
     }
 
@@ -74,23 +79,30 @@ export const RankingScreen = ({ navigation }) => {
                         Mais curtidas
                     </RankingTitle>
                     <ListContainer maxHeightContainer={'30%'}>
-                        <ListComponent
-                            nestedScrollEnabled={true}
-                            contentContainerStyle={{
-                                gap: 18
-                            }}
-                            data={usersByLikes}
-                            renderItem={({ item, index }) => (
-                                <RankingCard
-                                    userId={item.userId}
-                                    name={limitCharacters(item.userName, 14)}
-                                    likes={item.likes}
-                                    sequentialNumber={index + 1}
-                                    profilePhoto={item.profilePhoto}
-                                    navigation={navigation}
-                                />
-                            )}
-                        />
+                        {loadingLikes ? (
+                            <ActivityIndicator size='large' color='#FF8434' />
+                        ) : (
+                            <ListComponent
+                                nestedScrollEnabled={true}
+                                contentContainerStyle={{
+                                    gap: 18
+                                }}
+                                data={usersByLikes}
+                                renderItem={({ item, index }) => (
+                                    <RankingCard
+                                        userId={item.userId}
+                                        name={limitCharacters(
+                                            item.userName,
+                                            14
+                                        )}
+                                        likes={item.likes}
+                                        sequentialNumber={index + 1}
+                                        profilePhoto={item.profilePhoto}
+                                        navigation={navigation}
+                                    />
+                                )}
+                            />
+                        )}
                     </ListContainer>
                     <RankingTitle
                         marginTop={percentage(0.05, 'h')}
@@ -99,23 +111,30 @@ export const RankingScreen = ({ navigation }) => {
                         Mais recentes
                     </RankingTitle>
                     <ListContainer maxHeightContainer={'30%'}>
-                        <ListComponent
-                            nestedScrollEnabled={true}
-                            contentContainerStyle={{
-                                gap: 18
-                            }}
-                            data={usersLatestUpdate}
-                            renderItem={({ item, index }) => (
-                                <RankingCard
-                                    userId={item.userId}
-                                    name={limitCharacters(item.userName, 14)}
-                                    likes={item.likes}
-                                    sequentialNumber={index + 1}
-                                    profilePhoto={item.profilePhoto}
-                                    navigation={navigation}
-                                />
-                            )}
-                        />
+                        {loadingLatestUpdate ? (
+                            <ActivityIndicator size='large' color='#FF8434' />
+                        ) : (
+                            <ListComponent
+                                nestedScrollEnabled={true}
+                                contentContainerStyle={{
+                                    gap: 18
+                                }}
+                                data={usersLatestUpdate}
+                                renderItem={({ item, index }) => (
+                                    <RankingCard
+                                        userId={item.userId}
+                                        name={limitCharacters(
+                                            item.userName,
+                                            14
+                                        )}
+                                        likes={item.likes}
+                                        sequentialNumber={index + 1}
+                                        profilePhoto={item.profilePhoto}
+                                        navigation={navigation}
+                                    />
+                                )}
+                            />
+                        )}
                     </ListContainer>
                 </ScrollContainer>
             </Gradient>

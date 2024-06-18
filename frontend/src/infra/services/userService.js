@@ -22,8 +22,16 @@ export async function MakeLogin(email, password) {
 
         return response;
     } catch (error) {
-        console.log(error);
-        return error.response;
+        if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        } else if (error.request) {
+            console.log(error.request);
+        } else {
+            console.log('Error', error.message);
+        }
+        console.log(error.config);
     }
 }
 
@@ -39,7 +47,16 @@ export async function RegisterUser(email, password, name, birthYear, gender) {
 
         return response;
     } catch (error) {
-        console.log(error);
+        if (error.response) {
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+        } else if (error.request) {
+            console.log(error.request);
+        } else {
+            console.log('Error', error.message);
+        }
+        console.log(error.config);
     }
 }
 

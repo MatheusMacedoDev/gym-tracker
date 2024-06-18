@@ -1,3 +1,4 @@
+import React, { useCallback, useContext, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { Container } from '../../components/Container/style';
 import Gradient from '../../components/Gradient';
@@ -7,22 +8,21 @@ import { Logo } from '../../components/Logo';
 import { Title } from '../../components/Title/style';
 import { CardWorkout } from '../../components/CardWorkout';
 import { Button } from '../../components/Button';
-import { useCallback, useContext } from 'react';
 import { NewWorkoutModal } from '../../components/NewWorkoutModal';
 import { percentage } from '../../utils/percentageFactory';
-import { GetDefaultWorkoutsByUserId } from '../../infra/services/defaultWorkoutService.js';
+import { GetDefaultWorkoutsByUserId } from '../../infra/services/defaultWorkoutService';
 import { useFocusEffect } from '@react-navigation/native';
-import { useState } from 'react';
-import AuthContext from '../../global/AuthContext.js';
+import AuthContext from '../../global/AuthContext';
 import Toast from 'react-native-toast-message';
-import { toastConfig } from '../../utils/toastConfiguration.js';
+import { toastConfig } from '../../utils/toastConfiguration';
 import { MaterialIcons } from '@expo/vector-icons';
-import { ListEmptyComponent } from '../../components/ListEmptyComponent/index.js';
+import { ListEmptyComponent } from '../../components/ListEmptyComponent';
 
 export const DefaultWorkoutsScreen = ({ navigation }) => {
     const [selectedWorkout, setSelectedWorkout] = useState();
     const [showModalNewWorkout, setShowModalNewWorkout] = useState(false);
     const [defaultWorkouts, setDefaultWorkouts] = useState();
+    const [loading, setLoading] = useState(true);
     const user = useContext(AuthContext);
 
     useFocusEffect(
@@ -43,9 +43,10 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
     };
 
     async function GetDefaultWorkout() {
+        setLoading(true);
         const response = await GetDefaultWorkoutsByUserId(user.user.userId);
-
         setDefaultWorkouts(response.data);
+        setLoading(false);
     }
 
     return (
@@ -60,7 +61,7 @@ export const DefaultWorkoutsScreen = ({ navigation }) => {
                     >
                         Treinos predefinidos
                     </Title>
-                    <ListContainer heightContainer='43%'>
+                    <ListContainer heightContainer='43%' loading={loading}>
                         <ListComponent
                             data={defaultWorkouts}
                             contentContainerStyle={{ flex: 1 }}

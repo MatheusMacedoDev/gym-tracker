@@ -23,6 +23,7 @@ import ParallaxCarousel from '../../components/ParallaxCarousel';
 import LikeButton from './components/LikeButton';
 import { IconButton } from '../../components/IconButton';
 import { MaterialIcons } from '@expo/vector-icons';
+import { ActivityIndicator } from 'react-native';
 
 const ViewSharedProfile = ({ navigation, route }) => {
     const [weight, setWeight] = useState(null);
@@ -46,12 +47,16 @@ const ViewSharedProfile = ({ navigation, route }) => {
 
     const [scrollEnabled, setScrollEnabled] = useState(true);
 
-    const { user, setUser } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const { profileImage, setProfileImage } = useContext(ProfileImageContext);
 
     const scrollContainerRef = useRef(null);
 
     const { userId, userName, userProfileImage } = route.params;
+
+    const [loadingGraphData, setLoadingGraphData] = useState(true);
+    const [loadingStatistics, setLoadingStatistics] = useState(true);
+    const [loadingParallax, setLoadingParallax] = useState(true);
 
     function changeGraph(property, legend) {
         if (!profileHistoriesData) {
@@ -105,6 +110,7 @@ const ViewSharedProfile = ({ navigation, route }) => {
         setHipGirth(currentProfileHistoryData.hipGirth);
         setArmGirth(currentProfileHistoryData.armGirth);
         setLegGirth(currentProfileHistoryData.legGirth);
+        setLoadingStatistics(false);
     }
 
     async function getUserLikesAmount() {
@@ -131,6 +137,7 @@ const ViewSharedProfile = ({ navigation, route }) => {
         });
 
         setEvolutionPhotosData(photoURIs);
+        setLoadingParallax(false);
     }
 
     useEffect(() => {
@@ -159,6 +166,8 @@ const ViewSharedProfile = ({ navigation, route }) => {
             ],
             legend: [selectedGraphLegend]
         });
+
+        setLoadingGraphData(false);
     }, [selectedGraphLabels]);
 
     useEffect(() => {
@@ -168,7 +177,7 @@ const ViewSharedProfile = ({ navigation, route }) => {
 
     return (
         <>
-            <Toast swippeable config={toastConfig} />
+            <Toast swipeable config={toastConfig} />
             <Gradient>
                 <ScrollContainer
                     showsVerticalScrollIndicator={false}
@@ -212,7 +221,9 @@ const ViewSharedProfile = ({ navigation, route }) => {
                         Fotos de Evolução
                     </Title>
 
-                    {evolutionPhotosData ? (
+                    {loadingParallax ? (
+                        <ActivityIndicator size="large" color="#fb6614" />
+                    ) : evolutionPhotosData ? (
                         <ParallaxCarousel
                             marginTop={percentage(0.03, 'h')}
                             marginBottom={percentage(0.03, 'h')}
@@ -224,20 +235,24 @@ const ViewSharedProfile = ({ navigation, route }) => {
                         <RegisterProgressingComponent editable={false} />
                     )}
 
-                    {selectedGraphData != null && (
-                        <>
-                            <Title
-                                fontSize={20}
-                                marginTop={percentage(0, 'h')}
-                                marginBottom={percentage(0.03, 'h')}
-                                alignSelf='flex-start'
-                                alignLeft={true}
-                            >
-                                Gráfico
-                            </Title>
+                    {loadingGraphData ? (
+                        <ActivityIndicator size="large" color="#fb6614" />
+                    ) : (
+                        selectedGraphData != null && (
+                            <>
+                                <Title
+                                    fontSize={20}
+                                    marginTop={percentage(0, 'h')}
+                                    marginBottom={percentage(0.03, 'h')}
+                                    alignSelf='flex-start'
+                                    alignLeft={true}
+                                >
+                                    Gráfico
+                                </Title>
 
-                            <LineChartComponent data={selectedGraphData} />
-                        </>
+                                <LineChartComponent data={selectedGraphData} />
+                            </>
+                        )
                     )}
 
                     <Title
@@ -254,80 +269,84 @@ const ViewSharedProfile = ({ navigation, route }) => {
                         Atualmente
                     </Title>
 
-                    <StatisticsContainer marginBottom={percentage(0.07, 'h')}>
-                        <StatisticBox
-                            label='Peso'
-                            editable={false}
-                            value={weight}
-                            unitText='kg'
-                            handleClickFn={() => {
-                                changeGraph('weight', 'Peso (kg)');
-                            }}
-                        />
-                        <StatisticBox
-                            label='Altura'
-                            editable={false}
-                            value={height}
-                            unitText='cm'
-                            handleClickFn={() => {
-                                changeGraph('height', 'Altura (cm)');
-                            }}
-                        />
-                        <StatisticBox
-                            label='BF'
-                            editable={false}
-                            value={Math.round(bodyFat)}
-                            unitText='%'
-                            handleClickFn={() => {
-                                changeGraph('bodyFat', 'BF (%)');
-                            }}
-                        />
-                        <StatisticBox
-                            label='Cintura'
-                            editable={false}
-                            value={abdominalGirth}
-                            unitText='cm'
-                            handleClickFn={() => {
-                                changeGraph('abdominalGirth', 'Cintura (cm)');
-                            }}
-                        />
-                        <StatisticBox
-                            label='Ombros'
-                            editable={false}
-                            value={scapularGirth}
-                            unitText='cm'
-                            handleClickFn={() => {
-                                changeGraph('scapularGirth', 'Ombros (cm)');
-                            }}
-                        />
-                        <StatisticBox
-                            label='Quadril'
-                            editable={false}
-                            value={hipGirth}
-                            unitText='cm'
-                            handleClickFn={() => {
-                                changeGraph('hipGirth', 'Quadril (cm)');
-                            }}
-                        />
-                        <StatisticBox
-                            label='Braço'
-                            editable={false}
-                            value={armGirth}
-                            unitText='cm'
-                            handleClickFn={() => {
-                                changeGraph('armGirth', 'Braço (cm)');
-                            }}
-                        />
-                        <StatisticBox
-                            label='Perna'
-                            editable={false}
-                            value={legGirth}
-                            unitText='cm'
-                            handleClickFn={() => {
-                                changeGraph('legGirth', 'Perna (cm)');
-                            }}
-                        />
-                    </StatisticsContainer>
+                    {loadingStatistics ? (
+                        <ActivityIndicator size="large" color="#fb6614" />
+                    ) : (
+                        <StatisticsContainer marginBottom={percentage(0.07, 'h')}>
+                            <StatisticBox
+                                label='Peso'
+                                editable={false}
+                                value={weight}
+                                unitText='kg'
+                                handleClickFn={() => {
+                                    changeGraph('weight', 'Peso (kg)');
+                                }}
+                            />
+                            <StatisticBox
+                                label='Altura'
+                                editable={false}
+                                value={height}
+                                unitText='cm'
+                                handleClickFn={() => {
+                                    changeGraph('height', 'Altura (cm)');
+                                }}
+                            />
+                            <StatisticBox
+                                label='BF'
+                                editable={false}
+                                value={Math.round(bodyFat)}
+                                unitText='%'
+                                handleClickFn={() => {
+                                    changeGraph('bodyFat', 'BF (%)');
+                                }}
+                            />
+                            <StatisticBox
+                                label='Cintura'
+                                editable={false}
+                                value={abdominalGirth}
+                                unitText='cm'
+                                handleClickFn={() => {
+                                    changeGraph('abdominalGirth', 'Cintura (cm)');
+                                }}
+                            />
+                            <StatisticBox
+                                label='Ombros'
+                                editable={false}
+                                value={scapularGirth}
+                                unitText='cm'
+                                handleClickFn={() => {
+                                    changeGraph('scapularGirth', 'Ombros (cm)');
+                                }}
+                            />
+                            <StatisticBox
+                                label='Quadril'
+                                editable={false}
+                                value={hipGirth}
+                                unitText='cm'
+                                handleClickFn={() => {
+                                    changeGraph('hipGirth', 'Quadril (cm)');
+                                }}
+                            />
+                            <StatisticBox
+                                label='Braço'
+                                editable={false}
+                                value={armGirth}
+                                unitText='cm'
+                                handleClickFn={() => {
+                                    changeGraph('armGirth', 'Braço (cm)');
+                                }}
+                            />
+                            <StatisticBox
+                                label='Perna'
+                                editable={false}
+                                value={legGirth}
+                                unitText='cm'
+                                handleClickFn={() => {
+                                    changeGraph('legGirth', 'Perna (cm)');
+                                }}
+                            />
+                        </StatisticsContainer>
+                    )}
                 </ScrollContainer>
             </Gradient>
         </>
