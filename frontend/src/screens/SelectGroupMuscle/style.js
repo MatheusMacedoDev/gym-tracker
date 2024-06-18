@@ -13,6 +13,7 @@ const ButtonContainer2 = styled.TouchableOpacity`
 `;
 
 const ButtonText2 = styled.Text`
+    text-align: center;
     color: white;
     font-size: 16px;
 `;

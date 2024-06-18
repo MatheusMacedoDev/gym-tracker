@@ -7,4 +7,6 @@ export default WelcomeContainer = styled.SafeAreaView`
     width: 95%;
     margin-top: ${props => props.marginTop};
     margin-bottom: ${props => props.marginBottom};
+    align-items: center;
+    vertical-align: middle;
 `;
