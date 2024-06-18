@@ -65,13 +65,15 @@ export const SelectedExerciseModal = ({
                     }}
                 >
                     <Gradient locationOne={1} roundedBorders={true}>
-                        <Title fontSize={32} marginTop={percentage(0.05, 'h')}>
+                        <Title
+                            fontSize={32}
+                            marginTop={percentage(0.05, 'h')}
+                            marginBottom={percentage(0.04, 'h')}
+                        >
                             {nameExercise}
                         </Title>
-                        <ExerciseImage
-                            source={require('../../assets/Images/ExerciseImage.png')}
-                        />
-                        <ViewSelect marginTop={percentage(0.07, 'h')}>
+                        <ExerciseImage source={{ uri: photoExercise }} />
+                        <ViewSelect marginTop={percentage(0.05, 'h')}>
                             <Select
                                 label={'Series'}
                                 setSelected={setSeriesAmount}

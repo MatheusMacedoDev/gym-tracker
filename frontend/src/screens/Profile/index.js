@@ -48,7 +48,7 @@ const Profile = ({ navigation }) => {
     const [isProfileEditing, setIsProfileEditing] = useState(false);
 
     const [profileHistoriesData, setProfileHistoriesData] = useState();
-    const [evolutionPhotosData, setEvolutionPhotosData] = useState(null);
+    const [evolutionPhotosData, setEvolutionPhotosData] = useState([]);
 
     const [selectedGraphLabels, setSelectedGraphLabels] = useState(null);
     const [selectedGraphInfos, setSelectedGraphInfos] = useState(null);
@@ -128,7 +128,9 @@ const Profile = ({ navigation }) => {
         setIsProfileEditing(false);
         scrollToStatistics();
 
-        const photosArray = evolutionPhotosData.filter(photo => photo !== evolutionPhotoUri);
+        const photosArray = evolutionPhotosData.filter(
+            photo => photo !== evolutionPhotoUri
+        );
         setEvolutionPhotosData(photosArray);
 
         setEvolutionPhotoUri('');
@@ -287,8 +289,7 @@ const Profile = ({ navigation }) => {
     useEffect(() => {
         console.log(evolutionPhotoUri);
 
-        if (!evolutionPhotoUri || evolutionPhotoUri.trim() === '')
-            return;
+        if (!evolutionPhotoUri || evolutionPhotoUri.trim() === '') return;
 
         setEvolutionPhotosData([...evolutionPhotosData, evolutionPhotoUri]);
     }, [evolutionPhotoUri]);
@@ -452,7 +453,7 @@ const Profile = ({ navigation }) => {
                     >
                         Fotos de Evolução
                     </Title>
-                    {(evolutionPhotosData && evolutionPhotosData.length > 0) ? (
+                    {evolutionPhotosData && evolutionPhotosData.length > 0 ? (
                         <ParallaxCarousel
                             marginTop={percentage(0.06, 'h')}
                             marginBottom={percentage(0.02, 'h')}

@@ -16,18 +16,23 @@ export const SelectExercise = ({ navigation, route }) => {
     const [exercises, setExercises] = useState();
     const [nameExercise, setNameExercise] = useState();
     const [exerciseId, setExerciseId] = useState();
+    const [exerciseImage, setExerciseImage] = useState();
     const mucleGroupId = route.params.mucleGroupId;
     const trainingName = route.params.trainingName;
 
-
-    function openModal(nameExercise, exerciseId){
-        setShowModalExercise(true)
-        setNameExercise(nameExercise)
-        setExerciseId(exerciseId)
+    function openModal(nameExercise, exerciseId, exerciseGif) {
+        setShowModalExercise(true);
+        setNameExercise(nameExercise);
+        setExerciseId(exerciseId);
+        setExerciseImage(exerciseGif);
     }
 
     const renderItem = ({ item }) => (
-        <TouchableOpacity onPress={() => openModal(item.exerciseName, item.exerciseId)}>
+        <TouchableOpacity
+            onPress={() =>
+                openModal(item.exerciseName, item.exerciseId, item.exerciseGif)
+            }
+        >
             <ExerciseCard
                 titleExercise={item.exerciseName}
                 marginBottom='15px'
@@ -36,8 +41,8 @@ export const SelectExercise = ({ navigation, route }) => {
     );
 
     useEffect(() => {
-        GetExercises()
-    }, [])
+        GetExercises();
+    }, []);
 
     async function GetExercises() {
         const response = await GetExercisesByMuscleGroupId(mucleGroupId);
@@ -84,6 +89,7 @@ export const SelectExercise = ({ navigation, route }) => {
                     defaultWorkoutId={route.params.defaultWorkoutId}
                     nameExercise={nameExercise}
                     exerciseId={exerciseId}
+                    photoExercise={exerciseImage}
                     trainingName={trainingName}
                 />
             </Container>

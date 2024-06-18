@@ -22,6 +22,10 @@ export default function Camera({ navigation, route }) {
     const { handlePhoto } = route.params;
 
     useEffect(() => {
+        console.log(handlePhoto);
+    }, [handlePhoto]);
+
+    useEffect(() => {
         (async () => {
             const { status } = await requestPermission();
             if (status !== 'granted') {
@@ -55,13 +59,20 @@ export default function Camera({ navigation, route }) {
                 const photo = await cameraRef.current.takePictureAsync({
                     quality: 1
                 });
+
+                console.log(photo);
+                console.log(photo.uri);
+
                 await savePhoto(photo.uri);
                 await saveToGallery(photo.uri);
-                setLastImage(photo.uri);
+                //setLastImage(photo.uri);
 
                 sendPhotoUriToLastScreen(photo.uri);
             } catch (error) {
-                console.error('Erro ao tirar e processar a foto:', error);
+                console.error(
+                    'Erro ao tirar e processar a foto:',
+                    error.toString()
+                );
             }
         }
     };
@@ -96,13 +107,14 @@ export default function Camera({ navigation, route }) {
             sendPhotoUriToLastScreen(result.assets[0].uri);
 
         if (!result.cancelled) {
-            //setLastImage(result.uri);
+            setLastImage(result.uri);
             setUriSelecionada(result.uri);
         }
     };
 
-    function sendPhotoUriToLastScreen(photoUri) {
-        handlePhoto(photoUri);
+    async function sendPhotoUriToLastScreen(photoUri) {
+        console.log(photoUri);
+        await handlePhoto(photoUri);
         navigation.goBack();
     }
 
