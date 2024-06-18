@@ -16,6 +16,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { RegisterDiaryExerciseSeries } from '../../infra/services/diaryWorkoutService';
 import { ScrollContainer } from '../../components/ScrollContainer';
 import { KeyboardAvoidingView, Platform } from 'react-native';
+import { Container } from '../../components/Container/style';
 
 export const ExerciseRecord = ({ navigation, route }) => {
     const [series, setSeries] = useState([]);
@@ -64,7 +65,7 @@ export const ExerciseRecord = ({ navigation, route }) => {
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                 style={{ flex: 1 }}
             >
-                <ScrollContainer showsVerticalScrollIndicator={false} widthScroll={'85%'}>
+                <Container showsVerticalScrollIndicator={false} widthScroll={'85%'}>
                     <IconButton
                         handleClickFn={() => navigation.goBack()}
                         gradient={false}
@@ -118,7 +119,7 @@ export const ExerciseRecord = ({ navigation, route }) => {
                             />
                         )}
                     />
-                </ScrollContainer>
+                </Container>
             </KeyboardAvoidingView>
         </Gradient>
     );
