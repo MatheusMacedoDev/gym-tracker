@@ -74,13 +74,13 @@ public class UserDAO : IUserDAO
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 string query = @"
-                    SELECT 
+                    SELECT
                         U.user_id AS userId,
                         U.name AS userName,
                         U.profile_photo AS profilePhoto,
                         COUNT(DISTINCT L.sender_user_id)::int AS likes
                     FROM users AS U
-                    JOIN user_likes AS L
+                    LEFT JOIN user_likes AS L
                         ON L.receiver_user_id = U.user_id
                     WHERE U.profile_updated_on IS NOT NULL
                     GROUP BY U.user_id
