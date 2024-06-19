@@ -53,7 +53,7 @@
             string Response = @"
                  <div style=""width:100%; background-color:rgba(28, 26, 31, 1); padding: 20px;"">
                     <div style=""max-width: 600px; margin: 0 auto; background-color:#FFFFFF; border-radius: 10px; padding: 20px;"">
-                        <img src=""https://gymtrackerblobstorage.blob.core.windows.net/gymtrackerblobcontainer/gym_tracker_logo.png"" alt="" Logotipo da Aplicação"" style="" display: block; margin: 0 auto; max-width: 100px;"" />
+                        <img src=""https://gymtrackerblobstorage.blob.core.windows.net/gymtrackerblobcontainer/gym-tracker-logo.png"" alt="" Logotipo da Aplicação"" style="" display: block; margin: 0 auto; max-width: 100px;"" />
                         <h1 style=""color: #333333; text-align: center;"">Bem-vindo ao GymTracker</h1>
                         <p style=""color: #666666; text-align: center;"">Olá <strong>" + userName + @"</strong>,</p>
                         <p style=""color: #666666;text-align: center"">Organize seus treinos, acompanhe seu progresso e alcance suas metas fitness com facilidade.</p>
@@ -73,7 +73,7 @@
             string Response = @"
                 <div style=""width:100%; background-color:rgba(28, 26, 31, 1); padding: 20px;"">
                     <div style=""max-width: 600px; margin: 0 auto; background-color:#FFFFFF; border-radius: 10px; padding: 20px;"">
-                        <img src=""https://gymtrackerblobstorage.blob.core.windows.net/gymtrackerblobcontainer/gym_tracker_logo.png"" alt="" Logotipo da Aplicação"" style="" display: block; margin: 0 auto; max-width: 100px;"" />
+                        <img src=""https://gymtrackerblobstorage.blob.core.windows.net/gymtrackerblobcontainer/gym-tracker-logo.png"" alt="" Logotipo da Aplicação"" style="" display: block; margin: 0 auto; max-width: 100px;"" />
                         <h1 style=""color: #333333;text-align: center;"">Recuperação de senha</h1>
                         <p style=""color: #666666;font-size: 24px; text-align: center;"">Código de verificação <strong>" + code + @"</strong></p>
                     </div>
